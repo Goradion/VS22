@@ -27,10 +27,13 @@ public interface AnzeigeWebservice {
     /**
      * 
      * @param arg0
+     * @return
+     *     returns boolean
      */
     @WebMethod
+    @WebResult(partName = "return")
     @Action(input = "http://server/AnzeigeWebservice/addMessageRequest", output = "http://server/AnzeigeWebservice/addMessageResponse")
-    public void addMessage(
+    public boolean addMessage(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
@@ -82,5 +85,12 @@ public interface AnzeigeWebservice {
     public boolean removeMessage(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
+
+    /**
+     * 
+     */
+    @WebMethod
+    @Action(input = "http://server/AnzeigeWebservice/clearMessagesRequest", output = "http://server/AnzeigeWebservice/clearMessagesResponse")
+    public void clearMessages();
 
 }

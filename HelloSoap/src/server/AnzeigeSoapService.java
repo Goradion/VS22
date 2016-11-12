@@ -15,8 +15,8 @@ public class AnzeigeSoapService {
 	ArrayList<String> messages = new ArrayList<String>();
 
 	@WebMethod
-	public void addMessage(String msg) {
-		messages.add(msg);
+	public boolean addMessage(String msg) {
+		return messages.add(msg);
 	}
 
 	@WebMethod
@@ -34,7 +34,7 @@ public class AnzeigeSoapService {
 	}
 	
 	@WebMethod
-	public Integer[] collatz(int startzahl){
+	public Integer[] collatz(int startzahl) {
 		List<Integer> zahlenfolge = new ArrayList<Integer>();
 		int zahl = startzahl;
 		if (zahl < 1) {
@@ -53,8 +53,13 @@ public class AnzeigeSoapService {
 	}
 
 	@WebMethod
-	  public boolean removeMessage( String msg ) {
+	public boolean removeMessage(String msg) {
 		return messages.remove(msg);
-	  }
+	}
+	
+	@WebMethod
+	public void clearMessages() {
+		messages.clear();
+	}
 	
 }
