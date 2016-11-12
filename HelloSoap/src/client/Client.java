@@ -40,11 +40,11 @@ public class Client {
 						System.out.println(port.getMessages().getItem());
 					break;
 				default:
-						System.out.println("usage: show | add <messages> | del <index> | collatz <startnumber> | rm <message>");
+						System.out.println("usage: show | add <messages> | del <index> | collatz <startnumber> | rm <message> | clear");
 					break;
 			}
 		} else {
-			System.out.println("usage: show | add <messages> | del <index> | collatz <startnumber> | rm <message>");
+			System.out.println("usage: show | add <messages> | del <index> | collatz <startnumber> | rm <message> | clear");
 		}
 		// port.addMessage("Nachricht 1");
 		// port.addMessage("Nachricht 2");
