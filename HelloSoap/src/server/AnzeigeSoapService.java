@@ -7,6 +7,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
+
 @WebService(name = "AnzeigeWebservice")
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public class AnzeigeSoapService {
@@ -50,4 +51,10 @@ public class AnzeigeSoapService {
 		zahlenfolge.add(zahl);
 		return zahlenfolge.toArray(new Integer[zahlenfolge.size()]);
 	}
+
+	@WebMethod
+	  public void removeMessage( String msg ) {
+		messages.remove(msg);
+	  }
+	
 }

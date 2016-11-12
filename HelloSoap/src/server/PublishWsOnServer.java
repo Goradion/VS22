@@ -3,6 +3,7 @@ package server;
 import javax.swing.JOptionPane;
 import javax.xml.ws.Endpoint;
 
+
 public class PublishWsOnServer
 {
   public static void main( String[] args )

@@ -70,4 +70,14 @@ public interface AnzeigeWebservice {
         @WebParam(name = "arg0", partName = "arg0")
         int arg0);
 
+    /**
+     * 
+     * @param arg0
+     */
+    @WebMethod
+    @Action(input = "http://server/AnzeigeWebservice/removeMessageRequest", output = "http://server/AnzeigeWebservice/removeMessageResponse")
+    public void removeMessage(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
 }
