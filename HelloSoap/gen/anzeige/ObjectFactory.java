@@ -37,12 +37,4 @@ public class ObjectFactory {
         return new StringArray();
     }
 
-    /**
-     * Create an instance of {@link IntArray }
-     * 
-     */
-    public IntArray createIntArray() {
-        return new IntArray();
-    }
-
 }

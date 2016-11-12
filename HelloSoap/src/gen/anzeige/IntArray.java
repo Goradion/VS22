@@ -10,16 +10,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java-Klasse für stringArray complex type.
+ * <p>Java-Klasse für intArray complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="stringArray">
+ * &lt;complexType name="intArray">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="item" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="item" type="{http://www.w3.org/2001/XMLSchema}int" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,13 +29,13 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "stringArray", propOrder = {
+@XmlType(name = "intArray", propOrder = {
     "item"
 })
-public class StringArray {
+public class IntArray {
 
     @XmlElement(nillable = true)
-    protected List<String> item;
+    protected List<Integer> item;
 
     /**
      * Gets the value of the item property.
@@ -55,13 +55,13 @@ public class StringArray {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link String }
+     * {@link Integer }
      * 
      * 
      */
-    public List<String> getItem() {
+    public List<Integer> getItem() {
         if (item == null) {
-            item = new ArrayList<String>();
+            item = new ArrayList<Integer>();
         }
         return this.item;
     }

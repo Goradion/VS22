@@ -1,5 +1,5 @@
 
-package gen.anzeige;
+package net.java.dev.jaxb.array;
 
 import java.util.ArrayList;
 import java.util.List;

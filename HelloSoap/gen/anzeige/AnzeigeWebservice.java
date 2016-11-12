@@ -57,17 +57,4 @@ public interface AnzeigeWebservice {
     @Action(input = "http://server/AnzeigeWebservice/getMessagesRequest", output = "http://server/AnzeigeWebservice/getMessagesResponse")
     public StringArray getMessages();
 
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns gen.anzeige.IntArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://server/AnzeigeWebservice/collatzRequest", output = "http://server/AnzeigeWebservice/collatzResponse")
-    public IntArray collatz(
-        @WebParam(name = "arg0", partName = "arg0")
-        int arg0);
-
 }

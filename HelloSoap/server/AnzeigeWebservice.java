@@ -1,5 +1,5 @@
 
-package gen.anzeige;
+package server;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -8,6 +8,8 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.ws.Action;
+import net.java.dev.jaxb.array.ObjectFactory;
+import net.java.dev.jaxb.array.StringArray;
 
 
 /**
@@ -50,24 +52,11 @@ public interface AnzeigeWebservice {
     /**
      * 
      * @return
-     *     returns gen.anzeige.StringArray
+     *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://server/AnzeigeWebservice/getMessagesRequest", output = "http://server/AnzeigeWebservice/getMessagesResponse")
     public StringArray getMessages();
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns gen.anzeige.IntArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://server/AnzeigeWebservice/collatzRequest", output = "http://server/AnzeigeWebservice/collatzResponse")
-    public IntArray collatz(
-        @WebParam(name = "arg0", partName = "arg0")
-        int arg0);
 
 }
