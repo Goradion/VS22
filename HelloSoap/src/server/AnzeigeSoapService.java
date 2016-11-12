@@ -53,8 +53,8 @@ public class AnzeigeSoapService {
 	}
 
 	@WebMethod
-	  public void removeMessage( String msg ) {
-		messages.remove(msg);
+	  public boolean removeMessage( String msg ) {
+		return messages.remove(msg);
 	  }
 	
 }

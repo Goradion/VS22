@@ -11,20 +11,23 @@ public class Client {
 			if (args[0].equals("add")) {
 				port.addMessage(args[1]);
 				System.out.println("Nachricht '" + args[1] + "' erstellt!");
-			} else {
-				if (args[0].equals("del")) {
-					if (port.delMessage(Integer.parseInt(args[1]))) {
-						System.out.println("Nachricht " + args[1] + " geloescht!");
-					} else {
-						System.out.println("Nachtich " + args[1] + " nicht geloescht!");
-					}
+			} else if (args[0].equals("del")) {
+				if (port.delMessage(Integer.parseInt(args[1]))) {
+					System.out.println("Nachricht mit Index " + args[1] + " geloescht!");
 				} else {
-					if (args[0].equals("collatz")) {
-						System.out.println(port.collatz(Integer.parseInt(args[1])).getItem());
-					} else {
-						System.err.println("usage: show | add <message> | del <index>");
-					}
+					System.out.println("Nachticht mit Index " + args[1] + " nicht geloescht!");
 				}
+			} else if (args[0].equals("collatz")) {
+				System.out.println(port.collatz(Integer.parseInt(args[1])).getItem());
+			} else if (args[0].equals("rm")) {
+				if (port.removeMessage(args[1])){
+					System.out.println("Nachricht '" + args[1] + "' geloescht!");
+				} else {
+					System.out.println("Nachricht '" + args[1] + "' nicht geloescht!");
+				}
+				;
+			} else {
+				System.out.println("usage: show | add <message> | del <index>");
 			}
 		} else {
 			if (args.length == 1) {
@@ -32,7 +35,7 @@ public class Client {
 					System.out.println(port.getMessages().getItem());
 				}
 			} else {
-				System.err.println("usage: show | add <message> | del <index>");
+				System.out.println("usage: show | add <message> | del <index>");
 			}
 		}
 		// port.addMessage("Nachricht 1");
