@@ -36,6 +36,16 @@ public interface AnzeigeWebservice {
 
     /**
      * 
+     * @param arg0
+     */
+    @WebMethod
+    @Action(input = "http://server/AnzeigeWebservice/removeMessageRequest", output = "http://server/AnzeigeWebservice/removeMessageResponse")
+    public void removeMessage(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
      * @return
      *     returns gen.anzeige.StringArray
      */
