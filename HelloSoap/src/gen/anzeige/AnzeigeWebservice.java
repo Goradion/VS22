@@ -28,6 +28,32 @@ public interface AnzeigeWebservice {
      * 
      * @param arg0
      * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://server/AnzeigeWebservice/getObjectRequest", output = "http://server/AnzeigeWebservice/getObjectResponse")
+    public String getObject(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://server/AnzeigeWebservice/getObjectByteChildRequest", output = "http://server/AnzeigeWebservice/getObjectByteChildResponse")
+    public String getObjectByteChild(
+        @WebParam(name = "arg0", partName = "arg0")
+        byte[] arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
      *     returns boolean
      */
     @WebMethod
@@ -92,5 +118,31 @@ public interface AnzeigeWebservice {
     @WebMethod
     @Action(input = "http://server/AnzeigeWebservice/clearMessagesRequest", output = "http://server/AnzeigeWebservice/clearMessagesResponse")
     public void clearMessages();
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://server/AnzeigeWebservice/getObjectChildRequest", output = "http://server/AnzeigeWebservice/getObjectChildResponse")
+    public String getObjectChild(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://server/AnzeigeWebservice/getObjectByteRequest", output = "http://server/AnzeigeWebservice/getObjectByteResponse")
+    public String getObjectByte(
+        @WebParam(name = "arg0", partName = "arg0")
+        byte[] arg0);
 
 }

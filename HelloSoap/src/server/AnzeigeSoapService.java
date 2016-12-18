@@ -1,5 +1,10 @@
 package server;
 
+import sertest.*;
+
+import java.io.IOException;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +65,69 @@ public class AnzeigeSoapService {
 	@WebMethod
 	public void clearMessages() {
 		messages.clear();
+	}
+	
+	@WebMethod
+	public String getObject(String object) {
+		String out = null;
+		try {
+			SerializeTest setest = (SerializeTest) deserialize(object);
+			
+			out = setest.printText();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return out;
+	}
+	
+	@WebMethod
+	public String getObjectChild(String object) {
+		String out = null;
+		try {
+			SerializeChildTest setest = (SerializeChildTest) deserialize(object);
+		
+			out = setest.printText() + setest.printTextTwice() + setest.printMyText();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return out;
+	}
+	
+	@WebMethod
+	public String getObjectByte(byte[] object) {
+		String out = null;
+		try {
+			SerializeTest setest = (SerializeTest) deserialize(object);
+			
+			out = setest.printText();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return out;
+	}
+	
+	@WebMethod
+	public String getObjectByteChild(byte[] object) {
+		String out = null;
+		try {
+			SerializeChildTest setest = (SerializeChildTest) deserialize(object);
+		
+			out = setest.printText() + setest.printTextTwice() + setest.printMyText();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return out;
+	}
+
+	
+	private Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
+		ByteArrayInputStream in = new ByteArrayInputStream(data);
+	    ObjectInputStream is = new ObjectInputStream(in);
+	    return is.readObject();
+	}
+
+	private Object deserialize(String data) throws IOException, ClassNotFoundException {
+	    return deserialize(data.getBytes());
 	}
 	
 }
