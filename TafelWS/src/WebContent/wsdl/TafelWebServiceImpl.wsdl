@@ -4,73 +4,73 @@
 Built on Apr 22, 2006 (06:55:48 PDT)-->
  <wsdl:types>
   <schema elementFormDefault="qualified" targetNamespace="http://webservice.tafelServer" xmlns="http://www.w3.org/2001/XMLSchema">
-   <element name="deleteMessage">
-    <complexType>
-     <sequence>
-      <element name="message" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="deleteMessageResponse">
-    <complexType>
-     <sequence>
-      <element name="deleteMessageReturn" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="startTafelServer">
-    <complexType>
-     <sequence>
-      <element name="message" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="startTafelServerResponse">
-    <complexType>
-     <sequence>
-      <element name="startTafelServerReturn" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="modifyMessage">
-    <complexType>
-     <sequence>
-      <element name="message" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="modifyMessageResponse">
-    <complexType>
-     <sequence>
-      <element name="modifyMessageReturn" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
    <element name="createMessage">
     <complexType>
      <sequence>
-      <element name="message" type="xsd:string"/>
+      <element maxOccurs="unbounded" name="message" type="xsd:string"/>
      </sequence>
     </complexType>
    </element>
    <element name="createMessageResponse">
     <complexType>
      <sequence>
-      <element name="createMessageReturn" type="xsd:string"/>
+      <element maxOccurs="unbounded" name="createMessageReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deleteMessage">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="message" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deleteMessageResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="deleteMessageReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="modifyMessage">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="message" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="modifyMessageResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="modifyMessageReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="startTafelServer">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="message" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="startTafelServerResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="startTafelServerReturn" type="xsd:string"/>
      </sequence>
     </complexType>
    </element>
    <element name="showMessage">
     <complexType>
      <sequence>
-      <element name="message" type="xsd:string"/>
+      <element maxOccurs="unbounded" name="message" type="xsd:string"/>
      </sequence>
     </complexType>
    </element>
    <element name="showMessageResponse">
     <complexType>
      <sequence>
-      <element name="showMessageReturn" type="xsd:string"/>
+      <element maxOccurs="unbounded" name="showMessageReturn" type="xsd:string"/>
      </sequence>
     </complexType>
    </element>
@@ -89,15 +89,15 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="deleteMessageResponse">
-
-      <wsdl:part element="impl:deleteMessageResponse" name="parameters"/>
-
-   </wsdl:message>
-
    <wsdl:message name="createMessageRequest">
 
       <wsdl:part element="impl:createMessage" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteMessageResponse">
+
+      <wsdl:part element="impl:deleteMessageResponse" name="parameters"/>
 
    </wsdl:message>
 
@@ -139,19 +139,19 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    <wsdl:portType name="TafelWebServiceImpl">
 
+      <wsdl:operation name="createMessage">
+
+         <wsdl:input message="impl:createMessageRequest" name="createMessageRequest"/>
+
+         <wsdl:output message="impl:createMessageResponse" name="createMessageResponse"/>
+
+      </wsdl:operation>
+
       <wsdl:operation name="deleteMessage">
 
          <wsdl:input message="impl:deleteMessageRequest" name="deleteMessageRequest"/>
 
          <wsdl:output message="impl:deleteMessageResponse" name="deleteMessageResponse"/>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="startTafelServer">
-
-         <wsdl:input message="impl:startTafelServerRequest" name="startTafelServerRequest"/>
-
-         <wsdl:output message="impl:startTafelServerResponse" name="startTafelServerResponse"/>
 
       </wsdl:operation>
 
@@ -163,11 +163,11 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="createMessage">
+      <wsdl:operation name="startTafelServer">
 
-         <wsdl:input message="impl:createMessageRequest" name="createMessageRequest"/>
+         <wsdl:input message="impl:startTafelServerRequest" name="startTafelServerRequest"/>
 
-         <wsdl:output message="impl:createMessageResponse" name="createMessageResponse"/>
+         <wsdl:output message="impl:startTafelServerResponse" name="startTafelServerResponse"/>
 
       </wsdl:operation>
 
@@ -185,6 +185,24 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 
+      <wsdl:operation name="createMessage">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="createMessageRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="createMessageResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
       <wsdl:operation name="deleteMessage">
 
          <wsdlsoap:operation soapAction=""/>
@@ -196,24 +214,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
          </wsdl:input>
 
          <wsdl:output name="deleteMessageResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="startTafelServer">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="startTafelServerRequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="startTafelServerResponse">
 
             <wsdlsoap:body use="literal"/>
 
@@ -239,17 +239,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="createMessage">
+      <wsdl:operation name="startTafelServer">
 
          <wsdlsoap:operation soapAction=""/>
 
-         <wsdl:input name="createMessageRequest">
+         <wsdl:input name="startTafelServerRequest">
 
             <wsdlsoap:body use="literal"/>
 
          </wsdl:input>
 
-         <wsdl:output name="createMessageResponse">
+         <wsdl:output name="startTafelServerResponse">
 
             <wsdlsoap:body use="literal"/>
 
@@ -281,7 +281,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       <wsdl:port binding="impl:TafelWebServiceImplSoapBinding" name="TafelWebServiceImpl">
 
-         <wsdlsoap:address location="http://localhost:8080/VerteilteAnzeigetafel/services/TafelWebServiceImpl"/>
+         <wsdlsoap:address location="http://localhost:8080/TafelWS/services/TafelWebServiceImpl"/>
 
       </wsdl:port>
 

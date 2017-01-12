@@ -1,15 +1,10 @@
 package tafelServer.webservice;
 
 import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-import javax.jws.soap.SOAPBinding.ParameterStyle;
-import javax.jws.soap.SOAPBinding.Style;
-import javax.jws.soap.SOAPBinding.Use;
 
 import tafelServer.TafelServer;
 
 @WebService(endpointInterface = "tafelServer.webservice.TafelWebService")
-@SOAPBinding(style = Style.DOCUMENT, parameterStyle = ParameterStyle.WRAPPED, use = Use.LITERAL)
 public class TafelWebServiceImpl implements TafelWebService {
 	TafelServer tafelServer;
 
