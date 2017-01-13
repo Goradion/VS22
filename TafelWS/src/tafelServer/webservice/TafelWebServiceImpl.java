@@ -52,7 +52,7 @@ public class TafelWebServiceImpl implements TafelWebService {
 	}
 
 	public String[] stopTafelServer(String[] message) {
-		// TODO implement access permissions for stopping the server
+		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -102,7 +102,7 @@ public class TafelServer extends Thread {
 			}
 		} catch (IOException e) {
 			printStackTrace(e);
-			print("Fahre herunter...");
+			print("Fahre herunter..."); 
 		}
 	}
 

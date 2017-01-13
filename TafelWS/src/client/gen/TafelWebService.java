@@ -33,40 +33,10 @@ public interface TafelWebService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "showMessage", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ShowMessage")
-    @ResponseWrapper(localName = "showMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ShowMessageResponse")
-    @Action(input = "http://webservice.tafelServer/TafelWebService/showMessageRequest", output = "http://webservice.tafelServer/TafelWebService/showMessageResponse")
-    public List<String> showMessage(
-        @WebParam(name = "arg0", targetNamespace = "")
-        List<String> arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.util.List<java.lang.String>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "createMessage", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.CreateMessage")
     @ResponseWrapper(localName = "createMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.CreateMessageResponse")
     @Action(input = "http://webservice.tafelServer/TafelWebService/createMessageRequest", output = "http://webservice.tafelServer/TafelWebService/createMessageResponse")
     public List<String> createMessage(
-        @WebParam(name = "arg0", targetNamespace = "")
-        List<String> arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.util.List<java.lang.String>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "deleteMessage", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.DeleteMessage")
-    @ResponseWrapper(localName = "deleteMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.DeleteMessageResponse")
-    @Action(input = "http://webservice.tafelServer/TafelWebService/deleteMessageRequest", output = "http://webservice.tafelServer/TafelWebService/deleteMessageResponse")
-    public List<String> deleteMessage(
         @WebParam(name = "arg0", targetNamespace = "")
         List<String> arg0);
 
@@ -97,6 +67,51 @@ public interface TafelWebService {
     @ResponseWrapper(localName = "startTafelServerResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.StartTafelServerResponse")
     @Action(input = "http://webservice.tafelServer/TafelWebService/startTafelServerRequest", output = "http://webservice.tafelServer/TafelWebService/startTafelServerResponse")
     public List<String> startTafelServer(
+        @WebParam(name = "arg0", targetNamespace = "")
+        List<String> arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<java.lang.String>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "showMessage", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ShowMessage")
+    @ResponseWrapper(localName = "showMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ShowMessageResponse")
+    @Action(input = "http://webservice.tafelServer/TafelWebService/showMessageRequest", output = "http://webservice.tafelServer/TafelWebService/showMessageResponse")
+    public List<String> showMessage(
+        @WebParam(name = "arg0", targetNamespace = "")
+        List<String> arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<java.lang.String>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "deleteMessage", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.DeleteMessage")
+    @ResponseWrapper(localName = "deleteMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.DeleteMessageResponse")
+    @Action(input = "http://webservice.tafelServer/TafelWebService/deleteMessageRequest", output = "http://webservice.tafelServer/TafelWebService/deleteMessageResponse")
+    public List<String> deleteMessage(
+        @WebParam(name = "arg0", targetNamespace = "")
+        List<String> arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<java.lang.String>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "stopTafelServer", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.StopTafelServer")
+    @ResponseWrapper(localName = "stopTafelServerResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.StopTafelServerResponse")
+    @Action(input = "http://webservice.tafelServer/TafelWebService/stopTafelServerRequest", output = "http://webservice.tafelServer/TafelWebService/stopTafelServerResponse")
+    public List<String> stopTafelServer(
         @WebParam(name = "arg0", targetNamespace = "")
         List<String> arg0);
 

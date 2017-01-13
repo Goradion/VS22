@@ -8,6 +8,7 @@ public class Anzeigetafel extends Observable implements Serializable {
 
 	private static final long serialVersionUID = 4032175286694659532L;
 	private String TAFELNAME;
+	private final static String TAFELPFAD = "../ANZEIGETAFEL/";
 	private String lastID;
 	private final int abteilungsID;
 	private int messageAnzahl;
@@ -182,7 +183,10 @@ public class Anzeigetafel extends Observable implements Serializable {
 		FileOutputStream fileoutput = null;
 		ObjectOutputStream objoutput = null;
 		try {
-			fileoutput = new FileOutputStream("./" + TAFELNAME);
+			if(!new File(TAFELPFAD).exists()){
+				new File(TAFELPFAD).mkdirs();
+			}
+			fileoutput = new FileOutputStream(TAFELPFAD + TAFELNAME);
 			objoutput = new ObjectOutputStream(fileoutput);
 			objoutput.writeObject(this);
 		} catch (FileNotFoundException ex) {
@@ -209,7 +213,7 @@ public class Anzeigetafel extends Observable implements Serializable {
 		FileInputStream fileinput = null;
 		ObjectInputStream objinput = null;
 		try {
-			fileinput = new FileInputStream("./"+"tafel"+abtNr);
+			fileinput = new FileInputStream(TAFELPFAD+"tafel"+abtNr);
 			objinput = new ObjectInputStream(fileinput);
 			at = (Anzeigetafel) objinput.readObject();
 		} catch (FileNotFoundException ex) {

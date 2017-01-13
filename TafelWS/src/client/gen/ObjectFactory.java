@@ -24,10 +24,12 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _StopTafelServerResponse_QNAME = new QName("http://webservice.tafelServer/", "stopTafelServerResponse");
     private final static QName _StartTafelServerResponse_QNAME = new QName("http://webservice.tafelServer/", "startTafelServerResponse");
     private final static QName _DeleteMessage_QNAME = new QName("http://webservice.tafelServer/", "deleteMessage");
     private final static QName _ShowMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "showMessageResponse");
     private final static QName _CreateMessage_QNAME = new QName("http://webservice.tafelServer/", "createMessage");
+    private final static QName _StopTafelServer_QNAME = new QName("http://webservice.tafelServer/", "stopTafelServer");
     private final static QName _CreateMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "createMessageResponse");
     private final static QName _ShowMessage_QNAME = new QName("http://webservice.tafelServer/", "showMessage");
     private final static QName _ModifyMessage_QNAME = new QName("http://webservice.tafelServer/", "modifyMessage");
@@ -91,6 +93,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link StopTafelServer }
+     * 
+     */
+    public StopTafelServer createStopTafelServer() {
+        return new StopTafelServer();
+    }
+
+    /**
      * Create an instance of {@link CreateMessage }
      * 
      */
@@ -120,6 +130,23 @@ public class ObjectFactory {
      */
     public StartTafelServerResponse createStartTafelServerResponse() {
         return new StartTafelServerResponse();
+    }
+
+    /**
+     * Create an instance of {@link StopTafelServerResponse }
+     * 
+     */
+    public StopTafelServerResponse createStopTafelServerResponse() {
+        return new StopTafelServerResponse();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link StopTafelServerResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "stopTafelServerResponse")
+    public JAXBElement<StopTafelServerResponse> createStopTafelServerResponse(StopTafelServerResponse value) {
+        return new JAXBElement<StopTafelServerResponse>(_StopTafelServerResponse_QNAME, StopTafelServerResponse.class, null, value);
     }
 
     /**
@@ -156,6 +183,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "createMessage")
     public JAXBElement<CreateMessage> createCreateMessage(CreateMessage value) {
         return new JAXBElement<CreateMessage>(_CreateMessage_QNAME, CreateMessage.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link StopTafelServer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "stopTafelServer")
+    public JAXBElement<StopTafelServer> createStopTafelServer(StopTafelServer value) {
+        return new JAXBElement<StopTafelServer>(_StopTafelServer_QNAME, StopTafelServer.class, null, value);
     }
 
     /**
