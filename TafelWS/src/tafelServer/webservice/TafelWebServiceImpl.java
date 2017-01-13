@@ -51,4 +51,9 @@ public class TafelWebServiceImpl implements TafelWebService {
 		return reply;
 	}
 
+	public String[] stopTafelServer(String[] message) {
+		// TODO implement access permissions for stopping the server
+		return null;
+	}
+
 }

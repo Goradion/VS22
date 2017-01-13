@@ -24,4 +24,7 @@ public interface TafelWebService{
 	
 	@WebMethod
 	public String[] startTafelServer(String[] message);
+	
+	@WebMethod
+	public String[] stopTafelServer(String[] message);
 }
