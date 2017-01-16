@@ -8,28 +8,28 @@ import tafelServer.TafelServer;
 public class TafelWebServiceImpl implements TafelWebService {
 	TafelServer tafelServer;
 
-	public synchronized String[] createMessage(String[] message) {
+	public String[] createMessage(String[] message) {
 		if (tafelServer != null) {
 			//create message
 		}
 		return null;
 	}
 
-	public synchronized String[] deleteMessage(String[] message) {
+	public String[] deleteMessage(String[] message) {
 		if (tafelServer != null) {
 			//delete message
 		}
 		return null;
 	}
 
-	public synchronized String[] modifyMessage(String[] message) {
+	public String[] modifyMessage(String[] message) {
 		if (tafelServer != null) {
 			//modify message
 		}
 		return null;
 	}
 
-	public synchronized String[] showMessage(String[] message) {
+	public String[] showMessage(String[] message) {
 		if (tafelServer != null) {
 			//show message
 		}
