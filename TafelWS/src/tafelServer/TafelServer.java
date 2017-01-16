@@ -38,12 +38,11 @@ import verteilteAnzeigetafel.TafelException;
  *
  * @author Simon Bastian
  */
-public class TafelServer extends Thread {
+public class TafelServer {
 	private HashMap<Integer, LinkedBlockingDeque<ServerRequest>> queueMap = new HashMap<Integer, LinkedBlockingDeque<ServerRequest>>();
 	private HashMap<Integer, SocketAddress> tafelAdressen = new HashMap<Integer, SocketAddress>();
 	private HashMap<Integer, OutboxThread> outboxThreads = new HashMap<Integer, OutboxThread>();
 	private HashMap<Integer, HeartbeatThread> heartbeatThreads = new HashMap<Integer, HeartbeatThread>();
-	public static final int SERVER_PORT = 10001;
 	private Anzeigetafel anzeigetafel;
 	private int abteilungsID;
 	private TafelGUI gui;
@@ -72,39 +71,12 @@ public class TafelServer extends Thread {
 //		tafelServer.start();
 //	}
 	
-	public TafelServer(String[] args){
-		if(args.length >= 1){
-			try{
-				this.abteilungsID=Integer.parseInt(args[0]);
-			}catch(NumberFormatException nfe){
-				System.out.println(args[0]+"ist keine Integerzahl");
-			}
-		}else{
-			this.abteilungsID=1;
-		}
+	public TafelServer(int abteilungsID){
+			this.abteilungsID=abteilungsID;
+			init();
+			printMessages();
 	}
 	
-	/**
-	 * Initializiation and running of the TafelServer.
-	 */
-	@Override
-	public void run() {
-		init();
-		printMessages();
-		ServerSocket socket;
-		try {
-			socket = new ServerSocket(SERVER_PORT);
-			while (true) {
-				// print("accept...");
-				Socket client = socket.accept();
-				// print("Starte LocalThread...");
-				new LocalThread(client, this).start();
-			}
-		} catch (IOException e) {
-			printStackTrace(e);
-			print("Fahre herunter..."); 
-		}
-	}
 
 	/**
 	 * Initializes the TafelServer.
@@ -130,6 +102,11 @@ public class TafelServer extends Thread {
 		loadTafelAdressenFromFile();
 	}
 
+	public synchronized String createMessage(String inhalt, int user, int abtNr, boolean oeffentlich) throws TafelException{
+		int msgID = anzeigetafel.createMessage(inhalt, user , abtNr, false);
+		anzeigetafel.saveStateToFile();
+		return "Nachricht mit ID=" + msgID + " erstellt!";
+	}
 	/**
 	 * Publishes a message if possible. Set the message to public and try to
 	 * deliver it to other TafelServers.
