@@ -135,7 +135,6 @@ public class Anzeigetafel extends Observable implements Serializable {
 			userMsgs.put(user, new LinkedList<Integer>());
 		}
 		userMsgs.get(user).add(msgID);
-		System.out.println(userMsgs.toString());
 		messageAnzahl++;
 		msgLaufNr++;
 
