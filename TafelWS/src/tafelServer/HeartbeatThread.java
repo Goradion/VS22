@@ -45,7 +45,7 @@ public class HeartbeatThread extends Thread {
 					}
 					InetAddress myAddress = socket.getLocalAddress();
 					heartbeat = ServerRequest.buildRegisterRequest(tafelServer.getAbteilungsID(),
-							new InetSocketAddress(myAddress, TafelServer.SERVER_PORT));
+							new InetSocketAddress(myAddress, 4711));
 					ObjectOutputStream oout = new ObjectOutputStream(socket.getOutputStream());
 					oout.writeObject(heartbeat);
 				} catch (IOException e) {
