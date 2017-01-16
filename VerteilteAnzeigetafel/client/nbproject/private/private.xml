@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Ch4in/Documents/VS22/VerteilteAnzeigetafel/client/src/PublishMessageClientGUI.java</file>
-            <file>file:/C:/Users/Ch4in/Documents/VS22/VerteilteAnzeigetafel/client/src/ShowMessageClientGUI.java</file>
-            <file>file:/C:/Users/Ch4in/Documents/VS22/VerteilteAnzeigetafel/client/src/NewEditMessageClientGUI.java</file>
-            <file>file:/C:/Users/Ch4in/Documents/VS22/VerteilteAnzeigetafel/client/src/LoginClientGUi.java</file>
+            <file>file:/C:/Users/Ch4in/Documents/VS22/VerteilteAnzeigetafel/client/src/ClientGui.java</file>
+            <file>file:/C:/Users/Ch4in/Documents/VS22/VerteilteAnzeigetafel/client/src/publishMessageGUI.java</file>
+            <file>file:/C:/Users/Ch4in/Documents/VS22/VerteilteAnzeigetafel/client/src/showAllMessagesGUI.java</file>
         </group>
     </open-files>
 </project-private>
