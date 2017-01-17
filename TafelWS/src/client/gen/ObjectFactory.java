@@ -25,23 +25,109 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _StopTafelServerResponse_QNAME = new QName("http://webservice.tafelServer/", "stopTafelServerResponse");
+    private final static QName _CreateMessage_QNAME = new QName("http://webservice.tafelServer/", "createMessage");
+    private final static QName _PublishMessage_QNAME = new QName("http://webservice.tafelServer/", "publishMessage");
+    private final static QName _StopTafelServer_QNAME = new QName("http://webservice.tafelServer/", "stopTafelServer");
+    private final static QName _ModifyMessage_QNAME = new QName("http://webservice.tafelServer/", "modifyMessage");
+    private final static QName _ReceiveMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "receiveMessageResponse");
+    private final static QName _StartTafelServer_QNAME = new QName("http://webservice.tafelServer/", "startTafelServer");
+    private final static QName _ModifyMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "modifyMessageResponse");
+    private final static QName _RegisterServerResponse_QNAME = new QName("http://webservice.tafelServer/", "registerServerResponse");
     private final static QName _StartTafelServerResponse_QNAME = new QName("http://webservice.tafelServer/", "startTafelServerResponse");
     private final static QName _DeleteMessage_QNAME = new QName("http://webservice.tafelServer/", "deleteMessage");
-    private final static QName _ShowMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "showMessageResponse");
-    private final static QName _CreateMessage_QNAME = new QName("http://webservice.tafelServer/", "createMessage");
-    private final static QName _StopTafelServer_QNAME = new QName("http://webservice.tafelServer/", "stopTafelServer");
+    private final static QName _PublishMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "publishMessageResponse");
     private final static QName _CreateMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "createMessageResponse");
-    private final static QName _ShowMessage_QNAME = new QName("http://webservice.tafelServer/", "showMessage");
-    private final static QName _ModifyMessage_QNAME = new QName("http://webservice.tafelServer/", "modifyMessage");
-    private final static QName _StartTafelServer_QNAME = new QName("http://webservice.tafelServer/", "startTafelServer");
+    private final static QName _RegisterServer_QNAME = new QName("http://webservice.tafelServer/", "registerServer");
+    private final static QName _ShowMessagesResponse_QNAME = new QName("http://webservice.tafelServer/", "showMessagesResponse");
+    private final static QName _ShowMessages_QNAME = new QName("http://webservice.tafelServer/", "showMessages");
+    private final static QName _ReceiveMessage_QNAME = new QName("http://webservice.tafelServer/", "receiveMessage");
     private final static QName _DeleteMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "deleteMessageResponse");
-    private final static QName _ModifyMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "modifyMessageResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: client.gen
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link DeleteMessageResponse }
+     * 
+     */
+    public DeleteMessageResponse createDeleteMessageResponse() {
+        return new DeleteMessageResponse();
+    }
+
+    /**
+     * Create an instance of {@link ReceiveMessage }
+     * 
+     */
+    public ReceiveMessage createReceiveMessage() {
+        return new ReceiveMessage();
+    }
+
+    /**
+     * Create an instance of {@link ShowMessages }
+     * 
+     */
+    public ShowMessages createShowMessages() {
+        return new ShowMessages();
+    }
+
+    /**
+     * Create an instance of {@link RegisterServer }
+     * 
+     */
+    public RegisterServer createRegisterServer() {
+        return new RegisterServer();
+    }
+
+    /**
+     * Create an instance of {@link ShowMessagesResponse }
+     * 
+     */
+    public ShowMessagesResponse createShowMessagesResponse() {
+        return new ShowMessagesResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateMessageResponse }
+     * 
+     */
+    public CreateMessageResponse createCreateMessageResponse() {
+        return new CreateMessageResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteMessage }
+     * 
+     */
+    public DeleteMessage createDeleteMessage() {
+        return new DeleteMessage();
+    }
+
+    /**
+     * Create an instance of {@link PublishMessageResponse }
+     * 
+     */
+    public PublishMessageResponse createPublishMessageResponse() {
+        return new PublishMessageResponse();
+    }
+
+    /**
+     * Create an instance of {@link RegisterServerResponse }
+     * 
+     */
+    public RegisterServerResponse createRegisterServerResponse() {
+        return new RegisterServerResponse();
+    }
+
+    /**
+     * Create an instance of {@link StartTafelServerResponse }
+     * 
+     */
+    public StartTafelServerResponse createStartTafelServerResponse() {
+        return new StartTafelServerResponse();
     }
 
     /**
@@ -53,11 +139,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DeleteMessageResponse }
+     * Create an instance of {@link ReceiveMessageResponse }
      * 
      */
-    public DeleteMessageResponse createDeleteMessageResponse() {
-        return new DeleteMessageResponse();
+    public ReceiveMessageResponse createReceiveMessageResponse() {
+        return new ReceiveMessageResponse();
     }
 
     /**
@@ -77,22 +163,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CreateMessageResponse }
-     * 
-     */
-    public CreateMessageResponse createCreateMessageResponse() {
-        return new CreateMessageResponse();
-    }
-
-    /**
-     * Create an instance of {@link ShowMessage }
-     * 
-     */
-    public ShowMessage createShowMessage() {
-        return new ShowMessage();
-    }
-
-    /**
      * Create an instance of {@link StopTafelServer }
      * 
      */
@@ -109,27 +179,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DeleteMessage }
+     * Create an instance of {@link PublishMessage }
      * 
      */
-    public DeleteMessage createDeleteMessage() {
-        return new DeleteMessage();
-    }
-
-    /**
-     * Create an instance of {@link ShowMessageResponse }
-     * 
-     */
-    public ShowMessageResponse createShowMessageResponse() {
-        return new ShowMessageResponse();
-    }
-
-    /**
-     * Create an instance of {@link StartTafelServerResponse }
-     * 
-     */
-    public StartTafelServerResponse createStartTafelServerResponse() {
-        return new StartTafelServerResponse();
+    public PublishMessage createPublishMessage() {
+        return new PublishMessage();
     }
 
     /**
@@ -147,6 +201,78 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "stopTafelServerResponse")
     public JAXBElement<StopTafelServerResponse> createStopTafelServerResponse(StopTafelServerResponse value) {
         return new JAXBElement<StopTafelServerResponse>(_StopTafelServerResponse_QNAME, StopTafelServerResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateMessage }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "createMessage")
+    public JAXBElement<CreateMessage> createCreateMessage(CreateMessage value) {
+        return new JAXBElement<CreateMessage>(_CreateMessage_QNAME, CreateMessage.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link PublishMessage }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "publishMessage")
+    public JAXBElement<PublishMessage> createPublishMessage(PublishMessage value) {
+        return new JAXBElement<PublishMessage>(_PublishMessage_QNAME, PublishMessage.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link StopTafelServer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "stopTafelServer")
+    public JAXBElement<StopTafelServer> createStopTafelServer(StopTafelServer value) {
+        return new JAXBElement<StopTafelServer>(_StopTafelServer_QNAME, StopTafelServer.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ModifyMessage }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "modifyMessage")
+    public JAXBElement<ModifyMessage> createModifyMessage(ModifyMessage value) {
+        return new JAXBElement<ModifyMessage>(_ModifyMessage_QNAME, ModifyMessage.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ReceiveMessageResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "receiveMessageResponse")
+    public JAXBElement<ReceiveMessageResponse> createReceiveMessageResponse(ReceiveMessageResponse value) {
+        return new JAXBElement<ReceiveMessageResponse>(_ReceiveMessageResponse_QNAME, ReceiveMessageResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link StartTafelServer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "startTafelServer")
+    public JAXBElement<StartTafelServer> createStartTafelServer(StartTafelServer value) {
+        return new JAXBElement<StartTafelServer>(_StartTafelServer_QNAME, StartTafelServer.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ModifyMessageResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "modifyMessageResponse")
+    public JAXBElement<ModifyMessageResponse> createModifyMessageResponse(ModifyMessageResponse value) {
+        return new JAXBElement<ModifyMessageResponse>(_ModifyMessageResponse_QNAME, ModifyMessageResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RegisterServerResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "registerServerResponse")
+    public JAXBElement<RegisterServerResponse> createRegisterServerResponse(RegisterServerResponse value) {
+        return new JAXBElement<RegisterServerResponse>(_RegisterServerResponse_QNAME, RegisterServerResponse.class, null, value);
     }
 
     /**
@@ -168,30 +294,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ShowMessageResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link PublishMessageResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "showMessageResponse")
-    public JAXBElement<ShowMessageResponse> createShowMessageResponse(ShowMessageResponse value) {
-        return new JAXBElement<ShowMessageResponse>(_ShowMessageResponse_QNAME, ShowMessageResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CreateMessage }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "createMessage")
-    public JAXBElement<CreateMessage> createCreateMessage(CreateMessage value) {
-        return new JAXBElement<CreateMessage>(_CreateMessage_QNAME, CreateMessage.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link StopTafelServer }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "stopTafelServer")
-    public JAXBElement<StopTafelServer> createStopTafelServer(StopTafelServer value) {
-        return new JAXBElement<StopTafelServer>(_StopTafelServer_QNAME, StopTafelServer.class, null, value);
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "publishMessageResponse")
+    public JAXBElement<PublishMessageResponse> createPublishMessageResponse(PublishMessageResponse value) {
+        return new JAXBElement<PublishMessageResponse>(_PublishMessageResponse_QNAME, PublishMessageResponse.class, null, value);
     }
 
     /**
@@ -204,30 +312,39 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ShowMessage }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link RegisterServer }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "showMessage")
-    public JAXBElement<ShowMessage> createShowMessage(ShowMessage value) {
-        return new JAXBElement<ShowMessage>(_ShowMessage_QNAME, ShowMessage.class, null, value);
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "registerServer")
+    public JAXBElement<RegisterServer> createRegisterServer(RegisterServer value) {
+        return new JAXBElement<RegisterServer>(_RegisterServer_QNAME, RegisterServer.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ModifyMessage }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ShowMessagesResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "modifyMessage")
-    public JAXBElement<ModifyMessage> createModifyMessage(ModifyMessage value) {
-        return new JAXBElement<ModifyMessage>(_ModifyMessage_QNAME, ModifyMessage.class, null, value);
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "showMessagesResponse")
+    public JAXBElement<ShowMessagesResponse> createShowMessagesResponse(ShowMessagesResponse value) {
+        return new JAXBElement<ShowMessagesResponse>(_ShowMessagesResponse_QNAME, ShowMessagesResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link StartTafelServer }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ShowMessages }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "startTafelServer")
-    public JAXBElement<StartTafelServer> createStartTafelServer(StartTafelServer value) {
-        return new JAXBElement<StartTafelServer>(_StartTafelServer_QNAME, StartTafelServer.class, null, value);
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "showMessages")
+    public JAXBElement<ShowMessages> createShowMessages(ShowMessages value) {
+        return new JAXBElement<ShowMessages>(_ShowMessages_QNAME, ShowMessages.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ReceiveMessage }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "receiveMessage")
+    public JAXBElement<ReceiveMessage> createReceiveMessage(ReceiveMessage value) {
+        return new JAXBElement<ReceiveMessage>(_ReceiveMessage_QNAME, ReceiveMessage.class, null, value);
     }
 
     /**
@@ -237,15 +354,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "deleteMessageResponse")
     public JAXBElement<DeleteMessageResponse> createDeleteMessageResponse(DeleteMessageResponse value) {
         return new JAXBElement<DeleteMessageResponse>(_DeleteMessageResponse_QNAME, DeleteMessageResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ModifyMessageResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "modifyMessageResponse")
-    public JAXBElement<ModifyMessageResponse> createModifyMessageResponse(ModifyMessageResponse value) {
-        return new JAXBElement<ModifyMessageResponse>(_ModifyMessageResponse_QNAME, ModifyMessageResponse.class, null, value);
     }
 
 }

@@ -12,23 +12,24 @@
  */
 package client;
 
-import java.net.*;
-import serverRequests.*;
-import java.io.*;
+import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+
+import client.gen.TafelWebService;
+import client.gen.TafelWebServiceImplService;
 
 public class Client implements Serializable {
 
 	private static final long serialVersionUID = -6299053685373379874L;
 
-	private final int SERVER_PORT = 10001;
 	private String serverHostname = "localhost";
 	private final String ABTEILUNG_1 = "192.168.178.10";
 	private final String ABTEILUNG_2 = "192.168.178.11";
 	private final String ABTEILUNG_3 = "192.168.178.12";
 	private final String ABTEILUNG_4 = "192.168.178.13";
-	private ClientWindow mainWindow;
-	private LoggingWindow logWin;
-	private int userID;
+	private int userId;
 	private int abtNr;
 
 	/**
@@ -37,19 +38,11 @@ public class Client implements Serializable {
 	 * @param benutzerName
 	 * @param abtNr
 	 * @param administrator
-	 * @param userID
+	 * @param userId
 	 */
 	public Client() {
-		this.userID = 0;
+		this.userId = 0;
 		this.abtNr = 0;
-		this.mainWindow = new ClientWindow("Client", this);
-		this.logWin = new LoggingWindow(mainWindow);
-		mainWindow.setResizable(false);
-	}
-
-	public void startClient() {
-		mainWindow.run();
-		logWin.run();
 	}
 
 	private void setAbteilung(int abt) {
@@ -84,11 +77,11 @@ public class Client implements Serializable {
 	}
 
 	public int getUserID() {
-		return userID;
+		return userId;
 	}
 
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setUserID(int userId) {
+		this.userId = userId;
 	}
 
 	/*
@@ -96,180 +89,42 @@ public class Client implements Serializable {
 	 * Nachricht und das abfangen der damit verbundenen Fehlerfuelle zustaendig
 	 */
 
-	public void sendMessage(int abt, String message, int userID) {
+	public void createMessage(int abt, String message, int userId) throws MalformedURLException {
 		setAbteilung(abt);
-		Socket socket = new Socket();
-		ObjectOutputStream oout = null;
-		try {
-
-			socket.connect(new InetSocketAddress(serverHostname, SERVER_PORT), 1000);
-
-			ServerRequest sr = ServerRequest.buildCreateRequest(message, userID, abt);
-			oout = new ObjectOutputStream(socket.getOutputStream());
-			oout.writeObject(sr);
-			log(socket);
-
-		} catch (UnknownHostException e) {
-			System.out.println("Rechnername unbekannt:\n" + e.getMessage());
-			log("Sending failed:\n" + "Abteilung " + abt + " unknown or offline.\n");
-		} catch (IOException e) {
-			System.out.println("Fehler waehrend der Kommunikation:\n" + e.getMessage());
-			log("Sending failed:" + " I/O error while sending a message.\n" + "Abteilung "+abt + " might be offline.");
-		} finally {
-			try {
-				oout.close();
-				socket.close();
-			} catch (IOException e) {
-				log("I/O error while sending a message.\n");
-			}
-		}
+		TafelWebService port = new TafelWebServiceImplService(new URL("http://"+serverHostname+":8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
+		String reply = port.createMessage(message, userId, abt, false);
 	}
 
-	public void removeMessage(int abt, int userID, int msgID) {
+	public void deleteMessage(int abt, int userId, int msgID) throws MalformedURLException {
 		setAbteilung(abt);
-		Socket socket = new Socket();
-		ObjectOutputStream oout = null;
-		try {
-
-			socket.connect(new InetSocketAddress(serverHostname, SERVER_PORT), 1000);
-			ServerRequest serverR = ServerRequest.buildDeleteRequest(msgID, userID);
-			oout = new ObjectOutputStream(socket.getOutputStream());
-			oout.writeObject(serverR);
-			log(socket);
-
-		} catch (UnknownHostException e) {
-			System.out.println("Rechnername unbekannt:\n" + e.getMessage());
-			log("Deleting failed:\n" + "Abteilung " + abt + " unknown or offline.\n");
-		} catch (IOException e) {
-			System.out.println("Fehler waehrend der Kommunikation:\n" + e.getMessage());
-			log("Deleting failed:" + " I/O error while deleting a message.\n" +  "Abteilung "+abt + " might be offline.");
-		} finally {
-			try {
-				oout.close();
-				socket.close();
-			} catch (IOException e) {
-				log("I/O error while deleting a message.\n");
-			}
-
-		}
+		TafelWebService port = new TafelWebServiceImplService(new URL("http://"+serverHostname+":8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
+		String reply = port.deleteMessage(msgID, userId);
+		
 	}
 
-	public void changeMessage(int abt, int userID, int msgID, String neueNachricht) {
+	public void changeMessage(int abt, int userId, int msgID, String newMessage) throws MalformedURLException {
 		setAbteilung(abt);
-		Socket socket = new Socket();
-		ObjectOutputStream oout = null;
-		try {
-
-			socket.connect(new InetSocketAddress(serverHostname, SERVER_PORT), 1000);
-
-			ServerRequest serverR = ServerRequest.buildModifyRequest(msgID, neueNachricht, userID);
-			oout = new ObjectOutputStream(socket.getOutputStream());
-
-			oout.writeObject(serverR);
-			log(socket);
-			
-		} catch (UnknownHostException e) {
-			System.out.println("Rechnername unbekannt:\n" + e.getMessage());
-			log("Changing failed:\n" + "Abteilung " + abt + " unknown or offline.\n");
-		} catch (IOException e) {
-			System.out.println("Fehler waehrend der Kommunikation:\n" + e.getMessage());
-			log("Changing failed:" + " I/O error while changing a message.\n" +  "Abteilung "+abt + " might be offline.");
-		} finally {
-			try {
-				oout.close();
-				socket.close();
-			} catch (IOException e) {
-				log("I/O error while changing a message.\n");
-			}
-
-		}
+		TafelWebService port = new TafelWebServiceImplService(new URL("http://"+serverHostname+":8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
+		String reply = port.modifyMessage(msgID, newMessage, userId);
+		
 	}
 
-	public String showMessages(int abt, int userID) {
+	public String showMessages(int abt, int userId) throws MalformedURLException {
 		setAbteilung(abt);
-		Socket socket = new Socket();
-		ObjectOutputStream oout = null;
-		String str = "";
-		try {
-
-			socket.connect(new InetSocketAddress(serverHostname, SERVER_PORT), 1000);
-
-			ServerRequest serverR = ServerRequest.buildShowMyMessagesRequest(userID);
-			oout = new ObjectOutputStream(socket.getOutputStream());
-			oout.writeObject(serverR);
-
-			str = log(socket);
-
-		} catch (UnknownHostException e) {
-			System.out.println("Rechnername unbekannt:\n" + e.getMessage());
-			log("Showing messages failed:\n" + "Abteilung " + abt + " unknown or offline.\n");
-		} catch (IOException e) {
-			System.out.println("Fehler waehrend der Kommunikation:\n" + e.getMessage());
-			log("Showing messages failed:" + " I/O error while showing messages.\n" +  "Abteilung "+abt 
-					+ " might be offline.");
-		} finally {
-			try {
-				oout.close();
-				socket.close();
-			} catch (IOException e) {
-				log("I/O error while showing messages.\n");
-			}
-
-		}
-		return str;
+		TafelWebService port = new TafelWebServiceImplService(new URL("http://"+serverHostname+":8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
+		List<String> reply = port.showMessages(userId);
+		return null;
 	}
 
-	public void publishMessage(int abt, int messageId, int userId) {
+	public void publishMessage(int abt, int msgId, int userId) throws MalformedURLException {
 		setAbteilung(abt);
-		Socket socket = new Socket();
-		ObjectOutputStream oout = null;
-		try {
-
-			socket.connect(new InetSocketAddress(serverHostname, SERVER_PORT), 1000);
-
-			ServerRequest serverRequest = ServerRequest.buildPublishRequest(messageId, userId);
-			oout = new ObjectOutputStream(socket.getOutputStream());
-			oout.writeObject(serverRequest);
-			log(socket);
-
-		} catch (UnknownHostException e) {
-			System.out.println("Rechnername unbekannt:\n" + e.getMessage());
-			log("Publishing failed.\n" + "Server " + serverHostname + " unknown or offline.\n");
-		} catch (IOException e) {
-			System.out.println("Fehler waehrend der Kommunikation:\n" + e.getMessage());
-			log("Publishing failed:" + " I/O error while showing messages.\n" + serverHostname
-					+ " might be offline.");
-		} finally {
-			try {
-				oout.close();
-				socket.close();
-			} catch (IOException e) {
-				log("I/O error while publishing.\n");
-			}
-
-		}
-	}
-
-	private String log(Socket socket) throws IOException {
-		String meldung = "";
-		ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-		try {
-			meldung = input.readObject().toString();
-			logWin.addEntry(meldung);
-		} catch (ClassNotFoundException ex) {
-			ex.printStackTrace();
-		}
-		input.close();
-		return meldung;
-	}
-
-	private void log(String meldung) {
-		logWin.addEntry(meldung);
+		TafelWebService port = new TafelWebServiceImplService(new URL("http://"+serverHostname+":8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
+		String reply = port.publishMessage(msgId, userId);
 	}
 
 	public static void main(String[] args) {
 		Client client = new Client();
-		client.startClient();
+		
 
 	}
 }

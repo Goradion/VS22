@@ -1,6 +1,6 @@
 package tafelServer.webservice;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.jws.WebService;
 
@@ -71,7 +71,7 @@ public class TafelWebServiceImpl implements TafelWebService {
 
 	@Override
 	public boolean receiveMessage(int messageID, int userID, int abtNr, String inhalt, boolean oeffentlich,
-			LocalDateTime time) {
+			Date time) {
 		// TODO Auto-generated method stub
 		return false;
 	}
