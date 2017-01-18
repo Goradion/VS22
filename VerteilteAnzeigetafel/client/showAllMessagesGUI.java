@@ -1,9 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package client;
 
+import java.util.List;
+
+import javax.swing.*;
+
+import verteilteAnzeigetafel.Message;
 /**
  *
  * @author Ch4in
@@ -21,7 +22,7 @@ private JButton publish;
 private JButton delete;
 private JButton change;
 
-public showAllMessagesGUI(List<Messages> msgs){ // Mit der Nachrichten Liste um diese dann zu generieren
+public showAllMessagesGUI(List<Message> msgs){ // Mit der Nachrichten Liste um diese dann zu generieren
         initialize();
 }
 
