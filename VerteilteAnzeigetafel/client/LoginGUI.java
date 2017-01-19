@@ -1,83 +1,84 @@
 package client;
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-import java.awt.BorderLayout;
-import java.util.List;
-
-import javax.swing.*;
 
 /**
  *
  * @author Armin
  */
-public class LoginGUI extends JPanel{
-    
-    /**
-	 * 
-	 */
+public class LoginGUI extends javax.swing.JPanel {
+
 	private static final long serialVersionUID = 1L;
-	
-	//Textfelder und Dropdowns
-    private JTextField userID;
-    private JComboBox abteilung;
-    //Labels
-    private JLabel userIDL;
-    private JLabel abteilungL;
-    private JLabel invisLabel;
-        
-    //Buttons
-    private JButton anmelden;
-    
-    //Style panels
-    private JPanel start;
-    private JPanel mid;
-    private JPanel end;
-    
-    private BorderLayout bLayout1;
-    private BorderLayout bLayout2;
-    
-    
-    public void initialize(String[] abteilungen){
-    	
-    	bLayout1 = new BorderLayout();
-    	bLayout1.setHgap(2);
-    	bLayout1.setVgap(2);
-    	bLayout2 = new BorderLayout();
-    	bLayout2.setHgap(2);
-    	bLayout2.setVgap(2);
-        //Baue Panel zusammen
-    	
-    	start = new JPanel();
-    	mid = new JPanel();
-    	end = new JPanel();
-    	
-    	start.setLayout(bLayout1);
-    	mid.setLayout(bLayout2);
-    	
+	/**
+     * Creates new form LoginGUI
+     */
+    public LoginGUI() {
+    }
+                      
 
-    	userID = new JTextField(6);
-    	abteilung = new JComboBox(abteilungen);
-    	userIDL = new JLabel("Benutzer ID");
-    	abteilungL = new JLabel("Abteilung");
-    	anmelden = new JButton("anmelden");
-    	invisLabel = new JLabel("   ");
-    	
-    	start.add(userIDL, BorderLayout.PAGE_START);
-    	start.add(userID, BorderLayout.PAGE_END);
-    	
-    	mid.add(abteilungL, BorderLayout.PAGE_START);;
-    	mid.add(abteilung, BorderLayout.PAGE_END);
-    	
-    	end.add(invisLabel);
-    	end.add(anmelden);
-    	
-    	this.add(start);
-    	this.add(mid);
-    	this.add(end);
-    }    
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        // TODO add your handling code here:
+    }                                          
+
+
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField jTextField1;
+    // End of variables declaration                   
+	public void initialize(String[] abteilungen) {
+		// TODO Auto-generated method stub
+		 jLabel1 = new javax.swing.JLabel();
+	        jTextField1 = new javax.swing.JTextField();
+	        jLabel2 = new javax.swing.JLabel();
+	        jComboBox1 = new javax.swing.JComboBox<>();
+	        jButton1 = new javax.swing.JButton();
+
+	        setMinimumSize(new java.awt.Dimension(9, 0));
+
+	        jLabel1.setText("UserID");
+
+	        jLabel2.setText("Abteilung");
+
+	        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(abteilungen));
+	        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+	            public void actionPerformed(java.awt.event.ActionEvent evt) {
+	                jComboBox1ActionPerformed(evt);
+	            }
+	        });
+
+	        jButton1.setText("anmelden");
+
+	        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+	        this.setLayout(layout);
+	        layout.setHorizontalGroup(
+	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	            .addGroup(layout.createSequentialGroup()
+	                .addContainerGap()
+	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+	                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                    .addComponent(jTextField1))
+	                .addGap(18, 18, 18)
+	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                    .addComponent(jLabel2)
+	                    .addGroup(layout.createSequentialGroup()
+	                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                        .addGap(18, 18, 18)
+	                        .addComponent(jButton1)))
+	                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+	        );
+	        layout.setVerticalGroup(
+	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	            .addGroup(layout.createSequentialGroup()
+	                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+	                    .addComponent(jLabel1)
+	                    .addComponent(jLabel2))
+	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+	                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                    .addComponent(jButton1)))
+	        );
+	}
 }
-

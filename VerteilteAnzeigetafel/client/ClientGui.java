@@ -20,11 +20,15 @@ public class ClientGui extends JFrame{
     // Nötige Panels und Frames
     //private JFrame mainGUI; // Fenster zum anzeigen der Panels
     private LoginGUI loginGUI; //Wird immer angezeigt
-    private JPanel loggedInGUI = new JPanel(); // Wird angezeigt sobald eingeloggt
-    private JPanel newMessageGUI = new JPanel(); // wird angezigt für neue Nachricht
-    private JPanel publishMessageGUI = new JPanel(); // Wird angezeigt für veröffentlichen
-    private JPanel editMessageGUI = new JPanel(); // wird angezeigt für bearbeiten einer Nachricht
-    private JPanel showAllMessagesGUI = new JPanel(); // wird angezeigt bei allen Nachrichten zeigen
+    private JPanel loggedInGUI; // Wird angezeigt sobald eingeloggt
+    private JPanel newMessageGUI; // wird angezigt für neue Nachricht
+    private JPanel publishMessageGUI; // Wird angezeigt für veröffentlichen
+    private JPanel editMessageGUI; // wird angezeigt für bearbeiten einer Nachricht
+    private JPanel showAllMessagesGUI; // wird angezeigt bei allen Nachrichten zeigen
+    
+    
+    private JPanel upperPanel;
+    
     
     private String[] abteilungen;
     
@@ -35,10 +39,14 @@ public class ClientGui extends JFrame{
     	loginGUI = new LoginGUI();
     	abteilungen = new String[2];
     	abteilungen[0] = "Managment";
-    	abteilungen[1] = "Finanten";
+    	abteilungen[1] = "Finanzen";
     	loginGUI.initialize(abteilungen);
-    	this.setLayout(new BorderLayout());
-    	this.add(loginGUI, BorderLayout.PAGE_START);
+    	
+    	//erstelle eigene Panels zum organisieren
+    	upperPanel = new JPanel();
+    	setLayout(new BorderLayout());
+    	upperPanel.add(loginGUI,BorderLayout.LINE_START);
+    	this.add(upperPanel, BorderLayout.PAGE_START);
         this.setPreferredSize(new Dimension(400,300));
         this.setSize(new Dimension(400,300));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
