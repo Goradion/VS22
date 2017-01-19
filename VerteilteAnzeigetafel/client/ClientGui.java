@@ -20,7 +20,7 @@ public class ClientGui extends JFrame{
     // Nötige Panels und Frames
     //private JFrame mainGUI; // Fenster zum anzeigen der Panels
     private LoginGUI loginGUI; //Wird immer angezeigt
-    private JPanel loggedInGUI; // Wird angezeigt sobald eingeloggt
+    private LoggedInGui loggedInGUI; // Wird angezeigt sobald eingeloggt
     private JPanel newMessageGUI; // wird angezigt für neue Nachricht
     private JPanel publishMessageGUI; // Wird angezeigt für veröffentlichen
     private JPanel editMessageGUI; // wird angezeigt für bearbeiten einer Nachricht
@@ -46,6 +46,7 @@ public class ClientGui extends JFrame{
     	upperPanel = new JPanel();
     	setLayout(new BorderLayout());
     	upperPanel.add(loginGUI,BorderLayout.LINE_START);
+    	//upperPanel.add(loggedInGui,BorderLayout.LINE_START);
     	this.add(upperPanel, BorderLayout.PAGE_START);
         this.setPreferredSize(new Dimension(400,300));
         this.setSize(new Dimension(400,300));

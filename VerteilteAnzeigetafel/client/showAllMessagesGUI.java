@@ -7,7 +7,7 @@ import javax.swing.*;
 import verteilteAnzeigetafel.Message;
 /**
  *
- * @author Ch4in
+ * @author Micha
  */
 public class showAllMessagesGUI {
 

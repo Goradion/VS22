@@ -16,6 +16,8 @@ public class Client {
    
 	public static void main(String[] args) {
 		clientGui = new ClientGui("Tafel-Client");
+		
+		clientGui.showNewMessage();
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {

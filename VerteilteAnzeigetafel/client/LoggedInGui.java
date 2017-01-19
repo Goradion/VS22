@@ -6,7 +6,7 @@ import javax.swing.*;
  *
  * @author Armin
  */
-public class loggedInGui extends JPanel{
+public class LoggedInGui extends JPanel{
     
     //Labels
     private JLabel menueL;
@@ -18,7 +18,7 @@ public class loggedInGui extends JPanel{
     private void initialize(){
         
     }
-    public loggedInGui(){
+    public LoggedInGui(){
         initialize();
     }
 }
