@@ -1,15 +1,3 @@
-/**
- *Projekt Anzeigetafel
- *
- * @author: Michael Moser
- * @author: Andrea Caruana
- * @author: Diego Rodriguez Castellanos
- * @author: Viktor Semenitsch
- * @author: Simon Bastian
- * @author: Alexander Mueller 
- * Datei: Client Client zur Kommunikation zwischen
- * Benutzer und Anzeigetafel
- */
 package client;
 
 import java.io.Serializable;
@@ -32,14 +20,7 @@ public class Client implements Serializable {
 	private int userId;
 	private int abtNr;
 
-	/**
-	 * Konstruktor zum Erstellung des Benutzers
-	 *
-	 * @param benutzerName
-	 * @param abtNr
-	 * @param administrator
-	 * @param userId
-	 */
+	
 	public Client() {
 		this.userId = 0;
 		this.abtNr = 0;
@@ -83,11 +64,6 @@ public class Client implements Serializable {
 	public void setUserID(int userId) {
 		this.userId = userId;
 	}
-
-	/*
-	 * Methode zum senden der Nachricht Die Methode ist nur fuer das senden der
-	 * Nachricht und das abfangen der damit verbundenen Fehlerfuelle zustaendig
-	 */
 
 	public void createMessage(int abt, String message, int userId) throws MalformedURLException {
 		setAbteilung(abt);
