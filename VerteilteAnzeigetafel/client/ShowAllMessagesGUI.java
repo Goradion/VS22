@@ -1,23 +1,18 @@
 package client;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.util.List;
 import java.awt.event.*;
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.event.CaretEvent;
 import javax.swing.*;
-import verteilteAnzeigetafel.Message;
 
 /**
  *
  * @author Micha
  */
 
-public class showAllMessagesGUI extends JFrame implements ActionListener{
+public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 	/**
 	 * 
 	 */
@@ -30,7 +25,7 @@ public class showAllMessagesGUI extends JFrame implements ActionListener{
     	initialize();
     }
  */
-    public showAllMessagesGUI(String title) {
+    public ShowAllMessagesGUI() {
     	
     	initialize();
     }
@@ -55,7 +50,6 @@ public class showAllMessagesGUI extends JFrame implements ActionListener{
         messageIDTextField = new javax.swing.JTextField();
         sendQueryButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         
         // ButtonGruppe
         buttonGroup1.add(deleteMessage);
@@ -158,8 +152,8 @@ public class showAllMessagesGUI extends JFrame implements ActionListener{
          * 
          */
         
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -205,7 +199,6 @@ public class showAllMessagesGUI extends JFrame implements ActionListener{
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
-        pack();
     }// </editor-fold>                        
     @Override
 	/** 

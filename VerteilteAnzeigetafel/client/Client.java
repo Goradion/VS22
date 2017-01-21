@@ -48,7 +48,7 @@ public class Client {
 	private static void menueSelected(ItemEvent evt) {
 		switch(clientGui.getSelectedMenue()){
 		case "Zeige alle Nachrichten" : 
-				//clientGui.showShowMessages();
+				clientGui.showShowMessages(null);
 				break;
 		case "Neue Nachricht" : 
 				clientGui.showNewMessage();

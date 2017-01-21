@@ -25,7 +25,7 @@ public class ClientGui extends JFrame{
     private NewMessageGUI newMessageGUI; // wird angezigt für neue Nachricht
     private JPanel publishMessageGUI; // Wird angezeigt für veröffentlichen
     private JPanel editMessageGUI; // wird angezeigt für bearbeiten einer Nachricht
-    private JPanel showAllMessagesGUI; // wird angezeigt bei allen Nachrichten zeigen
+    private ShowAllMessagesGUI showAllMessagesGUI; // wird angezeigt bei allen Nachrichten zeigen
     
     
     private JPanel upperPanel;
@@ -74,6 +74,7 @@ public class ClientGui extends JFrame{
         this.setPreferredSize(new Dimension(550,250));
         this.setSize(new Dimension(550,250));
     	newMessageGUI = new NewMessageGUI();
+    	lowerPanel.removeAll();
     	lowerPanel.add(newMessageGUI);
     }
     
@@ -83,6 +84,9 @@ public class ClientGui extends JFrame{
     
     public void showShowMessages(List<Message> msgList){
         //Zeige Login Panel + loggedIn Panel + ShowMessages Panel
+    	showAllMessagesGUI = new ShowAllMessagesGUI();
+    	lowerPanel.removeAll();
+    	lowerPanel.add(showAllMessagesGUI);
     }
     
     public void showEditMessage(Message msg){
