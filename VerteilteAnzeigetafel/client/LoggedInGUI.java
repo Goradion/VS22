@@ -27,11 +27,7 @@ public class LoggedInGUI extends javax.swing.JPanel {
         jLabel1.setText("Menü");
 
         menueBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        menueBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
+
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -53,17 +49,18 @@ public class LoggedInGUI extends javax.swing.JPanel {
                 .addComponent(menueBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-    }// </editor-fold>                        
+    }                     
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }   
     
-    public void setMenue(String[] menue){
-    	 menueBox.setModel(new javax.swing.DefaultComboBoxModel<>(menue));
-         
+    public void addItemListenerMenue(java.awt.event.ItemListener listener){
+    	menueBox.addItemListener(listener);
     }
-
+    public void setMenue(String[] menue){
+    	 menueBox.setModel(new javax.swing.DefaultComboBoxModel<>(menue));    
+    }
+    public String getMenue(){
+    	return (String) menueBox.getSelectedItem();
+    }
 
              
 }
