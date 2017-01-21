@@ -60,11 +60,12 @@ public class ClientGui extends JFrame{
     }
 
     
-    public void showLoggedIn(int userId){
+    public void showLoggedIn(int userID){
     	loggedInGUI = new LoggedInGUI();
     	upperPanel.add(loggedInGUI,BorderLayout.LINE_START);
-        this.setPreferredSize(new Dimension(450,140));
-        this.setSize(new Dimension(450,140));
+    	loginGUI.setUserId(userID);
+        this.setPreferredSize(new Dimension(550,140));
+        this.setSize(new Dimension(550,140));
         //Zeige Login Panel + loggedIn Panel
     }
     
@@ -111,5 +112,9 @@ public class ClientGui extends JFrame{
     public ActionListener actionPublishMessages(){
 		return null;
         //Übergebe Listener für Veröffentlichen Button gedrückt
+    }
+    
+    public void setMenue(String[] menue){
+    	loggedInGUI.setMenue(menue);
     }
 }

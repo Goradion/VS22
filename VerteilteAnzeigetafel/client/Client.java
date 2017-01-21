@@ -34,7 +34,8 @@ public class Client {
    }
 	
 	private static void loginActionPerformed(ActionEvent evt) {
-		clientGui.showLoggedIn(1);		
+		clientGui.showLoggedIn(1);
+		clientGui.setMenue(new String[] {"Zeige alle Nachrichten","Neue Nachricht"});
 	}
 	
 }

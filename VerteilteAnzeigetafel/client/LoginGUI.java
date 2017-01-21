@@ -99,7 +99,7 @@ public class LoginGUI extends javax.swing.JPanel {
 
     
     public void setUserId(int userID){
-    	
+    	anmeldeLabel.setText("Angemeldet als User " + userID);
     }
     public void AnmeldeButtonAddActionListener(java.awt.event.ActionListener listener){
     	anmeldeButton.addActionListener(listener);

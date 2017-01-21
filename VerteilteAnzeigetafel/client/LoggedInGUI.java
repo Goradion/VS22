@@ -57,7 +57,12 @@ public class LoggedInGUI extends javax.swing.JPanel {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
-    }                                          
+    }   
+    
+    public void setMenue(String[] menue){
+    	 menueBox.setModel(new javax.swing.DefaultComboBoxModel<>(menue));
+         
+    }
 
 
              
