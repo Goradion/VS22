@@ -97,12 +97,25 @@ public class LoginGUI extends javax.swing.JPanel {
         );
     }
 
-    
+    public String getUserId(){
+    	return jTextField1.getText();
+    }
     public void setUserId(int userID){
-    	anmeldeLabel.setText("Angemeldet als User " + userID);
+    	if(userID == 1){
+    		anmeldeLabel.setText("Angemeldet als Koordinator");
+    	} else {
+    		if(userID == 0) {
+    				anmeldeLabel.setText("Nicht angemeldet");
+    		} else {
+    				anmeldeLabel.setText("Angemeldet als User " + userID);
+    		}
+    	}
     }
     public void AnmeldeButtonAddActionListener(java.awt.event.ActionListener listener){
     	anmeldeButton.addActionListener(listener);
+    }
+    public String getAbteilung(){
+    	return (String) jComboBox1.getSelectedItem();
     }
                
 }
