@@ -138,11 +138,12 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 			
 		});
 
-		sendQueryButton.setText("Send query");
 
         sendQueryButton.setText("Send query");
+        sendQueryButton.setEnabled(false);
 		sendQueryButton.addMouseListener(new java.awt.event.MouseAdapter() {
-	/*		public void mouseClicked(java.awt.event.MouseEvent evt) {
+			
+			/*		public void mouseClicked(java.awt.event.MouseEvent evt) {
 				sendQueryButtonMouseClicked(evt);
 			}*/
 		});
@@ -314,10 +315,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 // soll dynamisch eine Liste der Nachrichten mit Checkboxen erstellen
 }
 */
-//	showMessagesButton.addMouseListener(new java.awt.event.MouseAdapter() {
-//		public void mouseClicked(java.awt.event.MouseEvent evt) {
-//			showMessagesButtonMouseClicked(evt);
-//		}
+
 
     
     
