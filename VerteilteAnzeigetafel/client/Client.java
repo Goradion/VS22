@@ -41,7 +41,7 @@ public class Client {
 	
 	private static void loginActionPerformed(ActionEvent evt) {
 		if(clientGui.getUserid() > 0){
-			clientGui.showLoggedIn(clientGui.getUserid());
+			clientGui.showLoggedIn(clientGui.getUserid(), msgs);
 			clientGui.setMenue(menue);
 			clientGui.actionMenuSelect(new java.awt.event.ItemListener() {
 				 public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -65,7 +65,7 @@ public class Client {
 				});
 				break;
 		default :  
-			clientGui.showLoggedIn(clientGui.getUserid());
+			clientGui.showLoggedIn(clientGui.getUserid(), msgs);
 			clientGui.setMenue(menue);
 			break;
 		}

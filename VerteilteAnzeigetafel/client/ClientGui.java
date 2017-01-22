@@ -60,13 +60,13 @@ public class ClientGui extends JFrame{
     }
 
     
-    public void showLoggedIn(int userID){
+    public void showLoggedIn(int userID, List<Message> msgs){
     	loggedInGUI = new LoggedInGUI();
     	upperPanel.add(loggedInGUI,BorderLayout.LINE_START);
     	loginGUI.setUserId(userID);
         this.setPreferredSize(new Dimension(670,350));
         this.setSize(new Dimension(670,350));
-    	showAllMessagesGUI = new ShowAllMessagesGUI();
+    	showAllMessagesGUI = new ShowAllMessagesGUI(msgs);
     	lowerPanel.removeAll();
     	lowerPanel.add(showAllMessagesGUI);
         //Zeige Login Panel + loggedIn Panel
