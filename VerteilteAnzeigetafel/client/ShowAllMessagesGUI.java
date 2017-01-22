@@ -1,11 +1,14 @@
 package client;
 
 import java.awt.event.*;
+import java.util.List;
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.event.CaretEvent;
 import javax.swing.*;
+
+import verteilteAnzeigetafel.Message;
 
 /**
  *
@@ -13,32 +16,45 @@ import javax.swing.*;
  */
 
 public class ShowAllMessagesGUI extends JPanel implements ActionListener{
-	/**
-	 * 
-	 */
+
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton sendQueryButton;
+    private javax.swing.JLabel jLabel;
+    private javax.swing.JRadioButton changeMessage;
+    private javax.swing.JRadioButton deleteMessage;
+    private javax.swing.JRadioButton publishMessage;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea messageTextArea;
+    private javax.swing.JTextField  messageIDTextField;
+
+    
 	private static final long serialVersionUID = -1673246373722125477L;
-	/**
-     * Creates new form showAllMessagesGUI
-     */
-/*    public showAllMessagesGUI(int UserID, String message, String title) {
-    	
-    	initialize();
-    }
- */
+
+
     public ShowAllMessagesGUI() {
     	
     	initialize();
     }
-    /* wird noch eingefügt sobald das mit der Liste funktioniert
     
     
-    public showAllMessagesGUI(List<Message> msgs){ // Mit der Nachrichten Liste um diese dann zu generieren
+    public ShowAllMessagesGUI(List<Message> msgs){ // Mit der Nachrichten Liste um diese dann zu generieren
 
       initialize();
-}*/
+      fillTextField(msgs);
+    }
 
                         
-    private void initialize() {
+    private void fillTextField(List<Message> msgs) {
+		// TODO Auto-generated method stub
+    	String text = "";
+    	for(Message m : msgs){
+    		text += m.getMessageID() + ": " + m.getInhalt();
+    	}
+    	messageTextArea.setText(text);
+	}
+
+
+	private void initialize() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -61,7 +77,6 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
          */
         messageTextArea.setColumns(20);
         messageTextArea.setRows(5);
-        messageTextArea.setText("Nachricht 1: started  (max 10zeichen) Time : trölf Uhr\n\nNachricht 2 : from \tTime: 16:88\n\nNachricht 3: the\tTIme : was geht ab \n\nNachricht 4: Bottom\tTime : balbla");
         jScrollPane1.setViewportView(messageTextArea);
    
         // text nicht editierbar 
@@ -182,7 +197,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(157, 157, 157)
+                //.addGap(157, 157, 157)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(changeMessage)
@@ -309,12 +324,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 		}
 	}
 */
-// Funktionen
 
-/*    private void generateMessageList(List<Message> msgs){
-// soll dynamisch eine Liste der Nachrichten mit Checkboxen erstellen
-}
-*/
 
 
     
@@ -322,19 +332,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     
     
     
-    /**
-     *  Variables declaration - do not modify                     
-     */
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton sendQueryButton;
-    private javax.swing.JLabel jLabel;
-    private javax.swing.JRadioButton changeMessage;
-    private javax.swing.JRadioButton deleteMessage;
-    private javax.swing.JRadioButton publishMessage;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea messageTextArea;
-    private javax.swing.JTextField  messageIDTextField;
-    // End of variables declaration                   
+                 
 	
 	
 }

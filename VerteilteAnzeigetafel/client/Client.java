@@ -2,8 +2,10 @@ package client;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.MenuElement;
+import verteilteAnzeigetafel.Message;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,9 +22,13 @@ import javax.swing.MenuElement;
 public class Client {
    private static ClientGui clientGui;
    private static String[] menue;
+   private static List<Message> msgs;
    
 	public static void main(String[] args) {
 		String[] abteilungen = new String[] {"Managment","Finanzen"};
+		msgs = new ArrayList<Message>();
+		msgs.add(new Message("Nachricht", 1, 2, false, 0));
+		
 		clientGui = new ClientGui("Tafel-Client",abteilungen);
 		menue = new String[] {"Zeige alle Nachrichten","Neue Nachricht"};
 		clientGui.actionLogin(new java.awt.event.ActionListener() {
@@ -48,7 +54,7 @@ public class Client {
 	private static void menueSelected(ItemEvent evt) {
 		switch(clientGui.getSelectedMenue()){
 		case "Zeige alle Nachrichten" : 
-				clientGui.showShowMessages(null);
+				clientGui.showShowMessages(msgs);
 				break;
 		case "Neue Nachricht" : 
 				clientGui.showNewMessage();

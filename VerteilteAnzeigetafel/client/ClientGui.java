@@ -64,8 +64,11 @@ public class ClientGui extends JFrame{
     	loggedInGUI = new LoggedInGUI();
     	upperPanel.add(loggedInGUI,BorderLayout.LINE_START);
     	loginGUI.setUserId(userID);
-        this.setPreferredSize(new Dimension(550,140));
-        this.setSize(new Dimension(550,140));
+        this.setPreferredSize(new Dimension(670,350));
+        this.setSize(new Dimension(670,350));
+    	showAllMessagesGUI = new ShowAllMessagesGUI();
+    	lowerPanel.removeAll();
+    	lowerPanel.add(showAllMessagesGUI);
         //Zeige Login Panel + loggedIn Panel
     }
     
@@ -84,7 +87,9 @@ public class ClientGui extends JFrame{
     
     public void showShowMessages(List<Message> msgList){
         //Zeige Login Panel + loggedIn Panel + ShowMessages Panel
-    	showAllMessagesGUI = new ShowAllMessagesGUI();
+    	showAllMessagesGUI = new ShowAllMessagesGUI(msgList);
+        this.setPreferredSize(new Dimension(670,350));
+        this.setSize(new Dimension(670,350));
     	lowerPanel.removeAll();
     	lowerPanel.add(showAllMessagesGUI);
     }

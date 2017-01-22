@@ -73,6 +73,6 @@ public class NewMessageGUI extends javax.swing.JPanel {
     }
     
     public void setMessageState(String status){
-    	jLabel1.setText("TEst");
+    	jLabel1.setText(status);
     }
 }
