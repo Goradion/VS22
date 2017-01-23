@@ -56,7 +56,8 @@ public class LoggedInGUI extends javax.swing.JPanel {
     	menueBox.addItemListener(listener);
     }
     public void setMenue(String[] menue){
-    	 menueBox.setModel(new javax.swing.DefaultComboBoxModel<>(menue));    
+    	//TODO Menue auf ändere Nachricht setzen / wenn nachricht versendet dann auf alle nachrichten  anzeigen setzen
+    	menueBox.setModel(new javax.swing.DefaultComboBoxModel<>(menue));    
     }
     public String getMenue(){
     	return (String) menueBox.getSelectedItem();

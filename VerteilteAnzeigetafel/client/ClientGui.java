@@ -95,6 +95,7 @@ public class ClientGui extends JFrame{
     
     public void showEditMessage(Message msg){
         //Zeige Login Panel + loggedIn Panel + Edit Message Panel
+    	loggedInGUI.setMenue(new String[] { "Nachricht ändern","Neue Nachricht", "Zeige alle Nachrichten"});
     	editMessageGUI = new EditMessageGUI();
     	lowerPanel.removeAll();
     	lowerPanel.add(editMessageGUI);
