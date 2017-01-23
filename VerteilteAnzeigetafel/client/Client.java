@@ -28,6 +28,7 @@ public class Client {
 		String[] abteilungen = new String[] {"Managment","Finanzen"};
 		msgs = new ArrayList<Message>();
 		msgs.add(new Message("Nachricht", 1, 2, false, 0));
+		msgs.add(new Message("Noch eine Nachricht",1,2,false,1));
 		
 		clientGui = new ClientGui("Tafel-Client",abteilungen);
 		menue = new String[] {"Zeige alle Nachrichten","Neue Nachricht"};
