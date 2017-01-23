@@ -61,6 +61,11 @@ public class Client {
 		switch(clientGui.getSelectedMenue()){
 		case "Zeige alle Nachrichten" : 
 				clientGui.showShowMessages(msgs);
+				clientGui.addActionSendQuery(new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						sendQueryActionPerformed(evt);
+					}
+				});
 				break;
 		case "Neue Nachricht" : 
 				clientGui.showNewMessage();

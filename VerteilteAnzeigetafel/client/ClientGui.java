@@ -45,8 +45,8 @@ public class ClientGui extends JFrame{
     	upperPanel.add(loginGUI,BorderLayout.LINE_START);
     	this.add(lowerPanel, BorderLayout.PAGE_END);
     	this.add(upperPanel, BorderLayout.PAGE_START);
-        this.setPreferredSize(new Dimension(300,140));
-        this.setSize(new Dimension(300,140));
+        this.setPreferredSize(new Dimension(350,150));
+        this.setSize(new Dimension(350,150));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
     	this.setVisible(true);
@@ -58,8 +58,10 @@ public class ClientGui extends JFrame{
 
     
     public void showLoggedIn(int userID, List<Message> msgs){
-    	loggedInGUI = new LoggedInGUI();
-    	upperPanel.add(loggedInGUI,BorderLayout.LINE_START);
+    	if(upperPanel.getComponentCount() != 2){
+	    	loggedInGUI = new LoggedInGUI();
+	    	upperPanel.add(loggedInGUI,BorderLayout.LINE_START);
+    	}
     	loginGUI.setUserId(userID);
         this.setPreferredSize(new Dimension(670,350));
         this.setSize(new Dimension(670,350));
@@ -74,9 +76,7 @@ public class ClientGui extends JFrame{
         //Zeige Login Panel + loggedIn Panel + New Message Panel
         this.setPreferredSize(new Dimension(550,250));
         this.setSize(new Dimension(550,250));
-        if(newMessageGUI.equals(null)){
-        	newMessageGUI = new NewMessageGUI();
-        }
+        newMessageGUI = new NewMessageGUI();
     	lowerPanel.removeAll();
     	lowerPanel.add(newMessageGUI);
     	this.repaint();
@@ -96,13 +96,12 @@ public class ClientGui extends JFrame{
     public void showEditMessage(Message msg){
         //Zeige Login Panel + loggedIn Panel + Edit Message Panel
     	editMessageGUI = new EditMessageGUI();
-        this.setPreferredSize(new Dimension(670,350));
-        this.setSize(new Dimension(670,350));
     	lowerPanel.removeAll();
     	lowerPanel.add(editMessageGUI);
-    	System.out.println("showEditMessage");
+
+        this.setPreferredSize(new Dimension(670,350));
+        this.setSize(new Dimension(670,350));
     	this.repaint();
-    	editMessageGUI.repaint();
     }
     
     public void actionLogin(java.awt.event.ActionListener listener){
