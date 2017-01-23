@@ -10,7 +10,9 @@ package verteilteAnzeigetafel;
  * @author am
  */
 public class TafelException extends Exception{
-    public TafelException(String message){
+	private static final long serialVersionUID = 6227242422580153267L;
+
+	public TafelException(String message){
         super(message);
     }
 }

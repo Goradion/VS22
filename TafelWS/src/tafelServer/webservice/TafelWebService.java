@@ -1,6 +1,6 @@
 package tafelServer.webservice;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -29,7 +29,7 @@ public interface TafelWebService{
 	public String publishMessage(int messageID, int user);
 	
 	@WebMethod
-	public boolean receiveMessage(int messageID, int userID, int abtNr, String inhalt, boolean oeffentlich, LocalDateTime time);
+	public boolean receiveMessage(int messageID, int userID, int abtNr, String inhalt, boolean oeffentlich, Date time);
 	
 	@WebMethod
 	public boolean registerServer(int abtNr, String address);

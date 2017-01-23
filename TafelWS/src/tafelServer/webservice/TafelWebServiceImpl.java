@@ -1,6 +1,6 @@
 package tafelServer.webservice;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.jws.WebService;
 
@@ -9,6 +9,7 @@ import verteilteAnzeigetafel.TafelException;
 
 @WebService(endpointInterface = "tafelServer.webservice.TafelWebService")
 public class TafelWebServiceImpl implements TafelWebService {
+
 	TafelServer tafelServer;
 
 	public String createMessage(String inhalt, int user, int abtNr, boolean oeffentlich) {
@@ -26,29 +27,28 @@ public class TafelWebServiceImpl implements TafelWebService {
 
 	public String deleteMessage(int messageID, int user) {
 		if (tafelServer != null) {
-			//delete message
-		}
-		return null;
-	}
-	
-	public String modifyMessage(int messageID, String inhalt, int user) {
-		if (tafelServer != null) {
-			//modify message
+			// delete message
 		}
 		return null;
 	}
 
-	
-	public String publishMessage(int messageID, int user) {
-		
+	public String modifyMessage(int messageID, String inhalt, int user) {
+		if (tafelServer != null) {
+			// modify message
+		}
 		return null;
 	}
-	
+
+	public String publishMessage(int messageID, int user) {
+
+		return null;
+	}
+
 	public String[] startTafelServer(int antNr) {
 		String reply[] = new String[1];
-		
+
 		// TODO implement access permissions for starting the server
-		
+
 		if (tafelServer == null) {
 			tafelServer = new TafelServer(antNr);
 			reply[0] = "TafelServer started successfully.";
@@ -71,8 +71,7 @@ public class TafelWebServiceImpl implements TafelWebService {
 
 	@Override
 	public boolean receiveMessage(int messageID, int userID, int abtNr, String inhalt, boolean oeffentlich,
-			LocalDateTime time) {
-		// TODO Auto-generated method stub
+			Date time) {
 		return false;
 	}
 
