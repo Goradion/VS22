@@ -176,5 +176,8 @@ public class ClientGui extends JFrame{
     	
     	showAllMessagesGUI.setPublish(enable);
     }
+    public void setConectivity(boolean active){
+    	loginGUI.setConectivity(active);
+    }
 }
 

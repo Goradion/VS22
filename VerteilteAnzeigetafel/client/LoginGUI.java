@@ -1,5 +1,6 @@
 package client;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 /**
@@ -148,6 +149,16 @@ public class LoginGUI extends javax.swing.JPanel {
     }
     public String getAbteilung(){
     	return (String) jComboBox1.getSelectedItem();
+    }
+    
+    public void setConectivity(boolean active){
+    	if(active){
+    		stateLabel.setText("Status: verbunden");
+    		stateLabel.setForeground(Color.green);
+    	} else {
+    		stateLabel.setText("Status: nicht verbunden");
+    		stateLabel.setForeground(Color.red);
+    	}
     }
                
 }

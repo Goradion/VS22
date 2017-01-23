@@ -37,6 +37,7 @@ public class Client {
                 loginActionPerformed(evt);
             }
         });
+		clientGui.setConectivity(false);
 		
    }
 	
@@ -55,6 +56,7 @@ public class Client {
 					sendQueryActionPerformed(evt);
 				}
 			});
+			clientGui.setConectivity(true);
 		}
 	}
 	
@@ -92,7 +94,7 @@ public class Client {
 	
 	private static void sendQueryActionPerformed(ActionEvent evt){
 		if(clientGui.getQueryCommand().equals("delete")){
-			
+			//TODO Die nachricht löschen und Gui neuladen
 		}
 		if(clientGui.getQueryCommand().equals("change")){
 			clientGui.showEditMessage(clientGui.getSelectedMessage());
@@ -103,7 +105,7 @@ public class Client {
 				}));
 		}
 		if(clientGui.getQueryCommand().equals("publish")){
-			
+			//TODO die Nachricht veröffentlichen und 
 		}
 		if(clientGui.getQueryCommand().equals("error")){
 			//Was machen wir dann? :D
