@@ -60,6 +60,7 @@ public class Client {
 	private static void menueSelected(ItemEvent evt) {
 		switch(clientGui.getSelectedMenue()){
 		case "Zeige alle Nachrichten" : 
+				clientGui.setMenue(new String[] {"Zeige alle Nachrichten", "Neue Nachricht"});
 				clientGui.showShowMessages(msgs);
 				clientGui.addActionSendQuery(new java.awt.event.ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
@@ -68,6 +69,7 @@ public class Client {
 				});
 				break;
 		case "Neue Nachricht" : 
+				clientGui.setMenue(new String[] {"Neue Nachricht", "Zeige alle Nachrichten"});
 				clientGui.showNewMessage();
 				clientGui.actionSendNewMessage(new java.awt.event.ActionListener() {
 					public void actionPerformed(ActionEvent evt) {

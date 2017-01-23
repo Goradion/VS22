@@ -36,11 +36,6 @@ public class EditMessageGUI extends javax.swing.JPanel {
         jLabel1.setText("Nachricht bearbeiten");
 
         jButton1.setText("ändern");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -70,10 +65,7 @@ public class EditMessageGUI extends javax.swing.JPanel {
         );
 
     }                      
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
+                                      
 
     /**
      * @param args the command line arguments
@@ -110,5 +102,7 @@ public class EditMessageGUI extends javax.swing.JPanel {
         });
     }
 
-              
+      public void addAenderButtonAction(java.awt.event.ActionListener listener){
+    	  jButton1.addActionListener(listener);
+      }
 }

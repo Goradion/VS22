@@ -99,8 +99,8 @@ public class ClientGui extends JFrame{
     	lowerPanel.removeAll();
     	lowerPanel.add(editMessageGUI);
 
-        this.setPreferredSize(new Dimension(670,350));
-        this.setSize(new Dimension(670,350));
+        this.setPreferredSize(new Dimension(600,350));
+        this.setSize(new Dimension(600,350));
     	this.repaint();
     }
     
@@ -118,6 +118,10 @@ public class ClientGui extends JFrame{
     
     public void addActionSendQuery(java.awt.event.ActionListener listener){
 		showAllMessagesGUI.SendButtonAddActionListener(listener);
+    }
+    
+    public void addActionChangeButton(java.awt.event.ActionListener listener){
+    	editMessageGUI.addAenderButtonAction(listener);
     }
 
     public Message getSelectedMessage(){
