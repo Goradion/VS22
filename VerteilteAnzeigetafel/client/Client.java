@@ -96,6 +96,11 @@ public class Client {
 		}
 		if(clientGui.getQueryCommand().equals("change")){
 			clientGui.showEditMessage(clientGui.getSelectedMessage());
+			clientGui.addActionChangeButton((new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						changeMessage(evt);
+			            }
+				}));
 		}
 		if(clientGui.getQueryCommand().equals("publish")){
 			
@@ -103,5 +108,10 @@ public class Client {
 		if(clientGui.getQueryCommand().equals("error")){
 			//Was machen wir dann? :D
 		}
+	}
+
+	private static void changeMessage(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		
 	}
 }

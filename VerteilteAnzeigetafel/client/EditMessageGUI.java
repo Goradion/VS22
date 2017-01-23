@@ -1,5 +1,6 @@
 package client;
 
+import verteilteAnzeigetafel.Message;
 /**
  *
  * @author Ch4in
@@ -12,12 +13,14 @@ public class EditMessageGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private Message msg;
     // End of variables declaration     
     
     /**
      * Creates new form EditMessageGUI
      */
-    public EditMessageGUI() {
+    public EditMessageGUI(Message msg) {
+    	this.msg = msg;
         initComponents();
     }
                       
@@ -31,6 +34,7 @@ public class EditMessageGUI extends javax.swing.JPanel {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.setText(msg.getInhalt());
         jScrollPane1.setViewportView(jTextArea1);
 
         jLabel1.setText("Nachricht bearbeiten");
