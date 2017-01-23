@@ -96,12 +96,12 @@ public class ClientGui extends JFrame{
     public void showEditMessage(Message msg){
         //Zeige Login Panel + loggedIn Panel + Edit Message Panel
     	loggedInGUI.setMenue(new String[] { "Nachricht ändern","Neue Nachricht", "Zeige alle Nachrichten"});
-    	editMessageGUI = new EditMessageGUI();
+    	editMessageGUI = new EditMessageGUI(msg);
     	lowerPanel.removeAll();
     	lowerPanel.add(editMessageGUI);
 
-        this.setPreferredSize(new Dimension(600,350));
-        this.setSize(new Dimension(600,350));
+        this.setPreferredSize(new Dimension(620,350));
+        this.setSize(new Dimension(620,350));
     	this.repaint();
     }
     
