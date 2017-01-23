@@ -56,7 +56,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 		// TODO Auto-generated method stub
     	String text = "";
     	for(Message m : msgs){
-    		text += m.getMessageID() + ": " + m.getInhalt();
+    		text += m.getMessageID() + ": " + m.getInhalt() + " Time: " + m.getTime();
     	}
     	messageTextArea.setText(text);
 	}
