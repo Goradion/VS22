@@ -52,9 +52,22 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     private void fillTextField(List<Message> msgs) {
 		
     	String text = "";
+    	int width = 50;
     	for(Message m : msgs){
-    		text += "MsgID"  + " :"+ m.getMessageID() + "\t Time: " + m.getTime()+"\n" + m.getInhalt() +"\n" + "------------------------------------"
-    				+ "-------------------------------------------------------\n";
+    		text += "MsgID"  + " :"+ m.getMessageID() + "\t Time: " + m.getTime()+"\n";
+    	if(m.getInhalt().length() > width) {
+    		for(int i = 0; i < m.getInhalt().length(); i = i+width){
+    			if(i+width > m.getInhalt().length()){
+    				text += m.getInhalt().substring(i);
+    			} else {
+    				text += m.getInhalt().substring(i, i+width) +  "\n";
+    			}
+    		}
+    	} else {
+    		text += m.getInhalt();
+    	}
+    	text += "\n" + "------------------------------------"
+    				+ "--------------------------------------------------\n";
     	}
     	messageTextArea.setText(text);
 	}
