@@ -48,6 +48,11 @@ public class Client {
 					 menueSelected(evt);
 		            }
 			});
+			clientGui.addActionSendQuery(new java.awt.event.ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					sendQueryActionPerformed(evt);
+				}
+			});
 		}
 	}
 	
@@ -74,5 +79,20 @@ public class Client {
 	private static void sendNewMessage(ActionEvent evt){
 		clientGui.setNewMessageState("Nachricht versendet!");
 		clientGui.repaint();
+	}
+	
+	private static void sendQueryActionPerformed(ActionEvent evt){
+		if(clientGui.getQueryCommand().equals("delete")){
+			
+		}
+		if(clientGui.getQueryCommand().equals("change")){
+			clientGui.showEditMessage(clientGui.getSelectedMessage());
+		}
+		if(clientGui.getQueryCommand().equals("publish")){
+			
+		}
+		if(clientGui.getQueryCommand().equals("error")){
+			//Was machen wir dann? :D
+		}
 	}
 }

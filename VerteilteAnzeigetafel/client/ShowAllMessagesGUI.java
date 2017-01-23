@@ -18,7 +18,8 @@ import verteilteAnzeigetafel.Message;
 //TODO Deaktivierung Publish falls kein Koordinator
 //bzw ausblenden, von aussen also Funktion nötig dafür
 // Action Listener Button muss nach aussen gegeben werden
-// Auslesbar was ausgewählt wurde von aussen (Change/delete/publish| Msg ID | Nachricht ansich)
+// Auslesbar was ausgewählt wurde von aussen (Change/delete/publish| Nachricht ansich)
+// Was muss in der Message id enthalten sein?
 
 public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 
@@ -31,6 +32,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea messageTextArea;
     private javax.swing.JTextField  messageIDTextField;
+    private List<Message> msgs;
 
     
 	private static final long serialVersionUID = -1673246373722125477L;
@@ -45,6 +47,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     public ShowAllMessagesGUI(List<Message> msgs){ // Mit der Nachrichten Liste um diese dann zu generieren
 
       initialize();
+      this.msgs = msgs;
       fillTextField(msgs);
     }
 
@@ -161,6 +164,8 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 
         sendQueryButton.setText("Send query");
         sendQueryButton.setEnabled(false);
+        
+        
 		sendQueryButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			
 			/*		public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -274,7 +279,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
  * @param evt
  */
 	private void changeMessageItemStateChanged(java.awt.event.ItemEvent evt) {
-		// TODO wechsel zur anderen GUI einfügen
+		// TODO wechsel zur anderen GUI einfügen der wechsel findet in Client statt, bzw in ClientGUI
 		if (changeMessage.isSelected()) {
 			
 			messageIDTextField.setEnabled(true);
@@ -307,29 +312,31 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 	/**
 	 * Funktionen für den senden Button
 	 */
-/*	
-	private void sendQueryButtonMouseClicked(java.awt.event.MouseEvent evt) {
-		if (deleteMessage.isSelected() && !abteilungTextField.getText().isEmpty()
-				&& !userIDTextField.getText().isEmpty() && !messageIDTextField.getText().isEmpty()) {
-			client.removeMessage(Integer.parseInt(abteilungTextField.getText()),
-					Integer.parseInt(userIDTextField.getText()), Integer.parseInt(messageIDTextField.getText()));
-		}
 
-		if (changeMessage.isSelected() && !abteilungTextField.getText().isEmpty()
-				&& !userIDTextField.getText().isEmpty() && !messageIDTextField.getText().isEmpty()) {
-			client.changeMessage(Integer.parseInt(abteilungTextField.getText()),
-					Integer.parseInt(userIDTextField.getText()), Integer.parseInt(messageIDTextField.getText()),
-					messageTextArea.getText());
-		}
+    public void SendButtonAddActionListener(java.awt.event.ActionListener listener){
+    	sendQueryButton.addActionListener(listener);
+    }
+    
+    public Message getMessage(){
+    	return msgs.get(Integer.parseInt(messageIDTextField.getText()));
+    }
 
-		if (publishMessage.isSelected() && !abteilungTextField.getText().isEmpty()
-				&& !userIDTextField.getText().isEmpty() && !messageIDTextField.getText().isEmpty()) {
-			client.publishMessage(Integer.parseInt(abteilungTextField.getText()),
-					Integer.parseInt(messageIDTextField.getText()), Integer.parseInt(userIDTextField.getText()));
-		}
-	}
-*/
-
+    public String getSelection(){
+    	if(changeMessage.isSelected()){
+    		return "change";
+    	}
+    	
+    	if(deleteMessage.isSelected()){
+    		return "delete";
+    	}
+    	
+    	if(publishMessage.isSelected()){
+    		return "publish";
+    	} else {
+    		return "error";
+    	}
+    	
+    }
 
 
     

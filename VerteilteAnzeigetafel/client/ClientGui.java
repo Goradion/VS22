@@ -23,8 +23,7 @@ public class ClientGui extends JFrame{
     private LoginGUI loginGUI; //Wird immer angezeigt
     private LoggedInGUI loggedInGUI; // Wird angezeigt sobald eingeloggt
     private NewMessageGUI newMessageGUI; // wird angezigt für neue Nachricht
-    private JPanel publishMessageGUI; // Wird angezeigt für veröffentlichen
-    private JPanel editMessageGUI; // wird angezeigt für bearbeiten einer Nachricht
+    private EditMessageGUI editMessageGUI; // wird angezeigt für bearbeiten einer Nachricht
     private ShowAllMessagesGUI showAllMessagesGUI; // wird angezeigt bei allen Nachrichten zeigen
     
     
@@ -70,20 +69,21 @@ public class ClientGui extends JFrame{
     	lowerPanel.removeAll();
     	lowerPanel.add(showAllMessagesGUI);
         //Zeige Login Panel + loggedIn Panel
+    	this.repaint();
     }
     
     public void showNewMessage(){
         //Zeige Login Panel + loggedIn Panel + New Message Panel
         this.setPreferredSize(new Dimension(550,250));
         this.setSize(new Dimension(550,250));
-    	newMessageGUI = new NewMessageGUI();
+        if(newMessageGUI.equals(null)){
+        	newMessageGUI = new NewMessageGUI();
+        }
     	lowerPanel.removeAll();
     	lowerPanel.add(newMessageGUI);
+    	this.repaint();
     }
     
-    public void showPublishMessage(Message msg){
-        //Zeige Login Panel + loggedIn Panel + Publish MessagePanel
-    }
     
     public void showShowMessages(List<Message> msgList){
         //Zeige Login Panel + loggedIn Panel + ShowMessages Panel
@@ -92,10 +92,19 @@ public class ClientGui extends JFrame{
         this.setSize(new Dimension(670,350));
     	lowerPanel.removeAll();
     	lowerPanel.add(showAllMessagesGUI);
+    	this.repaint();
     }
     
     public void showEditMessage(Message msg){
         //Zeige Login Panel + loggedIn Panel + Edit Message Panel
+    	editMessageGUI = new EditMessageGUI();
+        this.setPreferredSize(new Dimension(670,350));
+        this.setSize(new Dimension(670,350));
+    	lowerPanel.removeAll();
+    	lowerPanel.add(editMessageGUI);
+    	System.out.println("showEditMessage");
+    	this.repaint();
+    	editMessageGUI.repaint();
     }
     
     public void actionLogin(java.awt.event.ActionListener listener){
@@ -110,22 +119,21 @@ public class ClientGui extends JFrame{
         newMessageGUI.SendenButtonAddActionListener(listener);   
     }
     
-    public ActionListener actionDeleteSelected(){
-		return null;
-        //Übergebe Listener für lösche ausgewählte in show all messages
+    public void addActionSendQuery(java.awt.event.ActionListener listener){
+		showAllMessagesGUI.SendButtonAddActionListener(listener);
     }
-    public ActionListener actionEditMessage(){
-		return null;
-        //Übergebe Listener für Ändern Button gedrückt
+
+    public Message getSelectedMessage(){
+    	return showAllMessagesGUI.getMessage();
     }
     
-    public ActionListener actionPublishMessages(){
-		return null;
-        //Übergebe Listener für Veröffentlichen Button gedrückt
+    public String getQueryCommand(){
+    	return showAllMessagesGUI.getSelection();
     }
     
     public void setMenue(String[] menue){
     	loggedInGUI.setMenue(menue);
+    	this.repaint();
     }
     
     public int getUserid(){

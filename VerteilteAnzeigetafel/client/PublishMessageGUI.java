@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.swing.*;
 
+import verteilteAnzeigetafel.Message;
+
 /**
  *
  * @author Armin
  */
-public class publishMessageGUI extends JPanel{
+public class PublishMessageGUI extends JPanel{
     
     //RadioButtons + group
 private void generateRadioButtonGroup(List<String> groups){
@@ -20,7 +22,7 @@ private JTextField message; //Wichtig auf nicht editierbar setzen
 // Button
 private JButton publish;
 
-public publishMessageGUI(List<String> groups){ //Mit gruppen liste zum generieren
+public PublishMessageGUI(Message msg){ //Mit gruppen liste zum generieren
         initialize();
 }
 
