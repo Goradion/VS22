@@ -15,6 +15,11 @@ import verteilteAnzeigetafel.Message;
  * @author Micha
  */
 
+//TODO Deaktivierung Publish falls kein Koordinator
+//bzw ausblenden, von aussen also Funktion nötig dafür
+// Action Listener Button muss nach aussen gegeben werden
+// Auslesbar was ausgewählt wurde von aussen (Change/delete/publish| Msg ID | Nachricht ansich)
+
 public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 
     private javax.swing.ButtonGroup buttonGroup1;
