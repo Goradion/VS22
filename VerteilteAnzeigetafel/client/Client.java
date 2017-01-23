@@ -44,6 +44,7 @@ public class Client {
 		if(clientGui.getUserid() > 0){
 			clientGui.showLoggedIn(clientGui.getUserid(), msgs);
 			clientGui.setMenue(menue);
+			clientGui.setPublish(clientGui.getUserid() == 1);
 			clientGui.actionMenuSelect(new java.awt.event.ItemListener() {
 				 public void itemStateChanged(java.awt.event.ItemEvent evt) {
 					 menueSelected(evt);

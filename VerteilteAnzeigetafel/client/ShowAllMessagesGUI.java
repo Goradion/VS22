@@ -346,6 +346,11 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     	}
     	
     }
+    
+    public void setPublish(boolean enable){
+    	
+    	publishMessage.setVisible(enable);
+    }
 
 
     
