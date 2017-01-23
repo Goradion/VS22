@@ -1,275 +1,119 @@
-/**
- *Projekt Anzeigetafel
- *
- * @author: Michael Moser
- * @author: Andrea Caruana
- * @author: Diego Rodriguez Castellanos
- * @author: Viktor Semenitsch
- * @author: Simon Bastian
- * @author: Alexander Mueller 
- * Datei: Client Client zur Kommunikation zwischen
- * Benutzer und Anzeigetafel
- */
 package client;
 
-import java.net.*;
-import serverRequests.*;
-import java.io.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Client implements Serializable {
+import verteilteAnzeigetafel.Message;
 
-	private static final long serialVersionUID = -6299053685373379874L;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-	private final int SERVER_PORT = 10001;
-	private String serverHostname = "localhost";
-	private final String ABTEILUNG_1 = "192.168.178.10";
-	private final String ABTEILUNG_2 = "192.168.178.11";
-	private final String ABTEILUNG_3 = "192.168.178.12";
-	private final String ABTEILUNG_4 = "192.168.178.13";
-	private ClientWindow mainWindow;
-	private LoggingWindow logWin;
-	private int userID;
-	private int abtNr;
+/**
+ *
+ * @author Armin
+ */
 
-	/**
-	 * Konstruktor zum Erstellung des Benutzers
-	 *
-	 * @param benutzerName
-	 * @param abtNr
-	 * @param administrator
-	 * @param userID
-	 */
-	public Client() {
-		this.userID = 0;
-		this.abtNr = 0;
-		this.mainWindow = new ClientWindow("Client", this);
-		this.logWin = new LoggingWindow(mainWindow);
-		mainWindow.setResizable(false);
-	}
 
-	public void startClient() {
-		mainWindow.run();
-		logWin.run();
-	}
-
-	private void setAbteilung(int abt) {
-		switch (abt) {
-		case 0:
-			serverHostname = "localhost";
-			break;
-		case 1:
-			serverHostname = ABTEILUNG_1;
-			break;
-		case 2:
-			serverHostname = ABTEILUNG_2;
-			break;
-		case 3:
-			serverHostname = ABTEILUNG_3;
-			break;
-		case 4:
-			serverHostname = ABTEILUNG_4;
-			break;
-		default:
-			serverHostname = "Unknown Host";
-			break;
-		}
-	}
-
-	public int getabtNr() {
-		return abtNr;
-	}
-
-	public void setAbtNr(int abtNr) {
-		this.abtNr = abtNr;
-	}
-
-	public int getUserID() {
-		return userID;
-	}
-
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
-
-	/*
-	 * Methode zum senden der Nachricht Die Methode ist nur fuer das senden der
-	 * Nachricht und das abfangen der damit verbundenen Fehlerfuelle zustaendig
-	 */
-
-	public void sendMessage(int abt, String message, int userID) {
-		setAbteilung(abt);
-		Socket socket = new Socket();
-		ObjectOutputStream oout = null;
-		try {
-
-			socket.connect(new InetSocketAddress(serverHostname, SERVER_PORT), 1000);
-
-			ServerRequest sr = ServerRequest.buildCreateRequest(message, userID, abt);
-			oout = new ObjectOutputStream(socket.getOutputStream());
-			oout.writeObject(sr);
-			log(socket);
-
-		} catch (UnknownHostException e) {
-			System.out.println("Rechnername unbekannt:\n" + e.getMessage());
-			log("Sending failed:\n" + "Abteilung " + abt + " unknown or offline.\n");
-		} catch (IOException e) {
-			System.out.println("Fehler waehrend der Kommunikation:\n" + e.getMessage());
-			log("Sending failed:" + " I/O error while sending a message.\n" + "Abteilung "+abt + " might be offline.");
-		} finally {
-			try {
-				oout.close();
-				socket.close();
-			} catch (IOException e) {
-				log("I/O error while sending a message.\n");
-			}
-		}
-	}
-
-	public void removeMessage(int abt, int userID, int msgID) {
-		setAbteilung(abt);
-		Socket socket = new Socket();
-		ObjectOutputStream oout = null;
-		try {
-
-			socket.connect(new InetSocketAddress(serverHostname, SERVER_PORT), 1000);
-			ServerRequest serverR = ServerRequest.buildDeleteRequest(msgID, userID);
-			oout = new ObjectOutputStream(socket.getOutputStream());
-			oout.writeObject(serverR);
-			log(socket);
-
-		} catch (UnknownHostException e) {
-			System.out.println("Rechnername unbekannt:\n" + e.getMessage());
-			log("Deleting failed:\n" + "Abteilung " + abt + " unknown or offline.\n");
-		} catch (IOException e) {
-			System.out.println("Fehler waehrend der Kommunikation:\n" + e.getMessage());
-			log("Deleting failed:" + " I/O error while deleting a message.\n" +  "Abteilung "+abt + " might be offline.");
-		} finally {
-			try {
-				oout.close();
-				socket.close();
-			} catch (IOException e) {
-				log("I/O error while deleting a message.\n");
-			}
-
-		}
-	}
-
-	public void changeMessage(int abt, int userID, int msgID, String neueNachricht) {
-		setAbteilung(abt);
-		Socket socket = new Socket();
-		ObjectOutputStream oout = null;
-		try {
-
-			socket.connect(new InetSocketAddress(serverHostname, SERVER_PORT), 1000);
-
-			ServerRequest serverR = ServerRequest.buildModifyRequest(msgID, neueNachricht, userID);
-			oout = new ObjectOutputStream(socket.getOutputStream());
-
-			oout.writeObject(serverR);
-			log(socket);
-			
-		} catch (UnknownHostException e) {
-			System.out.println("Rechnername unbekannt:\n" + e.getMessage());
-			log("Changing failed:\n" + "Abteilung " + abt + " unknown or offline.\n");
-		} catch (IOException e) {
-			System.out.println("Fehler waehrend der Kommunikation:\n" + e.getMessage());
-			log("Changing failed:" + " I/O error while changing a message.\n" +  "Abteilung "+abt + " might be offline.");
-		} finally {
-			try {
-				oout.close();
-				socket.close();
-			} catch (IOException e) {
-				log("I/O error while changing a message.\n");
-			}
-
-		}
-	}
-
-	public String showMessages(int abt, int userID) {
-		setAbteilung(abt);
-		Socket socket = new Socket();
-		ObjectOutputStream oout = null;
-		String str = "";
-		try {
-
-			socket.connect(new InetSocketAddress(serverHostname, SERVER_PORT), 1000);
-
-			ServerRequest serverR = ServerRequest.buildShowMyMessagesRequest(userID);
-			oout = new ObjectOutputStream(socket.getOutputStream());
-			oout.writeObject(serverR);
-
-			str = log(socket);
-
-		} catch (UnknownHostException e) {
-			System.out.println("Rechnername unbekannt:\n" + e.getMessage());
-			log("Showing messages failed:\n" + "Abteilung " + abt + " unknown or offline.\n");
-		} catch (IOException e) {
-			System.out.println("Fehler waehrend der Kommunikation:\n" + e.getMessage());
-			log("Showing messages failed:" + " I/O error while showing messages.\n" +  "Abteilung "+abt 
-					+ " might be offline.");
-		} finally {
-			try {
-				oout.close();
-				socket.close();
-			} catch (IOException e) {
-				log("I/O error while showing messages.\n");
-			}
-
-		}
-		return str;
-	}
-
-	public void publishMessage(int abt, int messageId, int userId) {
-		setAbteilung(abt);
-		Socket socket = new Socket();
-		ObjectOutputStream oout = null;
-		try {
-
-			socket.connect(new InetSocketAddress(serverHostname, SERVER_PORT), 1000);
-
-			ServerRequest serverRequest = ServerRequest.buildPublishRequest(messageId, userId);
-			oout = new ObjectOutputStream(socket.getOutputStream());
-			oout.writeObject(serverRequest);
-			log(socket);
-
-		} catch (UnknownHostException e) {
-			System.out.println("Rechnername unbekannt:\n" + e.getMessage());
-			log("Publishing failed.\n" + "Server " + serverHostname + " unknown or offline.\n");
-		} catch (IOException e) {
-			System.out.println("Fehler waehrend der Kommunikation:\n" + e.getMessage());
-			log("Publishing failed:" + " I/O error while showing messages.\n" + serverHostname
-					+ " might be offline.");
-		} finally {
-			try {
-				oout.close();
-				socket.close();
-			} catch (IOException e) {
-				log("I/O error while publishing.\n");
-			}
-
-		}
-	}
-
-	private String log(Socket socket) throws IOException {
-		String meldung = "";
-		ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-		try {
-			meldung = input.readObject().toString();
-			logWin.addEntry(meldung);
-		} catch (ClassNotFoundException ex) {
-			ex.printStackTrace();
-		}
-		input.close();
-		return meldung;
-	}
-
-	private void log(String meldung) {
-		logWin.addEntry(meldung);
-	}
-
+public class Client {
+   private static ClientGui clientGui;
+   private static String[] menue;
+   private static List<Message> msgs;
+   
 	public static void main(String[] args) {
-		Client client = new Client();
-		client.startClient();
+		String[] abteilungen = new String[] {"Managment","Finanzen"};
+		msgs = new ArrayList<Message>();
+		msgs.add(new Message("Nachricht", 1, 2, false, 0));
+		msgs.add(new Message("Noch eine Nachricht die wirklich sehr lang sein soll lkjsdfioasopekpoaiksgöokaosdgköadskglkasdfäpgkösdkfglkadäofgkäoadkfgopakeärgkaeokegopaklerohkaösdgjlisrötlrgäpylkdöogijlsdykfgklüxäötkhöoxöfzäjöoxflhäxÖfläphäXrtu ENDE DER NACHTICHT",1,2,false,1));
+		
+		clientGui = new ClientGui("Tafel-Client",abteilungen);
+		menue = new String[] {"Zeige alle Nachrichten","Neue Nachricht"};
+		clientGui.actionLogin(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginActionPerformed(evt);
+            }
+        });
+		clientGui.setConectivity(false);
+		
+   }
+	
+	private static void loginActionPerformed(ActionEvent evt) {
+		if(clientGui.getUserid() > 0){
+			clientGui.showLoggedIn(clientGui.getUserid(), msgs);
+			clientGui.setMenue(menue);
+			clientGui.setPublish(clientGui.getUserid() == 1);
+			clientGui.actionMenuSelect(new java.awt.event.ItemListener() {
+				 public void itemStateChanged(java.awt.event.ItemEvent evt) {
+					 menueSelected(evt);
+		            }
+			});
+			clientGui.addActionSendQuery(new java.awt.event.ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					sendQueryActionPerformed(evt);
+				}
+			});
+			clientGui.setConectivity(true);
+		}
+	}
+	
+	private static void menueSelected(ItemEvent evt) {
+		switch(clientGui.getSelectedMenue()){
+		case "Zeige alle Nachrichten" : 
+				clientGui.setMenue(new String[] {"Zeige alle Nachrichten", "Neue Nachricht"});
+				clientGui.showShowMessages(msgs);
+				clientGui.addActionSendQuery(new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						sendQueryActionPerformed(evt);
+					}
+				});
+				break;
+		case "Neue Nachricht" : 
+				clientGui.setMenue(new String[] {"Neue Nachricht", "Zeige alle Nachrichten"});
+				clientGui.showNewMessage();
+				clientGui.actionSendNewMessage(new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						sendNewMessage(evt);
+			            }
+				});
+				break;
+		default :  
+			clientGui.showLoggedIn(clientGui.getUserid(), msgs);
+			clientGui.setMenue(menue);
+			break;
+		}
+	}
+	
+	private static void sendNewMessage(ActionEvent evt){
+		clientGui.setNewMessageState("Nachricht versendet!");
+		clientGui.repaint();
+	}
+	
+	private static void sendQueryActionPerformed(ActionEvent evt){
+		if(clientGui.getQueryCommand().equals("delete")){
+			//TODO Die nachricht löschen und Gui neuladen
+		}
+		if(clientGui.getQueryCommand().equals("change")){
+			clientGui.showEditMessage(clientGui.getSelectedMessage());
+			clientGui.addActionChangeButton((new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						changeMessage(evt);
+			            }
+				}));
+		}
+		if(clientGui.getQueryCommand().equals("publish")){
+			//TODO die Nachricht veröffentlichen und 
+		}
+		if(clientGui.getQueryCommand().equals("error")){
+			//Was machen wir dann? :D
+		}
+	}
 
+	private static void changeMessage(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		
 	}
 }
