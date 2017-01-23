@@ -79,11 +79,11 @@ public class ServerRequestHandler {
 			return "Nachricht mit ID =" + deleteRequest.getMessageID() + " nicht gefunden";
 		}
 		if (message.getAbtNr() != anzeigetafel.getAbteilungsID()){
-			return "Nachricht gehört nicht zur Abteilung!";
+			return "Nachricht gehï¿½rt nicht zur Abteilung!";
 		}
 		anzeigetafel.deleteMessage(deleteRequest.getMessageID(), deleteRequest.getUserID());
 		if ((message.isOeffentlich() && message.getAbtNr() == anzeigetafel.getAbteilungsID()))
-			tafelServer.deletePublicMessage(deleteRequest.getMessageID());
+//			tafelServer.deletePublicMessage(deleteRequest.getMessageID()); TODO
 
 		anzeigetafel.saveStateToFile();
 		return antwort;
@@ -129,7 +129,7 @@ public class ServerRequestHandler {
 			return "Nachricth mit ID= " + modifyRequest.getMessageID() + " nicht gefunden!";
 		}
 		if (message.getAbtNr() != anzeigetafel.getAbteilungsID()){
-			return "Nachricht gehört nicht zur Abteilung!";
+			return "Nachricht gehï¿½rt nicht zur Abteilung!";
 		}
 		anzeigetafel.modifyMessage(modifyRequest.getMessageID(), modifyRequest.getNewMessage(),
 				modifyRequest.getUserID());
@@ -168,7 +168,7 @@ public class ServerRequestHandler {
 	 *             if the anzeigetafel rejects the request.
 	 */
 	public String handle(PublishRequest publishRequest) throws InterruptedException, TafelException {
-		tafelServer.publishMessage(publishRequest.getMessageID(), publishRequest.getUserID());
+		tafelServer.publishMessage(publishRequest.getMessageID(), publishRequest.getUserID(), 0); // gruppen!
 		return "Nachricht mit ID=" + publishRequest.getMessageID() + " verÃ¶ffentlicht!";
 	}
 

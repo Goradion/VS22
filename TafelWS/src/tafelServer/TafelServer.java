@@ -22,6 +22,7 @@ import java.net.SocketAddress;
 import java.sql.Time;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -41,6 +42,7 @@ import verteilteAnzeigetafel.TafelException;
  */
 public class TafelServer {
 	private HashMap<Integer, LinkedBlockingDeque<ServerRequest>> queueMap = new HashMap<Integer, LinkedBlockingDeque<ServerRequest>>();
+	private HashMap<Integer, HashMap<Integer, LinkedBlockingDeque<ServerRequest>>> groupMap = new HashMap<Integer, HashMap<Integer, LinkedBlockingDeque<ServerRequest>>>();
 	private HashMap<Integer, SocketAddress> tafelAdressen = new HashMap<Integer, SocketAddress>();
 	private HashMap<Integer, OutboxThread> outboxThreads = new HashMap<Integer, OutboxThread>();
 	private HashMap<Integer, HeartbeatThread> heartbeatThreads = new HashMap<Integer, HeartbeatThread>();
@@ -48,36 +50,35 @@ public class TafelServer {
 	private int abteilungsID;
 	private TafelGUI gui;
 
-//	/**
-//	 * Processes command line arguments, configures and starts a new
-//	 * TafelServer.
-//	 * 
-//	 * @param args
-//	 *            command line arguments
-//	 * @throws Exception 
-//	 */
-//	public static void main(String[] args) throws Exception {
-//		TafelServer tafelServer = new TafelServer();
-//		if (args.length >= 1) {
-//			try {
-//				tafelServer.abteilungsID = Integer.parseInt(args[0]);
-//			} catch (NumberFormatException nfe) {
-//				System.out.println(args[0] + "ist keine Integerzahl");
-//				throw new Exception("Konnte TafelServer nicht starten.");
-//			}
-//		} else {
-//			tafelServer.abteilungsID = 1;
-//		}
-//
-//		tafelServer.start();
-//	}
-	
-	public TafelServer(int abteilungsID){
-			this.abteilungsID=abteilungsID;
-			init();
-			printMessages();
+	// /**
+	// * Processes command line arguments, configures and starts a new
+	// * TafelServer.
+	// *
+	// * @param args
+	// * command line arguments
+	// * @throws Exception
+	// */
+	// public static void main(String[] args) throws Exception {
+	// TafelServer tafelServer = new TafelServer();
+	// if (args.length >= 1) {
+	// try {
+	// tafelServer.abteilungsID = Integer.parseInt(args[0]);
+	// } catch (NumberFormatException nfe) {
+	// System.out.println(args[0] + "ist keine Integerzahl");
+	// throw new Exception("Konnte TafelServer nicht starten.");
+	// }
+	// } else {
+	// tafelServer.abteilungsID = 1;
+	// }
+	//
+	// tafelServer.start();
+	// }
+
+	public TafelServer(int abteilungsID) {
+		this.abteilungsID = abteilungsID;
+		init();
+		printMessages();
 	}
-	
 
 	/**
 	 * Initializes the TafelServer.
@@ -103,11 +104,12 @@ public class TafelServer {
 		loadTafelAdressenFromFile();
 	}
 
-	public synchronized String createMessage(String inhalt, int user, int abtNr, boolean oeffentlich) throws TafelException{
-		int msgID = anzeigetafel.createMessage(inhalt, user , abtNr, false);
+	public synchronized String createMessage(String inhalt, int user, int abtNr) throws TafelException {
+		int msgID = anzeigetafel.createMessage(inhalt, user, abtNr, false);
 		anzeigetafel.saveStateToFile();
 		return "Nachricht mit ID=" + msgID + " erstellt!";
 	}
+
 	/**
 	 * Publishes a message if possible. Set the message to public and try to
 	 * deliver it to other TafelServers.
@@ -119,17 +121,19 @@ public class TafelServer {
 	 * @throws TafelException
 	 *             if the Anzeigetafel rejects the publication.
 	 */
-	public synchronized String publishMessage(int messageID, int userID) throws InterruptedException, TafelException {
+	public synchronized String publishMessage(int messageID, int userID, int group)
+			throws InterruptedException, TafelException {
 		anzeigetafel.publishMessage(messageID, userID);
-		
-		for (LinkedBlockingDeque<ServerRequest> q : queueMap.values()) {
-			q.put(new ReceiveRequest(anzeigetafel.getMessages().get(messageID)));
+		HashMap<Integer, LinkedBlockingDeque<ServerRequest>> groupMembers = groupMap.get(group);
+		for (Integer abtNr : queueMap.keySet()) {
+			if (groupMembers.keySet().contains(abtNr)) {
+				queueMap.get(abtNr).put(new ReceiveRequest(anzeigetafel.getMessages().get(messageID)));
+			}
 		}
 		saveQueueMapToFile();
 		anzeigetafel.saveStateToFile();
 		return "Nachricht mit ID=" + messageID + " veröffentlicht!";
 	}
-
 
 	/**
 	 * Gets the messages of a given userID if possible.
@@ -140,7 +144,7 @@ public class TafelServer {
 	 *             if Anzeigetafel does not recognize the userID.
 	 */
 	public synchronized LinkedList<Message> getMessagesByUserID(int userID) throws TafelException {
-//		print("Showing Messages to user " + userID);
+		// print("Showing Messages to user " + userID);
 
 		return anzeigetafel.getMessagesByUserID(userID);
 	}
@@ -243,7 +247,7 @@ public class TafelServer {
 			Object obj = objinput.readObject();
 			qMap = (HashMap<Integer, LinkedBlockingDeque<ServerRequest>>) obj;
 			print("Queue-Backup geladen!");
-			
+
 		} catch (FileNotFoundException e) {
 			print("Kein Queue-Backup gefunden. Erstelle neues Backup...");
 			saveQueueMapToFile();
@@ -252,7 +256,7 @@ public class TafelServer {
 			printStackTrace(e);
 		} finally {
 			try {
-				if (objinput != null){
+				if (objinput != null) {
 					objinput.close();
 				}
 			} catch (IOException e) {
@@ -276,7 +280,6 @@ public class TafelServer {
 		}
 
 	}
-
 
 	private void loadTafelAdressenFromFile() {
 		int lines = 0;
@@ -368,8 +371,13 @@ public class TafelServer {
 	public HashMap<Integer, LinkedBlockingDeque<ServerRequest>> getQueueMap() {
 		return queueMap;
 	}
-	
-	public void deletePublicMessage(int messageID) {
+
+	public void deletePublicMessage(int messageID, int userID, int groupID) {
+		// TODO remove?
+		// if ((message.isOeffentlich() && message.getAbtNr() ==
+		// anzeigetafel.getAbteilungsID()))
+		// deletePublicMessage(messageID);
+
 		for (LinkedBlockingDeque<ServerRequest> q : queueMap.values()) {
 			try {
 				q.put(new DeletePublicRequest(messageID));
@@ -391,25 +399,19 @@ public class TafelServer {
 		saveQueueMapToFile();
 	}
 
-
-	public String deleteMessage(int messageID, int user) throws TafelException {
+	public synchronized String deleteMessage(int messageID, int user) throws TafelException {
 		String antwort = "Nachricht mit ID=" + messageID + " gelöscht!";
 		Message message = anzeigetafel.getMessageByID(messageID);
 		if (message == null) {
 			return "Nachricht mit ID =" + messageID + " nicht gefunden";
 		}
-		if (message.getAbtNr() != anzeigetafel.getAbteilungsID()){
+		if (message.getAbtNr() != anzeigetafel.getAbteilungsID()) {
 			return "Nachricht geh�rt nicht zur Abteilung!";
 		}
 		anzeigetafel.deleteMessage(messageID, user);
-		//TODO remove?
-		if ((message.isOeffentlich() && message.getAbtNr() == anzeigetafel.getAbteilungsID()))
-			deletePublicMessage(messageID);
-
 		anzeigetafel.saveStateToFile();
 		return antwort;
 	}
-
 
 	public String modifyMessage(int messageID, String inhalt, int user) throws TafelException {
 		String antwort = "Nachricht mit ID=" + messageID + " geändert!";
@@ -417,12 +419,11 @@ public class TafelServer {
 		if (message == null) {
 			return "Nachricth mit ID= " + messageID + " nicht gefunden!";
 		}
-		if (message.getAbtNr() != anzeigetafel.getAbteilungsID()){
+		if (message.getAbtNr() != anzeigetafel.getAbteilungsID()) {
 			return "Nachricht geh�rt nicht zur Abteilung!";
 		}
-		anzeigetafel.modifyMessage(messageID, inhalt,
-				user);
-		//TODO remove?
+		anzeigetafel.modifyMessage(messageID, inhalt, user);
+		// TODO remove?
 		if ((message.isOeffentlich() && message.getAbtNr() == anzeigetafel.getAbteilungsID())) {
 			modifyPublicMessage(messageID, inhalt);
 		}
@@ -431,9 +432,8 @@ public class TafelServer {
 		return antwort;
 	}
 
-
-	public void receiveMessage(int messageID, int userID, int abtNr, String inhalt, boolean oeffentlich, Date time) throws TafelException {
-		anzeigetafel.receiveMessage(new Message(inhalt, userID, abtNr, oeffentlich, messageID));
+	public void receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time) throws TafelException {
+		anzeigetafel.receiveMessage(new Message(inhalt, userID, abtNr, true, messageID));
 		anzeigetafel.saveStateToFile();
 	}
 

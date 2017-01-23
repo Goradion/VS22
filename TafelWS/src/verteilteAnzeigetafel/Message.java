@@ -2,6 +2,8 @@ package verteilteAnzeigetafel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.HashSet;
 
 public class Message implements Serializable {
 
@@ -11,9 +13,10 @@ public class Message implements Serializable {
 	private int abtNr;
 	private String inhalt;
 	private boolean oeffentlich;
-	private LocalDateTime time;
+	private HashSet<Integer> gruppen = new HashSet<Integer>();
+	private Date time;
 
-	public Message(int messageID, int userID, int abtNr, String inhalt, boolean oeffentlich, LocalDateTime time) {
+	public Message(int messageID, int userID, int abtNr, String inhalt, boolean oeffentlich, Date time) {
 		super();
 		this.messageID = messageID;
 		this.userID = userID;
@@ -28,7 +31,7 @@ public class Message implements Serializable {
 		this.userID = userID;
 		this.abtNr = abtNr;
 		this.oeffentlich = oeffentlich;
-		time = LocalDateTime.now();
+		time = new Date();
 		this.messageID = msgID;
 
 	}
@@ -54,12 +57,16 @@ public class Message implements Serializable {
 	public String getInhalt() {
 		return inhalt;
 	}
+	
+	public void setInhalt (String inhalt){
+		this.inhalt = inhalt;
+	}
 
 	public boolean isOeffentlich() {
 		return oeffentlich;
 	}
 
-	public LocalDateTime getTime() {
+	public Date getTime() {
 		return time;
 	}
 
