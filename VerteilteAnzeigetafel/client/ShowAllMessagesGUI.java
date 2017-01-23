@@ -66,8 +66,8 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     	} else {
     		text += m.getInhalt();
     	}
-    	text += "\n" + "------------------------------------"
-    				+ "--------------------------------------------------\n";
+    	text += "\n" + "____________________________________"
+    				+ "______________\n";
     	}
     	messageTextArea.setText(text);
 	}
@@ -236,7 +236,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
-    }// </editor-fold>                        
+    }// </editor_fold>                        
     @Override
 	/** 
 	 * ActionListener 
@@ -256,7 +256,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
  * MesssageTextFeld funktionen
  * @param evt
  */
-	private void messageIDTextFieldMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_messageIDTextFieldMouseClicked
+	private void messageIDTextFieldMouseClicked(java.awt.event.MouseEvent evt) {// GEN_FIRST:event_messageIDTextFieldMouseClicked
 		messageIDTextField.setText("");
 	}
 	
