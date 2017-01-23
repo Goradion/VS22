@@ -11,32 +11,18 @@ import javax.jws.soap.SOAPBinding.Use;
 
 @WebService
 @SOAPBinding(style = Style.DOCUMENT, parameterStyle = ParameterStyle.WRAPPED, use = Use.LITERAL)
-public interface TafelWebService{
+public interface ServerComWebservice {
 	
 	@WebMethod
-	public String createMessage(String inhalt, int user, int abtNr);
+	public boolean receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time);
 	
 	@WebMethod
-	public String deleteMessage(int messageID, int user);
-	
-	@WebMethod
-	public String modifyMessage(int messageID, String inhalt, int user);
-	
-	@WebMethod
-	public String[] showMessages(int user);
-	
-	@WebMethod
-	public String publishMessage(int messageID, int user, int group);
+	public boolean registerServer(int abtNr, String address);
 	
 	@WebMethod
 	public boolean deletePublic(int msgID ,int abtNr, int group);
 	
 	@WebMethod
 	public boolean modifyPublic(int msgID, int abtNr, int group, String inhalt);
-	
-	@WebMethod
-	public String[] startTafelServer(int abtNr);
-	
-	@WebMethod
-	public String[] stopTafelServer(String[] message);
+
 }

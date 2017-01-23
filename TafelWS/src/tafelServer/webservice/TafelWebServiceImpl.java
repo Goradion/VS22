@@ -1,7 +1,5 @@
 package tafelServer.webservice;
 
-import java.net.InetSocketAddress;
-import java.util.Date;
 import java.util.LinkedList;
 
 import javax.jws.WebService;
@@ -14,16 +12,21 @@ import verteilteAnzeigetafel.TafelException;
 public class TafelWebServiceImpl implements TafelWebService {
 	TafelServer tafelServer;
 
-//	public TafelWebServiceImpl(int abteilungsID) {
-//		super();
-//		this.tafelServer = new TafelServer(abteilungsID);
-//	}
+	// public TafelWebServiceImpl(int abteilungsID) {
+	// super();
+	// this.tafelServer = new TafelServer(abteilungsID);
+	// }
 
-	public String createMessage(String inhalt, int user, int abtNr, boolean oeffentlich) {
+	public TafelWebServiceImpl(TafelServer tafelServer2) {
+		super();
+		tafelServer = tafelServer2;
+	}
+
+	public String createMessage(String inhalt, int user, int abtNr) {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				answer = tafelServer.createMessage(inhalt, user, abtNr, oeffentlich);
+				answer = tafelServer.createMessage(inhalt, user, abtNr);
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			}
@@ -58,11 +61,11 @@ public class TafelWebServiceImpl implements TafelWebService {
 		return null;
 	}
 
-	public String publishMessage(int messageID, int user) {
+	public String publishMessage(int messageID, int user, int group) {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				answer = tafelServer.publishMessage(messageID, user);
+				answer = tafelServer.publishMessage(messageID, user, group);
 			} catch (InterruptedException e) {
 				tafelServer.printStackTrace(e);
 				answer = "Internal Server Error: e.getMessage()";
@@ -122,27 +125,14 @@ public class TafelWebServiceImpl implements TafelWebService {
 	}
 
 	@Override
-	public boolean receiveMessage(int messageID, int userID, int abtNr, String inhalt, boolean oeffentlich, Date time) {
-		try {
-			tafelServer.receiveMessage(messageID, userID, abtNr, inhalt, oeffentlich, time);
-		} catch (TafelException e) {
-			return false;
-		}
-		return true;
+	public boolean deletePublic(int msgID, int user, int group) {
+		tafelServer.deletePublicMessage(msgID, user, group);
+		return false;
 	}
 
 	@Override
-	public boolean registerServer(int abtNr, String address) {
-		String[] addressParts = address.split(":");
-		try {
-			tafelServer.registerTafel(abtNr, new InetSocketAddress(addressParts[0], Integer.parseInt(addressParts[1])));
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TafelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public boolean modifyPublic(int msgID, int abtNr, int group, String inhalt) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
