@@ -172,4 +172,9 @@ public class ClientGui extends JFrame{
     	this.repaint();
     	newMessageGUI.repaint();
     }
+    public void setPublish(boolean enable){
+    	
+    	showAllMessagesGUI.setPublish(enable);
+    }
 }
+
