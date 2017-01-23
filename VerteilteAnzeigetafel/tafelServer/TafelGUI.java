@@ -18,38 +18,60 @@ public class TafelGUI implements Observer {
     private JTextArea globalMessages;
     private JScrollPane localScroll;
     private JScrollPane globalScroll;
+    private JTextArea[] gruppenMessages;
+    private JScrollPane[] gruppenScroll;
+    private int[] gruppen;
     
-    TafelGUI(int abteilung, TafelServer ts){
+    TafelGUI(int abteilung, TafelServer ts,int[] gruppen){
         this.window = new JFrame("Abteilung "+Integer.toString(abteilung));
+        this.gruppen = gruppen;
+        gruppenMessages = new JTextArea[gruppen.length];
+        gruppenScroll = new JScrollPane[gruppen.length];
+        for(int i = 0; i< gruppen.length;i++){
+        	gruppenMessages[i] = new JTextArea();
+        	gruppenMessages[i].setEditable(false);
+        	gruppenScroll[i] = new JScrollPane (); 
+        	
+        	           
+        	
+        	
+        }
+
         
+        for(int i = 0; i< gruppen.length;i++){
+        	this.gruppenScroll[i] = new JScrollPane(gruppenMessages[i]);
+            gruppenScroll[i].setBorder(new TitledBorder("Gruppe " + gruppen[i] ));
+        }
+
         this.localMessages = new JTextArea();
         localMessages.setEditable(false);
-//        localMessages.setPreferredSize(new Dimension(200,150));
-//        localMessages.setBorder(new TitledBorder("Local messages"));
-//        localMessages.setSize(new Dimension(200,150));
+
         
         this.globalMessages = new JTextArea();
         globalMessages.setEditable(false);
-//        globalMessages.setPreferredSize(new Dimension(200,150));
-//        globalMessages.setBorder(new TitledBorder("Global messages"));
-//        globalMessages.setSize(new Dimension(200,150));
+
         
         
         this.localScroll = new JScrollPane(localMessages);
         localScroll.setBorder(new TitledBorder("Local messages"));
-        localScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        localScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
         
         this.globalScroll = new JScrollPane(globalMessages);
         globalScroll.setBorder(new TitledBorder("Global messages"));
-        globalScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        globalScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
         
-        window.setLayout(new GridLayout(2,1));
+        window.setLayout(new GridLayout(gruppen.length + 2,1));
+        
+        
         window.add(localScroll);
+        for(int i = 0; i < gruppen.length;i++)
+        {
+        	window.add(gruppenScroll[i]);
+        }
         window.add(globalScroll);
-        window.setPreferredSize(new Dimension(400,300));
-        window.setSize(new Dimension(400,300));
+        
+        window.setPreferredSize(new Dimension(400,gruppen.length *200 +300));
+        window.setSize(new Dimension(400,gruppen.length *200 +300));
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         window.setVisible(true);
@@ -69,6 +91,13 @@ public class TafelGUI implements Observer {
             globalMessages.append("Abt: "+m.getAbtNr()+'\t'+"UserID: "
                     + m.getUserID()+'\t'+"Zeit: "+m.getTime()+'\n'
                     +m.getInhalt()+'\n'+'\n');
+        }
+        for(int i = 0; i < gruppen.length;i++){
+	        for(Message m: at.getGroupMsgs(gruppen[i])){
+	            gruppenMessages[i].append("Abt: "+m.getAbtNr()+'\t'+"UserID: "
+	                    + m.getUserID()+'\t'+"Zeit: "+m.getTime()+'\n'
+	                    +m.getInhalt()+'\n'+'\n');
+	        }
         }
     }    
 }
