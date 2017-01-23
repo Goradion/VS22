@@ -20,6 +20,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.sql.Time;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -118,13 +119,15 @@ public class TafelServer {
 	 * @throws TafelException
 	 *             if the Anzeigetafel rejects the publication.
 	 */
-	public synchronized void publishMessage(int messageID, int userID) throws InterruptedException, TafelException {
+	public synchronized String publishMessage(int messageID, int userID) throws InterruptedException, TafelException {
 		anzeigetafel.publishMessage(messageID, userID);
+		
 		for (LinkedBlockingDeque<ServerRequest> q : queueMap.values()) {
 			q.put(new ReceiveRequest(anzeigetafel.getMessages().get(messageID)));
 		}
 		saveQueueMapToFile();
 		anzeigetafel.saveStateToFile();
+		return "Nachricht mit ID=" + messageID + " veröffentlicht!";
 	}
 
 
@@ -137,7 +140,7 @@ public class TafelServer {
 	 *             if Anzeigetafel does not recognize the userID.
 	 */
 	public synchronized LinkedList<Message> getMessagesByUserID(int userID) throws TafelException {
-		print("Showing Messages to user " + userID);
+//		print("Showing Messages to user " + userID);
 
 		return anzeigetafel.getMessagesByUserID(userID);
 	}
@@ -386,6 +389,52 @@ public class TafelServer {
 			}
 		}
 		saveQueueMapToFile();
+	}
+
+
+	public String deleteMessage(int messageID, int user) throws TafelException {
+		String antwort = "Nachricht mit ID=" + messageID + " gelöscht!";
+		Message message = anzeigetafel.getMessageByID(messageID);
+		if (message == null) {
+			return "Nachricht mit ID =" + messageID + " nicht gefunden";
+		}
+		if (message.getAbtNr() != anzeigetafel.getAbteilungsID()){
+			return "Nachricht geh�rt nicht zur Abteilung!";
+		}
+		anzeigetafel.deleteMessage(messageID, user);
+		//TODO remove?
+		if ((message.isOeffentlich() && message.getAbtNr() == anzeigetafel.getAbteilungsID()))
+			deletePublicMessage(messageID);
+
+		anzeigetafel.saveStateToFile();
+		return antwort;
+	}
+
+
+	public String modifyMessage(int messageID, String inhalt, int user) throws TafelException {
+		String antwort = "Nachricht mit ID=" + messageID + " geändert!";
+		Message message = anzeigetafel.getMessageByID(messageID);
+		if (message == null) {
+			return "Nachricth mit ID= " + messageID + " nicht gefunden!";
+		}
+		if (message.getAbtNr() != anzeigetafel.getAbteilungsID()){
+			return "Nachricht geh�rt nicht zur Abteilung!";
+		}
+		anzeigetafel.modifyMessage(messageID, inhalt,
+				user);
+		//TODO remove?
+		if ((message.isOeffentlich() && message.getAbtNr() == anzeigetafel.getAbteilungsID())) {
+			modifyPublicMessage(messageID, inhalt);
+		}
+
+		anzeigetafel.saveStateToFile();
+		return antwort;
+	}
+
+
+	public void receiveMessage(int messageID, int userID, int abtNr, String inhalt, boolean oeffentlich, Date time) throws TafelException {
+		anzeigetafel.receiveMessage(new Message(inhalt, userID, abtNr, oeffentlich, messageID));
+		anzeigetafel.saveStateToFile();
 	}
 
 }
