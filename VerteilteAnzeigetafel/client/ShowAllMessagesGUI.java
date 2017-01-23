@@ -17,9 +17,6 @@ import verteilteAnzeigetafel.Message;
 
 //TODO Deaktivierung Publish falls kein Koordinator
 //bzw ausblenden, von aussen also Funktion nötig dafür
-// Action Listener Button muss nach aussen gegeben werden
-// Auslesbar was ausgewählt wurde von aussen (Change/delete/publish| Nachricht ansich)
-// Was muss in der Message id enthalten sein?
 
 public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 
@@ -270,7 +267,6 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
  * @param evt
  */
 	private void publishMessageItemStateChanged(java.awt.event.ItemEvent evt) {
-		// TODO add your handling code here:
 		if (publishMessage.isSelected()) {	
 			messageIDTextField.setEnabled(true);
 		}
@@ -280,7 +276,6 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
  * @param evt
  */
 	private void changeMessageItemStateChanged(java.awt.event.ItemEvent evt) {
-		// TODO wechsel zur anderen GUI einfügen der wechsel findet in Client statt, bzw in ClientGUI
 		if (changeMessage.isSelected()) {
 			
 			messageIDTextField.setEnabled(true);
@@ -293,7 +288,6 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
  * @param evt
  */
 	private void deleteMessageItemStateChanged(java.awt.event.ItemEvent evt) {
-		// TODO add your handling code here:
 		if (deleteMessage.isSelected()) {
 			messageIDTextField.setEnabled(true);
 		}
@@ -319,6 +313,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     }
     
     public Message getMessage(){
+    	//TODO Die Liste der Nachrichten durchsuchen nach der ID
     	return msgs.get(Integer.parseInt(messageIDTextField.getText()));
     }
 
