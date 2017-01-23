@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://webservice.tafelServer" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://webservice.tafelServer" xmlns:intf="http://webservice.tafelServer" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://webservice.tafelServer" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="registerServer">
+    <complexType>
+     <sequence>
+      <element name="abtNr" type="xsd:int"/>
+      <element name="address" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="registerServerResponse">
+    <complexType>
+     <sequence>
+      <element name="registerServerReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deleteMessage">
+    <complexType>
+     <sequence>
+      <element name="messageID" type="xsd:int"/>
+      <element name="user" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deleteMessageResponse">
+    <complexType>
+     <sequence>
+      <element name="deleteMessageReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="modifyMessage">
+    <complexType>
+     <sequence>
+      <element name="messageID" type="xsd:int"/>
+      <element name="inhalt" type="xsd:string"/>
+      <element name="user" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="modifyMessageResponse">
+    <complexType>
+     <sequence>
+      <element name="modifyMessageReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="publishMessage">
+    <complexType>
+     <sequence>
+      <element name="messageID" type="xsd:int"/>
+      <element name="user" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="publishMessageResponse">
+    <complexType>
+     <sequence>
+      <element name="publishMessageReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="startTafelServer">
+    <complexType>
+     <sequence>
+      <element name="antNr" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="startTafelServerResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="startTafelServerReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="stopTafelServer">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="message" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="stopTafelServerResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="stopTafelServerReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="receiveMessage">
+    <complexType>
+     <sequence>
+      <element name="messageID" type="xsd:int"/>
+      <element name="userID" type="xsd:int"/>
+      <element name="abtNr" type="xsd:int"/>
+      <element name="inhalt" type="xsd:string"/>
+      <element name="oeffentlich" type="xsd:boolean"/>
+      <element name="time" type="xsd:dateTime"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="receiveMessageResponse">
+    <complexType>
+     <sequence>
+      <element name="receiveMessageReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="showMessages">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="showMessagesResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="showMessagesReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="createMessage">
+    <complexType>
+     <sequence>
+      <element name="inhalt" type="xsd:string"/>
+      <element name="user" type="xsd:int"/>
+      <element name="abtNr" type="xsd:int"/>
+      <element name="oeffentlich" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="createMessageResponse">
+    <complexType>
+     <sequence>
+      <element name="createMessageReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="modifyMessageRequest">
+
+      <wsdl:part element="impl:modifyMessage" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="modifyMessageResponse">
+
+      <wsdl:part element="impl:modifyMessageResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="createMessageRequest">
+
+      <wsdl:part element="impl:createMessage" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="receiveMessageResponse">
+
+      <wsdl:part element="impl:receiveMessageResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="publishMessageRequest">
+
+      <wsdl:part element="impl:publishMessage" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="stopTafelServerResponse">
+
+      <wsdl:part element="impl:stopTafelServerResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteMessageResponse">
+
+      <wsdl:part element="impl:deleteMessageResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteMessageRequest">
+
+      <wsdl:part element="impl:deleteMessage" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="receiveMessageRequest">
+
+      <wsdl:part element="impl:receiveMessage" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="showMessagesResponse">
+
+      <wsdl:part element="impl:showMessagesResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="createMessageResponse">
+
+      <wsdl:part element="impl:createMessageResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="publishMessageResponse">
+
+      <wsdl:part element="impl:publishMessageResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="stopTafelServerRequest">
+
+      <wsdl:part element="impl:stopTafelServer" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="registerServerResponse">
+
+      <wsdl:part element="impl:registerServerResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="startTafelServerResponse">
+
+      <wsdl:part element="impl:startTafelServerResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="showMessagesRequest">
+
+      <wsdl:part element="impl:showMessages" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="startTafelServerRequest">
+
+      <wsdl:part element="impl:startTafelServer" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="registerServerRequest">
+
+      <wsdl:part element="impl:registerServer" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="TafelWebServiceImpl">
+
+      <wsdl:operation name="registerServer">
+
+         <wsdl:input message="impl:registerServerRequest" name="registerServerRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:registerServerResponse" name="registerServerResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteMessage">
+
+         <wsdl:input message="impl:deleteMessageRequest" name="deleteMessageRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:deleteMessageResponse" name="deleteMessageResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="modifyMessage">
+
+         <wsdl:input message="impl:modifyMessageRequest" name="modifyMessageRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:modifyMessageResponse" name="modifyMessageResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="publishMessage">
+
+         <wsdl:input message="impl:publishMessageRequest" name="publishMessageRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:publishMessageResponse" name="publishMessageResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="startTafelServer">
+
+         <wsdl:input message="impl:startTafelServerRequest" name="startTafelServerRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:startTafelServerResponse" name="startTafelServerResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="stopTafelServer">
+
+         <wsdl:input message="impl:stopTafelServerRequest" name="stopTafelServerRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:stopTafelServerResponse" name="stopTafelServerResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="receiveMessage">
+
+         <wsdl:input message="impl:receiveMessageRequest" name="receiveMessageRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:receiveMessageResponse" name="receiveMessageResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="showMessages">
+
+         <wsdl:input message="impl:showMessagesRequest" name="showMessagesRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:showMessagesResponse" name="showMessagesResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createMessage">
+
+         <wsdl:input message="impl:createMessageRequest" name="createMessageRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:createMessageResponse" name="createMessageResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="TafelWebServiceImplSoapBinding" type="impl:TafelWebServiceImpl">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="registerServer">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="registerServerRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="registerServerResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteMessage">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteMessageRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteMessageResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="modifyMessage">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="modifyMessageRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="modifyMessageResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="publishMessage">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="publishMessageRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="publishMessageResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="startTafelServer">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="startTafelServerRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="startTafelServerResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="stopTafelServer">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="stopTafelServerRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="stopTafelServerResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="receiveMessage">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="receiveMessageRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="receiveMessageResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="showMessages">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="showMessagesRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="showMessagesResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createMessage">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="createMessageRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="createMessageResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="TafelWebServiceImplService">
+
+      <wsdl:port binding="impl:TafelWebServiceImplSoapBinding" name="TafelWebServiceImpl">
+
+         <wsdlsoap:address location="http://localhost:8080/TafelWS/services/TafelWebServiceImpl"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

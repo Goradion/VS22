@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from TafelWebServiceImplService WSDL service -->
+
+  <service name="TafelWebServiceImpl" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://webservice.tafelServer"/>
+      <parameter name="wsdlServiceElement" value="TafelWebServiceImplService"/>
+      <parameter name="schemaQualified" value="http://webservice.tafelServer"/>
+      <parameter name="wsdlServicePort" value="TafelWebServiceImpl"/>
+      <parameter name="className" value="tafelServer.webservice.TafelWebServiceImpl"/>
+      <parameter name="wsdlPortType" value="TafelWebServiceImpl"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://webservice.tafelServer" xmlns:retNS="http://webservice.tafelServer" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="deleteMessage" qname="operNS:deleteMessage" returnQName="retNS:deleteMessageReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://webservice.tafelServer" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:message" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://webservice.tafelServer" xmlns:retNS="http://webservice.tafelServer" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="startTafelServer" qname="operNS:startTafelServer" returnQName="retNS:startTafelServerReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://webservice.tafelServer" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:message" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://webservice.tafelServer" xmlns:retNS="http://webservice.tafelServer" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="modifyMessage" qname="operNS:modifyMessage" returnQName="retNS:modifyMessageReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://webservice.tafelServer" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:message" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://webservice.tafelServer" xmlns:retNS="http://webservice.tafelServer" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="createMessage" qname="operNS:createMessage" returnQName="retNS:createMessageReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://webservice.tafelServer" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:message" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://webservice.tafelServer" xmlns:retNS="http://webservice.tafelServer" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="showMessage" qname="operNS:showMessage" returnQName="retNS:showMessageReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://webservice.tafelServer" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:message" type="tns:string"/>
+      </operation>
+      <parameter name="allowedMethods" value="startTafelServer modifyMessage showMessage createMessage deleteMessage"/>
+
+  </service>
+</deployment>
