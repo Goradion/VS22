@@ -30,6 +30,10 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     private javax.swing.JTextArea messageTextArea;
     private javax.swing.JTextField  messageIDTextField;
     private List<Message> msgs;
+    private javax.swing.JCheckBox gruppe1;
+    private javax.swing.JCheckBox gruppe2;
+    private javax.swing.JCheckBox gruppe3;
+    private javax.swing.JCheckBox gruppe4;
 
     
 	private static final long serialVersionUID = -1673246373722125477L;
@@ -84,7 +88,15 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
         jLabel = new javax.swing.JLabel();
         messageIDTextField = new javax.swing.JTextField();
         sendQueryButton = new javax.swing.JButton();
+        gruppe1 = new javax.swing.JCheckBox();
+        gruppe2= new javax.swing.JCheckBox();
+        gruppe3= new javax.swing.JCheckBox();
+        gruppe4= new javax.swing.JCheckBox();
 
+        gruppe1.setText("Gruppe1");
+        gruppe2.setText("Gruppe2");
+        gruppe3.setText("Gruppe3");
+        gruppe4.setText("Gruppe4");
         
         // ButtonGruppe
         buttonGroup1.add(deleteMessage);
@@ -172,12 +184,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 				messageIDTextFieldMouseClicked(evt);
 			}
 		});
-	/*	messageIDTextField.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				
-			}
-		});
-		*/
+
 		messageIDTextField.addCaretListener(new javax.swing.event.CaretListener(){
 
 			@Override
@@ -217,52 +224,70 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
          * 
          */
         
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(changeMessage)
-                            .addComponent(deleteMessage)
-                            .addComponent(publishMessage))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(420, 420, 420)
-                .addComponent( messageIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(sendQueryButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                //.addGap(157, 157, 157)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(changeMessage)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteMessage)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(publishMessage)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent( messageIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sendQueryButton)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
-        );
+	      javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+	        this.setLayout(layout);
+	        layout.setHorizontalGroup(
+	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	            .addGroup(layout.createSequentialGroup()
+	                .addGap(20, 20, 20)
+	                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                    .addGroup(layout.createSequentialGroup()
+	                        .addGap(38, 38, 38)
+	                        .addComponent(jLabel)
+	                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                        .addComponent(gruppe4))
+	                    .addGroup(layout.createSequentialGroup()
+	                        .addGap(32, 32, 32)
+	                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                            .addGroup(layout.createSequentialGroup()
+	                                .addComponent(publishMessage)
+	                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                                .addComponent(gruppe3))
+	                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+	                                .addComponent(deleteMessage)
+	                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                                .addComponent(gruppe2))
+	                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+	                                .addComponent(changeMessage)
+	                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                                .addComponent(gruppe1)))))
+	                .addGap(22, 22, 22))
+	            .addGroup(layout.createSequentialGroup()
+	                .addGap(420, 420, 420)
+	                .addComponent(messageIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                .addGap(27, 27, 27)
+	                .addComponent(sendQueryButton)
+	                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+	        );
+	        layout.setVerticalGroup(
+	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	            .addGroup(layout.createSequentialGroup()
+	                //.addGap(157, 157, 157)
+	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                    .addGroup(layout.createSequentialGroup()
+	                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+	                            .addComponent(changeMessage)
+	                            .addComponent(gruppe1))
+	                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+	                            .addComponent(deleteMessage)
+	                            .addComponent(gruppe2))
+	                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+	                            .addComponent(publishMessage)
+	                            .addComponent(gruppe3))
+	                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+	                            .addComponent(jLabel)
+	                            .addComponent(gruppe4))
+	                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+	                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+	                            .addComponent(messageIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                            .addComponent(sendQueryButton)))
+	                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+	                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+	        );
 
     }// </editor_fold>                        
     @Override
@@ -373,6 +398,10 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     public void setPublish(boolean enable){
     	
     	publishMessage.setVisible(enable);
+    	gruppe1.setVisible(enable);
+    	gruppe2.setVisible(enable);
+    	gruppe3.setVisible(enable);
+    	gruppe4.setVisible(enable);
     }
 
 

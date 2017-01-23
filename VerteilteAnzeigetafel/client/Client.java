@@ -114,6 +114,9 @@ public class Client {
 
 	private static void changeMessage(ActionEvent evt) {
 		// TODO Auto-generated method stub
+		Message myMsg = clientGui.getSelectedMessage();
+	//TODO Nachricht ändern und speichern
+		clientGui.showShowMessages(msgs);
 		
 	}
 }
