@@ -138,17 +138,46 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
          * MessageIDTextField Actionlistener usw
          */
         messageIDTextField.setText("MsgID eingeben");
-		
+        
+		messageIDTextField.addKeyListener(new java.awt.event.KeyListener(){
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				
+				
+				if (arg0.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					sendQueryButton.doClick();
+					
+				}
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+				
+			}
+
+
+			});
         messageIDTextField.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				messageIDTextFieldMouseClicked(evt);
 			}
 		});
-		messageIDTextField.addActionListener(new java.awt.event.ActionListener() {
+	/*	messageIDTextField.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				messageIDTextFieldActionPerformed(evt);
+				
 			}
 		});
+		*/
 		messageIDTextField.addCaretListener(new javax.swing.event.CaretListener(){
 
 			@Override
@@ -175,13 +204,12 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 
         sendQueryButton.setText("Send query");
         sendQueryButton.setEnabled(false);
+   
         
         
 		sendQueryButton.addMouseListener(new java.awt.event.MouseAdapter() {
-			
-			/*		public void mouseClicked(java.awt.event.MouseEvent evt) {
-				sendQueryButtonMouseClicked(evt);
-			}*/
+		
+		
 		});
 
         /**
@@ -247,11 +275,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 	}
 
 //testfunktion für den send query button
-	public void keyPressed(KeyEvent evt) {
 
-		if (evt.getKeyCode() == KeyEvent.VK_ENTER)
-			System.out.println("Button1 gedrueckt");
-	}
 /** 
  * MesssageTextFeld funktionen
  * @param evt
@@ -260,9 +284,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 		messageIDTextField.setText("");
 	}
 	
-	private void messageIDTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-	}
+	
 
 	protected void messageIDTextFieldCaretMoved(CaretEvent e) {
 		
@@ -323,6 +345,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 
     public void SendButtonAddActionListener(java.awt.event.ActionListener listener){
     	sendQueryButton.addActionListener(listener);
+    	
     }
     
     public Message getMessage(){
@@ -353,7 +376,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     }
 
 
-    
+  
     
     
     

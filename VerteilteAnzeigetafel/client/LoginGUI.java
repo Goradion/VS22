@@ -1,5 +1,7 @@
 package client;
 
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author Ch4in
@@ -51,6 +53,36 @@ public class LoginGUI extends javax.swing.JPanel {
         stateLabel.setText("Status: connected");
 
         anmeldeLabel.setText("Nicht angemeldet");
+        
+       jTextField1.addKeyListener(new java.awt.event.KeyListener(){
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("hallo");
+				if (arg0.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					anmeldeButton.doClick();
+					
+				}
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+
+			});
+
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
