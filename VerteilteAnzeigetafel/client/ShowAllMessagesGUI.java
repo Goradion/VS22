@@ -50,7 +50,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 
                         
     private void fillTextField(List<Message> msgs) {
-		// TODO Auto-generated method stub
+		
     	String text = "";
     	for(Message m : msgs){
     		text += "MsgID"  + " :"+ m.getMessageID() + "\t Time: " + m.getTime()+"\n" + m.getInhalt() +"\n" + "------------------------------------"
@@ -153,7 +153,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				// TODO Auto-generated method stub
+				
 				
 			}
 			
@@ -229,7 +229,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 	 * ActionListener 
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -313,7 +313,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     }
     
     public Message getMessage(){
-    	//TODO Die Liste der Nachrichten durchsuchen nach der ID
+    	
     	return msgs.get(Integer.parseInt(messageIDTextField.getText()));
     }
 
