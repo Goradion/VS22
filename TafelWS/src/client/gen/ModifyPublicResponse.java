@@ -8,12 +8,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for registerServerResponse complex type.
+ * <p>Java-Klasse für modifyPublicResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="registerServerResponse">
+ * &lt;complexType name="modifyPublicResponse">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -27,16 +27,16 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "registerServerResponse", propOrder = {
+@XmlType(name = "modifyPublicResponse", propOrder = {
     "_return"
 })
-public class RegisterServerResponse {
+public class ModifyPublicResponse {
 
     @XmlElement(name = "return")
     protected boolean _return;
 
     /**
-     * Gets the value of the return property.
+     * Ruft den Wert der return-Eigenschaft ab.
      * 
      */
     public boolean isReturn() {
@@ -44,7 +44,7 @@ public class RegisterServerResponse {
     }
 
     /**
-     * Sets the value of the return property.
+     * Legt den Wert der return-Eigenschaft fest.
      * 
      */
     public void setReturn(boolean value) {

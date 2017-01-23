@@ -77,13 +77,13 @@ public class TafelWebServiceImpl implements TafelWebService {
 		return null;
 	}
 
-	public String[] startTafelServer(int antNr) {
+	public String[] startTafelServer(int abtNr) {
 		String reply[] = new String[1];
 
 		// TODO implement access permissions for starting the server
 
 		if (tafelServer == null) {
-			tafelServer = new TafelServer(antNr);
+			tafelServer = new TafelServer(abtNr);
 			reply[0] = "TafelServer started successfully.";
 		} else {
 			reply[0] = "Server is already running.";

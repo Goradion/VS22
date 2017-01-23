@@ -3,18 +3,16 @@ package client.gen;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
- * <p>Java class for receiveMessage complex type.
+ * <p>Java-Klasse für modifyPublic complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="receiveMessage">
+ * &lt;complexType name="modifyPublic">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -22,8 +20,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="arg1" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="arg2" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="arg3" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="arg4" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="arg5" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,26 +29,21 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "receiveMessage", propOrder = {
+@XmlType(name = "modifyPublic", propOrder = {
     "arg0",
     "arg1",
     "arg2",
-    "arg3",
-    "arg4",
-    "arg5"
+    "arg3"
 })
-public class ReceiveMessage {
+public class ModifyPublic {
 
     protected int arg0;
     protected int arg1;
     protected int arg2;
     protected String arg3;
-    protected boolean arg4;
-    @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar arg5;
 
     /**
-     * Gets the value of the arg0 property.
+     * Ruft den Wert der arg0-Eigenschaft ab.
      * 
      */
     public int getArg0() {
@@ -60,7 +51,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Sets the value of the arg0 property.
+     * Legt den Wert der arg0-Eigenschaft fest.
      * 
      */
     public void setArg0(int value) {
@@ -68,7 +59,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Gets the value of the arg1 property.
+     * Ruft den Wert der arg1-Eigenschaft ab.
      * 
      */
     public int getArg1() {
@@ -76,7 +67,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Sets the value of the arg1 property.
+     * Legt den Wert der arg1-Eigenschaft fest.
      * 
      */
     public void setArg1(int value) {
@@ -84,7 +75,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Gets the value of the arg2 property.
+     * Ruft den Wert der arg2-Eigenschaft ab.
      * 
      */
     public int getArg2() {
@@ -92,7 +83,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Sets the value of the arg2 property.
+     * Legt den Wert der arg2-Eigenschaft fest.
      * 
      */
     public void setArg2(int value) {
@@ -100,7 +91,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Gets the value of the arg3 property.
+     * Ruft den Wert der arg3-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -112,7 +103,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Sets the value of the arg3 property.
+     * Legt den Wert der arg3-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -121,46 +112,6 @@ public class ReceiveMessage {
      */
     public void setArg3(String value) {
         this.arg3 = value;
-    }
-
-    /**
-     * Gets the value of the arg4 property.
-     * 
-     */
-    public boolean isArg4() {
-        return arg4;
-    }
-
-    /**
-     * Sets the value of the arg4 property.
-     * 
-     */
-    public void setArg4(boolean value) {
-        this.arg4 = value;
-    }
-
-    /**
-     * Gets the value of the arg5 property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public XMLGregorianCalendar getArg5() {
-        return arg5;
-    }
-
-    /**
-     * Sets the value of the arg5 property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setArg5(XMLGregorianCalendar value) {
-        this.arg5 = value;
     }
 
 }

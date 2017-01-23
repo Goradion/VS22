@@ -8,12 +8,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for receiveMessageResponse complex type.
+ * <p>Java-Klasse für deletePublicResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="receiveMessageResponse">
+ * &lt;complexType name="deletePublicResponse">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -27,16 +27,16 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "receiveMessageResponse", propOrder = {
+@XmlType(name = "deletePublicResponse", propOrder = {
     "_return"
 })
-public class ReceiveMessageResponse {
+public class DeletePublicResponse {
 
     @XmlElement(name = "return")
     protected boolean _return;
 
     /**
-     * Gets the value of the return property.
+     * Ruft den Wert der return-Eigenschaft ab.
      * 
      */
     public boolean isReturn() {
@@ -44,7 +44,7 @@ public class ReceiveMessageResponse {
     }
 
     /**
-     * Sets the value of the return property.
+     * Legt den Wert der return-Eigenschaft fest.
      * 
      */
     public void setReturn(boolean value) {

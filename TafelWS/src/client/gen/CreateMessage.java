@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for createMessage complex type.
+ * <p>Java-Klasse für createMessage complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="createMessage">
@@ -19,7 +19,6 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="arg1" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="arg2" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="arg3" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -32,18 +31,16 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "createMessage", propOrder = {
     "arg0",
     "arg1",
-    "arg2",
-    "arg3"
+    "arg2"
 })
 public class CreateMessage {
 
     protected String arg0;
     protected int arg1;
     protected int arg2;
-    protected boolean arg3;
 
     /**
-     * Gets the value of the arg0 property.
+     * Ruft den Wert der arg0-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -55,7 +52,7 @@ public class CreateMessage {
     }
 
     /**
-     * Sets the value of the arg0 property.
+     * Legt den Wert der arg0-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -67,7 +64,7 @@ public class CreateMessage {
     }
 
     /**
-     * Gets the value of the arg1 property.
+     * Ruft den Wert der arg1-Eigenschaft ab.
      * 
      */
     public int getArg1() {
@@ -75,7 +72,7 @@ public class CreateMessage {
     }
 
     /**
-     * Sets the value of the arg1 property.
+     * Legt den Wert der arg1-Eigenschaft fest.
      * 
      */
     public void setArg1(int value) {
@@ -83,7 +80,7 @@ public class CreateMessage {
     }
 
     /**
-     * Gets the value of the arg2 property.
+     * Ruft den Wert der arg2-Eigenschaft ab.
      * 
      */
     public int getArg2() {
@@ -91,27 +88,11 @@ public class CreateMessage {
     }
 
     /**
-     * Sets the value of the arg2 property.
+     * Legt den Wert der arg2-Eigenschaft fest.
      * 
      */
     public void setArg2(int value) {
         this.arg2 = value;
-    }
-
-    /**
-     * Gets the value of the arg3 property.
-     * 
-     */
-    public boolean isArg3() {
-        return arg3;
-    }
-
-    /**
-     * Sets the value of the arg3 property.
-     * 
-     */
-    public void setArg3(boolean value) {
-        this.arg3 = value;
     }
 
 }
