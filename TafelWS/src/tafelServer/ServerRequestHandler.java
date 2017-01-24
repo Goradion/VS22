@@ -195,7 +195,7 @@ public class ServerRequestHandler {
 	 *             if the anzeigetafel rejects the request.
 	 */
 	public String handle(ReceiveRequest receiveRequest) throws TafelException {
-		anzeigetafel.receiveMessage(receiveRequest.getMessage());
+		anzeigetafel.receiveMessage(receiveRequest.getMessage(), 1);
 		anzeigetafel.saveStateToFile();
 		return "Nachricht von Abteilung " + receiveRequest.getMessage().getAbtNr() + " erhalten!";
 	}

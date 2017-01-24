@@ -14,7 +14,7 @@ import javax.jws.soap.SOAPBinding.Use;
 public interface ServerComWebservice {
 	
 	@WebMethod
-	public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time);
+	public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time, int group);
 	
 	@WebMethod
 	public String registerServer(int abtNr, String address);

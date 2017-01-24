@@ -486,10 +486,15 @@ public class TafelServer {
 		return antwort;
 	}
 
-	public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time) throws TafelException {
-		anzeigetafel.receiveMessage(new Message(inhalt, userID, abtNr, true, messageID));
+	public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time, int group) throws TafelException {
+		String antwort = "Nachricht mit ID=" + messageID + " published in Gruppe:" + group + "!";
+		if ( groupMap.containsKey(group) ) {
+			return "TafelServer ist nicht in gegebener Gruppe=" + group + "!";
+		}
+		anzeigetafel.receiveMessage(new Message(messageID, userID, abtNr, inhalt, true, time), group);
+		
 		anzeigetafel.saveStateToFile();
-		return null;
+		return antwort;
 	}
 	
 	public String deletePublic(int msgID, int group) throws TafelException {

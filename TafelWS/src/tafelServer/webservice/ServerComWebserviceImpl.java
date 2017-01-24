@@ -17,11 +17,11 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 	}
 
 	@Override
-	public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time) {
+	public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time, int group) {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				answer = tafelServer.receiveMessage(messageID, userID, abtNr, inhalt, time);
+				answer = tafelServer.receiveMessage(messageID, userID, abtNr, inhalt, time, group);
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			}
