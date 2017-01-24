@@ -78,12 +78,13 @@ public class Anzeigetafel extends Observable implements Serializable {
          * @param user
          * @throws TafelException 
          */
-	public synchronized void publishMessage(int messageID, int user) throws TafelException {
+	public synchronized void publishMessage(int messageID, int user, int gruppe) throws TafelException {
 		if (!messages.containsKey(messageID)) {
 			throw new TafelException("Keine Message mit ID " + messageID + " gefunden!");
 		}
 		if (isCoordinator(user)) {
 			messages.get(messageID).setOeffentlich();
+			messages.get(messageID).addGroup(gruppe);
 		} else {
 			throw new TafelException("Keine Berechtigung zum Publizieren!");
 		}

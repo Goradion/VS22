@@ -42,6 +42,16 @@ public class Message implements Serializable {
 				+ ", oeffentlich=" + oeffentlich + ", time=" + time + "]" + "\n";
 	}
 
+	public void addGroup(int gruppe){
+		gruppen.add(gruppe);
+	}
+	
+	public void removeGroup(int gruppe){
+		gruppen.remove(gruppe);
+		if(gruppen.isEmpty())
+			this.oeffentlich=false;
+	}
+	
 	public int getAbtNr() {
 		return abtNr;
 	}
