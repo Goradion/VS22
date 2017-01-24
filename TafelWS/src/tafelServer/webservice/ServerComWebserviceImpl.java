@@ -1,6 +1,7 @@
 package tafelServer.webservice;
 
-import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
 
 import javax.jws.WebService;
@@ -38,13 +39,14 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 	public String registerServer(int abtNr, String address) {
 		if (tafelServer != null) {
 			String answer = "";
-			String[] addressParts = address.split(":");
 			try {
-				answer = tafelServer.registerTafel(abtNr, new InetSocketAddress(addressParts[0], Integer.parseInt(addressParts[1])));
+				answer = tafelServer.registerTafel(abtNr, new URL(address));
 			} catch (NumberFormatException e) {
 				tafelServer.printStackTrace(e);
 				answer = "Number Format Error";
 			} catch (TafelException e) {
+				answer = e.getMessage();
+			} catch (MalformedURLException e) {
 				answer = e.getMessage();
 			}
 			return answer;
