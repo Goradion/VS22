@@ -14,15 +14,15 @@ import javax.jws.soap.SOAPBinding.Use;
 public interface ServerComWebservice {
 	
 	@WebMethod
-	public boolean receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time);
+	public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time);
 	
 	@WebMethod
-	public boolean registerServer(int abtNr, String address);
+	public String registerServer(int abtNr, String address);
 	
 	@WebMethod
-	public boolean deletePublic(int msgID ,int abtNr, int group);
+	public String deletePublic(int msgID , int group);
 	
 	@WebMethod
-	public boolean modifyPublic(int msgID, int abtNr, int group, String inhalt);
+	public String modifyPublic(int msgID, int abtNr, int group, String inhalt);
 
 }
