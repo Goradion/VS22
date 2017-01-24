@@ -65,11 +65,11 @@ public class ServerComWebserviceImplService
     /**
      * 
      * @return
-     *     returns ServerComWebserviceImpl
+     *     returns ServerComWebservice
      */
     @WebEndpoint(name = "ServerComWebserviceImplPort")
-    public ServerComWebserviceImpl getServerComWebserviceImplPort() {
-        return super.getPort(new QName("http://webservice.tafelServer/", "ServerComWebserviceImplPort"), ServerComWebserviceImpl.class);
+    public ServerComWebservice getServerComWebserviceImplPort() {
+        return super.getPort(new QName("http://webservice.tafelServer/", "ServerComWebserviceImplPort"), ServerComWebservice.class);
     }
 
     /**
@@ -77,11 +77,11 @@ public class ServerComWebserviceImplService
      * @param features
      *     A list of {@link javax.xml.ws.WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
      * @return
-     *     returns ServerComWebserviceImpl
+     *     returns ServerComWebservice
      */
     @WebEndpoint(name = "ServerComWebserviceImplPort")
-    public ServerComWebserviceImpl getServerComWebserviceImplPort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://webservice.tafelServer/", "ServerComWebserviceImplPort"), ServerComWebserviceImpl.class, features);
+    public ServerComWebservice getServerComWebserviceImplPort(WebServiceFeature... features) {
+        return super.getPort(new QName("http://webservice.tafelServer/", "ServerComWebserviceImplPort"), ServerComWebservice.class, features);
     }
 
     private static URL __getWsdlLocation() {

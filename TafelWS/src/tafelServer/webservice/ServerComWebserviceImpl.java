@@ -19,7 +19,6 @@ import verteilteAnzeigetafel.TafelException;
 
 @WebService(endpointInterface = "tafelServer.webservice.ServerComWebservice")
 public class ServerComWebserviceImpl implements ServerComWebservice {
-	private final int koordinatorID;
 	TafelServer tafelServer;
 	
 	@Resource
@@ -27,7 +26,6 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 	
 	public ServerComWebserviceImpl(TafelServer tafelServer2) {
 		tafelServer = tafelServer2;
-		koordinatorID = 1;
 	}
 
 	@Override
@@ -35,7 +33,8 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				answer = tafelServer.receiveMessage(messageID, userID, abtNr, inhalt, time, group);
+				tafelServer.receiveMessage(messageID, userID, abtNr, inhalt, time, group);
+				answer =  "Done";
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			}
@@ -73,7 +72,8 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				answer = tafelServer.deletePublic(msgID, koordinatorID, group);
+				tafelServer.deletePublic(msgID, group);
+				answer =  "Done";
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			}
@@ -83,11 +83,12 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 	}
 
 	@Override
-	public String modifyPublic(int msgID, int abtNr, int group, String inhalt) {
+	public String modifyPublic(int msgID, int group, String inhalt) {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				answer = tafelServer.modifyPublic(msgID, inhalt, koordinatorID);
+				tafelServer.modifyPublic(msgID, inhalt, group);
+				answer =  "Done";
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			}
@@ -102,7 +103,8 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				answer = tafelServer.receiveMessage(message);
+				tafelServer.receiveMessage(message);
+				answer =  "Done";
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			}

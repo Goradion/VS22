@@ -12,9 +12,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
- * <p>Java class for soapableMessage complex type.
+ * <p>Java-Klasse für soapableMessage complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="soapableMessage">
@@ -59,7 +59,7 @@ public class SoapableMessage {
     protected int userID;
 
     /**
-     * Gets the value of the abtNr property.
+     * Ruft den Wert der abtNr-Eigenschaft ab.
      * 
      */
     public int getAbtNr() {
@@ -67,7 +67,7 @@ public class SoapableMessage {
     }
 
     /**
-     * Sets the value of the abtNr property.
+     * Legt den Wert der abtNr-Eigenschaft fest.
      * 
      */
     public void setAbtNr(int value) {
@@ -104,7 +104,7 @@ public class SoapableMessage {
     }
 
     /**
-     * Gets the value of the inhalt property.
+     * Ruft den Wert der inhalt-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -116,7 +116,7 @@ public class SoapableMessage {
     }
 
     /**
-     * Sets the value of the inhalt property.
+     * Legt den Wert der inhalt-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -128,7 +128,7 @@ public class SoapableMessage {
     }
 
     /**
-     * Gets the value of the messageID property.
+     * Ruft den Wert der messageID-Eigenschaft ab.
      * 
      */
     public int getMessageID() {
@@ -136,7 +136,7 @@ public class SoapableMessage {
     }
 
     /**
-     * Sets the value of the messageID property.
+     * Legt den Wert der messageID-Eigenschaft fest.
      * 
      */
     public void setMessageID(int value) {
@@ -144,7 +144,7 @@ public class SoapableMessage {
     }
 
     /**
-     * Gets the value of the oeffentlich property.
+     * Ruft den Wert der oeffentlich-Eigenschaft ab.
      * 
      */
     public boolean isOeffentlich() {
@@ -152,7 +152,7 @@ public class SoapableMessage {
     }
 
     /**
-     * Sets the value of the oeffentlich property.
+     * Legt den Wert der oeffentlich-Eigenschaft fest.
      * 
      */
     public void setOeffentlich(boolean value) {
@@ -160,7 +160,7 @@ public class SoapableMessage {
     }
 
     /**
-     * Gets the value of the time property.
+     * Ruft den Wert der time-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -172,7 +172,7 @@ public class SoapableMessage {
     }
 
     /**
-     * Sets the value of the time property.
+     * Legt den Wert der time-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -184,7 +184,7 @@ public class SoapableMessage {
     }
 
     /**
-     * Gets the value of the userID property.
+     * Ruft den Wert der userID-Eigenschaft ab.
      * 
      */
     public int getUserID() {
@@ -192,7 +192,7 @@ public class SoapableMessage {
     }
 
     /**
-     * Sets the value of the userID property.
+     * Legt den Wert der userID-Eigenschaft fest.
      * 
      */
     public void setUserID(int value) {

@@ -57,11 +57,14 @@ public class Anzeigetafel extends Observable implements Serializable {
 	public synchronized void modifyMessage(int messageID, String inhalt, int user) throws TafelException {
 
 		if (messages.containsKey(messageID)) {
-			/* Autor oder Koordinator ? */
-			if (user == messages.get(messageID).getUserID() || isCoordinator(user)) {
-				Message msg = new Message(inhalt, messages.get(messageID).getUserID(),
-						messages.get(messageID).getAbtNr(), messages.get(messageID).isOeffentlich(),
-						messages.get(messageID).getMessageID());
+			Message curMessage = messages.get(messageID);
+			if (curMessage.getAbtNr() != abteilungsID) {
+				throw new TafelException("Keine Berechtigung für diese Nachricht!");
+			}
+			if (user == curMessage.getUserID() || isCoordinator(user)) {
+				Message msg = new Message(inhalt, curMessage.getUserID(),
+						curMessage.getAbtNr(), curMessage.isOeffentlich(),
+						curMessage.getMessageID());
 				messages.replace(messageID, msg);
 			} else {
 				throw new TafelException("User "+user + " nicht berechtigt zum Modifizieren");
@@ -82,9 +85,13 @@ public class Anzeigetafel extends Observable implements Serializable {
 		if (!messages.containsKey(messageID)) {
 			throw new TafelException("Keine Message mit ID " + messageID + " gefunden!");
 		}
+		Message curMessage = messages.get(messageID);
+		if (curMessage.getAbtNr() != abteilungsID) {
+			throw new TafelException("Keine Berechtigung für diese Nachricht!");
+		}
 		if (isCoordinator(user)) {
-			messages.get(messageID).setOeffentlich();
-			messages.get(messageID).addGroup(gruppe);
+			curMessage.setOeffentlich();
+			curMessage.addGroup(gruppe);
 		} else {
 			throw new TafelException("Keine Berechtigung zum Publizieren!");
 		}
@@ -100,6 +107,9 @@ public class Anzeigetafel extends Observable implements Serializable {
 	public synchronized void deleteMessage(int messageID, int user) throws TafelException {
 
 		if (messages.containsKey(messageID)) {
+			if (messages.get(messageID).getAbtNr() != abteilungsID) {
+				throw new TafelException("Keine Berechtigung für diese Nachricht!");
+			}
 			if (user == messages.get(messageID).getUserID() || isCoordinator(user)) {
 				messages.remove(messageID);
 				userMsgs.get(user).remove(new Integer(messageID));
@@ -267,13 +277,18 @@ public class Anzeigetafel extends Observable implements Serializable {
          * @throws TafelException 
          */
 	public synchronized void receiveMessage(Message msg, int group) throws TafelException {
-		if (msg.getAbtNr() == abteilungsID) {
-			throw new TafelException("msg.getAbtNr()==abteilungsID");
-		}
-		msg.addGroup(group);
-		messages.put(msg.getMessageID(), msg);
-		userMsgs.get(msg.getUserID()).add(msg.getMessageID()); 
-        updateState();
+		int curMsgID = msg.getMessageID();
+    	if (!messages.containsKey(curMsgID)) {
+    		if (msg.getAbtNr() == abteilungsID) {
+    			throw new TafelException("msg.getAbtNr()==abteilungsID");
+    		}
+    		msg.addGroup(group);
+    		messages.put(curMsgID, msg);
+    		userMsgs.get(msg.getUserID()).add(msg.getMessageID()); 
+    	} else {
+			throw new TafelException("Message mit ID " + curMsgID + " existiert bereits!");
+		}	
+        	updateState();
 	}
         
         /**
@@ -327,31 +342,88 @@ public class Anzeigetafel extends Observable implements Serializable {
             notifyObservers();
         }
         
-        public synchronized void deletePublic(int messageID, int user, int group) throws TafelException {
+        public synchronized void deletePublicMessage(int messageID, int user, int group) throws TafelException {
+
+    		if (messages.containsKey(messageID)) {
+    			Message curMessage = messages.get(messageID);
+    			if (!curMessage.isOeffentlich()) {
+    				throw new TafelException("Nachricht mit ID =" + messageID + " nicht öffentlich!");
+    			}
+    			if (curMessage.getAbtNr() != abteilungsID) {
+    				throw new TafelException("Keine Berechtigung für diese Nachricht!");
+    			}
+    			if (isCoordinator(user)) {
+    				curMessage.removeGroup(group);
+    				/*if ( !curMessage.isOeffentlich() ) {
+						messages.remove(messageID);
+	    				userMsgs.get(user).remove(new Integer(messageID));
+					}*/
+    			} else {
+    				throw new TafelException("User "+user + " nicht berechtigt zum Loeschen");
+    			}
+    		} else {
+    			throw new TafelException("Keine Message mit ID " + messageID + " gefunden!");
+    		}
+                    updateState();             
+    	}
+        
+        public synchronized void deletePublic(int messageID, int group) throws TafelException {
         	
         	if (messages.containsKey(messageID)) {
-        		if (isCoordinator(user)) {
-					Message curMessage = messages.get(messageID);
-					curMessage.removeGroup(group);
-					if ( !curMessage.isOeffentlich() ) {
-						if ( curMessage.getAbtNr() != abteilungsID ) {
-							deleteMessage(messageID, user);
-						}
-					}
-	        	} else {
-					throw new TafelException("User " + user + " nicht berechtigt zum Loeschen");
+				Message curMessage = messages.get(messageID);
+				if (curMessage.getAbtNr() == abteilungsID) {
+    				throw new TafelException("Keine externe Nachricht!");
+    			}
+				curMessage.removeGroup(group);
+				if ( !curMessage.isOeffentlich() ) {
+					messages.remove(messageID);
+    				userMsgs.get(curMessage.getUserID()).remove(new Integer(messageID));
 				}
     		} else {
     			throw new TafelException("Keine Message mit ID " + messageID + " gefunden!");
-    		}       
+    		}   
+        	
+        		updateState();
     	}
         
-        public synchronized void modifyPublic(int messageID, String inhalt, int user) throws TafelException {
+        public synchronized void modifyPublicMessage(int messageID, String inhalt, int user) throws TafelException {
 
-			if (isCoordinator(user)) {
-				modifyMessage(messageID, inhalt, user);
+    		if (messages.containsKey(messageID)) {
+    			Message curMessage = messages.get(messageID);
+    			if (!curMessage.isOeffentlich()) {
+    				throw new TafelException("Nachricht mit ID =" + messageID + " nicht öffentlich!");
+    			}
+    			if (curMessage.getAbtNr() != abteilungsID) {
+    				throw new TafelException("Keine Berechtigung für diese Nachricht!");
+    			}
+    			if (isCoordinator(user)) {
+    				Message msg = new Message(inhalt, curMessage.getUserID(),
+							curMessage.getAbtNr(), curMessage.isOeffentlich(),
+							curMessage.getMessageID());
+					messages.replace(messageID, msg);
+    			} else {
+    				throw new TafelException("User "+user + " nicht berechtigt zum Loeschen");
+    			}
+    		} else {
+    			throw new TafelException("Keine Message mit ID " + messageID + " gefunden!");
+    		}
+                    updateState();             
+    	}
+
+        public synchronized void modifyPublic(int messageID, String inhalt) throws TafelException {
+        	
+			if (messages.containsKey(messageID)) {
+				Message curMessage = messages.get(messageID);
+				if (curMessage.getAbtNr() == abteilungsID) {
+					throw new TafelException("Keine externe Nachricht!");
+				}
+				Message msg = new Message(inhalt, curMessage.getUserID(),
+						curMessage.getAbtNr(), curMessage.isOeffentlich(),
+						curMessage.getMessageID());
+				messages.replace(messageID, msg);
 			} else {
-				throw new TafelException("User "+user + " nicht berechtigt zum Modifizieren");
+				throw new TafelException("Keine Message mit ID " + messageID + " gefunden!");
 			}
+	                updateState();
     	}
 }
