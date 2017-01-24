@@ -213,7 +213,8 @@ public class ServerRequestHandler {
 			throw new TafelException("Die eigene Abteilung wird nicht registriert!");
 		}
 
-		HashMap<Integer, SocketAddress> tafelAdressen = tafelServer.getTafelAdressen();
+		HashMap<Integer, SocketAddress> tafelAdressen = null;
+//				tafelServer.getTafelAdressen(); TODO
 		int abteilungsID = registerRequest.getAbteilungsID();
 		SocketAddress address = registerRequest.getAddress();
 		if (tafelAdressen.containsKey(abteilungsID)) {

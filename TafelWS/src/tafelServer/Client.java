@@ -10,6 +10,8 @@ import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import client.gen.TafelWebService;
+import client.gen.TafelWebServiceImplService;
 import serverRequests.ReceiveRequest;
 import serverRequests.ServerRequest;
 import verteilteAnzeigetafel.Anzeigetafel;
@@ -27,7 +29,16 @@ public class Client {
 	public static final int SERVER_PORT = 10001;
 	public static final String SERVER_HOSTNAME = "localhost";
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		ConnectionMonitor monitor1 = new ConnectionMonitor();
+		ConnectionMonitor monitor2 = new ConnectionMonitor();
+		OutboxThread outboxThread1 = new OutboxThread(1, new URL("http://localhost:8080"), null, null);
+		outboxThread1.start();
+//		TafelWebServiceImplService service = new TafelWebServiceImplService();
+//		System.out.println("Service erstellt...");
+//		TafelWebService port = service.getTafelWebServiceImplPort();
+//		System.out.println("Port erstellt...");
+
 //		LinkedBlockingDeque<ServerRequest> q = new LinkedBlockingDeque<ServerRequest>();
 //		TafelServer ts = new TafelServer();
 //		q.add(new ReceiveRequest(new Message("qq", 1, 2, true, 4711)));
