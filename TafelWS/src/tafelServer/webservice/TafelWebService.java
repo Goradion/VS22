@@ -29,10 +29,10 @@ public interface TafelWebService{
 	public String publishMessage(int messageID, int user, int group);
 	
 	@WebMethod
-	public String deletePublic(int msgID ,int abtNr, int group);
+	public String deletePublic(int msgID , int user, int group);
 	
 	@WebMethod
-	public String modifyPublic(int msgID, int abtNr, int group, String inhalt);
+	public String modifyPublic(int msgID, int user, int group, String inhalt);
 	
 	@WebMethod
 	public String[] startTafelServer(int abtNr);

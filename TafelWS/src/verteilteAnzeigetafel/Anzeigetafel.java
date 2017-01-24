@@ -327,18 +327,31 @@ public class Anzeigetafel extends Observable implements Serializable {
             notifyObservers();
         }
         
-        public synchronized void deletePublic(int messageID, int group) throws TafelException {
+        public synchronized void deletePublic(int messageID, int user, int group) throws TafelException {
         	
         	if (messages.containsKey(messageID)) {
-				Message curMessage = messages.get(messageID);
-				curMessage.removeGroup(group);
-				if ( !curMessage.isOeffentlich() ) {
-					if ( curMessage.getAbtNr() != abteilungsID ) {
-						deleteMessage(messageID, 1);
+        		if (isCoordinator(user)) {
+					Message curMessage = messages.get(messageID);
+					curMessage.removeGroup(group);
+					if ( !curMessage.isOeffentlich() ) {
+						if ( curMessage.getAbtNr() != abteilungsID ) {
+							deleteMessage(messageID, user);
+						}
 					}
+	        	} else {
+					throw new TafelException("User " + user + " nicht berechtigt zum Loeschen");
 				}
     		} else {
     			throw new TafelException("Keine Message mit ID " + messageID + " gefunden!");
     		}       
+    	}
+        
+        public synchronized void modifyPublic(int messageID, String inhalt, int user) throws TafelException {
+
+			if (isCoordinator(user)) {
+				modifyMessage(messageID, inhalt, user);
+			} else {
+				throw new TafelException("User "+user + " nicht berechtigt zum Modifizieren");
+			}
     	}
 }

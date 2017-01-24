@@ -428,33 +428,67 @@ public class TafelServer {
 	}
 
 	public String deletePublicMessage(int messageID, int userID, int groupID) throws TafelException {
-		// TODO remove?
-		// if ((message.isOeffentlich() && message.getAbtNr() ==
-		// anzeigetafel.getAbteilungsID()))
-		// deletePublicMessage(messageID);
+		String antwort = "Nachricht mit ID=" + messageID + " gelöscht in Gruppe:" + groupID + "!";
+		Message message = anzeigetafel.getMessageByID(messageID);
+		/*if (!anzeigetafel.isCoordinator(userID)) {
+			return "User:" + userID + " ist nicht Koordinator!";
+		}*/
+		if (message == null) {
+			return "Nachricht mit ID =" + messageID + " nicht gefunden!";
+		}
+		if (!message.isOeffentlich()) {
+			return "Nachricht mit ID =" + messageID + " nicht öffentlich!";
+		}
+		if (message.getAbtNr() == anzeigetafel.getAbteilungsID()) {
+			return "Nachricht mit ID =" + messageID + " gehört nicht zu dieser Abteilung!";
+		}
+		if ( groupMap.containsKey(groupID) ) {
+			return "TafelServer ist nicht in gegebener Gruppe=" + groupID + "!";
+		}
+		
+		deletePublic(messageID, userID, groupID);
 
-		for (LinkedBlockingDeque<ServerRequest> q : queueMap.values()) {
+		for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(groupID)) {
 			try {
 				q.put(new DeletePublicRequest(messageID));
 			} catch (InterruptedException e) {
 				print("Message mit ID=" + messageID + " wird nicht überall gelöscht werden!");
 			}
 		}
+		
 		saveQueueMapToFile();
-		return null;
+		return antwort;
 	}
 
-	public String modifyPublicMessage(int messageID, int abtNr, int group, String newMessage) throws TafelException {
-		//TODO stuff
-		for (LinkedBlockingDeque<ServerRequest> q : queueMap.values()) {
+	public String modifyPublicMessage(int messageID, int userID, int groupID, String newMessage) throws TafelException {
+		String antwort = "Nachricht mit ID=" + messageID + " geändert in Gruppe:" + groupID + "!";
+		Message message = anzeigetafel.getMessageByID(messageID);
+		/* Checks in modifyPublic unten
+		 * if (message == null) {
+			return "Nachricht mit ID =" + messageID + " nicht gefunden!";
+		}
+		if (message.getAbtNr() == anzeigetafel.getAbteilungsID()) {
+			return "Nachricht mit ID =" + messageID + " gehört nicht zu dieser Abteilung!";
+		}*/
+		if (!message.isOeffentlich()) {
+			return "Nachricht mit ID =" + messageID + " nicht öffentlich!";
+		}
+		if ( groupMap.containsKey(groupID) ) {
+			return "TafelServer ist nicht in gegebener Gruppe=" + groupID + "!";
+		}
+		
+		modifyPublic(messageID, newMessage, userID);
+		
+		for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(groupID)) {
 			try {
 				q.put(new ModifyPublicRequest(messageID, newMessage));
 			} catch (InterruptedException e) {
 				print("Message mit ID=" + messageID + " wird nicht überall geändert werden!");
 			}
 		}
+		
 		saveQueueMapToFile();
-		return null;
+		return antwort;
 	}
 
 	public synchronized String deleteMessage(int messageID, int user) throws TafelException {
@@ -464,7 +498,7 @@ public class TafelServer {
 			return "Nachricht mit ID =" + messageID + " nicht gefunden";
 		}
 		if (message.getAbtNr() != anzeigetafel.getAbteilungsID()) {
-			return "Nachricht geh�rt nicht zur Abteilung!";
+			return "Nachricht gehört nicht zur Abteilung!";
 		}
 		anzeigetafel.deleteMessage(messageID, user);
 		anzeigetafel.saveStateToFile();
@@ -478,7 +512,7 @@ public class TafelServer {
 			return "Nachricth mit ID= " + messageID + " nicht gefunden!";
 		}
 		if (message.getAbtNr() != anzeigetafel.getAbteilungsID()) {
-			return "Nachricht geh�rt nicht zur Abteilung!";
+			return "Nachricht gehört nicht zur Abteilung!";
 		}
 		anzeigetafel.modifyMessage(messageID, inhalt, user);
 
@@ -497,7 +531,7 @@ public class TafelServer {
 		return antwort;
 	}
 	
-	public String deletePublic(int msgID, int group) throws TafelException {
+	public String deletePublic(int msgID, int userID, int group) throws TafelException {
 		String antwort = "Nachricht mit ID=" + msgID + "aus Gruppe=" + group + "entfernt!";
 		Message message = anzeigetafel.getMessageByID(msgID);
 		if (message == null) {
@@ -506,8 +540,23 @@ public class TafelServer {
 		if ( groupMap.containsKey(group) ) {
 			return "TafelServer ist nicht in gegebener Gruppe=" + group + "!";
 		}
-		anzeigetafel.deletePublic(msgID, group);
+		anzeigetafel.deletePublic(msgID, userID, group);
 		
+		anzeigetafel.saveStateToFile();
+		return antwort;
+	}
+	
+	public String modifyPublic(int messageID, String inhalt, int user) throws TafelException {
+		String antwort = "Nachricht mit ID=" + messageID + " geändert!";
+		Message message = anzeigetafel.getMessageByID(messageID);
+		if (message == null) {
+			return "Nachricth mit ID= " + messageID + " nicht gefunden!";
+		}
+		if (message.getAbtNr() != anzeigetafel.getAbteilungsID()) {
+			return "Nachricht gehört nicht zur Abteilung!";
+		}
+		anzeigetafel.modifyPublic(messageID, inhalt, user);
+
 		anzeigetafel.saveStateToFile();
 		return antwort;
 	}

@@ -139,11 +139,11 @@ public class TafelWebServiceImpl implements TafelWebService {
 	}
 
 	@Override
-	public String modifyPublic(int msgID, int abtNr, int group, String inhalt) {
+	public String modifyPublic(int msgID, int user, int group, String inhalt) {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				answer = tafelServer.modifyPublicMessage(msgID, abtNr, group, inhalt);
+				answer = tafelServer.modifyPublicMessage(msgID, user, group, inhalt);
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			}

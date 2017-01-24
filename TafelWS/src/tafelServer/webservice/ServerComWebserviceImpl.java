@@ -10,10 +10,12 @@ import verteilteAnzeigetafel.TafelException;
 
 @WebService
 public class ServerComWebserviceImpl implements ServerComWebservice {
+	private final int koordinatorID;
 	TafelServer tafelServer;
 	
 	public ServerComWebserviceImpl(TafelServer tafelServer2) {
 		tafelServer = tafelServer2;
+		koordinatorID = 1;
 	}
 
 	@Override
@@ -53,7 +55,7 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				answer = tafelServer.deletePublic(msgID, group);
+				answer = tafelServer.deletePublic(msgID, koordinatorID, group);
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			}
@@ -67,7 +69,7 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				answer = tafelServer.modifyMessage(msgID, inhalt, 1);	//user 1 = Coordiantor
+				answer = tafelServer.modifyPublic(msgID, inhalt, koordinatorID);
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			}
