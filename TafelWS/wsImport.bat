@@ -12,6 +12,6 @@ cd /D %ECLIPSE_PATH%
 :: Again back to the eclipse working dir, so wsimport works
 
 
-wsimport -d %WORKSPACE_PATH%\build\classes -s %WORKSPACE_PATH%\src -keep -p client.gen http://localhost:8080/TafelWS/tafelws?wsdl
+"C:\Program Files\Java\jdk1.8.0_121\bin\wsimport" -d %WORKSPACE_PATH%\build\classes -s %WORKSPACE_PATH%\src -keep -p client.gen http://localhost:8080/TafelWS/tafelws?wsdl
 
 pause

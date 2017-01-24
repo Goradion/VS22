@@ -125,15 +125,31 @@ public class TafelWebServiceImpl implements TafelWebService {
 	}
 
 	@Override
-	public boolean deletePublic(int msgID, int user, int group) {
-		tafelServer.deletePublicMessage(msgID, user, group);
-		return false;
+	public String deletePublic(int msgID, int user, int group) {
+		if (tafelServer != null) {
+			String answer = "";
+			try {
+				answer = tafelServer.deletePublicMessage(msgID, user, group);
+			} catch (TafelException e) {
+				answer = e.getMessage();
+			}
+			return answer;
+		}
+		return null;
 	}
 
 	@Override
-	public boolean modifyPublic(int msgID, int abtNr, int group, String inhalt) {
-		// TODO Auto-generated method stub
-		return false;
+	public String modifyPublic(int msgID, int abtNr, int group, String inhalt) {
+		if (tafelServer != null) {
+			String answer = "";
+			try {
+				answer = tafelServer.modifyPublicMessage(msgID, abtNr, group, inhalt);
+			} catch (TafelException e) {
+				answer = e.getMessage();
+			}
+			return answer;
+		}
+		return null;
 	}
 
 }

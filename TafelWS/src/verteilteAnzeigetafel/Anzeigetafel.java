@@ -324,4 +324,10 @@ public class Anzeigetafel extends Observable implements Serializable {
             setChanged();
             notifyObservers();
         }
+        
+        public synchronized void deletePublic(int messageID, int group) throws TafelException {
+    		// delete given groups
+        	//only delete this message here, if groups is empty
+    		deleteMessage(messageID, 1);	//user 1 = Coordiantor            
+    	}
 }

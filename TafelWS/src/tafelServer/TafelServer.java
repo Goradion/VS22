@@ -157,7 +157,7 @@ public class TafelServer {
 	 * @throws TafelException
 	 *             if the given abteilungsID is the own abteilungsID
 	 */
-	public synchronized void registerTafel(int abteilungsID, SocketAddress address) throws TafelException {
+	public synchronized String registerTafel(int abteilungsID, SocketAddress address) throws TafelException {
 		if (this.abteilungsID == abteilungsID) {
 			throw new TafelException("Die eigene Abteilung wird nicht registriert");
 		}
@@ -177,6 +177,8 @@ public class TafelServer {
 		activateHeartbeat(abteilungsID);
 		activateQueue(abteilungsID);
 		saveTafelAdressenToFile();
+		
+		return "TafelServer " + abteilungsID + ", Adresse: " + address.toString() + " registriert!";
 	}
 
 	/**
@@ -372,7 +374,7 @@ public class TafelServer {
 		return queueMap;
 	}
 
-	public void deletePublicMessage(int messageID, int userID, int groupID) {
+	public String deletePublicMessage(int messageID, int userID, int groupID) throws TafelException {
 		// TODO remove?
 		// if ((message.isOeffentlich() && message.getAbtNr() ==
 		// anzeigetafel.getAbteilungsID()))
@@ -388,7 +390,7 @@ public class TafelServer {
 		saveQueueMapToFile();
 	}
 
-	public void modifyPublicMessage(int messageID, String newMessage) {
+	public String modifyPublicMessage(int messageID, int abtNr, int group, String newMessage) throws TafelException {
 		for (LinkedBlockingDeque<ServerRequest> q : queueMap.values()) {
 			try {
 				q.put(new ModifyPublicRequest(messageID, newMessage));
@@ -423,18 +425,18 @@ public class TafelServer {
 			return "Nachricht geh�rt nicht zur Abteilung!";
 		}
 		anzeigetafel.modifyMessage(messageID, inhalt, user);
-		// TODO remove?
-		if ((message.isOeffentlich() && message.getAbtNr() == anzeigetafel.getAbteilungsID())) {
-			modifyPublicMessage(messageID, inhalt);
-		}
 
 		anzeigetafel.saveStateToFile();
 		return antwort;
 	}
 
-	public void receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time) throws TafelException {
+	public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time) throws TafelException {
 		anzeigetafel.receiveMessage(new Message(inhalt, userID, abtNr, true, messageID));
 		anzeigetafel.saveStateToFile();
 	}
-
+	
+	public String deletePublic(int msgID, int group) throws TafelException {
+		anzeigetafel.deletePublic(msgID, group);
+		anzeigetafel.saveStateToFile();
+	}
 }
