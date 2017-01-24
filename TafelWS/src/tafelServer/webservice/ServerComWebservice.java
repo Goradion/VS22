@@ -19,7 +19,7 @@ public interface ServerComWebservice {
 	public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time, int group);
 	
 	@WebMethod
-	public String receiveMessage(SoapableMessage soapableMessage);
+	public String receiveSoapableMessage(SoapableMessage soapableMessage);
 	
 	@WebMethod
 	public String registerServer(int abtNr, String address);

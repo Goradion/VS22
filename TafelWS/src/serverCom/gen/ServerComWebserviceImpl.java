@@ -27,51 +27,6 @@ public interface ServerComWebserviceImpl {
 
     /**
      * 
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "deletePublic", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.DeletePublic")
-    @ResponseWrapper(localName = "deletePublicResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.DeletePublicResponse")
-    @Action(input = "http://webservice.tafelServer/ServerComWebserviceImpl/deletePublicRequest", output = "http://webservice.tafelServer/ServerComWebserviceImpl/deletePublicResponse")
-    public String deletePublic(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        int arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        int arg2);
-
-    /**
-     * 
-     * @param arg3
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "modifyPublic", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ModifyPublic")
-    @ResponseWrapper(localName = "modifyPublicResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ModifyPublicResponse")
-    @Action(input = "http://webservice.tafelServer/ServerComWebserviceImpl/modifyPublicRequest", output = "http://webservice.tafelServer/ServerComWebserviceImpl/modifyPublicResponse")
-    public String modifyPublic(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        int arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        int arg2,
-        @WebParam(name = "arg3", targetNamespace = "")
-        String arg3);
-
-    /**
-     * 
      * @param arg3
      * @param arg2
      * @param arg5
@@ -102,6 +57,51 @@ public interface ServerComWebserviceImpl {
 
     /**
      * 
+     * @param arg3
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "modifyPublic", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ModifyPublic")
+    @ResponseWrapper(localName = "modifyPublicResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ModifyPublicResponse")
+    @Action(input = "http://webservice.tafelServer/ServerComWebserviceImpl/modifyPublicRequest", output = "http://webservice.tafelServer/ServerComWebserviceImpl/modifyPublicResponse")
+    public String modifyPublic(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        int arg2,
+        @WebParam(name = "arg3", targetNamespace = "")
+        String arg3);
+
+    /**
+     * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "deletePublic", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.DeletePublic")
+    @ResponseWrapper(localName = "deletePublicResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.DeletePublicResponse")
+    @Action(input = "http://webservice.tafelServer/ServerComWebserviceImpl/deletePublicRequest", output = "http://webservice.tafelServer/ServerComWebserviceImpl/deletePublicResponse")
+    public String deletePublic(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        int arg2);
+
+    /**
+     * 
      * @param arg1
      * @param arg0
      * @return
@@ -117,5 +117,20 @@ public interface ServerComWebserviceImpl {
         int arg0,
         @WebParam(name = "arg1", targetNamespace = "")
         String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "receiveSoapableMessage", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveSoapableMessage")
+    @ResponseWrapper(localName = "receiveSoapableMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveSoapableMessageResponse")
+    @Action(input = "http://webservice.tafelServer/ServerComWebserviceImpl/receiveSoapableMessageRequest", output = "http://webservice.tafelServer/ServerComWebserviceImpl/receiveSoapableMessageResponse")
+    public String receiveSoapableMessage(
+        @WebParam(name = "arg0", targetNamespace = "")
+        SoapableMessage arg0);
 
 }

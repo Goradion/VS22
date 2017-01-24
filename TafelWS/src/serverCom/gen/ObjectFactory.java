@@ -26,12 +26,14 @@ public class ObjectFactory {
 
     private final static QName _DeletePublic_QNAME = new QName("http://webservice.tafelServer/", "deletePublic");
     private final static QName _ModifyPublicResponse_QNAME = new QName("http://webservice.tafelServer/", "modifyPublicResponse");
+    private final static QName _ReceiveSoapableMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "receiveSoapableMessageResponse");
     private final static QName _RegisterServerResponse_QNAME = new QName("http://webservice.tafelServer/", "registerServerResponse");
     private final static QName _DeletePublicResponse_QNAME = new QName("http://webservice.tafelServer/", "deletePublicResponse");
     private final static QName _ModifyPublic_QNAME = new QName("http://webservice.tafelServer/", "modifyPublic");
     private final static QName _RegisterServer_QNAME = new QName("http://webservice.tafelServer/", "registerServer");
     private final static QName _ReceiveMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "receiveMessageResponse");
     private final static QName _ReceiveMessage_QNAME = new QName("http://webservice.tafelServer/", "receiveMessage");
+    private final static QName _ReceiveSoapableMessage_QNAME = new QName("http://webservice.tafelServer/", "receiveSoapableMessage");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: serverCom.gen
@@ -46,6 +48,14 @@ public class ObjectFactory {
      */
     public ReceiveMessage createReceiveMessage() {
         return new ReceiveMessage();
+    }
+
+    /**
+     * Create an instance of {@link ReceiveSoapableMessage }
+     * 
+     */
+    public ReceiveSoapableMessage createReceiveSoapableMessage() {
+        return new ReceiveSoapableMessage();
     }
 
     /**
@@ -105,6 +115,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ReceiveSoapableMessageResponse }
+     * 
+     */
+    public ReceiveSoapableMessageResponse createReceiveSoapableMessageResponse() {
+        return new ReceiveSoapableMessageResponse();
+    }
+
+    /**
+     * Create an instance of {@link SoapableMessage }
+     * 
+     */
+    public SoapableMessage createSoapableMessage() {
+        return new SoapableMessage();
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link DeletePublic }{@code >}}
      * 
      */
@@ -120,6 +146,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "modifyPublicResponse")
     public JAXBElement<ModifyPublicResponse> createModifyPublicResponse(ModifyPublicResponse value) {
         return new JAXBElement<ModifyPublicResponse>(_ModifyPublicResponse_QNAME, ModifyPublicResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ReceiveSoapableMessageResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "receiveSoapableMessageResponse")
+    public JAXBElement<ReceiveSoapableMessageResponse> createReceiveSoapableMessageResponse(ReceiveSoapableMessageResponse value) {
+        return new JAXBElement<ReceiveSoapableMessageResponse>(_ReceiveSoapableMessageResponse_QNAME, ReceiveSoapableMessageResponse.class, null, value);
     }
 
     /**
@@ -174,6 +209,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "receiveMessage")
     public JAXBElement<ReceiveMessage> createReceiveMessage(ReceiveMessage value) {
         return new JAXBElement<ReceiveMessage>(_ReceiveMessage_QNAME, ReceiveMessage.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ReceiveSoapableMessage }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "receiveSoapableMessage")
+    public JAXBElement<ReceiveSoapableMessage> createReceiveSoapableMessage(ReceiveSoapableMessage value) {
+        return new JAXBElement<ReceiveSoapableMessage>(_ReceiveSoapableMessage_QNAME, ReceiveSoapableMessage.class, null, value);
     }
 
 }

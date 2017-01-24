@@ -81,7 +81,7 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 	}
 
 	@Override
-	public String receiveMessage(SoapableMessage soapableMessage) {
+	public String receiveSoapableMessage(SoapableMessage soapableMessage) {
 		Message message = new Message(soapableMessage);
 		if (tafelServer != null) {
 			String answer = "";
