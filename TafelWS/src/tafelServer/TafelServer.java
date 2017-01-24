@@ -16,22 +16,18 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.SocketAddress;
+import java.net.URL;
 import java.sql.Time;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.LinkedBlockingDeque;
 
 import serverRequests.DeletePublicRequest;
-import serverRequests.DeleteRequest;
 import serverRequests.ModifyPublicRequest;
-import serverRequests.ModifyRequest;
 import serverRequests.ReceiveRequest;
 import serverRequests.ServerRequest;
 import verteilteAnzeigetafel.Anzeigetafel;
@@ -46,7 +42,7 @@ public class TafelServer {
 	private HashMap<Integer, LinkedBlockingDeque<ServerRequest>> queueMap = new HashMap<Integer, LinkedBlockingDeque<ServerRequest>>();
 	private HashMap<Integer, HashSet<Integer>> groupMap = new HashMap<Integer, HashSet<Integer>>();
 	private HashMap<Integer, HashSet<LinkedBlockingDeque<ServerRequest>>> groupQueueMap = new HashMap<Integer, HashSet<LinkedBlockingDeque<ServerRequest>>>();
-	private HashMap<Integer, SocketAddress> tafelAdressen = new HashMap<Integer, SocketAddress>();
+	private HashMap<Integer, URL> tafelAdressen = new HashMap<Integer, URL>();
 	private HashMap<Integer, OutboxThread> outboxThreads = new HashMap<Integer, OutboxThread>();
 	private HashMap<Integer, HeartbeatThread> heartbeatThreads = new HashMap<Integer, HeartbeatThread>();
 	private Anzeigetafel anzeigetafel;
@@ -107,6 +103,8 @@ public class TafelServer {
 		loadTafelAdressenFromFile();
 		loadGroupsFromFile();
 		buildGroupQueueMap();
+		System.out.println(groupMap);
+		System.out.println(groupQueueMap);
 	}
 
 	public synchronized String createMessage(String inhalt, int user, int abtNr) throws TafelException {
@@ -164,7 +162,7 @@ public class TafelServer {
 	 * @throws TafelException
 	 *             if the given abteilungsID is the own abteilungsID
 	 */
-	public synchronized String registerTafel(int abteilungsID, SocketAddress address) throws TafelException {
+	public synchronized String registerTafel(int abteilungsID, URL address) throws TafelException {
 		if (this.abteilungsID == abteilungsID) {
 			throw new TafelException("Die eigene Abteilung wird nicht registriert");
 		}
@@ -281,8 +279,8 @@ public class TafelServer {
 	public synchronized void saveTafelAdressenToFile() {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter("./tafelAdressen" + abteilungsID))) {
 			for (int i : tafelAdressen.keySet()) {
-				InetSocketAddress address = (InetSocketAddress) tafelAdressen.get(i);
-				writer.write(i + ":" + address.getHostName() + ":" + address.getPort() + "\n");
+				URL address =  tafelAdressen.get(i);
+				writer.write(i + ":" + address.getHost() + ":" + address.getPort() + "\n");
 			}
 		} catch (IOException e) {
 			printStackTrace(e);
@@ -299,7 +297,7 @@ public class TafelServer {
 				String[] addressParts = address.split(":");
 				try {
 					registerTafel(Integer.parseInt(addressParts[0]),
-							new InetSocketAddress(addressParts[1], Integer.parseInt(addressParts[2])));
+							new URL(addressParts[1] + addressParts[2]));
 				} catch (NumberFormatException e) {
 					print("NumberFormatException in line " + lines + " " + e.getMessage());
 					e.printStackTrace();
@@ -405,7 +403,7 @@ public class TafelServer {
 	 * 
 	 * @return tafelAdressen
 	 */
-	public HashMap<Integer, SocketAddress> getTafelAdressen() {
+	public HashMap<Integer, URL> getTafelAdressen() {
 		return tafelAdressen;
 	}
 
