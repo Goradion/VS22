@@ -24,6 +24,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.LinkedBlockingDeque;
 
 import serverRequests.DeletePublicRequest;
@@ -42,7 +44,8 @@ import verteilteAnzeigetafel.TafelException;
  */
 public class TafelServer {
 	private HashMap<Integer, LinkedBlockingDeque<ServerRequest>> queueMap = new HashMap<Integer, LinkedBlockingDeque<ServerRequest>>();
-	private HashMap<Integer, HashMap<Integer, LinkedBlockingDeque<ServerRequest>>> groupMap = new HashMap<Integer, HashMap<Integer, LinkedBlockingDeque<ServerRequest>>>();
+	private HashMap<Integer, HashSet<Integer>> groupMap = new HashMap<Integer, HashSet<Integer>>();
+	private HashMap<Integer, HashSet<LinkedBlockingDeque<ServerRequest>>> groupQueueMap = new HashMap<Integer, HashSet<LinkedBlockingDeque<ServerRequest>>>();
 	private HashMap<Integer, SocketAddress> tafelAdressen = new HashMap<Integer, SocketAddress>();
 	private HashMap<Integer, OutboxThread> outboxThreads = new HashMap<Integer, OutboxThread>();
 	private HashMap<Integer, HeartbeatThread> heartbeatThreads = new HashMap<Integer, HeartbeatThread>();
@@ -102,6 +105,8 @@ public class TafelServer {
 
 		queueMap = loadQueueMapFromFile();
 		loadTafelAdressenFromFile();
+		loadGroupsFromFile();
+		buildGroupQueueMap();
 	}
 
 	public synchronized String createMessage(String inhalt, int user, int abtNr) throws TafelException {
@@ -124,11 +129,13 @@ public class TafelServer {
 	public synchronized String publishMessage(int messageID, int userID, int group)
 			throws InterruptedException, TafelException {
 		anzeigetafel.publishMessage(messageID, userID);
-		HashMap<Integer, LinkedBlockingDeque<ServerRequest>> groupMembers = groupMap.get(group);
-		for (Integer abtNr : queueMap.keySet()) {
-			if (groupMembers.keySet().contains(abtNr)) {
-				queueMap.get(abtNr).put(new ReceiveRequest(anzeigetafel.getMessages().get(messageID)));
-			}
+		HashSet<LinkedBlockingDeque<ServerRequest>> groupMembers = groupQueueMap.get(group);
+		for (LinkedBlockingDeque<ServerRequest> q : groupMembers) {
+			q.add(new ReceiveRequest(anzeigetafel.getMessages().get(messageID)));
+			// if (groupMembers.keySet().contains(abtNr)) {
+			// queueMap.get(abtNr).put(new
+			// ReceiveRequest(anzeigetafel.getMessages().get(messageID)));
+			// }
 		}
 		saveQueueMapToFile();
 		anzeigetafel.saveStateToFile();
@@ -305,6 +312,52 @@ public class TafelServer {
 			printStackTrace(e);
 		} catch (IOException e) {
 			printStackTrace(e);
+		}
+	}
+
+	private void loadGroupsFromFile() {
+		int lines = 0;
+		try (BufferedReader reader = new BufferedReader(new FileReader("./tafelGruppen"))) {
+			String address = "";
+			while ((address = reader.readLine()) != null) {
+				lines++;
+				String[] groupParts = address.split(":");
+				int groupId = Integer.parseInt(groupParts[0]);
+				String[] stringMembers = groupParts[1].split(",");
+				HashSet<Integer> intMembers = new HashSet<Integer>();
+				try {
+					for (int i = 0; i < stringMembers.length; i++) {
+						intMembers.add(Integer.parseInt(stringMembers[i]));
+					}
+					groupMap.put(groupId, intMembers);
+
+				} catch (NumberFormatException e) {
+					print("NumberFormatException in line " + lines + " " + e.getMessage());
+					e.printStackTrace();
+				}
+			}
+
+		} catch (FileNotFoundException e) {
+			printStackTrace(e);
+		} catch (IOException e) {
+			printStackTrace(e);
+		}
+	}
+
+	private void buildGroupQueueMap() {
+		groupQueueMap.clear();
+
+		for (Entry<Integer, HashSet<Integer>> entry : groupMap.entrySet()) {
+			Integer groupId = entry.getKey();
+			HashSet<Integer> groupMembers = entry.getValue();
+			HashSet<LinkedBlockingDeque<ServerRequest>> queues = new HashSet<LinkedBlockingDeque<ServerRequest>>();
+
+			for (Integer groupMember : groupMembers) {
+				if (groupMember.intValue() != abteilungsID) {
+					queues.add(queueMap.get(groupMember));
+				}
+			}
+			groupQueueMap.put(groupId, queues);
 		}
 	}
 
