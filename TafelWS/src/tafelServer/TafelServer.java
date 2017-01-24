@@ -493,8 +493,19 @@ public class TafelServer {
 	}
 	
 	public String deletePublic(int msgID, int group) throws TafelException {
+		String antwort = "Nachricht mit ID=" + msgID + "aus Gruppe=" + group + "entfernt!";
+		Message message = anzeigetafel.getMessageByID(msgID);
+		if (message == null) {
+			return "Nachricth mit ID= " + msgID + " nicht gefunden!";
+		}
+		if ( groupMap.containsKey(group) ) {
+			return "TafelServer ist nicht in gegebener Gruppe=" + group + "!";
+		}
 		anzeigetafel.deletePublic(msgID, group);
+		
 		anzeigetafel.saveStateToFile();
-		return null;
+		return antwort;
 	}
+	
+	
 }

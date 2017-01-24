@@ -327,8 +327,17 @@ public class Anzeigetafel extends Observable implements Serializable {
         }
         
         public synchronized void deletePublic(int messageID, int group) throws TafelException {
-    		// delete given groups
-        	//only delete this message here, if groups is empty
-    		deleteMessage(messageID, 1);	//user 1 = Coordiantor            
+        	
+        	if (messages.containsKey(messageID)) {
+				Message curMessage = messages.get(messageID);
+				curMessage.removeGroup(group);
+				if ( !curMessage.isOeffentlich() ) {
+					if ( curMessage.getAbtNr() != abteilungsID ) {
+						deleteMessage(messageID, 1);
+					}
+				}
+    		} else {
+    			throw new TafelException("Keine Message mit ID " + messageID + " gefunden!");
+    		}       
     	}
 }
