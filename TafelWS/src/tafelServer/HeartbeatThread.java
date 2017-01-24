@@ -1,15 +1,9 @@
 package tafelServer;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
 import java.net.URL;
 
-import serverRequests.ServerRequest;
-import tafelServer.webservice.ServerComWebservice;
+import serverCom.gen.ServerComWebservice;
+import serverCom.gen.ServerComWebserviceImplService;
 
 public class HeartbeatThread extends Thread {
 	private static final int sleepTime = 5000;
@@ -39,7 +33,16 @@ public class HeartbeatThread extends Thread {
 		ServerComWebservice port = null;
 		try {
 			while (true) {
-				
+				if (port == null) {
+					port = new ServerComWebserviceImplService(adress).getServerComWebserviceImplPort();
+				}
+				try {
+					port.registerServer(abteilungsID, null);//TODO ziel ließt die ip aus
+				} catch (Exception e){
+					if (isInterrupted()){
+						throw new InterruptedException();
+					}
+				}
 				Thread.sleep(sleepTime);
 			}
 		} catch (InterruptedException e) {
