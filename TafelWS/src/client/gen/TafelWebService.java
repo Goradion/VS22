@@ -69,6 +69,51 @@ public interface TafelWebService {
 
     /**
      * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "deletePublic", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.DeletePublic")
+    @ResponseWrapper(localName = "deletePublicResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.DeletePublicResponse")
+    @Action(input = "http://webservice.tafelServer/TafelWebService/deletePublicRequest", output = "http://webservice.tafelServer/TafelWebService/deletePublicResponse")
+    public String deletePublic(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        int arg2);
+
+    /**
+     * 
+     * @param arg3
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "modifyPublic", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ModifyPublic")
+    @ResponseWrapper(localName = "modifyPublicResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ModifyPublicResponse")
+    @Action(input = "http://webservice.tafelServer/TafelWebService/modifyPublicRequest", output = "http://webservice.tafelServer/TafelWebService/modifyPublicResponse")
+    public String modifyPublic(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        int arg2,
+        @WebParam(name = "arg3", targetNamespace = "")
+        String arg3);
+
+    /**
+     * 
      * @param arg1
      * @param arg0
      * @return
@@ -150,50 +195,5 @@ public interface TafelWebService {
     public List<String> showMessages(
         @WebParam(name = "arg0", targetNamespace = "")
         int arg0);
-
-    /**
-     * 
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "deletePublic", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.DeletePublic")
-    @ResponseWrapper(localName = "deletePublicResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.DeletePublicResponse")
-    @Action(input = "http://webservice.tafelServer/TafelWebService/deletePublicRequest", output = "http://webservice.tafelServer/TafelWebService/deletePublicResponse")
-    public boolean deletePublic(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        int arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        int arg2);
-
-    /**
-     * 
-     * @param arg3
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "modifyPublic", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ModifyPublic")
-    @ResponseWrapper(localName = "modifyPublicResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ModifyPublicResponse")
-    @Action(input = "http://webservice.tafelServer/TafelWebService/modifyPublicRequest", output = "http://webservice.tafelServer/TafelWebService/modifyPublicResponse")
-    public boolean modifyPublic(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        int arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        int arg2,
-        @WebParam(name = "arg3", targetNamespace = "")
-        String arg3);
 
 }

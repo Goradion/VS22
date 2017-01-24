@@ -20,10 +20,10 @@ public class TafelWsPublisher {
 		
 		tafelServer = new TafelServer(abteilung);
 		Endpoint clientEndpoint = Endpoint.publish("http://localhost:8080/TafelWS/tafelws", new TafelWebServiceImpl(tafelServer));
-		//Endpoint serverEndpoint = Endpoint.publish("http://localhost:8080/TafelWS/serverws", new ServerComWebserviceImpl(tafelServer));
+		Endpoint serverEndpoint = Endpoint.publish("http://localhost:8080/TafelWS/serverws", new ServerComWebserviceImpl(tafelServer));
 		JOptionPane.showMessageDialog(null, "Server beenden");
 		clientEndpoint.stop();
-		//serverEndpoint.stop();
+		serverEndpoint.stop();
 	}
 
 }
