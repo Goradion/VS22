@@ -128,7 +128,7 @@ public class TafelServer {
 	 */
 	public synchronized String publishMessage(int messageID, int userID, int group)
 			throws InterruptedException, TafelException {
-		anzeigetafel.publishMessage(messageID, userID);
+		anzeigetafel.publishMessage(messageID, userID, group);
 		HashSet<LinkedBlockingDeque<ServerRequest>> groupMembers = groupQueueMap.get(group);
 		for (LinkedBlockingDeque<ServerRequest> q : groupMembers) {
 			q.add(new ReceiveRequest(anzeigetafel.getMessages().get(messageID)));
@@ -441,9 +441,11 @@ public class TafelServer {
 			}
 		}
 		saveQueueMapToFile();
+		return null;
 	}
 
 	public String modifyPublicMessage(int messageID, int abtNr, int group, String newMessage) throws TafelException {
+		//TODO stuff
 		for (LinkedBlockingDeque<ServerRequest> q : queueMap.values()) {
 			try {
 				q.put(new ModifyPublicRequest(messageID, newMessage));
@@ -452,6 +454,7 @@ public class TafelServer {
 			}
 		}
 		saveQueueMapToFile();
+		return null;
 	}
 
 	public synchronized String deleteMessage(int messageID, int user) throws TafelException {
@@ -486,10 +489,12 @@ public class TafelServer {
 	public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time) throws TafelException {
 		anzeigetafel.receiveMessage(new Message(inhalt, userID, abtNr, true, messageID));
 		anzeigetafel.saveStateToFile();
+		return null;
 	}
 	
 	public String deletePublic(int msgID, int group) throws TafelException {
 		anzeigetafel.deletePublic(msgID, group);
 		anzeigetafel.saveStateToFile();
+		return null;
 	}
 }

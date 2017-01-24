@@ -134,7 +134,8 @@ public class ServerRequestHandler {
 		anzeigetafel.modifyMessage(modifyRequest.getMessageID(), modifyRequest.getNewMessage(),
 				modifyRequest.getUserID());
 		if ((message.isOeffentlich() && message.getAbtNr() == anzeigetafel.getAbteilungsID())) {
-			tafelServer.modifyPublicMessage(modifyRequest.getMessageID(), modifyRequest.getNewMessage());
+			// changed 0, 0,
+			tafelServer.modifyPublicMessage(modifyRequest.getMessageID(), 0, 0, modifyRequest.getNewMessage());
 		}
 
 		anzeigetafel.saveStateToFile();
