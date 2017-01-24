@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.jws.WebService;
 
 import tafelServer.TafelServer;
+import verteilteAnzeigetafel.Message;
+import verteilteAnzeigetafel.SoapableMessage;
 import verteilteAnzeigetafel.TafelException;
 
 @WebService
@@ -70,6 +72,21 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 			String answer = "";
 			try {
 				answer = tafelServer.modifyPublic(msgID, inhalt, koordinatorID);
+			} catch (TafelException e) {
+				answer = e.getMessage();
+			}
+			return answer;
+		}
+		return null;
+	}
+
+	@Override
+	public String receiveMessage(SoapableMessage soapableMessage) {
+		Message message = new Message(soapableMessage);
+		if (tafelServer != null) {
+			String answer = "";
+			try {
+				answer = tafelServer.receiveMessage(message);
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			}

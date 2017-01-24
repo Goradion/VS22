@@ -442,7 +442,7 @@ public class TafelServer {
 		if (message.getAbtNr() == anzeigetafel.getAbteilungsID()) {
 			return "Nachricht mit ID =" + messageID + " gehört nicht zu dieser Abteilung!";
 		}
-		if ( groupMap.containsKey(groupID) ) {
+		if ( !groupMap.containsKey(groupID) ) {
 			return "TafelServer ist nicht in gegebener Gruppe=" + groupID + "!";
 		}
 		
@@ -473,7 +473,7 @@ public class TafelServer {
 		if (!message.isOeffentlich()) {
 			return "Nachricht mit ID =" + messageID + " nicht öffentlich!";
 		}
-		if ( groupMap.containsKey(groupID) ) {
+		if ( !groupMap.containsKey(groupID) ) {
 			return "TafelServer ist nicht in gegebener Gruppe=" + groupID + "!";
 		}
 		
@@ -522,7 +522,7 @@ public class TafelServer {
 
 	public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time, int group) throws TafelException {
 		String antwort = "Nachricht mit ID=" + messageID + " published in Gruppe:" + group + "!";
-		if ( groupMap.containsKey(group) ) {
+		if ( !groupMap.containsKey(group) ) {
 			return "TafelServer ist nicht in gegebener Gruppe=" + group + "!";
 		}
 		anzeigetafel.receiveMessage(new Message(messageID, userID, abtNr, inhalt, true, time), group);
@@ -531,13 +531,23 @@ public class TafelServer {
 		return antwort;
 	}
 	
+	public String receiveMessage(Message message) throws TafelException{
+		for (Integer i : groupMap.keySet()){
+			if(message.getGruppen().contains(i)){
+				anzeigetafel.receiveMessage(message, i);
+				return "Nachricht mit ID=" + message.getMessageID() + " published in Gruppe:" + message + "!";
+			}
+		}
+		return "TafelServer ist in keiner der Empf�ngergruppen gelistet!";
+	}
+	
 	public String deletePublic(int msgID, int userID, int group) throws TafelException {
 		String antwort = "Nachricht mit ID=" + msgID + "aus Gruppe=" + group + "entfernt!";
 		Message message = anzeigetafel.getMessageByID(msgID);
 		if (message == null) {
 			return "Nachricth mit ID= " + msgID + " nicht gefunden!";
 		}
-		if ( groupMap.containsKey(group) ) {
+		if ( !groupMap.containsKey(group) ) {
 			return "TafelServer ist nicht in gegebener Gruppe=" + group + "!";
 		}
 		anzeigetafel.deletePublic(msgID, userID, group);

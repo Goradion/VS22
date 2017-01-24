@@ -1,9 +1,10 @@
 package verteilteAnzeigetafel;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
+
+import verteilteAnzeigetafel.SoapableMessage;
 
 public class Message implements Serializable {
 
@@ -34,6 +35,19 @@ public class Message implements Serializable {
 		time = new Date();
 		this.messageID = msgID;
 
+	}
+	
+	public Message(SoapableMessage soapableMessage){
+		super();
+		this.messageID = soapableMessage.getMessageID();
+		this.userID = soapableMessage.getUserID();
+		this.abtNr = soapableMessage.getAbtNr();
+		this.inhalt = soapableMessage.getInhalt();
+		this.oeffentlich = soapableMessage.isOeffentlich();
+		this.time = soapableMessage.getTime();
+		for(int i = 0 ; i < soapableMessage.getGruppen().length; i++){
+			this.gruppen.add(soapableMessage.getGruppen()[i]);
+		}
 	}
 
 	@Override
@@ -82,6 +96,14 @@ public class Message implements Serializable {
 
 	public void setOeffentlich() {
 		this.oeffentlich = true;
+	}
+
+	public HashSet<Integer> getGruppen() {
+		return gruppen;
+	}
+
+	public void setGruppen(HashSet<Integer> gruppen) {
+		this.gruppen = gruppen;
 	}
 
 }

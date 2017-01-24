@@ -9,12 +9,17 @@ import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 
+import verteilteAnzeigetafel.SoapableMessage;
+
 @WebService
 @SOAPBinding(style = Style.DOCUMENT, parameterStyle = ParameterStyle.WRAPPED, use = Use.LITERAL)
 public interface ServerComWebservice {
 	
 	@WebMethod
 	public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time, int group);
+	
+	@WebMethod
+	public String receiveMessage(SoapableMessage soapableMessage);
 	
 	@WebMethod
 	public String registerServer(int abtNr, String address);
