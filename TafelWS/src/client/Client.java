@@ -25,7 +25,7 @@ public class Client {
    private static List<Message> msgs;
    
 	public static void main(String[] args) {
-		String[] abteilungen = new String[] {"Managment","Finanzen"};
+		String[] abteilungen = new String[] {"Managment","Finanzen","Technik"};
 		msgs = new ArrayList<Message>();
 		msgs.add(new Message("Nachricht", 1, 2, false, 0));
 		msgs.add(new Message("Noch eine Nachricht die wirklich sehr lang sein soll lkjsdfioasopekpoaiksgöokaosdgköadskglkasdfäpgkösdkfglkadäofgkäoadkfgopakeärgkaeokegopaklerohkaösdgjlisrötlrgäpylkdöogijlsdykfgklüxäötkhöoxöfzäjöoxflhäxÖfläphäXrtu ENDE DER NACHTICHT",1,2,false,1));
@@ -45,6 +45,7 @@ public class Client {
 		if(clientGui.getUserid() > 0){
 			clientGui.showLoggedIn(clientGui.getUserid(), msgs);
 			clientGui.setMenue(menue);
+			
 			clientGui.setPublish(clientGui.getUserid() == 1);
 			clientGui.actionMenuSelect(new java.awt.event.ItemListener() {
 				 public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -64,7 +65,9 @@ public class Client {
 		switch(clientGui.getSelectedMenue()){
 		case "Zeige alle Nachrichten" : 
 				clientGui.setMenue(new String[] {"Zeige alle Nachrichten", "Neue Nachricht"});
+				
 				clientGui.showShowMessages(msgs);
+				clientGui.setPublish(clientGui.getUserid() == 1);
 				clientGui.addActionSendQuery(new java.awt.event.ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						sendQueryActionPerformed(evt);
@@ -74,6 +77,7 @@ public class Client {
 		case "Neue Nachricht" : 
 				clientGui.setMenue(new String[] {"Neue Nachricht", "Zeige alle Nachrichten"});
 				clientGui.showNewMessage();
+				clientGui.setPublish(clientGui.getUserid() == 1);
 				clientGui.actionSendNewMessage(new java.awt.event.ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						sendNewMessage(evt);
@@ -99,6 +103,7 @@ public class Client {
 		}
 		if(clientGui.getQueryCommand().equals("change")){
 			clientGui.showEditMessage(clientGui.getSelectedMessage());
+			clientGui.setPublish(clientGui.getUserid() == 1);
 			clientGui.addActionChangeButton((new java.awt.event.ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						changeMessage(evt);
