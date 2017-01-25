@@ -10,6 +10,7 @@ public class HeartbeatThread extends Thread {
 	private int abteilungsID;
 	private URL adress;
 	private TafelServer tafelServer;
+	private boolean connected = false;
 
 	/**
 	 * Construcs a new HeartbeatThread
@@ -33,15 +34,26 @@ public class HeartbeatThread extends Thread {
 		ServerComWebservice port = null;
 		try {
 			while (true) {
-				if (port == null) {
-					port = new ServerComWebserviceImplService(adress).getServerComWebserviceImplPort();
-				}
 				try {
-					port.registerServer(abteilungsID, null);//TODO ziel ließt die ip aus
-				} catch (Exception e){
-					if (isInterrupted()){
+					if (port == null) {
+						port = new ServerComWebserviceImplService(adress).getServerComWebserviceImplPort();
+					}
+					port.registerServer(abteilungsID, null);// TODO ziel ließt // die ip au
+					if (!connected){
+						tafelServer.print("Connected to Abteilung " + abteilungsID + " " + adress);
+						connected = true;
+					}
+															
+				} catch (Exception e) {
+					if (connected){
+						tafelServer.print("Disconnected from Abteilung " + abteilungsID + " " + adress);
+						connected = false;
+					}
+					
+					if (isInterrupted()) {
 						throw new InterruptedException();
 					}
+					
 				}
 				Thread.sleep(sleepTime);
 			}

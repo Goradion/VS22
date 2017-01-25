@@ -159,12 +159,9 @@ public class Client {
 		if ((userID == 1) && msgID > 0 )
 		{	
 			TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
-			port.publishMessage(msgid, userid, 1);			
+			port.publishMessage(msgID, userID, 1);			
 		}
-		
-		
-		
-		
+			
 			
 		
 		

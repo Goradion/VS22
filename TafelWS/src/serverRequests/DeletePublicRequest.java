@@ -1,6 +1,6 @@
 package serverRequests;
 
-import tafelServer.ServerRequestHandler;
+import tafelServer.ServerRequestDeliverer;
 import verteilteAnzeigetafel.TafelException;
 
 public class DeletePublicRequest extends UserRequest {
@@ -24,7 +24,7 @@ public class DeletePublicRequest extends UserRequest {
 		return messageID;
 	}
 	@Override
-	public String handleMe(ServerRequestHandler handler) throws TafelException {
-		return handler.handle(this);		
+	public String deliverMe(ServerRequestDeliverer deliverer) throws TafelException {
+		return deliverer.deliver(this);		
 	}
 }

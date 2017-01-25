@@ -3,7 +3,7 @@ package serverRequests;
 import java.io.Serializable;
 import java.net.SocketAddress;
 
-import tafelServer.ServerRequestHandler;
+import tafelServer.ServerRequestDeliverer;
 import verteilteAnzeigetafel.Message;
 import verteilteAnzeigetafel.TafelException;
 
@@ -18,7 +18,7 @@ public abstract class ServerRequest implements Serializable {
 	 * @throws InterruptedException
 	 */
 	
-	public abstract String handleMe(ServerRequestHandler handler) throws TafelException, InterruptedException;
+	public abstract String deliverMe(ServerRequestDeliverer deliverer) throws TafelException, InterruptedException;
 	/**
 	 * Returns whether the ServerRequest wants an answer to be read by a user.
 	 * @return false default, otherwise as specified in subclass
