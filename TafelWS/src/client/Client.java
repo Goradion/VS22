@@ -2,9 +2,15 @@ package client;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.xml.internal.ws.wsdl.writer.document.Port;
+
+import client.gen.TafelWebService;
+import client.gen.TafelWebServiceImplService;
 import verteilteAnzeigetafel.Message;
 
 /*
@@ -21,6 +27,8 @@ import verteilteAnzeigetafel.Message;
 
 public class Client {
    private static ClientGui clientGui;
+   
+   private static NewMessageGUI newMessageGui;
    private static String[] menue;
    private static List<Message> msgs;
    
@@ -87,15 +95,40 @@ public class Client {
 		}
 	}
 	
-	private static void sendNewMessage(ActionEvent evt){
+	private static void sendNewMessage(ActionEvent evt) throws MalformedURLException{
 		//TODO Nachricht versenden lassen
-		clientGui.setNewMessageState("Nachricht versendet!");
-		clientGui.repaint();
+		int userID=0;
+		String message ="";
+		String abteilung ="";
+		userID = clientGui.getUserid();
+		message = clientGui.getNewMessage();
+		abteilung = clientGui.getAbteilung();
+
+		if ((userID > 0) && message != "" && abteilung != "" )
+		{
+			TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
+		    port.createMessage(message, userID, Integer.parseInt(abteilung), false);
+		    clientGui.setNewMessageState("Nachricht versendet!");
+			clientGui.repaint();
+		}
+		else{
+			clientGui.setNewMessageState("Fehler in UserID, Message oder Abteilung");
+			clientGui.repaint();
+		}
+		
+		
 	}
 	
-	private static void sendQueryActionPerformed(ActionEvent evt){
+	private static void sendQueryActionPerformed(ActionEvent evt) throws MalformedURLException{
 		if(clientGui.getQueryCommand().equals("delete")){
-			//TODO Die nachricht löschen und Gui neuladen
+			int userID=0;
+			Message msgID;
+			userID = clientGui.getUserid();
+  			msgID = clientGui.getMsgID();
+  
+  			
+			TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
+    		port.publishMessage(msgID.getMessageID(), userID);
 		}
 		if(clientGui.getQueryCommand().equals("change")){
 			clientGui.showEditMessage(clientGui.getSelectedMessage());
@@ -106,12 +139,21 @@ public class Client {
 				}));
 		}
 		if(clientGui.getQueryCommand().equals("publish")){
-			//TODO die Nachricht veröffentlichen und 
+			
+			int userID=0;
+			Message msgID;
+			userID = clientGui.getUserid();
+  			msgID = clientGui.getMsgID();
+  
+  			
+			TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
+    		port.publishMessage(msgID.getMessageID(), userID);
+		
+			
 		}
 		if(clientGui.getQueryCommand().equals("error")){
 			//Was machen wir dann? :D
 		}
-
 	}
 
 	private static void changeMessage(ActionEvent evt) {
