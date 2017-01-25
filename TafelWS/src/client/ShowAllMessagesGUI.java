@@ -421,7 +421,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     	
     }
   
-    public boolean Checkbox1()
+    public boolean pruefegruppe1()
     {
     	boolean g1 =false;
         if(gruppe1.isEnabled()){
@@ -432,37 +432,37 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
         	return g1;
         }  
     }
-    public boolean Checkbox2()
+    public boolean pruefegruppe2()
     {
-    	boolean g1 =false;
+    	boolean g2 =false;
         if(gruppe2.isEnabled()){
-        	g1= true;
-        	return g1;
+        	g2= true;
+        	return g2;
         	}
         else{
-        	return g1;
+        	return g2;
         }  
     }
-    public boolean Checkbox3()
+    public boolean pruefegruppe3()
     {
-    	boolean g1 =false;
+    	boolean g3 =false;
         if(gruppe3.isEnabled()){
-        	g1= true;
-        	return g1;
+        	g3= true;
+        	return g3;
         	}
         else{
-        	return g1;
+        	return g3;
         }  
     }
-    public boolean Checkbox4()
+    public boolean pruefegruppe4()
     {
-    	boolean g1 =false;
+    	boolean g4 =false;
         if(gruppe4.isEnabled()){
-        	g1= true;
-        	return g1;
+        	g4= true;
+        	return g4;
         	}
         else{
-        	return g1;
+        	return g4;
         }  
     }
 

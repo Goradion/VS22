@@ -184,7 +184,22 @@ public class ClientGui extends JFrame{
     public void setConectivity(boolean active){
     	loginGUI.setConectivity(active);
     }
-    
+    public boolean pruefeGruppe1(){
+    	return showAllMessagesGUI.pruefegruppe1();
+    	
+    }
+    public boolean pruefGruppe2(){
+    	return showAllMessagesGUI.pruefegruppe2();
+    	
+    }
+    public boolean pruefeGruppe3(){
+    	return showAllMessagesGUI.pruefegruppe3();
+    	
+    }
+    public boolean pruefeGruppe4(){
+    	return showAllMessagesGUI.pruefegruppe4();
+    	
+    }
   
 }
 
