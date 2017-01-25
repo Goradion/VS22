@@ -15,7 +15,7 @@ import verteilteAnzeigetafel.Message;
  * @author Micha
  */
 
-//TODO Deaktivierung Publish falls kein Koordinator
+//TODO Checkboxen für publish mit integrieren
 //bzw ausblenden, von aussen also Funktion nötig dafür
 
 public class ShowAllMessagesGUI extends JPanel implements ActionListener{
@@ -378,6 +378,10 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     	return msgs.get(Integer.parseInt(messageIDTextField.getText()));
     }
 
+    /**
+     * Furnktion für den 
+     * @return
+     */
     public String getSelection(){
     	if(changeMessage.isSelected()){
     		return "change";
@@ -394,23 +398,20 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     	}
     	
     }
-    
+    /**
+     * Funktion für ein und  ausblenden von dem Publishbutton + Gruppencheckboxen  falls nur normaler user
+     * @param enable
+     */
     public void setPublish(boolean enable){
     	
     	publishMessage.setVisible(enable);
-    	if(enable == true)
-    	{
+    	
     		gruppe1.setVisible(enable);
     		gruppe2.setVisible(enable);
     		gruppe3.setVisible(enable);
     		gruppe4.setVisible(enable);
-    	}
-    	else{
-    		gruppe1.setVisible(false);
-    		gruppe2.setVisible(false);
-    		gruppe3.setVisible(false);
-    		gruppe4.setVisible(false);
-    	}
+    
+    	
     }
 
 
