@@ -135,7 +135,7 @@ public class Client {
   			if ((userID > 0) && msgID > 0 )
   			{
   				TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
-  				port.deleteMessage(msgID,userID);
+  				port.deleteMessage(Integer.parseInt(msgID),userID);
   			}
   			
 		}
@@ -154,12 +154,19 @@ public class Client {
 			Message msgID;
 			userID = clientGui.getUserid();
   			msgID = clientGui.getMsgID();
+  			boolean g_one, g_two, g_three,g_four = false; 
   			
-
+  			g_one = clientGui.pruefeGruppe1();
+  			g_two = clientGui.pruefeGruppe2();
+  			g_three = clientGui.pruefeGruppe3();
+  			g_four = clientGui.pruefeGruppe4();
+  						
+  			
 		if ((userID == 1) && msgID > 0 )
 		{	
+			
 			TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
-			port.publishMessage(msgID, userID, 1);			
+			port.publishMessage(msgID, userID, g_one,g_two,g_three,g_four);			
 		}
 			
 			
