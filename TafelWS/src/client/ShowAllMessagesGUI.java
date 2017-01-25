@@ -398,19 +398,21 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     public void setPublish(boolean enable){
     	
     	publishMessage.setVisible(enable);
-    	gruppe1.setVisible(enable);
-    	gruppe2.setVisible(enable);
-    	gruppe3.setVisible(enable);
-    	gruppe4.setVisible(enable);
+    	if(enable == true)
+    	{
+    		gruppe1.setVisible(enable);
+    		gruppe2.setVisible(enable);
+    		gruppe3.setVisible(enable);
+    		gruppe4.setVisible(enable);
+    	}
+    	else{
+    		gruppe1.setVisible(false);
+    		gruppe2.setVisible(false);
+    		gruppe3.setVisible(false);
+    		gruppe4.setVisible(false);
+    	}
     }
 
 
-  
-    
-    
-    
-    
-                 
-	
 	
 }
