@@ -97,6 +97,13 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
         gruppe2.setText("Gruppe2");
         gruppe3.setText("Gruppe3");
         gruppe4.setText("Gruppe4");
+   /*     
+        gruppe1.addActionListener(this);
+        gruppe2.addActionListener(this);
+        gruppe3.addActionListener(this);
+        gruppe4.addActionListener(this);
+ */       
+
         
         // ButtonGruppe
         buttonGroup1.add(deleteMessage);
@@ -413,17 +420,51 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     
     	
     }
- /*   
-    public void disableCheckbox()
+  
+    public boolean pruefegruppe1()
     {
-    	publishMessage.setVisible(false);
-    
-    	gruppe1.setVisible(false);
-    	gruppe2.setVisible(false);
-    	gruppe3.setVisible(false);
-    	gruppe4.setVisible(false);
-    	
+    	boolean g1 =false;
+        if(gruppe1.isEnabled()){
+        	g1= true;
+        	return g1;
+        	}
+        else{
+        	return g1;
+        }  
     }
-*/
+    public boolean pruefegruppe2()
+    {
+    	boolean g2 =false;
+        if(gruppe2.isEnabled()){
+        	g2= true;
+        	return g2;
+        	}
+        else{
+        	return g2;
+        }  
+    }
+    public boolean pruefegruppe3()
+    {
+    	boolean g3 =false;
+        if(gruppe3.isEnabled()){
+        	g3= true;
+        	return g3;
+        	}
+        else{
+        	return g3;
+        }  
+    }
+    public boolean pruefegruppe4()
+    {
+    	boolean g4 =false;
+        if(gruppe4.isEnabled()){
+        	g4= true;
+        	return g4;
+        	}
+        else{
+        	return g4;
+        }  
+    }
+
 	
 }
