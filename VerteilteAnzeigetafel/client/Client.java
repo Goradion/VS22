@@ -88,6 +88,7 @@ public class Client {
 	}
 	
 	private static void sendNewMessage(ActionEvent evt){
+		//TODO Nachricht versenden lassen
 		clientGui.setNewMessageState("Nachricht versendet!");
 		clientGui.repaint();
 	}
