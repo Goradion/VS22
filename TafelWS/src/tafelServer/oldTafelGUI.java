@@ -11,7 +11,7 @@ import javax.swing.border.TitledBorder;
 import verteilteAnzeigetafel.Anzeigetafel;
 import verteilteAnzeigetafel.Message;
 
-public class TafelGUI implements Observer {
+public class oldTafelGUI implements Observer {
     
     private final JFrame window;
     private JTextArea localMessages;
