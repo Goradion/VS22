@@ -9,7 +9,7 @@ import javax.swing.*;
 import verteilteAnzeigetafel.Message;
 
 /**
- *
+ * author Armin + Michael + Andrea
  * 
  */
 public class ClientGui extends JFrame{
@@ -184,5 +184,7 @@ public class ClientGui extends JFrame{
     public void setConectivity(boolean active){
     	loginGUI.setConectivity(active);
     }
+    
+  
 }
 
