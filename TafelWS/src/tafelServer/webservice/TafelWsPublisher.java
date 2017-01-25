@@ -24,6 +24,7 @@ public class TafelWsPublisher {
 		JOptionPane.showMessageDialog(null, "Server beenden");
 		clientEndpoint.stop();
 		serverEndpoint.stop();
+
 	}
 
 }

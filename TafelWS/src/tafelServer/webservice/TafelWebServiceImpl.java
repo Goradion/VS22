@@ -1,6 +1,7 @@
 package tafelServer.webservice;
 
 import java.util.LinkedList;
+import java.util.Date;
 
 import javax.jws.WebService;
 

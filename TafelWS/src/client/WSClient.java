@@ -28,10 +28,10 @@ public class WSClient {
 		List<String> request = new ArrayList<String>();
 //		List<String> reply = port.startTafelServer(request);
 //		System.out.println(reply.get(0));
-		List<String> reply = port.startTafelServer(1);
-		System.out.println(reply.get(0));
-		List<String> reply2 = port.startTafelServer(1);
-		System.out.println(reply2.get(0));
+//		List<String> reply = port.startTafelServer(1);
+//		System.out.println(reply.get(0));
+//		List<String> reply2 = port.startTafelServer(1);
+//		System.out.println(reply2.get(0));
 	}
 
 	private static boolean isValidIpAddress(String ip) {
