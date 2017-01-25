@@ -92,7 +92,7 @@ public class TafelServer {
 		}
 		// hier habe ich den Gui-Part hinzugefügt
 
-		gui = new TafelGUI(anzeigetafel.getAbteilungsID(), this);
+		gui = new TafelGUI(anzeigetafel.getAbteilungsID(), this, new int[]{2,3,4,4,4,4,4,4,44,4});
 		anzeigetafel.addObserver(gui);
 		anzeigetafel.updateState();
 

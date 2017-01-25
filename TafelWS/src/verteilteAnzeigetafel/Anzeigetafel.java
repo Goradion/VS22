@@ -287,6 +287,15 @@ public class Anzeigetafel extends Observable implements Serializable {
            }
            return pm;
         }
+        public synchronized LinkedList<Message> getGroupMsgs(int ID){// anpassen für gruppen
+            LinkedList<Message> pm = new LinkedList<Message>();
+            for(HashMap.Entry<Integer, Message> entry : messages.entrySet()){
+                if(!entry.getValue().isOeffentlich()){
+                    pm.add(entry.getValue());
+                }
+            }
+            return pm;
+         }
         
         /**
          * Returns a list of global (published) messages.
