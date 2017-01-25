@@ -184,5 +184,7 @@ public class ClientGui extends JFrame{
     public void setConectivity(boolean active){
     	loginGUI.setConectivity(active);
     }
+    
+  
 }
 

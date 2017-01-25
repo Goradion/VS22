@@ -119,6 +119,8 @@ public class Client {
 		
 	}
 	
+	
+	
 	private static void sendQueryActionPerformed(ActionEvent evt) throws MalformedURLException{
 		if(clientGui.getQueryCommand().equals("delete")){
 			int userID=0;
@@ -147,14 +149,20 @@ public class Client {
 			Message msgID;
 			userID = clientGui.getUserid();
   			msgID = clientGui.getMsgID();
-  
-  			if ((userID == 1) && msgID > 0 )
-  			{
-  				TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
-    			port.publishMessage(msgID.getMessageID(), userID);
-  			}
-			
+  			
+
+		if ((userID == 1) && msgID > 0 )
+		{	
+			TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
+			port.publishMessage(msgid, userid, 1);			
 		}
+		
+		
+		
+		
+			
+		
+		
 		if(clientGui.getQueryCommand().equals("error")){
 			//Was machen wir dann? :D
 		}
