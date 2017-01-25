@@ -2,9 +2,15 @@ package client;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.xml.internal.ws.wsdl.writer.document.Port;
+
+import client.gen.TafelWebService;
+import client.gen.TafelWebServiceImplService;
 import verteilteAnzeigetafel.Message;
 
 /*
@@ -21,11 +27,13 @@ import verteilteAnzeigetafel.Message;
 
 public class Client {
    private static ClientGui clientGui;
+   
+   private static NewMessageGUI newMessageGui;
    private static String[] menue;
    private static List<Message> msgs;
    
 	public static void main(String[] args) {
-		String[] abteilungen = new String[] {"Managment","Finanzen"};
+		String[] abteilungen = new String[] {"Managment","Finanzen","Technik"};
 		msgs = new ArrayList<Message>();
 		msgs.add(new Message("Nachricht", 1, 2, false, 0));
 		msgs.add(new Message("Noch eine Nachricht die wirklich sehr lang sein soll lkjsdfioasopekpoaiksgöokaosdgköadskglkasdfäpgkösdkfglkadäofgkäoadkfgopakeärgkaeokegopaklerohkaösdgjlisrötlrgäpylkdöogijlsdykfgklüxäötkhöoxöfzäjöoxflhäxÖfläphäXrtu ENDE DER NACHTICHT",1,2,false,1));
@@ -45,6 +53,7 @@ public class Client {
 		if(clientGui.getUserid() > 0){
 			clientGui.showLoggedIn(clientGui.getUserid(), msgs);
 			clientGui.setMenue(menue);
+			
 			clientGui.setPublish(clientGui.getUserid() == 1);
 			clientGui.actionMenuSelect(new java.awt.event.ItemListener() {
 				 public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -64,7 +73,9 @@ public class Client {
 		switch(clientGui.getSelectedMenue()){
 		case "Zeige alle Nachrichten" : 
 				clientGui.setMenue(new String[] {"Zeige alle Nachrichten", "Neue Nachricht"});
+				
 				clientGui.showShowMessages(msgs);
+				clientGui.setPublish(clientGui.getUserid() == 1);
 				clientGui.addActionSendQuery(new java.awt.event.ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						sendQueryActionPerformed(evt);
@@ -74,6 +85,7 @@ public class Client {
 		case "Neue Nachricht" : 
 				clientGui.setMenue(new String[] {"Neue Nachricht", "Zeige alle Nachrichten"});
 				clientGui.showNewMessage();
+				clientGui.setPublish(clientGui.getUserid() == 1);
 				clientGui.actionSendNewMessage(new java.awt.event.ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						sendNewMessage(evt);
@@ -87,18 +99,44 @@ public class Client {
 		}
 	}
 	
-	private static void sendNewMessage(ActionEvent evt){
+	private static void sendNewMessage(ActionEvent evt) throws MalformedURLException{
 		//TODO Nachricht versenden lassen
-		clientGui.setNewMessageState("Nachricht versendet!");
-		clientGui.repaint();
+		int userID=0;
+		String message ="";
+		String abteilung ="";
+		userID = clientGui.getUserid();
+		message = clientGui.getNewMessage();
+		abteilung = clientGui.getAbteilung();
+
+		if ((userID > 0) && message != "" && abteilung != "" )
+		{
+			TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
+		    port.createMessage(message, userID, Integer.parseInt(abteilung), false);
+		    clientGui.setNewMessageState("Nachricht versendet!");
+			clientGui.repaint();
+		}
+		else{
+			clientGui.setNewMessageState("Fehler in UserID, Message oder Abteilung");
+			clientGui.repaint();
+		}
+		
+		
 	}
 	
-	private static void sendQueryActionPerformed(ActionEvent evt){
+	private static void sendQueryActionPerformed(ActionEvent evt) throws MalformedURLException{
 		if(clientGui.getQueryCommand().equals("delete")){
-			//TODO Die nachricht löschen und Gui neuladen
+			int userID=0;
+			Message msgID;
+			userID = clientGui.getUserid();
+  			msgID = clientGui.getMsgID();
+  
+  			
+			TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
+    		port.publishMessage(msgID.getMessageID(), userID);
 		}
 		if(clientGui.getQueryCommand().equals("change")){
 			clientGui.showEditMessage(clientGui.getSelectedMessage());
+			clientGui.setPublish(clientGui.getUserid() == 1);
 			clientGui.addActionChangeButton((new java.awt.event.ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						changeMessage(evt);
@@ -106,12 +144,21 @@ public class Client {
 				}));
 		}
 		if(clientGui.getQueryCommand().equals("publish")){
-			//TODO die Nachricht veröffentlichen und 
+			
+			int userID=0;
+			Message msgID;
+			userID = clientGui.getUserid();
+  			msgID = clientGui.getMsgID();
+  
+  			
+			TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
+    		port.publishMessage(msgID.getMessageID(), userID);
+		
+			
 		}
 		if(clientGui.getQueryCommand().equals("error")){
 			//Was machen wir dann? :D
 		}
-
 	}
 
 	private static void changeMessage(ActionEvent evt) {

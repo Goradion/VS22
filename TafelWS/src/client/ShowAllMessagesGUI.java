@@ -413,7 +413,17 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     
     	
     }
-
-
+ /*   
+    public void disableCheckbox()
+    {
+    	publishMessage.setVisible(false);
+    
+    	gruppe1.setVisible(false);
+    	gruppe2.setVisible(false);
+    	gruppe3.setVisible(false);
+    	gruppe4.setVisible(false);
+    	
+    }
+*/
 	
 }
