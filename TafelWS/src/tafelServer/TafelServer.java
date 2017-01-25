@@ -75,7 +75,7 @@ public class TafelServer {
 	private static TafelServer tafelServerInstance = null;
 	
 	public static boolean startServer(int abteilung){
-		if (tafelServerInstance != null){
+		if (tafelServerInstance == null){
 			tafelServerInstance = new TafelServer(abteilung);
 			return true;
 		} else {
@@ -296,7 +296,7 @@ public class TafelServer {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter("./tafelAdressen" + abteilungsID))) {
 			for (int i : tafelAdressen.keySet()) {
 				URL address =  tafelAdressen.get(i);
-				writer.write(i + ":" + address.getHost() + ":" + address.getPort() + "\n");
+				writer.write(i + " " + address.toString() + "\n");
 			}
 		} catch (IOException e) {
 			printStackTrace(e);
@@ -310,10 +310,10 @@ public class TafelServer {
 			String address = "";
 			while ((address = reader.readLine()) != null) {
 				lines++;
-				String[] addressParts = address.split(":");
+				String[] addressParts = address.split(" ");
 				try {
 					registerTafel(Integer.parseInt(addressParts[0]),
-							new URL(addressParts[1] + addressParts[2]));
+							new URL(addressParts[1]));
 				} catch (NumberFormatException e) {
 					print("NumberFormatException in line " + lines + " " + e.getMessage());
 					e.printStackTrace();

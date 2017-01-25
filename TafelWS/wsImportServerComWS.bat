@@ -11,6 +11,8 @@ cd /D %ECLIPSE_PATH%
 ::echo %cd%
 :: Again back to the eclipse working dir, so wsimport works
 
+::BACKUP machen
+
 rd /s /q %WORKSPACE_PATH%\build\classes\serverCom\gen
 rd /s /q %WORKSPACE_PATH%\src\serverCom\gen
 echo --- Old deleted ---

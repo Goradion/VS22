@@ -286,6 +286,7 @@ public class Anzeigetafel extends Observable implements Serializable {
     		messages.put(curMsgID, msg);
     		userMsgs.get(msg.getUserID()).add(msg.getMessageID()); 
     	} else {
+    		// Gruppe adden anstatt fehler
 			throw new TafelException("Message mit ID " + curMsgID + " existiert bereits!");
 		}	
         	updateState();
@@ -304,7 +305,7 @@ public class Anzeigetafel extends Observable implements Serializable {
            }
            return pm;
         }
-        public synchronized LinkedList<Message> getGroupMsgs(int ID){// anpassen für gruppen
+        public synchronized LinkedList<Message> getGroupMsgs(int ID){// anpassen fï¿½r gruppen
             LinkedList<Message> pm = new LinkedList<Message>();
             for(HashMap.Entry<Integer, Message> entry : messages.entrySet()){
                 if(!entry.getValue().isOeffentlich()){
