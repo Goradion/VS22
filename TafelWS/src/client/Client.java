@@ -21,7 +21,7 @@ import verteilteAnzeigetafel.Message;
 
 /**
  *
- * @author Armin
+ * @author Armin + Moser + Andrea
  */
 
 
@@ -126,9 +126,12 @@ public class Client {
 			userID = clientGui.getUserid();
   			msgID = clientGui.getMsgID();
   
+  			if ((userID > 0) && msgID > 0 )
+  			{
+  				TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
+  				port.deleteMessage(msgID,userID);
+  			}
   			
-			TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
-    		port.publishMessage(msgID.getMessageID(), userID);
 		}
 		if(clientGui.getQueryCommand().equals("change")){
 			clientGui.showEditMessage(clientGui.getSelectedMessage());
@@ -145,10 +148,11 @@ public class Client {
 			userID = clientGui.getUserid();
   			msgID = clientGui.getMsgID();
   
-  			
-			TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
-    		port.publishMessage(msgID.getMessageID(), userID);
-		
+  			if ((userID == 1) && msgID > 0 )
+  			{
+  				TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
+    			port.publishMessage(msgID.getMessageID(), userID);
+  			}
 			
 		}
 		if(clientGui.getQueryCommand().equals("error")){

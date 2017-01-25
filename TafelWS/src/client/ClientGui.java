@@ -9,7 +9,7 @@ import javax.swing.*;
 import verteilteAnzeigetafel.Message;
 
 /**
- *
+ * author Armin + Michael + Andrea
  * 
  */
 public class ClientGui extends JFrame{
