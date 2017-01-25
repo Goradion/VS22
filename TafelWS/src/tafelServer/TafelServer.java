@@ -72,8 +72,22 @@ public class TafelServer {
 	//
 	// tafelServer.start();
 	// }
+	private static TafelServer tafelServerInstance = null;
+	
+	public static boolean startServer(int abteilung){
+		if (tafelServerInstance != null){
+			tafelServerInstance = new TafelServer(abteilung);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-	public TafelServer(int abteilungsID) {
+	public static TafelServer getServer(){
+		return tafelServerInstance;
+	}
+	
+	private TafelServer(int abteilungsID) {
 		this.abteilungsID = abteilungsID;
 		init();
 		printMessages();

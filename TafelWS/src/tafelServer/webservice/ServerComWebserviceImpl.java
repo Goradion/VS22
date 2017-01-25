@@ -19,13 +19,13 @@ import verteilteAnzeigetafel.TafelException;
 
 @WebService(endpointInterface = "tafelServer.webservice.ServerComWebservice")
 public class ServerComWebserviceImpl implements ServerComWebservice {
-	TafelServer tafelServer;
+	private final int koordinatorID;
+	private TafelServer tafelServer;
 	
-	@Resource
-	WebServiceContext wsContext;
-	
-	public ServerComWebserviceImpl(TafelServer tafelServer2) {
-		tafelServer = tafelServer2;
+	public ServerComWebserviceImpl() {
+		super();
+		tafelServer = TafelServer.getServer();
+		koordinatorID = 1;
 	}
 
 	@Override

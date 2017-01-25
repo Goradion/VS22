@@ -17,9 +17,9 @@ public class TafelWebServiceImpl implements TafelWebService {
 	// this.tafelServer = new TafelServer(abteilungsID);
 	// }
 
-	public TafelWebServiceImpl(TafelServer tafelServer2) {
+	public TafelWebServiceImpl() {
 		super();
-		tafelServer = tafelServer2;
+		tafelServer = TafelServer.getServer();
 	}
 
 	public String createMessage(String inhalt, int user, int abtNr) {
@@ -83,7 +83,8 @@ public class TafelWebServiceImpl implements TafelWebService {
 		// TODO implement access permissions for starting the server
 
 		if (tafelServer == null) {
-			tafelServer = new TafelServer(abtNr);
+			TafelServer.startServer(abtNr);
+			tafelServer = TafelServer.getServer();
 			reply[0] = "TafelServer started successfully.";
 		} else {
 			reply[0] = "Server is already running.";
