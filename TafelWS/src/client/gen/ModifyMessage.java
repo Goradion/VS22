@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for modifyMessage complex type.
+ * <p>Java-Klasse für modifyMessage complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="modifyMessage">
@@ -40,7 +40,7 @@ public class ModifyMessage {
     protected int arg2;
 
     /**
-     * Gets the value of the arg0 property.
+     * Ruft den Wert der arg0-Eigenschaft ab.
      * 
      */
     public int getArg0() {
@@ -48,7 +48,7 @@ public class ModifyMessage {
     }
 
     /**
-     * Sets the value of the arg0 property.
+     * Legt den Wert der arg0-Eigenschaft fest.
      * 
      */
     public void setArg0(int value) {
@@ -56,7 +56,7 @@ public class ModifyMessage {
     }
 
     /**
-     * Gets the value of the arg1 property.
+     * Ruft den Wert der arg1-Eigenschaft ab.
      * 
      * @return
      *     possible object is
@@ -68,7 +68,7 @@ public class ModifyMessage {
     }
 
     /**
-     * Sets the value of the arg1 property.
+     * Legt den Wert der arg1-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
@@ -80,7 +80,7 @@ public class ModifyMessage {
     }
 
     /**
-     * Gets the value of the arg2 property.
+     * Ruft den Wert der arg2-Eigenschaft ab.
      * 
      */
     public int getArg2() {
@@ -88,7 +88,7 @@ public class ModifyMessage {
     }
 
     /**
-     * Sets the value of the arg2 property.
+     * Legt den Wert der arg2-Eigenschaft fest.
      * 
      */
     public void setArg2(int value) {

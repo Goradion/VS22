@@ -1,5 +1,5 @@
 
-package client.gen;
+package serverCom.gen;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -7,18 +7,17 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java-Klasse für publishMessage complex type.
+ * <p>Java-Klasse für registerServer complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="publishMessage">
+ * &lt;complexType name="registerServer">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="arg1" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="arg2" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="arg1" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -28,16 +27,14 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "publishMessage", propOrder = {
+@XmlType(name = "registerServer", propOrder = {
     "arg0",
-    "arg1",
-    "arg2"
+    "arg1"
 })
-public class PublishMessage {
+public class RegisterServer {
 
     protected int arg0;
-    protected int arg1;
-    protected int arg2;
+    protected String arg1;
 
     /**
      * Ruft den Wert der arg0-Eigenschaft ab.
@@ -58,33 +55,25 @@ public class PublishMessage {
     /**
      * Ruft den Wert der arg1-Eigenschaft ab.
      * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
-    public int getArg1() {
+    public String getArg1() {
         return arg1;
     }
 
     /**
      * Legt den Wert der arg1-Eigenschaft fest.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
-    public void setArg1(int value) {
+    public void setArg1(String value) {
         this.arg1 = value;
-    }
-
-    /**
-     * Ruft den Wert der arg2-Eigenschaft ab.
-     * 
-     */
-    public int getArg2() {
-        return arg2;
-    }
-
-    /**
-     * Legt den Wert der arg2-Eigenschaft fest.
-     * 
-     */
-    public void setArg2(int value) {
-        this.arg2 = value;
     }
 
 }

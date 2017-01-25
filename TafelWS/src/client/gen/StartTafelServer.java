@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for startTafelServer complex type.
+ * <p>Java-Klasse für startTafelServer complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="startTafelServer">
@@ -34,7 +34,7 @@ public class StartTafelServer {
     protected int arg0;
 
     /**
-     * Gets the value of the arg0 property.
+     * Ruft den Wert der arg0-Eigenschaft ab.
      * 
      */
     public int getArg0() {
@@ -42,7 +42,7 @@ public class StartTafelServer {
     }
 
     /**
-     * Sets the value of the arg0 property.
+     * Legt den Wert der arg0-Eigenschaft fest.
      * 
      */
     public void setArg0(int value) {

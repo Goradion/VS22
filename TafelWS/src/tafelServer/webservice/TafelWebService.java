@@ -14,7 +14,7 @@ import javax.jws.soap.SOAPBinding.Use;
 public interface TafelWebService{
 	
 	@WebMethod
-	public String createMessage(String inhalt, int user, int abtNr, boolean oeffentlich);
+	public String createMessage(String inhalt, int user, int abtNr);
 	
 	@WebMethod
 	public String deleteMessage(int messageID, int user);
@@ -26,13 +26,13 @@ public interface TafelWebService{
 	public String[] showMessages(int user);
 	
 	@WebMethod
-	public String publishMessage(int messageID, int user);
+	public String publishMessage(int messageID, int user, int group);
 	
 	@WebMethod
-	public boolean receiveMessage(int messageID, int userID, int abtNr, String inhalt, boolean oeffentlich, Date time);
+	public String deletePublic(int msgID , int user, int group);
 	
 	@WebMethod
-	public boolean registerServer(int abtNr, String address);
+	public String modifyPublic(int msgID, int user, int group, String inhalt);
 	
 	@WebMethod
 	public String[] startTafelServer(int abtNr);

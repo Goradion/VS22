@@ -111,6 +111,7 @@ public class Client {
 		if(clientGui.getQueryCommand().equals("error")){
 			//Was machen wir dann? :D
 		}
+
 	}
 
 	private static void changeMessage(ActionEvent evt) {

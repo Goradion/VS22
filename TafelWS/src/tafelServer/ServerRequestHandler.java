@@ -79,11 +79,11 @@ public class ServerRequestHandler {
 			return "Nachricht mit ID =" + deleteRequest.getMessageID() + " nicht gefunden";
 		}
 		if (message.getAbtNr() != anzeigetafel.getAbteilungsID()){
-			return "Nachricht gehört nicht zur Abteilung!";
+			return "Nachricht gehï¿½rt nicht zur Abteilung!";
 		}
 		anzeigetafel.deleteMessage(deleteRequest.getMessageID(), deleteRequest.getUserID());
 		if ((message.isOeffentlich() && message.getAbtNr() == anzeigetafel.getAbteilungsID()))
-			tafelServer.deletePublicMessage(deleteRequest.getMessageID());
+//			tafelServer.deletePublicMessage(deleteRequest.getMessageID()); TODO
 
 		anzeigetafel.saveStateToFile();
 		return antwort;
@@ -129,12 +129,13 @@ public class ServerRequestHandler {
 			return "Nachricth mit ID= " + modifyRequest.getMessageID() + " nicht gefunden!";
 		}
 		if (message.getAbtNr() != anzeigetafel.getAbteilungsID()){
-			return "Nachricht gehört nicht zur Abteilung!";
+			return "Nachricht gehï¿½rt nicht zur Abteilung!";
 		}
 		anzeigetafel.modifyMessage(modifyRequest.getMessageID(), modifyRequest.getNewMessage(),
 				modifyRequest.getUserID());
 		if ((message.isOeffentlich() && message.getAbtNr() == anzeigetafel.getAbteilungsID())) {
-			tafelServer.modifyPublicMessage(modifyRequest.getMessageID(), modifyRequest.getNewMessage());
+			// changed 0, 0,
+			tafelServer.modifyPublicMessage(modifyRequest.getMessageID(), 0, 0, modifyRequest.getNewMessage());
 		}
 
 		anzeigetafel.saveStateToFile();
@@ -168,7 +169,7 @@ public class ServerRequestHandler {
 	 *             if the anzeigetafel rejects the request.
 	 */
 	public String handle(PublishRequest publishRequest) throws InterruptedException, TafelException {
-		tafelServer.publishMessage(publishRequest.getMessageID(), publishRequest.getUserID());
+		tafelServer.publishMessage(publishRequest.getMessageID(), publishRequest.getUserID(), 0); // gruppen!
 		return "Nachricht mit ID=" + publishRequest.getMessageID() + " verÃ¶ffentlicht!";
 	}
 
@@ -194,7 +195,7 @@ public class ServerRequestHandler {
 	 *             if the anzeigetafel rejects the request.
 	 */
 	public String handle(ReceiveRequest receiveRequest) throws TafelException {
-		anzeigetafel.receiveMessage(receiveRequest.getMessage());
+		anzeigetafel.receiveMessage(receiveRequest.getMessage(), 1);
 		anzeigetafel.saveStateToFile();
 		return "Nachricht von Abteilung " + receiveRequest.getMessage().getAbtNr() + " erhalten!";
 	}
@@ -212,7 +213,8 @@ public class ServerRequestHandler {
 			throw new TafelException("Die eigene Abteilung wird nicht registriert!");
 		}
 
-		HashMap<Integer, SocketAddress> tafelAdressen = tafelServer.getTafelAdressen();
+		HashMap<Integer, SocketAddress> tafelAdressen = null;
+//				tafelServer.getTafelAdressen(); TODO
 		int abteilungsID = registerRequest.getAbteilungsID();
 		SocketAddress address = registerRequest.getAddress();
 		if (tafelAdressen.containsKey(abteilungsID)) {
