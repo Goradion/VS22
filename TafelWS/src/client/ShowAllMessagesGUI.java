@@ -423,46 +423,39 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
   
     public boolean pruefegruppe1()
     {
-    	boolean g1 =false;
-        if(gruppe1.isEnabled()){
-        	g1= true;
-        	return g1;
+        if(gruppe1.isEnabled()){	
+        	return true;
         	}
         else{
-        	return g1;
+        	return false;
         }  
     }
     public boolean pruefegruppe2()
     {
-    	boolean g2 =false;
-        if(gruppe2.isEnabled()){
-        	g2= true;
-        	return g2;
+        if(gruppe2.isEnabled()){	
+        	return true;
         	}
         else{
-        	return g2;
+        	return false;
         }  
     }
     public boolean pruefegruppe3()
     {
-    	boolean g3 =false;
         if(gruppe3.isEnabled()){
-        	g3= true;
-        	return g3;
+        	return true;
         	}
         else{
-        	return g3;
+        	return false;
         }  
     }
     public boolean pruefegruppe4()
     {
-    	boolean g4 =false;
         if(gruppe4.isEnabled()){
-        	g4= true;
-        	return g4;
+        	
+        	return true;
         	}
         else{
-        	return g4;
+        	return false;
         }  
     }
 

@@ -162,7 +162,7 @@ public class Client {
   			g_four = clientGui.pruefeGruppe4();
   						
   			
-		if ((userID == 1) && msgID > 0 )
+		if ((userID == 1) && Integer.parseInt(msgID) > 0 )
 		{	
 			
 			TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();

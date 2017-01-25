@@ -188,7 +188,8 @@ public class ClientGui extends JFrame{
     	return showAllMessagesGUI.pruefegruppe1();
     	
     }
-    public boolean pruefGruppe2(){
+    public boolean pruefeGruppe2(){
+    	System.out.println("Hallo");
     	return showAllMessagesGUI.pruefegruppe2();
     	
     }
