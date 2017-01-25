@@ -68,7 +68,7 @@ public class Client implements Serializable {
 	public void createMessage(int abt, String message, int userId) throws MalformedURLException {
 		setAbteilung(abt);
 		TafelWebService port = new TafelWebServiceImplService(new URL("http://"+serverHostname+":8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
-		String reply = port.createMessage(message, userId, abt, false);
+		String reply = port.createMessage(message, userId, abt);
 	}
 
 	public void deleteMessage(int abt, int userId, int msgID) throws MalformedURLException {
@@ -92,10 +92,10 @@ public class Client implements Serializable {
 		return null;
 	}
 
-	public void publishMessage(int abt, int msgId, int userId) throws MalformedURLException {
+	public void publishMessage(int abt, int msgId, int userId, int groupId) throws MalformedURLException {
 		setAbteilung(abt);
 		TafelWebService port = new TafelWebServiceImplService(new URL("http://"+serverHostname+":8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
-		String reply = port.publishMessage(msgId, userId);
+		String reply = port.publishMessage(msgId, userId, groupId);
 	}
 
 	public static void main(String[] args) {
