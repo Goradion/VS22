@@ -8,7 +8,7 @@ import java.util.List;
 import client.gen.TafelWebService;
 import client.gen.TafelWebServiceImplService;
 
-public class Client implements Serializable {
+public class oldClient implements Serializable {
 
 	private static final long serialVersionUID = -6299053685373379874L;
 
