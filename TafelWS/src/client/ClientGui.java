@@ -10,17 +10,13 @@ import verteilteAnzeigetafel.Message;
 
 /**
  *
- * @author Armin
+ * 
  */
 public class ClientGui extends JFrame{
     
     
     
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	// Nötige Panels und Frames
+    // Nötige Panels und Frames
     //private JFrame mainGUI; // Fenster zum anzeigen der Panels
     private LoginGUI loginGUI; //Wird immer angezeigt
     private LoggedInGUI loggedInGUI; // Wird angezeigt sobald eingeloggt
@@ -60,11 +56,12 @@ public class ClientGui extends JFrame{
         initialize(abteilungen);
     }
 
-    /**
-     * Aufrufen der showLoggedIn GUI 
-     * @param userID
-     * @param msgs
-     */
+  public Message getMsgID(){
+	   Message id;	   
+	   id = showAllMessagesGUI.getMessage();
+	   return id;
+  }
+    
     public void showLoggedIn(int userID, List<Message> msgs){
     	if(upperPanel.getComponentCount() != 2){
 	    	loggedInGUI = new LoggedInGUI();
@@ -79,9 +76,7 @@ public class ClientGui extends JFrame{
         //Zeige Login Panel + loggedIn Panel
     	this.repaint();
     }
-    /**
-     * einblenden der New MessageGUI
-     */
+    
     public void showNewMessage(){
         //Zeige Login Panel + loggedIn Panel + New Message Panel
         this.setPreferredSize(new Dimension(550,250));
@@ -92,10 +87,7 @@ public class ClientGui extends JFrame{
     	this.repaint();
     }
     
-    /**
-     * einblenden der ShowAllMessagesGUI 
-     * @param msgList
-     */
+    
     public void showShowMessages(List<Message> msgList){
         //Zeige Login Panel + loggedIn Panel + ShowMessages Panel
     	showAllMessagesGUI = new ShowAllMessagesGUI(msgList);
@@ -106,10 +98,6 @@ public class ClientGui extends JFrame{
     	this.repaint();
     }
     
-    /**
-     * einblenden der EditMessageGUI
-     * @param msg
-     */
     public void showEditMessage(Message msg){
         //Zeige Login Panel + loggedIn Panel + Edit Message Panel
     	loggedInGUI.setMenue(new String[] { "Nachricht �ndern","Neue Nachricht", "Zeige alle Nachrichten"});
