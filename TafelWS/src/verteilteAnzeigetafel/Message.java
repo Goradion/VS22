@@ -17,39 +17,58 @@ public class Message implements Serializable {
 	private HashSet<Integer> gruppen = new HashSet<Integer>();
 	private Date time;
 
-	public Message(int messageID, int userID, int abtNr, String inhalt, boolean oeffentlich, Date time) {
+	
+	public Message(int msgID, int userID, int abtNr, String inhalt, boolean oeffentlich, Date time) {
 		super();
-		this.messageID = messageID;
-		this.userID = userID;
-		this.abtNr = abtNr;
-		this.inhalt = inhalt;
-		this.oeffentlich = oeffentlich;
-		this.time = time;
+		init(inhalt, userID, abtNr, oeffentlich, msgID, time);
 	}
-
+	
 	public Message(String inhalt, int userID, int abtNr, boolean oeffentlich, int msgID) {
-		this.inhalt = inhalt;
-		this.userID = userID;
-		this.abtNr = abtNr;
-		this.oeffentlich = oeffentlich;
-		time = new Date();
-		this.messageID = msgID;
-
+		super();
+		init(inhalt, userID, abtNr, oeffentlich, msgID, new Date());
+	}
+	
+	public Message(String inhalt, int userID, int abtNr, boolean oeffentlich, int msgID, int group) {
+		super();
+		init(inhalt, userID, abtNr, oeffentlich, msgID, new Date());
+		this.gruppen.add(group);
+	}
+	
+	public Message(String inhalt, int userID, int abtNr, boolean oeffentlich, int msgID, int[] groups) {
+		super();
+		init(inhalt, userID, abtNr, oeffentlich, msgID, new Date());
+		for ( int g : groups )
+			this.gruppen.add(g);
+	}
+	
+	public Message(String inhalt, int userID, int abtNr, boolean oeffentlich, int msgID, HashSet<Integer> groups) {
+		super();
+		init(inhalt, userID, abtNr, oeffentlich, msgID, new Date());
+		this.gruppen.addAll(groups);
 	}
 	
 	public Message(SoapableMessage soapableMessage){
 		super();
-		this.messageID = soapableMessage.getMessageID();
-		this.userID = soapableMessage.getUserID();
-		this.abtNr = soapableMessage.getAbtNr();
-		this.inhalt = soapableMessage.getInhalt();
-		this.oeffentlich = soapableMessage.isOeffentlich();
-		this.time = soapableMessage.getTime();
+		init(soapableMessage.getInhalt(), 
+				soapableMessage.getUserID(), 
+				soapableMessage.getAbtNr(), 
+				soapableMessage.isOeffentlich(), 
+				soapableMessage.getMessageID(), 
+				soapableMessage.getTime());
 		for(int i = 0 ; i < soapableMessage.getGruppen().length; i++){
 			this.gruppen.add(soapableMessage.getGruppen()[i]);
 		}
 	}
-
+	
+	private void init(String inhalt, int userID, int abtNr, boolean oeffentlich, int msgID, Date time) {
+		this.inhalt 	 = inhalt;
+		this.userID 	 = userID;
+		this.abtNr 		 = abtNr;
+		this.oeffentlich = oeffentlich;
+		this.messageID 	 = msgID;
+		this.time 		 = time;
+	}
+	
 	@Override
 	public String toString() {
 		return "Message [messageID=" + messageID + ", userID=" + userID + ", abtNr=" + abtNr + ", inhalt=" + inhalt
@@ -100,6 +119,10 @@ public class Message implements Serializable {
 
 	public HashSet<Integer> getGruppen() {
 		return gruppen;
+	}
+	
+	public Integer[] getGruppenArray() {
+		return gruppen.toArray(new Integer[gruppen.size()]);
 	}
 
 	public void setGruppen(HashSet<Integer> gruppen) {

@@ -8,7 +8,7 @@ public class Anzeigetafel extends Observable implements Serializable {
 
 	private static final long serialVersionUID = 4032175286694659532L;
 	private String TAFELNAME;
-	private final static String TAFELPFAD = "../ANZEIGETAFEL/";
+	private final static String TAFELPFAD = "./.ANZEIGETAFEL/";
 	private String lastID;
 	private final int abteilungsID;
 	private int messageAnzahl;
@@ -277,18 +277,16 @@ public class Anzeigetafel extends Observable implements Serializable {
          * @throws TafelException 
          */
 	public synchronized void receiveMessage(Message msg, int group) throws TafelException {
-		int curMsgID = msg.getMessageID();
-    	if (!messages.containsKey(curMsgID)) {
-    		if (msg.getAbtNr() == abteilungsID) {
-    			throw new TafelException("msg.getAbtNr()==abteilungsID");
-    		}
-    		msg.addGroup(group);
-    		messages.put(curMsgID, msg);
+		
+		if (msg.getAbtNr() == abteilungsID) {
+			throw new TafelException("msg.getAbtNr()==abteilungsID");
+		}
+    	if (!messages.containsKey(msg.getMessageID())) {
+    		messages.put(msg.getMessageID(), msg);
     		userMsgs.get(msg.getUserID()).add(msg.getMessageID()); 
-    	} else {
-    		// Gruppe adden anstatt fehler
-			throw new TafelException("Message mit ID " + curMsgID + " existiert bereits!");
-		}	
+    	} 
+		msg.addGroup(group);
+		
         	updateState();
 	}
         
