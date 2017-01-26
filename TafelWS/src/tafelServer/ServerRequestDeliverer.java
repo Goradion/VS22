@@ -37,6 +37,24 @@ public class ServerRequestDeliverer {
 	}
 
 	/**
+	 * Hanldes a Request to receive a message from another TafelServer.
+	 * 
+	 * @param receiveRequest
+	 * @return an answer
+	 * @throws TafelException
+	 *             if the anzeigetafel rejects the request.
+	 */
+	public String deliver(ReceiveRequest receiveRequest) throws TafelException {
+		webservice.receiveMessage(receiveRequest.getMessage().getMessageID(),
+									receiveRequest.getMessage().getUserID(),
+									receiveRequest.getMessage().getAbtNr(),
+									receiveRequest.getMessage().getInhalt(),
+									receiveRequest.getTimeStr(),
+									receiveRequest.getGroupID());
+		return null;
+	}
+	
+	/**
 	 * delivers a request to delete a public message.
 	 * 
 	 * @param deletePublicRequest
@@ -45,7 +63,7 @@ public class ServerRequestDeliverer {
 	 *             if the anzeigetafel rejects the request.
 	 */
 	public String deliver(DeletePublicRequest deletePublicRequest) throws TafelException {
-		// TODO implement this method
+		webservice.deletePublicMessage(deletePublicRequest.getMessageID(), deletePublicRequest.getGroupID());
 		return null;
 	}
 
@@ -59,20 +77,7 @@ public class ServerRequestDeliverer {
 	 *             if anzeigetafel rejects the request
 	 */
 	public String deliver(ModifyPublicRequest modifyPublicRequest) throws TafelException {
-		// TODO implement this method
-		return null;
-	}
-
-	/**
-	 * Hanldes a Request to receive a message from another TafelServer.
-	 * 
-	 * @param receiveRequest
-	 * @return an answer
-	 * @throws TafelException
-	 *             if the anzeigetafel rejects the request.
-	 */
-	public String deliver(ReceiveRequest receiveRequest) throws TafelException {
-		// TODO implement this method
+		webservice.modifyPublicMessage(modifyPublicRequest.getMessageID(), modifyPublicRequest.getGroupID(), modifyPublicRequest.getNewMessage());
 		return null;
 	}
 

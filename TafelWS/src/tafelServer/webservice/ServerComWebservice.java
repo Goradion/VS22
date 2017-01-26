@@ -16,7 +16,7 @@ import verteilteAnzeigetafel.SoapableMessage;
 public interface ServerComWebservice {
 	
 	@WebMethod
-	public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time, int group);
+	public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, String time, int group);
 	
 	@WebMethod
 	public String receiveSoapableMessage(SoapableMessage soapableMessage);
@@ -25,9 +25,9 @@ public interface ServerComWebservice {
 	public String registerServer(int abtNr, String address);
 	
 	@WebMethod
-	public String deletePublic(int msgID , int group);
+	public String deletePublicMessage(int msgID , int group);
 	
 	@WebMethod
-	public String modifyPublic(int msgID, int group, String inhalt);
+	public String modifyPublicMessage(int msgID, int group, String inhalt);
 
 }

@@ -61,15 +61,68 @@ public class TafelWebServiceImpl implements TafelWebService {
 		}
 		return null;
 	}
+	
+	// TODO format?
+		@Override
+		public String[] showMessages(int user) {
+			int size = 0;
+			boolean success = false;
+			String errorMessage = "";
+			LinkedList<Message> messagesByUserID = new LinkedList<Message>();
+			try {
+				messagesByUserID = tafelServer.getMessagesByUserID(user);
+				size = messagesByUserID.size() + 1;
+				success = true;
+			} catch (TafelException e) {
+				size = 2;
+				errorMessage = e.getMessage();
+			}
+			String[] strings = new String[size];
+			strings[0] = Boolean.toString(success);
+			if (!success) {
+				strings[1] = errorMessage;
+			} else {
+				for (int i = 1; i < strings.length; i++) {
+					strings[i] = messagesByUserID.get(i - 1).toString();
+				}
+			}
+
+			return strings;
+		}
 
 	public String publishMessage(int messageID, int user, int group) {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
 				answer = tafelServer.publishMessage(messageID, user, group);
-			} catch (InterruptedException e) {
-				tafelServer.printStackTrace(e);
-				answer = "Internal Server Error: e.getMessage()";
+			} catch (TafelException e) {
+				answer = e.getMessage();
+			}
+			return answer;
+		}
+		return null;
+	}
+	
+	@Override
+	public String deletePublic(int msgID, int user, int group) {
+		if (tafelServer != null) {
+			String answer = "";
+			try {
+				answer = tafelServer.deletePublic(msgID, user, group);
+			} catch (TafelException e) {
+				answer = e.getMessage();
+			}
+			return answer;
+		}
+		return null;
+	}
+
+	@Override
+	public String modifyPublic(int msgID, int user, int group, String inhalt) {
+		if (tafelServer != null) {
+			String answer = "";
+			try {
+				answer = tafelServer.modifyPublic(msgID, user, group, inhalt);
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			}
@@ -97,61 +150,4 @@ public class TafelWebServiceImpl implements TafelWebService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	// TODO format?
-	@Override
-	public String[] showMessages(int user) {
-		int size = 0;
-		boolean success = false;
-		String errorMessage = "";
-		LinkedList<Message> messagesByUserID = new LinkedList<Message>();
-		try {
-			messagesByUserID = tafelServer.getMessagesByUserID(user);
-			size = messagesByUserID.size() + 1;
-			success = true;
-		} catch (TafelException e) {
-			size = 2;
-			errorMessage = e.getMessage();
-		}
-		String[] strings = new String[size];
-		strings[0] = Boolean.toString(success);
-		if (!success) {
-			strings[1] = errorMessage;
-		} else {
-			for (int i = 1; i < strings.length; i++) {
-				strings[i] = messagesByUserID.get(i - 1).toString();
-			}
-		}
-
-		return strings;
-	}
-
-	@Override
-	public String deletePublic(int msgID, int user, int group) {
-		if (tafelServer != null) {
-			String answer = "";
-			try {
-				answer = tafelServer.deletePublicMessage(msgID, user, group);
-			} catch (TafelException e) {
-				answer = e.getMessage();
-			}
-			return answer;
-		}
-		return null;
-	}
-
-	@Override
-	public String modifyPublic(int msgID, int user, int group, String inhalt) {
-		if (tafelServer != null) {
-			String answer = "";
-			try {
-				answer = tafelServer.modifyPublicMessage(msgID, user, group, inhalt);
-			} catch (TafelException e) {
-				answer = e.getMessage();
-			}
-			return answer;
-		}
-		return null;
-	}
-
 }

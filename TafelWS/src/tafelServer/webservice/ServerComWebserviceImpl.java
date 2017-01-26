@@ -2,7 +2,11 @@ package tafelServer.webservice;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
@@ -19,21 +23,39 @@ import verteilteAnzeigetafel.TafelException;
 
 @WebService(endpointInterface = "tafelServer.webservice.ServerComWebservice")
 public class ServerComWebserviceImpl implements ServerComWebservice {
-	private final int koordinatorID;
 	private TafelServer tafelServer;
 	
 	public ServerComWebserviceImpl() {
 		super();
 		tafelServer = TafelServer.getServer();
-		koordinatorID = 1;
 	}
 
 	@Override
-	public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time, int group) {
+	public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, String time, int group) {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				tafelServer.receiveMessage(messageID, userID, abtNr, inhalt, time, group);
+				DateFormat formatTime = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
+				tafelServer.receiveMessage(messageID, userID, abtNr, inhalt, formatTime.parse(time), group);
+				answer =  "Done";
+			} catch (TafelException e) {
+				answer = e.getMessage();
+			} catch (ParseException e) {
+				tafelServer.printStackTrace(e);
+				answer = "Date Parse Error";
+			}
+			return answer;
+		}
+		return null;
+	}
+	
+	@Override
+	public String receiveSoapableMessage(SoapableMessage soapableMessage) {
+		Message message = new Message(soapableMessage);
+		if (tafelServer != null) {
+			String answer = "";
+			try {
+				tafelServer.receiveMessage(message);
 				answer =  "Done";
 			} catch (TafelException e) {
 				answer = e.getMessage();
@@ -68,11 +90,11 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 	}
 
 	@Override
-	public String deletePublic(int msgID, int group) {
+	public String deletePublicMessage(int msgID, int group) {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				tafelServer.deletePublic(msgID, group);
+				tafelServer.deletePublicMessage(msgID, group);
 				answer =  "Done";
 			} catch (TafelException e) {
 				answer = e.getMessage();
@@ -83,11 +105,11 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 	}
 
 	@Override
-	public String modifyPublic(int msgID, int group, String inhalt) {
+	public String modifyPublicMessage(int msgID, int group, String inhalt) {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				tafelServer.modifyPublic(msgID, inhalt, group);
+				tafelServer.modifyPublicMessage(msgID, inhalt, group);
 				answer =  "Done";
 			} catch (TafelException e) {
 				answer = e.getMessage();
@@ -96,21 +118,4 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 		}
 		return null;
 	}
-
-	@Override
-	public String receiveSoapableMessage(SoapableMessage soapableMessage) {
-		Message message = new Message(soapableMessage);
-		if (tafelServer != null) {
-			String answer = "";
-			try {
-				tafelServer.receiveMessage(message);
-				answer =  "Done";
-			} catch (TafelException e) {
-				answer = e.getMessage();
-			}
-			return answer;
-		}
-		return null;
-	}
-
 }

@@ -49,30 +49,8 @@ public class TafelServer {
 	private int abteilungsID;
 	private TafelGUI gui;
 
-	// /**
-	// * Processes command line arguments, configures and starts a new
-	// * TafelServer.
-	// *
-	// * @param args
-	// * command line arguments
-	// * @throws Exception
-	// */
-	// public static void main(String[] args) throws Exception {
-	// TafelServer tafelServer = new TafelServer();
-	// if (args.length >= 1) {
-	// try {
-	// tafelServer.abteilungsID = Integer.parseInt(args[0]);
-	// } catch (NumberFormatException nfe) {
-	// System.out.println(args[0] + "ist keine Integerzahl");
-	// throw new Exception("Konnte TafelServer nicht starten.");
-	// }
-	// } else {
-	// tafelServer.abteilungsID = 1;
-	// }
-	//
-	// tafelServer.start();
-	// }
 	private static TafelServer tafelServerInstance = null;
+	
 	
 	public static boolean startServer(int abteilung){
 		if (tafelServerInstance == null){
@@ -120,56 +98,7 @@ public class TafelServer {
 		System.out.println(groupMap);
 		System.out.println(groupQueueMap);
 	}
-
-	public synchronized String createMessage(String inhalt, int user, int abtNr) throws TafelException {
-		int msgID = anzeigetafel.createMessage(inhalt, user, abtNr, false);
-		anzeigetafel.saveStateToFile();
-		return "Nachricht mit ID=" + msgID + " erstellt!";
-	}
-
-	/**
-	 * Publishes a message if possible. Set the message to public and try to
-	 * deliver it to other TafelServers.
-	 * 
-	 * @param messageID
-	 * @param userID
-	 * @throws InterruptedException
-	 *             if a Message Queue was interrupted.
-	 * @throws TafelException
-	 *             if the Anzeigetafel rejects the publication.
-	 */
-	public synchronized String publishMessage(int messageID, int userID, int group) throws InterruptedException, TafelException {
-		String antwort = "Nachricht mit ID=" + messageID + " veröffentlicht!";
-		
-		anzeigetafel.publishMessage(messageID, userID, group);
-
-		for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(group)) {
-			q.add(new ReceiveRequest(anzeigetafel.getMessages().get(messageID)));
-			// if (groupMembers.keySet().contains(abtNr)) {
-			// queueMap.get(abtNr).put(new
-			// ReceiveRequest(anzeigetafel.getMessages().get(messageID)));
-			// }
-		}
-		
-		saveQueueMapToFile();
-		anzeigetafel.saveStateToFile();
-		return antwort;
-	}
-
-	/**
-	 * Gets the messages of a given userID if possible.
-	 * 
-	 * @param userID
-	 * @return the messages of the given userID
-	 * @throws TafelException
-	 *             if Anzeigetafel does not recognize the userID.
-	 */
-	public synchronized LinkedList<Message> getMessagesByUserID(int userID) throws TafelException {
-		// print("Showing Messages to user " + userID);
-
-		return anzeigetafel.getMessagesByUserID(userID);
-	}
-
+	
 	/**
 	 * Registers a TafelServer if possible.
 	 * 
@@ -201,7 +130,7 @@ public class TafelServer {
 		
 		return "TafelServer " + abteilungsID + ", Adresse: " + address.toString() + " registriert!";
 	}
-
+	
 	/**
 	 * Activated the message queue for the given abteilungID.
 	 * 
@@ -230,6 +159,23 @@ public class TafelServer {
 			hbt.start();
 		}
 	}
+	
+	private void buildGroupQueueMap() {
+		groupQueueMap.clear();
+
+		for (Entry<Integer, HashSet<Integer>> entry : groupMap.entrySet()) {
+			Integer groupId = entry.getKey();
+			HashSet<Integer> groupMembers = entry.getValue();
+			HashSet<LinkedBlockingDeque<ServerRequest>> queues = new HashSet<LinkedBlockingDeque<ServerRequest>>();
+
+			for (Integer groupMember : groupMembers) {
+				if (groupMember.intValue() != abteilungsID) {
+					queues.add(queueMap.get(groupMember));
+				}
+			}
+			groupQueueMap.put(groupId, queues);
+		}
+	}
 
 	/**
 	 * Writes the message queues for each Abteilung to a file.
@@ -238,7 +184,7 @@ public class TafelServer {
 		FileOutputStream fileoutput = null;
 		ObjectOutputStream objoutput = null;
 		try {
-			fileoutput = new FileOutputStream("./queueMap" + abteilungsID);
+			fileoutput = new FileOutputStream("./.queueMap" + abteilungsID);
 			objoutput = new ObjectOutputStream(fileoutput);
 			objoutput.writeObject(queueMap);
 		} catch (FileNotFoundException e) {
@@ -253,7 +199,22 @@ public class TafelServer {
 			}
 		}
 	}
+	
+	/**
+	 * Writes the addresses of the registered TafelServers to a file.
+	 */
+	public synchronized void saveTafelAdressenToFile() {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("./tafelAdressen" + abteilungsID))) {
+			for (int i : tafelAdressen.keySet()) {
+				URL address =  tafelAdressen.get(i);
+				writer.write(i + " " + address.toString() + "\n");
+			}
+		} catch (IOException e) {
+			printStackTrace(e);
+		}
 
+	}
+	
 	/**
 	 * Loads the message queues for each Abteilung from a file.
 	 * 
@@ -265,7 +226,7 @@ public class TafelServer {
 		FileInputStream fileInput = null;
 		ObjectInputStream objinput = null;
 		try {
-			fileInput = new FileInputStream("./queueMap" + abteilungsID);
+			fileInput = new FileInputStream("./.queueMap" + abteilungsID);
 			objinput = new ObjectInputStream(fileInput);
 			Object obj = objinput.readObject();
 			qMap = (HashMap<Integer, LinkedBlockingDeque<ServerRequest>>) obj;
@@ -287,21 +248,6 @@ public class TafelServer {
 			}
 		}
 		return qMap;
-	}
-
-	/**
-	 * Writes the addresses of the registered TafelServers to a file.
-	 */
-	public synchronized void saveTafelAdressenToFile() {
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter("./tafelAdressen" + abteilungsID))) {
-			for (int i : tafelAdressen.keySet()) {
-				URL address =  tafelAdressen.get(i);
-				writer.write(i + " " + address.toString() + "\n");
-			}
-		} catch (IOException e) {
-			printStackTrace(e);
-		}
-
 	}
 
 	private void loadTafelAdressenFromFile() {
@@ -355,23 +301,6 @@ public class TafelServer {
 			printStackTrace(e);
 		} catch (IOException e) {
 			printStackTrace(e);
-		}
-	}
-
-	private void buildGroupQueueMap() {
-		groupQueueMap.clear();
-
-		for (Entry<Integer, HashSet<Integer>> entry : groupMap.entrySet()) {
-			Integer groupId = entry.getKey();
-			HashSet<Integer> groupMembers = entry.getValue();
-			HashSet<LinkedBlockingDeque<ServerRequest>> queues = new HashSet<LinkedBlockingDeque<ServerRequest>>();
-
-			for (Integer groupMember : groupMembers) {
-				if (groupMember.intValue() != abteilungsID) {
-					queues.add(queueMap.get(groupMember));
-				}
-			}
-			groupQueueMap.put(groupId, queues);
 		}
 	}
 
@@ -440,8 +369,70 @@ public class TafelServer {
 	public HashMap<Integer, LinkedBlockingDeque<ServerRequest>> getQueueMap() {
 		return queueMap;
 	}
+	
+	/**
+	 * Gets the messages of a given userID if possible.
+	 * 
+	 * @param userID
+	 * @return the messages of the given userID
+	 * @throws TafelException
+	 *             if Anzeigetafel does not recognize the userID.
+	 */
+	public synchronized LinkedList<Message> getMessagesByUserID(int userID) throws TafelException {
+		// print("Showing Messages to user " + userID);
 
-	public synchronized String deletePublicMessage(int messageID, int userID, int groupID) throws TafelException {
+		return anzeigetafel.getMessagesByUserID(userID);
+	}
+	
+
+	public synchronized String createMessage(String inhalt, int user, int abtNr) throws TafelException {
+		int msgID = anzeigetafel.createMessage(inhalt, user, abtNr, false);
+		anzeigetafel.saveStateToFile();
+		return "Nachricht mit ID=" + msgID + " erstellt!";
+	}
+	
+	public String deleteMessage(int messageID, int user) throws TafelException {
+		String antwort = "Nachricht mit ID=" + messageID + " gelöscht!";
+		anzeigetafel.deleteMessage(messageID, user);
+		
+		anzeigetafel.saveStateToFile();
+		return antwort;
+	}
+	
+	public String modifyMessage(int messageID, String inhalt, int user) throws TafelException {
+		String antwort = "Nachricht mit ID=" + messageID + " geändert!";
+		anzeigetafel.modifyMessage(messageID, inhalt, user);
+
+		anzeigetafel.saveStateToFile();
+		return antwort;
+	}
+
+	/**
+	 * Publishes a message if possible. Set the message to public and try to
+	 * deliver it to other TafelServers.
+	 * 
+	 * @param messageID
+	 * @param userID
+	 * @throws InterruptedException
+	 *             if a Message Queue was interrupted.
+	 * @throws TafelException
+	 *             if the Anzeigetafel rejects the publication.
+	 */
+	public synchronized String publishMessage(int messageID, int userID, int groupID) throws TafelException {
+		String antwort = "Nachricht mit ID=" + messageID + " veröffentlicht!";
+		
+		anzeigetafel.publishMessage(messageID, userID, groupID);
+		
+		for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(groupID)) {
+			q.add(new ReceiveRequest(anzeigetafel.getMessages().get(messageID), groupID, new Date()));
+		}
+		
+		saveQueueMapToFile();
+		anzeigetafel.saveStateToFile();
+		return antwort;
+	}
+
+	public synchronized String deletePublic(int messageID, int userID, int groupID) throws TafelException {
 		String antwort = "Nachricht mit ID=" + messageID + " gelöscht in Gruppe:" + groupID + "!";
 
 		if ( !groupMap.containsKey(groupID) ) {
@@ -452,7 +443,7 @@ public class TafelServer {
 
 		for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(groupID)) {
 			try {
-				q.put(new DeletePublicRequest(messageID));
+				q.put(new DeletePublicRequest(messageID, groupID));
 			} catch (InterruptedException e) {
 				print("Message mit ID=" + messageID + " wird nicht überall gelöscht werden!");
 			}
@@ -462,7 +453,7 @@ public class TafelServer {
 		return antwort;
 	}
 
-	public synchronized String modifyPublicMessage(int messageID, int userID, int groupID, String newMessage) throws TafelException {
+	public synchronized String modifyPublic(int messageID, int userID, int groupID, String newMessage) throws TafelException {
 		String antwort = "Nachricht mit ID=" + messageID + " geändert in Gruppe:" + groupID + "!";
 
 		if ( !groupMap.containsKey(groupID) ) {
@@ -473,7 +464,7 @@ public class TafelServer {
 		
 		for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(groupID)) {
 			try {
-				q.put(new ModifyPublicRequest(messageID, newMessage));
+				q.put(new ModifyPublicRequest(messageID, groupID, newMessage));
 			} catch (InterruptedException e) {
 				print("Message mit ID=" + messageID + " wird nicht überall geändert werden!");
 			}
@@ -483,21 +474,8 @@ public class TafelServer {
 		return antwort;
 	}
 
-	public String deleteMessage(int messageID, int user) throws TafelException {
-		String antwort = "Nachricht mit ID=" + messageID + " gelöscht!";
-		anzeigetafel.deleteMessage(messageID, user);
-		
-		anzeigetafel.saveStateToFile();
-		return antwort;
-	}
 
-	public String modifyMessage(int messageID, String inhalt, int user) throws TafelException {
-		String antwort = "Nachricht mit ID=" + messageID + " geändert!";
-		anzeigetafel.modifyMessage(messageID, inhalt, user);
-
-		anzeigetafel.saveStateToFile();
-		return antwort;
-	}
+	/* -- Server WS Methods -- */
 
 	public synchronized boolean receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time, int group) throws TafelException {
 		if ( !groupMap.containsKey(group) ) {
@@ -510,6 +488,7 @@ public class TafelServer {
 	}
 	
 	public synchronized boolean receiveMessage(Message message) throws TafelException{
+		// TODO noch nicht konsistent
 		for (Integer i : groupMap.keySet()){
 			if(message.getGruppen().contains(i)){
 				anzeigetafel.receiveMessage(message, i);
@@ -519,7 +498,7 @@ public class TafelServer {
 		return false;
 	}
 	
-	public synchronized boolean deletePublic(int msgID, int group) throws TafelException {
+	public synchronized boolean deletePublicMessage(int msgID, int group) throws TafelException {
 		if ( !groupMap.containsKey(group) ) {
 			throw new TafelException("TafelServer ist nicht in gegebener Gruppe=" + group + "!");
 		}
@@ -529,7 +508,7 @@ public class TafelServer {
 		return true;
 	}
 	
-	public synchronized boolean modifyPublic(int messageID, String inhalt, int group) throws TafelException {
+	public synchronized boolean modifyPublicMessage(int messageID, String inhalt, int group) throws TafelException {
 		if ( !groupMap.containsKey(group) ) {
 			throw new TafelException("TafelServer ist nicht in gegebener Gruppe=" + group + "!");
 		}
