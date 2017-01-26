@@ -95,21 +95,6 @@ public interface ServerComWebservice {
 
     /**
      * 
-     * @param arg0
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "receiveSoapableMessage", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveSoapableMessage")
-    @ResponseWrapper(localName = "receiveSoapableMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveSoapableMessageResponse")
-    @Action(input = "http://webservice.tafelServer/ServerComWebservice/receiveSoapableMessageRequest", output = "http://webservice.tafelServer/ServerComWebservice/receiveSoapableMessageResponse")
-    public String receiveSoapableMessage(
-        @WebParam(name = "arg0", targetNamespace = "")
-        SoapableMessage arg0);
-
-    /**
-     * 
      * @param arg1
      * @param arg0
      * @return
@@ -125,5 +110,20 @@ public interface ServerComWebservice {
         int arg0,
         @WebParam(name = "arg1", targetNamespace = "")
         String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "receiveSoapableMessage", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveSoapableMessage")
+    @ResponseWrapper(localName = "receiveSoapableMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveSoapableMessageResponse")
+    @Action(input = "http://webservice.tafelServer/ServerComWebservice/receiveSoapableMessageRequest", output = "http://webservice.tafelServer/ServerComWebservice/receiveSoapableMessageResponse")
+    public String receiveSoapableMessage(
+        @WebParam(name = "arg0", targetNamespace = "")
+        SoapableMessage arg0);
 
 }
