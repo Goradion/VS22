@@ -34,6 +34,7 @@ public class ObjectFactory {
     private final static QName _StartTafelServer_QNAME = new QName("http://webservice.tafelServer/", "startTafelServer");
     private final static QName _ModifyMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "modifyMessageResponse");
     private final static QName _DeletePublic_QNAME = new QName("http://webservice.tafelServer/", "deletePublic");
+    private final static QName _SoapableMessage_QNAME = new QName("http://webservice.tafelServer/", "SoapableMessage");
     private final static QName _StartTafelServerResponse_QNAME = new QName("http://webservice.tafelServer/", "startTafelServerResponse");
     private final static QName _DeleteMessage_QNAME = new QName("http://webservice.tafelServer/", "deleteMessage");
     private final static QName _DeletePublicResponse_QNAME = new QName("http://webservice.tafelServer/", "deletePublicResponse");
@@ -104,6 +105,14 @@ public class ObjectFactory {
      */
     public PublishMessageResponse createPublishMessageResponse() {
         return new PublishMessageResponse();
+    }
+
+    /**
+     * Create an instance of {@link SoapableMessage }
+     * 
+     */
+    public SoapableMessage createSoapableMessage() {
+        return new SoapableMessage();
     }
 
     /**
@@ -282,6 +291,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "deletePublic")
     public JAXBElement<DeletePublic> createDeletePublic(DeletePublic value) {
         return new JAXBElement<DeletePublic>(_DeletePublic_QNAME, DeletePublic.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SoapableMessage }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "SoapableMessage")
+    public JAXBElement<SoapableMessage> createSoapableMessage(SoapableMessage value) {
+        return new JAXBElement<SoapableMessage>(_SoapableMessage_QNAME, SoapableMessage.class, null, value);
     }
 
     /**

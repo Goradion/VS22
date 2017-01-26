@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java-Klasse für deletePublicMessage complex type.
+ * <p>Java class for deletePublicMessage complex type.
  * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="deletePublicMessage">
@@ -37,7 +37,7 @@ public class DeletePublicMessage {
     protected int arg1;
 
     /**
-     * Ruft den Wert der arg0-Eigenschaft ab.
+     * Gets the value of the arg0 property.
      * 
      */
     public int getArg0() {
@@ -45,7 +45,7 @@ public class DeletePublicMessage {
     }
 
     /**
-     * Legt den Wert der arg0-Eigenschaft fest.
+     * Sets the value of the arg0 property.
      * 
      */
     public void setArg0(int value) {
@@ -53,7 +53,7 @@ public class DeletePublicMessage {
     }
 
     /**
-     * Ruft den Wert der arg1-Eigenschaft ab.
+     * Gets the value of the arg1 property.
      * 
      */
     public int getArg1() {
@@ -61,7 +61,7 @@ public class DeletePublicMessage {
     }
 
     /**
-     * Legt den Wert der arg1-Eigenschaft fest.
+     * Sets the value of the arg1 property.
      * 
      */
     public void setArg1(int value) {

@@ -1,13 +1,13 @@
 package tafelServer.webservice;
 
-import java.util.Date;
-
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
+
+import verteilteAnzeigetafel.SoapableMessage;
 
 @WebService
 @SOAPBinding(style = Style.DOCUMENT, parameterStyle = ParameterStyle.WRAPPED, use = Use.LITERAL)
@@ -23,7 +23,7 @@ public interface TafelWebService{
 	public String modifyMessage(int messageID, String inhalt, int user);
 	
 	@WebMethod
-	public String[] showMessages(int user);
+	public SoapableMessage[] showMessages(int user);
 	
 	@WebMethod
 	public String publishMessage(int messageID, int user, int group);

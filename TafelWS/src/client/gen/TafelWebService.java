@@ -27,6 +27,22 @@ public interface TafelWebService {
 
     /**
      * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<java.lang.String>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "startTafelServer", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.StartTafelServer")
+    @ResponseWrapper(localName = "startTafelServerResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.StartTafelServerResponse")
+    @Action(input = "http://webservice.tafelServer/TafelWebService/startTafelServerRequest", output = "http://webservice.tafelServer/TafelWebService/startTafelServerResponse")
+    public List<String> startTafelServer(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0);
+
+    /**
+     * 
+     * @param arg3
      * @param arg2
      * @param arg1
      * @param arg0
@@ -35,55 +51,18 @@ public interface TafelWebService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "createMessage", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.CreateMessage")
-    @ResponseWrapper(localName = "createMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.CreateMessageResponse")
-    @Action(input = "http://webservice.tafelServer/TafelWebService/createMessageRequest", output = "http://webservice.tafelServer/TafelWebService/createMessageResponse")
-    public String createMessage(
+    @RequestWrapper(localName = "modifyPublic", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ModifyPublic")
+    @ResponseWrapper(localName = "modifyPublicResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ModifyPublicResponse")
+    @Action(input = "http://webservice.tafelServer/TafelWebService/modifyPublicRequest", output = "http://webservice.tafelServer/TafelWebService/modifyPublicResponse")
+    public String modifyPublic(
         @WebParam(name = "arg0", targetNamespace = "")
-        String arg0,
+        int arg0,
         @WebParam(name = "arg1", targetNamespace = "")
         int arg1,
         @WebParam(name = "arg2", targetNamespace = "")
-        int arg2);
-
-    /**
-     * 
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "deleteMessage", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.DeleteMessage")
-    @ResponseWrapper(localName = "deleteMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.DeleteMessageResponse")
-    @Action(input = "http://webservice.tafelServer/TafelWebService/deleteMessageRequest", output = "http://webservice.tafelServer/TafelWebService/deleteMessageResponse")
-    public String deleteMessage(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        int arg1);
-
-    /**
-     * 
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "modifyMessage", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ModifyMessage")
-    @ResponseWrapper(localName = "modifyMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ModifyMessageResponse")
-    @Action(input = "http://webservice.tafelServer/TafelWebService/modifyMessageRequest", output = "http://webservice.tafelServer/TafelWebService/modifyMessageResponse")
-    public String modifyMessage(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        int arg2);
+        int arg2,
+        @WebParam(name = "arg3", targetNamespace = "")
+        String arg3);
 
     /**
      * 
@@ -116,12 +95,12 @@ public interface TafelWebService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "deletePublic", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.DeletePublic")
-    @ResponseWrapper(localName = "deletePublicResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.DeletePublicResponse")
-    @Action(input = "http://webservice.tafelServer/TafelWebService/deletePublicRequest", output = "http://webservice.tafelServer/TafelWebService/deletePublicResponse")
-    public String deletePublic(
+    @RequestWrapper(localName = "createMessage", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.CreateMessage")
+    @ResponseWrapper(localName = "createMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.CreateMessageResponse")
+    @Action(input = "http://webservice.tafelServer/TafelWebService/createMessageRequest", output = "http://webservice.tafelServer/TafelWebService/createMessageResponse")
+    public String createMessage(
         @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
+        String arg0,
         @WebParam(name = "arg1", targetNamespace = "")
         int arg1,
         @WebParam(name = "arg2", targetNamespace = "")
@@ -129,55 +108,16 @@ public interface TafelWebService {
 
     /**
      * 
-     * @param arg3
-     * @param arg2
-     * @param arg1
      * @param arg0
      * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "modifyPublic", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ModifyPublic")
-    @ResponseWrapper(localName = "modifyPublicResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ModifyPublicResponse")
-    @Action(input = "http://webservice.tafelServer/TafelWebService/modifyPublicRequest", output = "http://webservice.tafelServer/TafelWebService/modifyPublicResponse")
-    public String modifyPublic(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        int arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        int arg2,
-        @WebParam(name = "arg3", targetNamespace = "")
-        String arg3);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.util.List<java.lang.String>
+     *     returns java.util.List<client.gen.SoapableMessage>
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "showMessages", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ShowMessages")
     @ResponseWrapper(localName = "showMessagesResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ShowMessagesResponse")
     @Action(input = "http://webservice.tafelServer/TafelWebService/showMessagesRequest", output = "http://webservice.tafelServer/TafelWebService/showMessagesResponse")
-    public List<String> showMessages(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.util.List<java.lang.String>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "startTafelServer", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.StartTafelServer")
-    @ResponseWrapper(localName = "startTafelServerResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.StartTafelServerResponse")
-    @Action(input = "http://webservice.tafelServer/TafelWebService/startTafelServerRequest", output = "http://webservice.tafelServer/TafelWebService/startTafelServerResponse")
-    public List<String> startTafelServer(
+    public List<SoapableMessage> showMessages(
         @WebParam(name = "arg0", targetNamespace = "")
         int arg0);
 
@@ -195,5 +135,65 @@ public interface TafelWebService {
     public List<String> stopTafelServer(
         @WebParam(name = "arg0", targetNamespace = "")
         List<String> arg0);
+
+    /**
+     * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "modifyMessage", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ModifyMessage")
+    @ResponseWrapper(localName = "modifyMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ModifyMessageResponse")
+    @Action(input = "http://webservice.tafelServer/TafelWebService/modifyMessageRequest", output = "http://webservice.tafelServer/TafelWebService/modifyMessageResponse")
+    public String modifyMessage(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        int arg2);
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "deleteMessage", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.DeleteMessage")
+    @ResponseWrapper(localName = "deleteMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.DeleteMessageResponse")
+    @Action(input = "http://webservice.tafelServer/TafelWebService/deleteMessageRequest", output = "http://webservice.tafelServer/TafelWebService/deleteMessageResponse")
+    public String deleteMessage(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1);
+
+    /**
+     * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "deletePublic", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.DeletePublic")
+    @ResponseWrapper(localName = "deletePublicResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.DeletePublicResponse")
+    @Action(input = "http://webservice.tafelServer/TafelWebService/deletePublicRequest", output = "http://webservice.tafelServer/TafelWebService/deletePublicResponse")
+    public String deletePublic(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        int arg2);
 
 }

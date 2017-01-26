@@ -72,7 +72,7 @@ public class Message implements Serializable {
 	@Override
 	public String toString() {
 		return "Message [messageID=" + messageID + ", userID=" + userID + ", abtNr=" + abtNr + ", inhalt=" + inhalt
-				+ ", oeffentlich=" + oeffentlich + ", time=" + time + "]" + "\n";
+				+ ", oeffentlich=" + oeffentlich + ", time=" + time + ", Gruppen="+gruppen.toString()+"]" + "\n";
 	}
 
 	public void addGroup(int gruppe){
@@ -121,8 +121,11 @@ public class Message implements Serializable {
 		return gruppen;
 	}
 	
-	public Integer[] getGruppenArray() {
-		return gruppen.toArray(new Integer[gruppen.size()]);
+
+	public Integer[] getGruppenAsArray(){
+		Integer[] g = new Integer[gruppen.size()];
+		gruppen.toArray(g);
+		return g;
 	}
 
 	public void setGruppen(HashSet<Integer> gruppen) {

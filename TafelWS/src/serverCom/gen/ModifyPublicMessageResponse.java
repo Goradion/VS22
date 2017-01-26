@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java-Klasse für modifyPublicMessageResponse complex type.
+ * <p>Java class for modifyPublicMessageResponse complex type.
  * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="modifyPublicMessageResponse">
@@ -36,7 +36,7 @@ public class ModifyPublicMessageResponse {
     protected String _return;
 
     /**
-     * Ruft den Wert der return-Eigenschaft ab.
+     * Gets the value of the return property.
      * 
      * @return
      *     possible object is
@@ -48,7 +48,7 @@ public class ModifyPublicMessageResponse {
     }
 
     /**
-     * Legt den Wert der return-Eigenschaft fest.
+     * Sets the value of the return property.
      * 
      * @param value
      *     allowed object is

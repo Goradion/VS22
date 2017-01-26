@@ -26,24 +26,6 @@ public interface ServerComWebservice {
 
     /**
      * 
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "deletePublicMessage", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.DeletePublicMessage")
-    @ResponseWrapper(localName = "deletePublicMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.DeletePublicMessageResponse")
-    @Action(input = "http://webservice.tafelServer/ServerComWebservice/deletePublicMessageRequest", output = "http://webservice.tafelServer/ServerComWebservice/deletePublicMessageResponse")
-    public String deletePublicMessage(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        int arg1);
-
-    /**
-     * 
      * @param arg2
      * @param arg1
      * @param arg0
@@ -62,6 +44,24 @@ public interface ServerComWebservice {
         int arg1,
         @WebParam(name = "arg2", targetNamespace = "")
         String arg2);
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "deletePublicMessage", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.DeletePublicMessage")
+    @ResponseWrapper(localName = "deletePublicMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.DeletePublicMessageResponse")
+    @Action(input = "http://webservice.tafelServer/ServerComWebservice/deletePublicMessageRequest", output = "http://webservice.tafelServer/ServerComWebservice/deletePublicMessageResponse")
+    public String deletePublicMessage(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1);
 
     /**
      * 

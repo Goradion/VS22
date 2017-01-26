@@ -25,6 +25,7 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _ReceiveSoapableMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "receiveSoapableMessageResponse");
+    private final static QName _SoapableMessage_QNAME = new QName("http://webservice.tafelServer/", "SoapableMessage");
     private final static QName _RegisterServerResponse_QNAME = new QName("http://webservice.tafelServer/", "registerServerResponse");
     private final static QName _DeletePublicMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "deletePublicMessageResponse");
     private final static QName _RegisterServer_QNAME = new QName("http://webservice.tafelServer/", "registerServer");
@@ -107,6 +108,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link SoapableMessage }
+     * 
+     */
+    public SoapableMessage createSoapableMessage() {
+        return new SoapableMessage();
+    }
+
+    /**
      * Create an instance of {@link RegisterServerResponse }
      * 
      */
@@ -123,20 +132,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SoapableMessage }
-     * 
-     */
-    public SoapableMessage createSoapableMessage() {
-        return new SoapableMessage();
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ReceiveSoapableMessageResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "receiveSoapableMessageResponse")
     public JAXBElement<ReceiveSoapableMessageResponse> createReceiveSoapableMessageResponse(ReceiveSoapableMessageResponse value) {
         return new JAXBElement<ReceiveSoapableMessageResponse>(_ReceiveSoapableMessageResponse_QNAME, ReceiveSoapableMessageResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SoapableMessage }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "SoapableMessage")
+    public JAXBElement<SoapableMessage> createSoapableMessage(SoapableMessage value) {
+        return new JAXBElement<SoapableMessage>(_SoapableMessage_QNAME, SoapableMessage.class, null, value);
     }
 
     /**

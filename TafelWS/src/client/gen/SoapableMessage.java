@@ -1,5 +1,5 @@
 
-package serverCom.gen;
+package client.gen;
 
 import java.util.ArrayList;
 import java.util.List;

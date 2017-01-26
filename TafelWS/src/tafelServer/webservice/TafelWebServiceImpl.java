@@ -1,10 +1,14 @@
 package tafelServer.webservice;
 
-import java.util.LinkedList;
 import java.util.Date;
+import java.util.LinkedList;
 
 import javax.jws.WebService;
+import javax.xml.datatype.XMLGregorianCalendar;
 
+import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
+
+import verteilteAnzeigetafel.SoapableMessage;
 import tafelServer.TafelServer;
 import verteilteAnzeigetafel.Message;
 import verteilteAnzeigetafel.TafelException;
@@ -62,34 +66,6 @@ public class TafelWebServiceImpl implements TafelWebService {
 		return null;
 	}
 	
-	// TODO format?
-		@Override
-		public String[] showMessages(int user) {
-			int size = 0;
-			boolean success = false;
-			String errorMessage = "";
-			LinkedList<Message> messagesByUserID = new LinkedList<Message>();
-			try {
-				messagesByUserID = tafelServer.getMessagesByUserID(user);
-				size = messagesByUserID.size() + 1;
-				success = true;
-			} catch (TafelException e) {
-				size = 2;
-				errorMessage = e.getMessage();
-			}
-			String[] strings = new String[size];
-			strings[0] = Boolean.toString(success);
-			if (!success) {
-				strings[1] = errorMessage;
-			} else {
-				for (int i = 1; i < strings.length; i++) {
-					strings[i] = messagesByUserID.get(i - 1).toString();
-				}
-			}
-
-			return strings;
-		}
-
 	public String publishMessage(int messageID, int user, int group) {
 		if (tafelServer != null) {
 			String answer = "";
@@ -102,7 +78,40 @@ public class TafelWebServiceImpl implements TafelWebService {
 		}
 		return null;
 	}
+
 	
+	// TODO format?
+	@Override
+	public SoapableMessage[] showMessages(int user) {
+
+		SoapableMessage[] answer;
+		LinkedList<Message> userMessages = new LinkedList<Message>();
+		try{
+			userMessages = tafelServer.getMessagesByUserID(user);
+		} catch( TafelException te){
+			answer = new SoapableMessage[1];
+			SoapableMessage sm = new SoapableMessage();
+			sm.setInhalt(te.getMessage());
+			answer[0] = sm;
+		}
+		answer = new SoapableMessage[userMessages.size()];
+		/* create "soapable" answer */
+		for(int i = 0; i < userMessages.size(); i++){
+			SoapableMessage soM = new SoapableMessage();
+			soM.setAbtNr(userMessages.get(i).getAbtNr());
+			soM.setGruppen(userMessages.get(i).getGruppenAsArray());
+			soM.setInhalt(userMessages.get(i).getInhalt());
+			soM.setMessageID(userMessages.get(i).getMessageID());
+			soM.setTime(userMessages.get(i).getTime());
+			soM.setOeffentlich(userMessages.get(i).isOeffentlich());
+			soM.setUserID(userMessages.get(i).getUserID());
+			answer[i] = soM;
+		}
+		
+		return answer;
+	}
+
+
 	@Override
 	public String deletePublic(int msgID, int user, int group) {
 		if (tafelServer != null) {
