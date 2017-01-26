@@ -41,7 +41,10 @@ public class WSClient {
 //		List<String> reply2 = port.startTafelServer(1);
 //		System.out.println(reply2.get(0));
 		
-		
+		System.out.println(port.startTafelServer(1).get(0));
+		for (int i = 0; i < 10; i++){
+			port.createMessage("message "+i, 1, 1);
+		}
 		List<SoapableMessage> userMessages = port.showMessages(1);
 		
 		LinkedList<Message> normalMessages = new LinkedList<Message>();

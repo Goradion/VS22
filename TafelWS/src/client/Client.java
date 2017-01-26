@@ -88,7 +88,7 @@ public class Client implements Serializable {
 	public String showMessages(int abt, int userId) throws MalformedURLException {
 		setAbteilung(abt);
 		TafelWebService port = new TafelWebServiceImplService(new URL("http://"+serverHostname+":8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
-		List<String> reply = port.showMessages(userId);
+//		List<String> reply = port.showMessages(userId);
 		return null;
 	}
 

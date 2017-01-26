@@ -128,38 +128,32 @@ public class TafelWebServiceImpl implements TafelWebService {
 //		}
 //
 //		return strings;
-
+		
+		SoapableMessage[] answer;
 		LinkedList<Message> userMessages = new LinkedList<Message>();
-		for (int i=0;i<10;i++){
-			Message m = new Message(i,user,1,"message "+i,false, new Date());
-			m.addGroup(i);
-			userMessages.add(m);
-		}
-		SoapableMessage[] userSoapableMessages = new SoapableMessage[userMessages.size()];
-		int i = 0;
-		for(Message m: userMessages){
+		try{
+			userMessages = tafelServer.getMessagesByUserID(user);
+		} catch( TafelException te){
+			answer = new SoapableMessage[1];
 			SoapableMessage sm = new SoapableMessage();
-			sm.setAbtNr(m.getAbtNr());
-			sm.setInhalt(m.getInhalt());
-			sm.setMessageID(m.getMessageID());
-			sm.setOeffentlich(m.isOeffentlich());
-			sm.setTime(m.getTime());
-			sm.setUserID(m.getUserID());
-			sm.setGruppen(m.getGruppenAsArray());
-			userSoapableMessages[i] = sm;
-			for(int i1 = 0; i1 < m.getGruppenAsArray().length;i1++){
-				System.out.print(m.getGruppenAsArray()[i1]+" ");
-			}
-			Integer[] smg = new Integer[sm.getGruppen().length];
-			smg = (Integer[])sm.getGruppen();
-			for(int i2 = 0; i2 < smg.length; i2++){
-				System.out.println(smg[i2]+" ");
-			}
-			i++;
+			sm.setInhalt(te.getMessage());
+			answer[0] = sm;
+		}
+		answer = new SoapableMessage[userMessages.size()];
+		/* create "soapable" answer */
+		for(int i = 0; i < userMessages.size(); i++){
+			SoapableMessage soM = new SoapableMessage();
+			soM.setAbtNr(userMessages.get(i).getAbtNr());
+			soM.setGruppen(userMessages.get(i).getGruppenAsArray());
+			soM.setInhalt(userMessages.get(i).getInhalt());
+			soM.setMessageID(userMessages.get(i).getMessageID());
+			soM.setTime(userMessages.get(i).getTime());
+			soM.setOeffentlich(userMessages.get(i).isOeffentlich());
+			soM.setUserID(userMessages.get(i).getUserID());
+			answer[i] = soM;
 		}
 		
-		return userSoapableMessages;
-		
+		return answer;
 	}
 
 	@Override
