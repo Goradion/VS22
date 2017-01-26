@@ -36,7 +36,7 @@ public class Client {
 		String[] abteilungen = new String[] {"Managment","Finanzen","Technik"};
 		msgs = new ArrayList<Message>();
 		msgs.add(new Message("Nachricht", 1, 2, false, 0));
-		msgs.add(new Message("Noch eine Nachricht die wirklich sehr lang sein soll lkjsdfioasopekpoaiksgöokaosdgköadskglkasdfäpgkösdkfglkadäofgkäoadkfgopakeärgkaeokegopaklerohkaösdgjlisrötlrgäpylkdöogijlsdykfgklüxäötkhöoxöfzäjöoxflhäxÖfläphäXrtu ENDE DER NACHTICHT",1,2,false,1));
+		msgs.add(new Message("Noch eine Nachricht die wirklich sehr lang sein soll lkjsdfioasopekpoaiksgï¿½okaosdgkï¿½adskglkasdfï¿½pgkï¿½sdkfglkadï¿½ofgkï¿½oadkfgopakeï¿½rgkaeokegopaklerohkaï¿½sdgjlisrï¿½tlrgï¿½pylkdï¿½ogijlsdykfgklï¿½xï¿½ï¿½tkhï¿½oxï¿½fzï¿½jï¿½oxflhï¿½xï¿½flï¿½phï¿½Xrtu ENDE DER NACHTICHT",1,2,false,1));
 		
 		clientGui = new ClientGui("Tafel-Client",abteilungen);
 		menue = new String[] {"Zeige alle Nachrichten","Neue Nachricht"};
@@ -62,7 +62,12 @@ public class Client {
 			});
 			clientGui.addActionSendQuery(new java.awt.event.ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
-					sendQueryActionPerformed(evt);
+					try {
+						sendQueryActionPerformed(evt);
+					} catch (MalformedURLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			});
 			clientGui.setConectivity(true);
@@ -78,7 +83,12 @@ public class Client {
 				clientGui.setPublish(clientGui.getUserid() == 1);
 				clientGui.addActionSendQuery(new java.awt.event.ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						sendQueryActionPerformed(evt);
+						try {
+							sendQueryActionPerformed(evt);
+						} catch (MalformedURLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				});
 				break;
@@ -88,7 +98,12 @@ public class Client {
 				clientGui.setPublish(clientGui.getUserid() == 1);
 				clientGui.actionSendNewMessage(new java.awt.event.ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						sendNewMessage(evt);
+						try {
+							sendNewMessage(evt);
+						} catch (MalformedURLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 			            }
 				});
 				break;
@@ -111,7 +126,7 @@ public class Client {
 		if ((userID > 0) && message != "" && abteilung != "" )
 		{
 			TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
-		    port.createMessage(message, userID, Integer.parseInt(abteilung), false);
+		    port.createMessage(message, userID, Integer.parseInt(abteilung));
 		    clientGui.setNewMessageState("Nachricht versendet!");
 			clientGui.repaint();
 		}
@@ -132,11 +147,11 @@ public class Client {
 			userID = clientGui.getUserid();
   			msgID = clientGui.getMsgID();
   
-  			if ((userID > 0) && msgID > 0 )
-  			{
-  				TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
-  				port.deleteMessage(Integer.parseInt(msgID),userID);
-  			}
+//  			if ((userID > 0) && msgID > 0 )
+//  			{
+//  				TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
+//  				port.deleteMessage(Integer.parseInt(msgID),userID);
+//  			}
   			
 		}
 		if(clientGui.getQueryCommand().equals("change")){
@@ -160,14 +175,14 @@ public class Client {
   			g_two = clientGui.pruefeGruppe2();
   			g_three = clientGui.pruefeGruppe3();
   			g_four = clientGui.pruefeGruppe4();
-  						
+		}			
   			
-		if ((userID == 1) && Integer.parseInt(msgID) > 0 )
-		{	
-			
-			TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
-			port.publishMessage(msgID, userID, g_one,g_two,g_three,g_four);			
-		}
+//		if ((userID == 1) && Integer.parseInt(msgID) > 0 )
+//		{	
+//			
+//			TafelWebService port = new TafelWebServiceImplService(new URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
+//			port.publishMessage(msgID, userID, g_one,g_two,g_three,g_four);			
+//		}
 			
 			
 		
@@ -180,7 +195,7 @@ public class Client {
 	private static void changeMessage(ActionEvent evt) {
 		// TODO Auto-generated method stub
 		Message myMsg = clientGui.getSelectedMessage();
-	//TODO Nachricht ändern und speichern
+	//TODO Nachricht ï¿½ndern und speichern
 		clientGui.showShowMessages(msgs);
 		
 	}
