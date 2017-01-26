@@ -27,6 +27,27 @@ public interface ServerComWebservice {
 
     /**
      * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "deletePublic", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.DeletePublic")
+    @ResponseWrapper(localName = "deletePublicResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.DeletePublicResponse")
+    @Action(input = "http://webservice.tafelServer/ServerComWebservice/deletePublicRequest", output = "http://webservice.tafelServer/ServerComWebservice/deletePublicResponse")
+    public String deletePublic(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        int arg2);
+
+    /**
+     * 
      * @param arg3
      * @param arg2
      * @param arg5
@@ -57,27 +78,6 @@ public interface ServerComWebservice {
 
     /**
      * 
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "deletePublic", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.DeletePublic")
-    @ResponseWrapper(localName = "deletePublicResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.DeletePublicResponse")
-    @Action(input = "http://webservice.tafelServer/ServerComWebservice/deletePublicRequest", output = "http://webservice.tafelServer/ServerComWebservice/deletePublicResponse")
-    public String deletePublic(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        int arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        int arg2);
-
-    /**
-     * 
      * @param arg3
      * @param arg2
      * @param arg1
@@ -102,6 +102,21 @@ public interface ServerComWebservice {
 
     /**
      * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "receiveSoapableMessage", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveSoapableMessage")
+    @ResponseWrapper(localName = "receiveSoapableMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveSoapableMessageResponse")
+    @Action(input = "http://webservice.tafelServer/ServerComWebservice/receiveSoapableMessageRequest", output = "http://webservice.tafelServer/ServerComWebservice/receiveSoapableMessageResponse")
+    public String receiveSoapableMessage(
+        @WebParam(name = "arg0", targetNamespace = "")
+        SoapableMessage arg0);
+
+    /**
+     * 
      * @param arg1
      * @param arg0
      * @return
@@ -117,20 +132,5 @@ public interface ServerComWebservice {
         int arg0,
         @WebParam(name = "arg1", targetNamespace = "")
         String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "receiveSoapableMessage", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveSoapableMessage")
-    @ResponseWrapper(localName = "receiveSoapableMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveSoapableMessageResponse")
-    @Action(input = "http://webservice.tafelServer/ServerComWebservice/receiveSoapableMessageRequest", output = "http://webservice.tafelServer/ServerComWebservice/receiveSoapableMessageResponse")
-    public String receiveSoapableMessage(
-        @WebParam(name = "arg0", targetNamespace = "")
-        SoapableMessage arg0);
 
 }

@@ -10,16 +10,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java-Klasse für showMessagesResponse complex type.
+ * <p>Java class for showMessagesResponse complex type.
  * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="showMessagesResponse">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://webservice.tafelServer/}soapableMessage" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 public class ShowMessagesResponse {
 
     @XmlElement(name = "return", nillable = true)
-    protected List<String> _return;
+    protected List<SoapableMessage> _return;
 
     /**
      * Gets the value of the return property.
@@ -55,13 +55,13 @@ public class ShowMessagesResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link String }
+     * {@link SoapableMessage }
      * 
      * 
      */
-    public List<String> getReturn() {
+    public List<SoapableMessage> getReturn() {
         if (_return == null) {
-            _return = new ArrayList<String>();
+            _return = new ArrayList<SoapableMessage>();
         }
         return this._return;
     }

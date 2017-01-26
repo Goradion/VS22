@@ -9,9 +9,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
- * <p>Java-Klasse für receiveMessage complex type.
+ * <p>Java class for receiveMessage complex type.
  * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="receiveMessage">
@@ -52,7 +52,7 @@ public class ReceiveMessage {
     protected int arg5;
 
     /**
-     * Ruft den Wert der arg0-Eigenschaft ab.
+     * Gets the value of the arg0 property.
      * 
      */
     public int getArg0() {
@@ -60,7 +60,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Legt den Wert der arg0-Eigenschaft fest.
+     * Sets the value of the arg0 property.
      * 
      */
     public void setArg0(int value) {
@@ -68,7 +68,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Ruft den Wert der arg1-Eigenschaft ab.
+     * Gets the value of the arg1 property.
      * 
      */
     public int getArg1() {
@@ -76,7 +76,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Legt den Wert der arg1-Eigenschaft fest.
+     * Sets the value of the arg1 property.
      * 
      */
     public void setArg1(int value) {
@@ -84,7 +84,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Ruft den Wert der arg2-Eigenschaft ab.
+     * Gets the value of the arg2 property.
      * 
      */
     public int getArg2() {
@@ -92,7 +92,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Legt den Wert der arg2-Eigenschaft fest.
+     * Sets the value of the arg2 property.
      * 
      */
     public void setArg2(int value) {
@@ -100,7 +100,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Ruft den Wert der arg3-Eigenschaft ab.
+     * Gets the value of the arg3 property.
      * 
      * @return
      *     possible object is
@@ -112,7 +112,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Legt den Wert der arg3-Eigenschaft fest.
+     * Sets the value of the arg3 property.
      * 
      * @param value
      *     allowed object is
@@ -124,7 +124,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Ruft den Wert der arg4-Eigenschaft ab.
+     * Gets the value of the arg4 property.
      * 
      * @return
      *     possible object is
@@ -136,7 +136,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Legt den Wert der arg4-Eigenschaft fest.
+     * Sets the value of the arg4 property.
      * 
      * @param value
      *     allowed object is
@@ -148,7 +148,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Ruft den Wert der arg5-Eigenschaft ab.
+     * Gets the value of the arg5 property.
      * 
      */
     public int getArg5() {
@@ -156,7 +156,7 @@ public class ReceiveMessage {
     }
 
     /**
-     * Legt den Wert der arg5-Eigenschaft fest.
+     * Sets the value of the arg5 property.
      * 
      */
     public void setArg5(int value) {

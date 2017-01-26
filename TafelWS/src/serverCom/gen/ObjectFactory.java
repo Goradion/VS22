@@ -27,6 +27,7 @@ public class ObjectFactory {
     private final static QName _DeletePublic_QNAME = new QName("http://webservice.tafelServer/", "deletePublic");
     private final static QName _ModifyPublicResponse_QNAME = new QName("http://webservice.tafelServer/", "modifyPublicResponse");
     private final static QName _ReceiveSoapableMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "receiveSoapableMessageResponse");
+    private final static QName _SoapableMessage_QNAME = new QName("http://webservice.tafelServer/", "SoapableMessage");
     private final static QName _RegisterServerResponse_QNAME = new QName("http://webservice.tafelServer/", "registerServerResponse");
     private final static QName _DeletePublicResponse_QNAME = new QName("http://webservice.tafelServer/", "deletePublicResponse");
     private final static QName _ModifyPublic_QNAME = new QName("http://webservice.tafelServer/", "modifyPublic");
@@ -91,6 +92,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link SoapableMessage }
+     * 
+     */
+    public SoapableMessage createSoapableMessage() {
+        return new SoapableMessage();
+    }
+
+    /**
      * Create an instance of {@link RegisterServerResponse }
      * 
      */
@@ -123,14 +132,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SoapableMessage }
-     * 
-     */
-    public SoapableMessage createSoapableMessage() {
-        return new SoapableMessage();
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link DeletePublic }{@code >}}
      * 
      */
@@ -155,6 +156,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "receiveSoapableMessageResponse")
     public JAXBElement<ReceiveSoapableMessageResponse> createReceiveSoapableMessageResponse(ReceiveSoapableMessageResponse value) {
         return new JAXBElement<ReceiveSoapableMessageResponse>(_ReceiveSoapableMessageResponse_QNAME, ReceiveSoapableMessageResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SoapableMessage }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "SoapableMessage")
+    public JAXBElement<SoapableMessage> createSoapableMessage(SoapableMessage value) {
+        return new JAXBElement<SoapableMessage>(_SoapableMessage_QNAME, SoapableMessage.class, null, value);
     }
 
     /**
