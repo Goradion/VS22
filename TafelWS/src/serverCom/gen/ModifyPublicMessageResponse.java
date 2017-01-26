@@ -8,12 +8,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java-Klasse für deletePublicResponse complex type.
+ * <p>Java-Klasse für modifyPublicMessageResponse complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="deletePublicResponse">
+ * &lt;complexType name="modifyPublicMessageResponse">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -27,10 +27,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "deletePublicResponse", propOrder = {
+@XmlType(name = "modifyPublicMessageResponse", propOrder = {
     "_return"
 })
-public class DeletePublicResponse {
+public class ModifyPublicMessageResponse {
 
     @XmlElement(name = "return")
     protected String _return;

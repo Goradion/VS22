@@ -6,12 +6,21 @@
 package tafelServer;
 
 import java.net.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
+import java.util.Locale;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import javax.xml.datatype.DatatypeFactory;
+
 import client.gen.TafelWebService;
 import client.gen.TafelWebServiceImplService;
+import serverCom.gen.ServerComWebservice;
+import serverCom.gen.ServerComWebserviceImplService;
 import serverRequests.ReceiveRequest;
 import serverRequests.ServerRequest;
 import verteilteAnzeigetafel.Anzeigetafel;
@@ -30,10 +39,19 @@ public class Client {
 	public static final String SERVER_HOSTNAME = "localhost";
 
 	public static void main(String[] args) throws Exception {
-		ConnectionMonitor monitor1 = new ConnectionMonitor();
-		ConnectionMonitor monitor2 = new ConnectionMonitor();
-		OutboxThread outboxThread1 = new OutboxThread(1, new URL("http://localhost:8080"), null, null);
-		outboxThread1.start();
+		DateFormat formatTime = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
+		String timeD = new Date().toString();
+		System.out.println(timeD);
+		System.out.println(formatTime.parse(timeD));
+		String time = "Thu Jan 26 06:12:30 CET 2017";
+		System.out.println(formatTime.parse(time));
+		
+		ServerComWebservice port = new ServerComWebserviceImplService(new URL("http://localhost:8080/TafelWS/serverws")).getServerComWebserviceImplPort();
+		System.out.println(port.modifyPublicMessage(1,1,""));
+//		ConnectionMonitor monitor1 = new ConnectionMonitor();
+//		ConnectionMonitor monitor2 = new ConnectionMonitor();
+//		OutboxThread outboxThread1 = new OutboxThread(1, new URL("http://localhost:8080"), null, null);
+//		outboxThread1.start();
 //		TafelWebServiceImplService service = new TafelWebServiceImplService();
 //		System.out.println("Service erstellt...");
 //		TafelWebService port = service.getTafelWebServiceImplPort();

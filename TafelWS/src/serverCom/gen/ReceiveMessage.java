@@ -3,9 +3,7 @@ package serverCom.gen;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -22,7 +20,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="arg1" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="arg2" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="arg3" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="arg4" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
+ *         &lt;element name="arg4" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="arg5" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -47,8 +45,7 @@ public class ReceiveMessage {
     protected int arg1;
     protected int arg2;
     protected String arg3;
-    @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar arg4;
+    protected String arg4;
     protected int arg5;
 
     /**
@@ -128,10 +125,10 @@ public class ReceiveMessage {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link String }
      *     
      */
-    public XMLGregorianCalendar getArg4() {
+    public String getArg4() {
         return arg4;
     }
 
@@ -140,10 +137,10 @@ public class ReceiveMessage {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link String }
      *     
      */
-    public void setArg4(XMLGregorianCalendar value) {
+    public void setArg4(String value) {
         this.arg4 = value;
     }
 

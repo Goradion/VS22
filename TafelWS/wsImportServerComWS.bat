@@ -11,13 +11,28 @@ cd /D %ECLIPSE_PATH%
 ::echo %cd%
 :: Again back to the eclipse working dir, so wsimport works
 
-::BACKUP machen
+set WS_NAME=serverCom
+set BUILD_PATH=%WORKSPACE_PATH%\build\classes\%WS_NAME%\gen
+set BUILD_BACKUP_PATH=%WORKSPACE_PATH%\.backup\build\%WS_NAME%\gen
+set SRC_PATH=%WORKSPACE_PATH%\src\%WS_NAME%\gen
+set SRC_BACKUP_PATH=%WORKSPACE_PATH%\.backup\src\%WS_NAME%\gen
 
-rd /s /q %WORKSPACE_PATH%\build\classes\serverCom\gen
-rd /s /q %WORKSPACE_PATH%\src\serverCom\gen
+::BACKUP machen
+rd /s /q %BUILD_BACKUP_PATH%
+rd /s /q %SRC_BACKUP_PATH%
+xcopy /s /i /q %BUILD_PATH% %BUILD_BACKUP_PATH%
+xcopy /s /i /q %SRC_PATH% %SRC_BACKUP_PATH%
+echo --- Old backed ---
+echo.
+
+rd /s /q %BUILD_PATH%
+rd /s /q %SRC_PATH%
 echo --- Old deleted ---
 echo.
 
-wsimport -d %WORKSPACE_PATH%\build\classes -s %WORKSPACE_PATH%\src -keep -p serverCom.gen http://localhost:8080/TafelWS/serverws?wsdl
+wsimport -d %WORKSPACE_PATH%\build\classes -s %WORKSPACE_PATH%\src -keep -p %WS_NAME%.gen http://localhost:8080/TafelWS/serverws?wsdl
+
+echo --- Done ---
+echo.
 
 pause

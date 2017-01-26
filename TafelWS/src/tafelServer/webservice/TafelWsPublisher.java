@@ -10,6 +10,7 @@ public class TafelWsPublisher {
 	public static void main(String[] args) {
 		TafelServer tafelServer;
 		int abteilung = 1;
+		String address = "localhost";
 		if (args.length >= 1) {
 			try {
 				abteilung = Integer.parseInt(args[0]);
@@ -17,10 +18,13 @@ public class TafelWsPublisher {
 				// default to abteilung 1;
 			}
 		}
-		
+		if (args.length >= 2) {
+			address = args[1];
+		}
+
 		TafelServer.startServer(abteilung);
-		Endpoint clientEndpoint = Endpoint.publish("http://localhost:8080/TafelWS/tafelws", new TafelWebServiceImpl());
-		Endpoint serverEndpoint = Endpoint.publish("http://localhost:8080/TafelWS/serverws", new ServerComWebserviceImpl());
+		Endpoint clientEndpoint = Endpoint.publish("http://" + address + ":8080/TafelWS/tafelws", new TafelWebServiceImpl());
+		Endpoint serverEndpoint = Endpoint.publish("http://" + address + ":8080/TafelWS/serverws", new ServerComWebserviceImpl());
 		JOptionPane.showMessageDialog(null, "Server beenden");
 		clientEndpoint.stop();
 		serverEndpoint.stop();

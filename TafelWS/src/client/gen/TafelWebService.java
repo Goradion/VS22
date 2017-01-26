@@ -48,27 +48,6 @@ public interface TafelWebService {
 
     /**
      * 
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "publishMessage", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.PublishMessage")
-    @ResponseWrapper(localName = "publishMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.PublishMessageResponse")
-    @Action(input = "http://webservice.tafelServer/TafelWebService/publishMessageRequest", output = "http://webservice.tafelServer/TafelWebService/publishMessageResponse")
-    public String publishMessage(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        int arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        int arg2);
-
-    /**
-     * 
      * @param arg1
      * @param arg0
      * @return
@@ -103,6 +82,27 @@ public interface TafelWebService {
         int arg0,
         @WebParam(name = "arg1", targetNamespace = "")
         String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        int arg2);
+
+    /**
+     * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "publishMessage", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.PublishMessage")
+    @ResponseWrapper(localName = "publishMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.PublishMessageResponse")
+    @Action(input = "http://webservice.tafelServer/TafelWebService/publishMessageRequest", output = "http://webservice.tafelServer/TafelWebService/publishMessageResponse")
+    public String publishMessage(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1,
         @WebParam(name = "arg2", targetNamespace = "")
         int arg2);
 
@@ -159,6 +159,21 @@ public interface TafelWebService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "showMessages", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ShowMessages")
+    @ResponseWrapper(localName = "showMessagesResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ShowMessagesResponse")
+    @Action(input = "http://webservice.tafelServer/TafelWebService/showMessagesRequest", output = "http://webservice.tafelServer/TafelWebService/showMessagesResponse")
+    public List<String> showMessages(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<java.lang.String>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "startTafelServer", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.StartTafelServer")
     @ResponseWrapper(localName = "startTafelServerResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.StartTafelServerResponse")
     @Action(input = "http://webservice.tafelServer/TafelWebService/startTafelServerRequest", output = "http://webservice.tafelServer/TafelWebService/startTafelServerResponse")
@@ -180,20 +195,5 @@ public interface TafelWebService {
     public List<String> stopTafelServer(
         @WebParam(name = "arg0", targetNamespace = "")
         List<String> arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.util.List<java.lang.String>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "showMessages", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ShowMessages")
-    @ResponseWrapper(localName = "showMessagesResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ShowMessagesResponse")
-    @Action(input = "http://webservice.tafelServer/TafelWebService/showMessagesRequest", output = "http://webservice.tafelServer/TafelWebService/showMessagesResponse")
-    public List<String> showMessages(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0);
 
 }
