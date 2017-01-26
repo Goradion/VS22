@@ -3,9 +3,9 @@ package tafelServer;
 import java.net.URL;
 import java.util.concurrent.LinkedBlockingDeque;
 
-import client.gen.TafelWebServiceImplService;
+import serverCom.gen.ServerComWebservice;
+import serverCom.gen.ServerComWebserviceImplService;
 import serverRequests.ServerRequest;
-import tafelServer.webservice.ServerComWebservice;
 
 public class OutboxThread extends Thread {
 	int abteilungsID;
@@ -39,7 +39,7 @@ public class OutboxThread extends Thread {
 	public void doWait() {
 		synchronized (monitor) {
 			try {
-				monitor.wait();
+			    monitor.wait();
 			} catch (InterruptedException e) {
 			}
 		}
@@ -47,7 +47,7 @@ public class OutboxThread extends Thread {
 
 	public void doNotify() {
 		synchronized (monitor) {
-			monitor.notify();
+		    monitor.notify();
 		}
 	}
 
@@ -58,7 +58,7 @@ public class OutboxThread extends Thread {
 		try {
 			deliverMessages();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		    // TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -122,13 +122,21 @@ public class OutboxThread extends Thread {
 	}
 
 	private void deliverMessages() throws InterruptedException{
-		ServerComWebservice port = null;
-		ServerRequest request = null;
+	    ServerComWebservice port         = null;
+		ServerRequest request            = null;
+		ServerRequestDeliverer deliverer = null;
 		while (true) {
 			try {
-//				port = new ServerC;
 				request = messageQueue.take();
-				// tafelServer.saveQueueMapToFile();
+				
+				if (port == null) {
+				    port      = new ServerComWebserviceImplService(target).getServerComWebserviceImplPort();
+				    deliverer = new ServerRequestDeliverer(port);
+				}
+
+				deliverer.deliver(request);
+				
+				tafelServer.saveQueueMapToFile();
 			} catch (Exception e) {
 				if (isInterrupted()){
 					throw new InterruptedException();

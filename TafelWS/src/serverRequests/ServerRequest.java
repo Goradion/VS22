@@ -2,6 +2,7 @@ package serverRequests;
 
 import java.io.Serializable;
 import java.net.SocketAddress;
+import java.util.Date;
 
 import tafelServer.ServerRequestDeliverer;
 import verteilteAnzeigetafel.Message;
@@ -31,7 +32,7 @@ public abstract class ServerRequest implements Serializable {
 	 * @param msg
 	 * @return a ReceiveRequest
 	 */
-	public static ServerRequest buildReceiveRequest(Message msg){
-		return new ReceiveRequest(msg);
+	public static ServerRequest buildReceiveRequest(Message msg, int group, Date time){
+		return new ReceiveRequest(msg, group, time);
 	}
 }
