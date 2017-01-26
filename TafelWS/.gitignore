@@ -12,7 +12,7 @@ local.properties
 
 # Own
 .backup/
-.ANZEIGETAFELN/
+.ANZEIGETAFEL/
 .queueMap*
 
 # Eclipse Core
