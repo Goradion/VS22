@@ -92,9 +92,10 @@ public class TafelServer {
 		// ende
 
 		queueMap = loadQueueMapFromFile();
-		loadTafelAdressenFromFile();
 		loadGroupsFromFile();
-		buildGroupQueueMap();
+		initGroupQueueMap();
+		loadTafelAdressenFromFile();
+		
 		System.out.println(groupMap);
 		System.out.println(groupQueueMap);
 	}
@@ -121,13 +122,8 @@ public class TafelServer {
 			tafelAdressen.put(abteilungsID, address);
 		}
 		if (!queueMap.containsKey(abteilungsID)) {
-			queueMap.put(abteilungsID, new LinkedBlockingDeque<ServerRequest>());
-			buildGroupQueueMap();    // TODO vllt ne updateGroupQueueMap
-		} else
-		{
-		    queueMap = loadQueueMapFromFile();    // TODO notdürftige Lösung?! siehe OutboxThread
-		    buildGroupQueueMap();
-		}
+			addQueue(abteilungsID);
+		} 
 		
 		activateHeartbeat(abteilungsID);
 		activateQueue(abteilungsID);
@@ -158,7 +154,6 @@ public class TafelServer {
 	/**
 	 * Activates a Heartbeat for the given abteilungsID.
 	 * 
-	 * @param abteilungsID
 	 */
 	public synchronized void activateHeartbeat(int abteilungsID) {
 		if (!heartbeatThreads.containsKey(abteilungsID) || !heartbeatThreads.get(abteilungsID).isAlive()) {
@@ -168,23 +163,40 @@ public class TafelServer {
 		}
 	}
 	
-	private void buildGroupQueueMap() {
+	private void initGroupQueueMap() {
 		groupQueueMap.clear();
 
 		for (Entry<Integer, HashSet<Integer>> entry : groupMap.entrySet()) {
 			Integer groupId = entry.getKey();
 			HashSet<Integer> groupMembers = entry.getValue();
 			HashSet<LinkedBlockingDeque<ServerRequest>> queues = new HashSet<LinkedBlockingDeque<ServerRequest>>();
-			
 			for (Integer groupMember : groupMembers) {
 				if (groupMember.intValue() != abteilungsID) {
-					queues.add(queueMap.get(groupMember));
+					if (queueMap.containsKey(groupMember)){
+						queues.add(queueMap.get(groupMember));
+					}
 				}
 			}
 			groupQueueMap.put(groupId, queues);
 		}
 	}
 
+	private boolean addQueue(Integer abteilung){
+		if (abteilung.intValue() == abteilungsID){
+			return false;
+		}
+		LinkedBlockingDeque<ServerRequest> queue = new LinkedBlockingDeque<ServerRequest>();
+		queueMap.put(abteilung, queue);
+		for ( Entry<Integer, HashSet<Integer>> entry : groupMap.entrySet()){
+			Integer groupId = entry.getKey();
+			HashSet<Integer> groupMembers = entry.getValue();
+			if (groupMembers.contains(abteilung)){
+				groupQueueMap.get(groupId).add(queue);
+			}
+		}
+		return true;
+	}
+	
 	/**
 	 * Writes the message queues for each Abteilung to a file.
 	 */
