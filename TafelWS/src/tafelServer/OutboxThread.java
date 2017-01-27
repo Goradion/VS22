@@ -8,11 +8,11 @@ import serverCom.gen.ServerComWebserviceImplService;
 import serverRequests.ServerRequest;
 
 public class OutboxThread extends Thread {
-	int abteilungsID;
-	URL target;
-	LinkedBlockingDeque<ServerRequest> messageQueue;
-	TafelServer tafelServer;
-	ConnectionMonitor monitor;
+	private int abteilungsID;
+	private URL targetAddress;
+	private LinkedBlockingDeque<ServerRequest> messageQueue;
+	private TafelServer tafelServer;
+	private ConnectionMonitor monitor;
 
 	/**
 	 * Constructs a new OutboxThread
@@ -30,13 +30,17 @@ public class OutboxThread extends Thread {
 			TafelServer tafelServer) {
 		super();
 		this.abteilungsID = abteilungsID;
-		this.target = targetAdress;
+		this.targetAddress = targetAdress;
 		this.messageQueue = messageQueue;
 		this.tafelServer = tafelServer;
 		this.monitor = new ConnectionMonitor();
 	}
-
-	public void doWait() {
+	
+	public void setTargetAddress(URL targetAddress) {
+		this.targetAddress = targetAddress;
+	}
+	
+	private void doWait() {
 		synchronized (monitor) {
 			try {
 			    monitor.wait();
@@ -122,35 +126,34 @@ public class OutboxThread extends Thread {
 	}
 
 	private void deliverMessages() throws InterruptedException{
+		ServerComWebserviceImplService serverComWebserviceImplService = null;
 	    ServerComWebservice port         = null;
 		ServerRequest request            = null;
 		ServerRequestDeliverer deliverer = null;
 		while (true) {
 			try {
-				if (port == null) {
-				    port      = new ServerComWebserviceImplService(target).getServerComWebserviceImplPort();
+				if (port == null ) {
+					serverComWebserviceImplService = new ServerComWebserviceImplService(targetAddress);
+				    port      = serverComWebserviceImplService.getServerComWebserviceImplPort();
 				    deliverer = new ServerRequestDeliverer(port);
 				}
-				
-				/* TODO Pausieren durch den Heartbeat Thread
-				      er würde hier warten und ein Request herauslesen, und erst im deliverer exception werfen
-				      und in der exception warten bis sich der server wieder anmeldet
-				      der bereits ausgelesene request wurde nicht versandt, weil ja keine verbindung vorhanden
-				      danach weiterlaufen
-				      dann wieder neu nen request herauslesen, der davor geht dabei verloren!
-				      oder beim registerTafel, muss die queue neu aus der file gelesen werden, 
-				          wo die davor ausgelesene aber nicht genutzte request noch vorhanden sein sollte!!
-				*/
+				tafelServer.print(getMyName() + ": " + serverComWebserviceImplService.getWSDLDocumentLocation());
 				request = messageQueue.take();
 
 				deliverer.deliver(request);
-				
+				request = null;
 				tafelServer.saveQueueMapToFile();
 			} catch (Exception e) {
+				if (request != null) {
+					messageQueue.putFirst(request);
+					
+					tafelServer.saveQueueMapToFile();
+					request = null;
+				}
 				if (isInterrupted()){
 					throw new InterruptedException();
 				}
-				tafelServer.print(getMyName() + " paused!");
+				tafelServer.print(getMyName() + " paused! " + e.getMessage());
 				doWait();
 				tafelServer.print(getMyName() + " resumed!");
 			}
