@@ -5,6 +5,7 @@
  */
 package tafelServer;
 
+import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -25,6 +26,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.concurrent.LinkedBlockingDeque;
+
+import javax.swing.JFrame;
 
 import serverRequests.DeletePublicRequest;
 import serverRequests.ModifyPublicRequest;
@@ -532,5 +535,9 @@ public class TafelServer {
 		return true;
 	}
 	
+	public void setShutdownOnClose(WindowListener wl){
+		JFrame guiWindow = gui.getWindow();
+		guiWindow.addWindowListener(wl);
+	}
 	
 }

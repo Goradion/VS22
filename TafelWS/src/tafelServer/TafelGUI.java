@@ -19,7 +19,11 @@ public class TafelGUI implements Observer {
     private JScrollPane localScroll;
     private JScrollPane globalScroll;
     private JTextArea[] gruppenMessages;
-    private JScrollPane[] gruppenScroll;
+    public JFrame getWindow() {
+		return window;
+	}
+
+	private JScrollPane[] gruppenScroll;
     private int[] gruppen;
     
     TafelGUI(int abteilung, TafelServer ts,int[] gruppen){
@@ -72,7 +76,7 @@ public class TafelGUI implements Observer {
         
         window.setPreferredSize(new Dimension(400,gruppen.length *200 +300));
         window.setSize(new Dimension(400,gruppen.length *200 +300));
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
         window.setVisible(true);
        
