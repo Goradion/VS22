@@ -119,14 +119,20 @@ public class TafelServer {
 
 		} else {
 			tafelAdressen.put(abteilungsID, address);
-			saveQueueMapToFile();
 		}
 		if (!queueMap.containsKey(abteilungsID)) {
 			queueMap.put(abteilungsID, new LinkedBlockingDeque<ServerRequest>());
+			buildGroupQueueMap();    // TODO vllt ne updateGroupQueueMap
+		} else
+		{
+		    queueMap = loadQueueMapFromFile();    // TODO notdürftige Lösung?! siehe OutboxThread
+		    buildGroupQueueMap();
 		}
+		
 		activateHeartbeat(abteilungsID);
 		activateQueue(abteilungsID);
 		saveTafelAdressenToFile();
+		saveQueueMapToFile();
 		
 		return "TafelServer " + abteilungsID + ", Adresse: " + address.toString() + " registriert!";
 	}
@@ -144,7 +150,9 @@ public class TafelServer {
 
 			outboxThreads.put(abteilungsID, obt);
 			obt.start();
-		} // else Queue already active
+		} else { // else Queue already active
+		    outboxThreads.get(abteilungsID).doNotify();   // wake him up
+		}
 	}
 
 	/**
@@ -167,7 +175,7 @@ public class TafelServer {
 			Integer groupId = entry.getKey();
 			HashSet<Integer> groupMembers = entry.getValue();
 			HashSet<LinkedBlockingDeque<ServerRequest>> queues = new HashSet<LinkedBlockingDeque<ServerRequest>>();
-
+			
 			for (Integer groupMember : groupMembers) {
 				if (groupMember.intValue() != abteilungsID) {
 					queues.add(queueMap.get(groupMember));
@@ -422,9 +430,11 @@ public class TafelServer {
 		String antwort = "Nachricht mit ID=" + messageID + " veröffentlicht!";
 		
 		anzeigetafel.publishMessage(messageID, userID, groupID);
-		
+		System.out.println(groupQueueMap);
 		for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(groupID)) {
-			q.add(new ReceiveRequest(anzeigetafel.getMessages().get(messageID), groupID, new Date()));
+		    if (q != null) {
+			    q.add(new ReceiveRequest(anzeigetafel.getMessages().get(messageID), groupID, new Date()));
+		    }
 		}
 		
 		saveQueueMapToFile();
@@ -443,7 +453,9 @@ public class TafelServer {
 
 		for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(groupID)) {
 			try {
-				q.put(new DeletePublicRequest(messageID, groupID));
+			    if (q != null) {
+	                q.put(new DeletePublicRequest(messageID, groupID));
+			    }
 			} catch (InterruptedException e) {
 				print("Message mit ID=" + messageID + " wird nicht überall gelöscht werden!");
 			}
@@ -464,7 +476,9 @@ public class TafelServer {
 		
 		for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(groupID)) {
 			try {
-				q.put(new ModifyPublicRequest(messageID, groupID, newMessage));
+			    if (q != null) {
+	                q.put(new ModifyPublicRequest(messageID, groupID, newMessage));
+			    }
 			} catch (InterruptedException e) {
 				print("Message mit ID=" + messageID + " wird nicht überall geändert werden!");
 			}

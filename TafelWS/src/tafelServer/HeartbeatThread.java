@@ -48,6 +48,7 @@ public class HeartbeatThread extends Thread {
 					if (connected){
 						tafelServer.print("Disconnected from Abteilung " + abteilungsID + " " + adress);
 						connected = false;
+						// TODO Pausieren des Outboxthreads des disconnected Servers
 					}
 					
 					if (isInterrupted()) {

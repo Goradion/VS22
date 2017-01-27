@@ -127,12 +127,21 @@ public class OutboxThread extends Thread {
 		ServerRequestDeliverer deliverer = null;
 		while (true) {
 			try {
-				request = messageQueue.take();
-				
 				if (port == null) {
 				    port      = new ServerComWebserviceImplService(target).getServerComWebserviceImplPort();
 				    deliverer = new ServerRequestDeliverer(port);
 				}
+				
+				/* TODO Pausieren durch den Heartbeat Thread
+				      er würde hier warten und ein Request herauslesen, und erst im deliverer exception werfen
+				      und in der exception warten bis sich der server wieder anmeldet
+				      der bereits ausgelesene request wurde nicht versandt, weil ja keine verbindung vorhanden
+				      danach weiterlaufen
+				      dann wieder neu nen request herauslesen, der davor geht dabei verloren!
+				      oder beim registerTafel, muss die queue neu aus der file gelesen werden, 
+				          wo die davor ausgelesene aber nicht genutzte request noch vorhanden sein sollte!!
+				*/
+				request = messageQueue.take();
 
 				deliverer.deliver(request);
 				
