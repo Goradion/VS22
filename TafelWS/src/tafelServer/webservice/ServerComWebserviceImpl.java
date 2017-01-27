@@ -1,5 +1,6 @@
 package tafelServer.webservice;
 
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -23,6 +24,9 @@ import verteilteAnzeigetafel.TafelException;
 
 @WebService(endpointInterface = "tafelServer.webservice.ServerComWebservice")
 public class ServerComWebserviceImpl implements ServerComWebservice {
+	@Resource
+	WebServiceContext wsContext;
+	
 	private TafelServer tafelServer;
 	
 	public ServerComWebserviceImpl() {
@@ -66,24 +70,25 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 	}
 
 	@Override
-	public String registerServer(int abtNr, String address) {
+	public String registerServer(int abtNr) {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-//				MessageContext mc = wsContext.getMessageContext();
-//				HttpExchange req = (HttpExchange) mc.get("com.sun.xml.ws.http.exchange"); 
-//				answer = "Client IP = " + req.getRemoteAddress();
-//			    System.out.println(answer); 
-//				answer = tafelServer.registerTafel(abtNr, new URL(address));
+				MessageContext mc = wsContext.getMessageContext();
+				HttpExchange req = (HttpExchange) mc.get("com.sun.xml.ws.http.exchange"); 
+				InetSocketAddress remoteAddress = req.getRemoteAddress();
+				answer = "http://" + remoteAddress.getHostName() + ":8080/TafelWS/serverws?wsdl" ;
+			    tafelServer.print("RemoteAddress: " +answer); 
+				answer = tafelServer.registerTafel(abtNr, new URL(remoteAddress.toString()));
 			} catch (NumberFormatException e) {
 				tafelServer.printStackTrace(e);
 				answer = "Number Format Error";
 			} 
-//			catch (TafelException e) {
-//				answer = e.getMessage();
-//			} catch (MalformedURLException e) {
-//				answer = e.getMessage();
-//			}
+			catch (TafelException e) {
+				answer = e.getMessage();
+			} catch (MalformedURLException e) {
+				answer = e.getMessage();
+			}
 			return answer;
 		}
 		return null;

@@ -22,7 +22,7 @@ public interface ServerComWebservice {
 	public String receiveSoapableMessage(SoapableMessage soapableMessage);
 	
 	@WebMethod
-	public String registerServer(int abtNr, String address);
+	public String registerServer(int abtNr);
 	
 	@WebMethod
 	public String deletePublicMessage(int msgID , int group);

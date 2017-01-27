@@ -95,24 +95,6 @@ public interface ServerComWebservice {
 
     /**
      * 
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "registerServer", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.RegisterServer")
-    @ResponseWrapper(localName = "registerServerResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.RegisterServerResponse")
-    @Action(input = "http://webservice.tafelServer/ServerComWebservice/registerServerRequest", output = "http://webservice.tafelServer/ServerComWebservice/registerServerResponse")
-    public String registerServer(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1);
-
-    /**
-     * 
      * @param arg0
      * @return
      *     returns java.lang.String
@@ -125,5 +107,20 @@ public interface ServerComWebservice {
     public String receiveSoapableMessage(
         @WebParam(name = "arg0", targetNamespace = "")
         SoapableMessage arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "registerServer", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.RegisterServer")
+    @ResponseWrapper(localName = "registerServerResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.RegisterServerResponse")
+    @Action(input = "http://webservice.tafelServer/ServerComWebservice/registerServerRequest", output = "http://webservice.tafelServer/ServerComWebservice/registerServerResponse")
+    public String registerServer(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0);
 
 }
