@@ -77,16 +77,17 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 				MessageContext mc = wsContext.getMessageContext();
 				HttpExchange req = (HttpExchange) mc.get("com.sun.xml.ws.http.exchange"); 
 				InetSocketAddress remoteAddress = req.getRemoteAddress();
-				answer = "http://" + remoteAddress.getHostName() + ":8080/TafelWS/serverws?wsdl" ;
-			    tafelServer.print("RemoteAddress: " +answer); 
-				answer = tafelServer.registerTafel(abtNr, new URL(remoteAddress.toString()));
+				String callerAdress = "http://" + remoteAddress.getHostName() + ":8080/TafelWS/serverws?wsdl" ;
+				answer = tafelServer.registerTafel(abtNr, new URL(callerAdress));
 			} catch (NumberFormatException e) {
 				tafelServer.printStackTrace(e);
 				answer = "Number Format Error";
 			} 
 			catch (TafelException e) {
+				tafelServer.printStackTrace(e);
 				answer = e.getMessage();
 			} catch (MalformedURLException e) {
+				tafelServer.printStackTrace(e);
 				answer = e.getMessage();
 			}
 			return answer;
