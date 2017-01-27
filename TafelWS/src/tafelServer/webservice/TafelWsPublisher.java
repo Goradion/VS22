@@ -1,10 +1,10 @@
 package tafelServer.webservice;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.xml.ws.Endpoint;
 
 import tafelServer.TafelServer;
@@ -17,6 +17,7 @@ public class TafelWsPublisher {
 	
 	private String address = "localhost";
 	private int abteilung = 1;
+	private TafelServer tafelServer = null;
 	public static void main(String[] args) {
 		final TafelWsPublisher publisher = new TafelWsPublisher();
 		if (args.length >= 1) {
@@ -31,30 +32,67 @@ public class TafelWsPublisher {
 		}
 
 		TafelServer.startServer(publisher.abteilung);
+		publisher.tafelServer = TafelServer.getServer();
 		
 		publisher.clientEndpoint.publish("http://" + publisher.address + ":8080/TafelWS/tafelws");
 		publisher.serverEndpoint.publish("http://" + publisher.address + ":8080/TafelWS/serverws");
 		
-		final JFrame jFrame = new JFrame("TafelWSPublisher: Tafel " + publisher.abteilung +" WS - published");
-		jFrame.setSize(400, 200);
-		jFrame.setResizable(false);
-
-		final JButton jButton = new JButton(STOPWS);
-		jButton.addActionListener(new ActionListener() {
+		publisher.setShutdownOnClose(new WindowListener(){
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				publisher.clientEndpoint.stop();
-				publisher.serverEndpoint.stop();
-				jFrame.setTitle("TafelWSPublisher: Tafel " + publisher.abteilung +" WS - stopped");
-				jButton.setText("WS is stopped!");
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
 			}
 
+			@Override
+			public void windowClosing(WindowEvent e) {
+				JFrame window = (JFrame)e.getSource();
+				int confirmed = JOptionPane.showConfirmDialog(null, 
+				        "Are you sure you want to exit the program?\n This will stop TafelServer "+publisher.abteilung, "Sure wanna exit?",
+				        JOptionPane.YES_NO_OPTION);
+
+				    if (confirmed == JOptionPane.YES_OPTION) {
+				    	window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				    	window.dispose();
+				    	publisher.clientEndpoint.stop();
+						publisher.serverEndpoint.stop();
+				    }
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
 		});
-
-		jFrame.add(jButton);
-		jFrame.setVisible(true);
-
 	}
-
+	
+	private void setShutdownOnClose(WindowListener wl){
+		tafelServer.setShutdownOnClose(wl);
+	}
 }
