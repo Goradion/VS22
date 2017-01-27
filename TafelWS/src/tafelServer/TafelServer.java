@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.LinkedBlockingDeque;
 
 import javax.swing.JFrame;
@@ -86,18 +87,14 @@ public class TafelServer {
 			anzeigetafel.saveStateToFile();
 			print("Neue Anzeigetafel erstellt!");
 		}
-		// hier habe ich den Gui-Part hinzugefügt
-
-		gui = new TafelGUI(anzeigetafel.getAbteilungsID(), this, new int[]{2,3,4,4,4,4,4,4,44,4});
-		anzeigetafel.addObserver(gui);
-		anzeigetafel.updateState();
-
-		// ende
 
 		queueMap = loadQueueMapFromFile();
 		loadGroupsFromFile();
 		initGroupQueueMap();
 		loadTafelAdressenFromFile();
+		gui = new TafelGUI(anzeigetafel.getAbteilungsID(), this, groupMap.keySet());
+		anzeigetafel.addObserver(gui);
+		anzeigetafel.updateState();
 		
 		System.out.println(groupMap);
 		System.out.println(groupQueueMap);
@@ -158,10 +155,10 @@ public class TafelServer {
 	 * Activates a Heartbeat for the given abteilungsID.
 	 * 
 	 */
-	public synchronized void activateHeartbeat(int abteilungsID) {
-		if (!heartbeatThreads.containsKey(abteilungsID) || !heartbeatThreads.get(abteilungsID).isAlive()) {
-			HeartbeatThread hbt = new HeartbeatThread(abteilungsID, tafelAdressen.get(abteilungsID), this);
-			heartbeatThreads.put(abteilungsID, hbt);
+	public synchronized void activateHeartbeat(int remoteAbteilungsID) {
+		if (!heartbeatThreads.containsKey(remoteAbteilungsID) || !heartbeatThreads.get(remoteAbteilungsID).isAlive()) {
+			HeartbeatThread hbt = new HeartbeatThread(this.abteilungsID, remoteAbteilungsID, tafelAdressen.get(remoteAbteilungsID), this);
+			heartbeatThreads.put(remoteAbteilungsID, hbt);
 			hbt.start();
 		}
 	}
