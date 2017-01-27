@@ -18,21 +18,32 @@ public class TafelWsPublisher {
 	private String address = "localhost";
 	private int abteilung = 1;
 	private TafelServer tafelServer = null;
+	
+	
+	public TafelWsPublisher(String address, int abteilung, TafelServer tafelServer) {
+		super();
+		this.address = address;
+		this.abteilung = abteilung;
+		this.tafelServer = tafelServer;
+	}
+
 	public static void main(String[] args) {
-		final TafelWsPublisher publisher = new TafelWsPublisher();
+		int abteilung = 1;
+		String address = "";
 		if (args.length >= 1) {
 			try {
-				publisher.abteilung = Integer.parseInt(args[0]);
+				abteilung = Integer.parseInt(args[0]);
 			} catch (NumberFormatException nfe) {
 				// default to abteilung 1;
 			}
 		}
 		if (args.length >= 2) {
-			publisher.address = args[1];
+			address = args[1];
 		}
 
-		TafelServer.startServer(publisher.abteilung);
-		publisher.tafelServer = TafelServer.getServer();
+		TafelServer.startServer(abteilung);
+		final TafelWsPublisher publisher = new TafelWsPublisher(address, abteilung, TafelServer.getServer());
+		
 		
 		publisher.clientEndpoint.publish("http://" + publisher.address + ":8080/TafelWS/tafelws");
 		publisher.serverEndpoint.publish("http://" + publisher.address + ":8080/TafelWS/serverws");
