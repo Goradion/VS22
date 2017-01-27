@@ -20,9 +20,7 @@ public class TafelGUI implements Observer {
 
 	private final JFrame window;
 	private JTextArea localMessages;
-	private JTextArea globalMessages;
 	private JScrollPane localScroll;
-	private JScrollPane globalScroll;
 	private Map<Integer, JTextArea> gruppenMessages;
 
 	public JFrame getWindow() {
@@ -50,23 +48,16 @@ public class TafelGUI implements Observer {
 		this.localMessages = new JTextArea();
 		localMessages.setEditable(false);
 
-		this.globalMessages = new JTextArea();
-		globalMessages.setEditable(false);
-
 		this.localScroll = new JScrollPane(localMessages);
 		localScroll.setBorder(new TitledBorder("Local messages"));
 
-		this.globalScroll = new JScrollPane(globalMessages);
-		globalScroll.setBorder(new TitledBorder("Global messages"));
-
-		window.setLayout(new GridLayout(set.size() + 2, 1));
+		window.setLayout(new GridLayout(set.size() + 1, 1));
 
 		window.add(localScroll);
 		for (JScrollPane jScrollPane : gruppenScroll.values()) {
 			window.add(jScrollPane);
 		}
-		window.add(globalScroll);
-
+		
 		window.setPreferredSize(new Dimension(400, set.size() * 200 + 300));
 		window.setSize(new Dimension(400, set.size() * 200 + 300));
 		window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -79,18 +70,15 @@ public class TafelGUI implements Observer {
 	public void update(Observable o, Object arg) {
 		Anzeigetafel at = (Anzeigetafel) o;
 		localMessages.setText(null);
-		globalMessages.setText(null);
 		for (Message m : at.getLocalMsgs()) {
 			localMessages.append(
 					"UserID: " + m.getUserID() + '\t' + "Zeit: " + m.getTime() + '\n' + m.getInhalt() + '\n' + '\n');
 		}
-		for (Message m : at.getGlobalMsgs()) {
-			globalMessages.append("Abt: " + m.getAbtNr() + '\t' + "UserID: " + m.getUserID() + '\t' + "Zeit: "
-					+ m.getTime() + '\n' + m.getInhalt() + '\n' + '\n');
-		}
 		for (Integer i : gruppen) {
+			JTextArea jTextArea = gruppenMessages.get(i);
+			jTextArea.setText(null);
 			for (Message m : at.getGroupMsgs(i)) {
-				gruppenMessages.get(i).append("Abt: " + m.getAbtNr() + '\t' + "UserID: " + m.getUserID() + '\t'
+				jTextArea.append("Abt: " + m.getAbtNr() + '\t' + "UserID: " + m.getUserID() + '\t'
 						+ "Zeit: " + m.getTime() + '\n' + m.getInhalt() + '\n' + '\n');
 			}
 		}
