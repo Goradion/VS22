@@ -7,7 +7,8 @@ import serverCom.gen.ServerComWebserviceImplService;
 
 public class HeartbeatThread extends Thread {
 	private static final int sleepTime = 5000;
-	private int abteilungsID;
+	private int eigeneAbteilungsID;
+	private int remoteAbteilungsID;
 	private URL adress;
 	private TafelServer tafelServer;
 	private boolean connected = false;
@@ -19,9 +20,10 @@ public class HeartbeatThread extends Thread {
 	 * @param url
 	 * @param tafelServer
 	 */
-	public HeartbeatThread(int abteilungsID, URL url, TafelServer tafelServer) {
+	public HeartbeatThread(int eigeneAbteilungsID, int abteilungsID, URL url, TafelServer tafelServer) {
 		super();
-		this.abteilungsID = abteilungsID;
+		this.eigeneAbteilungsID = eigeneAbteilungsID;
+		this.remoteAbteilungsID = abteilungsID;
 		this.adress = url;
 		this.tafelServer = tafelServer;
 	}
@@ -38,17 +40,16 @@ public class HeartbeatThread extends Thread {
 					if (port == null) {
 						port = new ServerComWebserviceImplService(adress).getServerComWebserviceImplPort();
 					}
-					port.registerServer(abteilungsID);
+					port.registerServer(eigeneAbteilungsID);
 					if (!connected){
-						tafelServer.print("Connected to Abteilung " + abteilungsID + " " + adress);
+						tafelServer.print("Connected to Abteilung " + remoteAbteilungsID + " " + adress);
 						connected = true;
 					}
 															
 				} catch (Exception e) {
 					if (connected){
-						tafelServer.print("Disconnected from Abteilung " + abteilungsID + " " + adress);
+						tafelServer.print("Disconnected from Abteilung " + remoteAbteilungsID + " " + adress);
 						connected = false;
-						// TODO Pausieren des Outboxthreads des disconnected Servers
 					}
 					
 					if (isInterrupted()) {
@@ -59,7 +60,7 @@ public class HeartbeatThread extends Thread {
 				Thread.sleep(sleepTime);
 			}
 		} catch (InterruptedException e) {
-			tafelServer.print("HeartbeatThread " + abteilungsID + " wurde unterbrochen!");
+			tafelServer.print("HeartbeatThread " + remoteAbteilungsID + " wurde unterbrochen!");
 		}
 	}
 
