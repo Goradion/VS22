@@ -38,7 +38,7 @@ public class HeartbeatThread extends Thread {
 					if (port == null) {
 						port = new ServerComWebserviceImplService(adress).getServerComWebserviceImplPort();
 					}
-					port.registerServer(abteilungsID, null);// TODO ziel ließt // die ip au
+					port.registerServer(abteilungsID);// TODO ziel ließt // die ip au
 					if (!connected){
 						tafelServer.print("Connected to Abteilung " + abteilungsID + " " + adress);
 						connected = true;
