@@ -44,6 +44,10 @@ public class OutboxThread extends Thread {
 	    return targetAddress;
 	}
 	
+	public boolean isWaiting() {
+        return getState() == Thread.State.TIMED_WAITING || getState() == Thread.State.WAITING;
+    }
+	
 	private void doWait() {
 		synchronized (monitor) {
 			try {
