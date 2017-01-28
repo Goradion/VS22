@@ -55,7 +55,7 @@ public class TafelServer {
 	private static TafelServer tafelServerInstance = null;
 	
 	
-	public static boolean startServer(int abteilung) {
+	public synchronized static boolean startServer(int abteilung) {
 		if (tafelServerInstance == null){
 			tafelServerInstance = new TafelServer(abteilung);
 			return true;
@@ -64,12 +64,23 @@ public class TafelServer {
 		}
 	}
 	
-	public boolean stopServer() {
+	public synchronized boolean stopServer() {
 	    // TODO stop stuff
+	    for (OutboxThread obox : outboxThreads.values()) {
+	        obox.stopIt();
+	        while (obox.isAlive());
+	    }
+	    outboxThreads.clear();
+	    for (HeartbeatThread hb : heartbeatThreads.values()) {
+//          hb.stopIt();
+            while (hb.isAlive());
+        }
+	    heartbeatThreads.clear();
+	    
 	    return true;
 	}
 
-	public static TafelServer getServer() {
+	public synchronized static TafelServer getServer() {
 		return tafelServerInstance;
 	}
 	
@@ -377,11 +388,11 @@ public class TafelServer {
 	 * 
 	 * @return tafelAdressen
 	 */
-	public HashMap<Integer, URL> getTafelAdressen() {
+	public synchronized HashMap<Integer, URL> getTafelAdressen() {
 		return tafelAdressen;
 	}
 	
-	public String getAddressPort(int abtNr) {
+	public synchronized String getAddressPort(int abtNr) {
 	    if (!tafelAdressen.containsKey(abtNr)) {
 	        return defaultPort;
 	    }
@@ -393,7 +404,7 @@ public class TafelServer {
 	 * 
 	 * @return outboxThreads
 	 */
-	public HashMap<Integer, OutboxThread> getOutboxThreads() {
+	public synchronized HashMap<Integer, OutboxThread> getOutboxThreads() {
 		return outboxThreads;
 	}
 
@@ -402,7 +413,7 @@ public class TafelServer {
 	 * 
 	 * @return queueMap
 	 */
-	public HashMap<Integer, LinkedBlockingDeque<ServerRequest>> getQueueMap() {
+	public synchronized HashMap<Integer, LinkedBlockingDeque<ServerRequest>> getQueueMap() {
 		return queueMap;
 	}
 	
