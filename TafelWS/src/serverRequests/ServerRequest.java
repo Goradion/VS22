@@ -1,7 +1,6 @@
 package serverRequests;
 
 import java.io.Serializable;
-import java.net.SocketAddress;
 import java.util.Date;
 
 import tafelServer.ServerRequestDeliverer;

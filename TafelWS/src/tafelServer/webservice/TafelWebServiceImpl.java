@@ -1,12 +1,8 @@
 package tafelServer.webservice;
 
-import java.util.Date;
 import java.util.LinkedList;
 
 import javax.jws.WebService;
-import javax.xml.datatype.XMLGregorianCalendar;
-
-import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 
 import verteilteAnzeigetafel.SoapableMessage;
 import tafelServer.TafelServer;
