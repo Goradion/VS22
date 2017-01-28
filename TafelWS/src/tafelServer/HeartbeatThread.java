@@ -42,7 +42,7 @@ public class HeartbeatThread extends Thread {
     public void stopIt() {
         manualStopped.set(true);
         if (isWaiting()) {
-            this.interrupt(); 
+            interrupt(); 
         }
         running.set(false);
     }

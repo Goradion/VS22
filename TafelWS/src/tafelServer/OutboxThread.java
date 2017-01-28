@@ -68,8 +68,9 @@ public class OutboxThread extends Thread {
 	    if (isWaiting()) {
 	        doNotify();
 	    } else {
-	        if (!isRequestSet()) // resume from take, nur wenn er auch wirklich bei take ist, ansonsten soll er die Runde ja fertig arbeiten
-	            this.interrupt(); 
+	        if (!isRequestSet()) { // resume from take, nur wenn er auch wirklich bei take ist, ansonsten soll er die Runde ja fertig arbeiten
+	            interrupt(); 
+	        }
 	    }
 	    running.set(false);
     }

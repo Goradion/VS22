@@ -64,15 +64,19 @@ public class TafelServer {
 		}
 	}
 	
-	public synchronized boolean stopServer() {
+	public synchronized boolean stopServer() throws InterruptedException {
 	    for (OutboxThread obox : outboxThreads.values()) {
-	        obox.stopIt();
-	        while (obox.isAlive());
+	        while (obox.isAlive()) {
+	            obox.stopIt();
+	            Thread.sleep(300);
+	        }
 	    }
 	    outboxThreads.clear();
 	    for (HeartbeatThread hb : heartbeatThreads.values()) {
-	        hb.stopIt();
-            while (hb.isAlive());
+	        while (hb.isAlive()) {
+	            hb.stopIt();
+	            Thread.sleep(300);
+            }
         }
 	    heartbeatThreads.clear();
 	    

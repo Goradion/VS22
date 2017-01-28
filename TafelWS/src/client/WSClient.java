@@ -66,10 +66,12 @@ public class WSClient {
 			}
 			normalMessages.add(m);
 		}
-		port.publishMessage(0, 1, 2);
+		System.out.println(port.publishMessage(0, 1, 2));
 		for(Message m: normalMessages){
 			System.out.println(m);
 		}
+		
+		System.out.println(port.stopTafelServer(1));
 	}
 
 	private static boolean isValidIpAddress(String ip) {

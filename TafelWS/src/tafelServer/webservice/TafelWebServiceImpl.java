@@ -156,8 +156,13 @@ public class TafelWebServiceImpl implements TafelWebService {
 	    if (!tafelServer.getAnzeigetafel().isCoordinator(userID)) {
             reply[0] = "User " + userID + " has no permission!";
         } else {
-            tafelServer.stopServer();
-            reply[0] = "TafelServer stopped successfully.";
+            try {
+                tafelServer.stopServer();
+                reply[0] = "TafelServer stopped successfully.";
+            } catch (InterruptedException e) {
+                reply[0] = "Server was not stopped correct.";
+                tafelServer.printStackTrace(e);
+            }
         }
 		return reply;
 	}
