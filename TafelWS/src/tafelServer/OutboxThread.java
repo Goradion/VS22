@@ -137,10 +137,12 @@ public class OutboxThread extends Thread {
 				    port      = serverComWebserviceImplService.getServerComWebserviceImplPort();
 				    deliverer = new ServerRequestDeliverer(port);
 				}
-				tafelServer.print(getMyName() + ": " + serverComWebserviceImplService.getWSDLDocumentLocation());
+				tafelServer.print(getMyName() + ": Other WS address: " + serverComWebserviceImplService.getWSDLDocumentLocation());
 				request = messageQueue.take();
 
-				deliverer.deliver(request);
+				String returned = deliverer.deliver(request);
+				tafelServer.print(getMyName() + ": Deliverer returned: " + returned);
+				
 				request = null;
 				tafelServer.saveQueueMapToFile();
 			} catch (Exception e) {

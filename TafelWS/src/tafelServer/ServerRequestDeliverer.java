@@ -45,13 +45,12 @@ public class ServerRequestDeliverer {
 	 *             if the anzeigetafel rejects the request.
 	 */
 	public String deliver(ReceiveRequest receiveRequest) throws TafelException {
-		webservice.receiveMessage(receiveRequest.getMessage().getMessageID(),
+	    return webservice.receiveMessage(receiveRequest.getMessage().getMessageID(),
 									receiveRequest.getMessage().getUserID(),
 									receiveRequest.getMessage().getAbtNr(),
 									receiveRequest.getMessage().getInhalt(),
 									receiveRequest.getTimeStr(),
 									receiveRequest.getGroupID());
-		return null;
 	}
 	
 	/**
@@ -63,8 +62,7 @@ public class ServerRequestDeliverer {
 	 *             if the anzeigetafel rejects the request.
 	 */
 	public String deliver(DeletePublicRequest deletePublicRequest) throws TafelException {
-		webservice.deletePublicMessage(deletePublicRequest.getMessageID(), deletePublicRequest.getGroupID());
-		return null;
+	    return webservice.deletePublicMessage(deletePublicRequest.getMessageID(), deletePublicRequest.getGroupID());
 	}
 
 	/**
@@ -77,8 +75,7 @@ public class ServerRequestDeliverer {
 	 *             if anzeigetafel rejects the request
 	 */
 	public String deliver(ModifyPublicRequest modifyPublicRequest) throws TafelException {
-		webservice.modifyPublicMessage(modifyPublicRequest.getMessageID(), modifyPublicRequest.getGroupID(), modifyPublicRequest.getNewMessage());
-		return null;
+	    return webservice.modifyPublicMessage(modifyPublicRequest.getMessageID(), modifyPublicRequest.getGroupID(), modifyPublicRequest.getNewMessage());
 	}
 
 }

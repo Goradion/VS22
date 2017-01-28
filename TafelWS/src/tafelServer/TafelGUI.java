@@ -42,7 +42,6 @@ public class TafelGUI implements Observer {
 			jTextArea.setEditable(false);
 			gruppenMessages.put(i, jTextArea);
 			gruppenScroll.put(i, jScrollPane);
-
 		}
 
 		this.localMessages = new JTextArea();
@@ -63,7 +62,6 @@ public class TafelGUI implements Observer {
 		window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		window.setVisible(true);
-
 	}
 
 	@Override
@@ -71,15 +69,15 @@ public class TafelGUI implements Observer {
 		Anzeigetafel at = (Anzeigetafel) o;
 		localMessages.setText(null);
 		for (Message m : at.getLocalMsgs()) {
-			localMessages.append(
-					"UserID: " + m.getUserID() + '\t' + "Zeit: " + m.getTime() + '\n' + m.getInhalt() + '\n' + '\n');
+			localMessages.append("MessageID: " + m.getMessageID() + "    " + "UserID: " + m.getUserID() + "    " 
+			        + "Zeit: " + m.getTime() + '\n' + "        " + m.getInhalt() + '\n' + '\n');
 		}
 		for (Integer i : gruppen) {
 			JTextArea jTextArea = gruppenMessages.get(i);
 			jTextArea.setText(null);
 			for (Message m : at.getGroupMsgs(i)) {
-				jTextArea.append("Abt: " + m.getAbtNr() + '\t' + "UserID: " + m.getUserID() + '\t'
-						+ "Zeit: " + m.getTime() + '\n' + m.getInhalt() + '\n' + '\n');
+				jTextArea.append("MessageID: " + m.getMessageID() + "    " + "UserID: " + m.getUserID() + "    "
+						+ "Zeit: " + m.getTime() + '\n' + "        " + m.getInhalt() + '\n' + '\n');
 			}
 		}
 	}

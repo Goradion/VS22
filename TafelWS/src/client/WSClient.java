@@ -48,7 +48,7 @@ public class WSClient {
 		
 		System.out.println(port.publishMessage(112, 1, 1));
 		System.out.println(port.publishMessage(1110, 1, 1));
-		System.out.println(port.publishMessage(1140, 1, 1));
+		System.out.println(port.publishMessage(1121, 1, 1));
 		
 		List<SoapableMessage> userMessages = port.showMessages(1);
 		
@@ -65,7 +65,7 @@ public class WSClient {
 		}
 		port.publishMessage(0, 1, 2);
 		for(Message m: normalMessages){
-			System.out.println(m.toString());
+			System.out.println(m);
 		}
 	}
 

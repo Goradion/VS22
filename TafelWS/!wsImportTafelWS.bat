@@ -1,4 +1,5 @@
 @echo off
+title %~n0
 
 :: Right now we're in the eclipse working directory
 ::echo %cd%
