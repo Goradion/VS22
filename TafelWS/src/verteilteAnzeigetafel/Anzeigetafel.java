@@ -292,7 +292,6 @@ public class Anzeigetafel extends Observable implements Serializable {
 	 * @throws TafelException
 	 */
 	public synchronized void receiveMessage(Message msg, int group) throws TafelException {
-
 		if (msg.getAbtNr() == abteilungsID) {
 			throw new TafelException("msg.getAbtNr()==abteilungsID");
 		}
@@ -302,7 +301,7 @@ public class Anzeigetafel extends Observable implements Serializable {
     	} 
 		msg.addGroup(group);
 		
-        	updateState();
+		updateState();
 	}
         
         

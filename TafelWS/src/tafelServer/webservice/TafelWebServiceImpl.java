@@ -75,8 +75,6 @@ public class TafelWebServiceImpl implements TafelWebService {
 		return null;
 	}
 
-	
-	// TODO format?
 	@Override
 	public SoapableMessage[] showMessages(int user) {
 
@@ -107,7 +105,6 @@ public class TafelWebServiceImpl implements TafelWebService {
 		return answer;
 	}
 
-
 	@Override
 	public String deletePublic(int msgID, int user, int group) {
 		if (tafelServer != null) {
@@ -136,23 +133,32 @@ public class TafelWebServiceImpl implements TafelWebService {
 		return null;
 	}
 
-	public String[] startTafelServer(int abtNr) {
+	public String[] startTafelServer(int userID, int abtNr) {
 		String reply[] = new String[1];
 
-		// TODO implement access permissions for starting the server
-
-		if (tafelServer == null) {
-			TafelServer.startServer(abtNr);
-			tafelServer = TafelServer.getServer();
-			reply[0] = "TafelServer started successfully.";
+		if (!tafelServer.getAnzeigetafel().isCoordinator(userID)) {
+		    reply[0] = "User " + userID + " has no permission!";
 		} else {
-			reply[0] = "Server is already running.";
+    		if (tafelServer == null) {
+    			TafelServer.startServer(abtNr);
+    			tafelServer = TafelServer.getServer();
+    			reply[0] = "TafelServer started successfully.";
+    		} else {
+    			reply[0] = "Server is already running.";
+    		}
 		}
 		return reply;
 	}
 
-	public String[] stopTafelServer(String[] message) {
-		// TODO Auto-generated method stub
-		return null;
+	public String[] stopTafelServer(int userID) {
+	    String reply[] = new String[1];
+	    
+	    if (!tafelServer.getAnzeigetafel().isCoordinator(userID)) {
+            reply[0] = "User " + userID + " has no permission!";
+        } else {
+            tafelServer.stopServer();
+            reply[0] = "User stopped successfully.";
+        }
+		return reply;
 	}
 }

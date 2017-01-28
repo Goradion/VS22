@@ -35,8 +35,8 @@ public interface TafelWebService{
 	public String modifyPublic(int msgID, int user, int group, String inhalt);
 	
 	@WebMethod
-	public String[] startTafelServer(int abtNr);
+	public String[] startTafelServer(int userID, int abtNr);
 	
 	@WebMethod
-	public String[] stopTafelServer(String[] message);
+	public String[] stopTafelServer(int userID);
 }

@@ -86,14 +86,14 @@ public class Client {
 //			//oout.writeObject(null);
 //			socket.close();
 //		} catch (UnknownHostException e) {
-//			// TODO Auto-generated catch block
+//			// Auto-generated catch block
 //			e.printStackTrace();
 //		} catch (IOException e) {
-//			// TODO Auto-generated catch block
+//			// Auto-generated catch block
 //			e.printStackTrace();
 //		}
 ////		 catch (ClassNotFoundException e) {
-////			// TODO Auto-generated catch block
+////			// Auto-generated catch block
 ////			e.printStackTrace();
 ////		}
 	}

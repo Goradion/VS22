@@ -66,67 +66,8 @@ public class OutboxThread extends Thread {
 		try {
 			deliverMessages();
 		} catch (InterruptedException e) {
-		    // TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-
-		tafelServer.print(getMyName() + " läuft!\n" + messageQueue.toString());
-
-		//
-		// Socket socket = null;
-		// ServerRequest request = null;
-		// try {
-		// while (true) {
-		// if (socket == null || socket.isClosed()) {
-		// socket = new Socket();
-		// socket.connect(adress);
-		// }
-		//
-		// request = messageQueue.take();
-		// tafelServer.saveQueueMapToFile();
-		// ObjectOutputStream oout = new
-		// ObjectOutputStream(socket.getOutputStream());
-		// oout.writeObject(request);
-		// // oout.flush();
-		// request = null;
-		// }
-		// } catch (InterruptedException e) {
-		// tafelServer.print(getMyName() + " wurde unterbrochen!");
-		// ObjectOutputStream oout;
-		// try {
-		// oout = new ObjectOutputStream(socket.getOutputStream());
-		// oout.writeObject(null);
-		// } catch (IOException e1) {
-		// tafelServer.print(getMyName() + " konnte sich nicht verabschieden!");
-		// }
-		//
-		// } catch (IOException e) {
-		// tafelServer.print(getMyName() + ": " + adress.toString() + " nicht
-		// erreichbar! " + e.getMessage());
-		// } finally {
-		// if (request != null) {
-		// try {
-		// messageQueue.putFirst(request);
-		// tafelServer.saveQueueMapToFile();
-		// } catch (InterruptedException e) {
-		// tafelServer.print(
-		// "Request " + request + " ging auf dem Weg zu Abteilung " +
-		// abteilungsID + " verloren");
-		// }
-		// }
-		// try {
-		// if (socket != null && !socket.isClosed()) {
-		// socket.close();
-		// tafelServer.print(getMyName() + ": Socket geschlossen!");
-		// }
-		// } catch (IOException e) {
-		// tafelServer.print(getMyName() + ": Fehler beim Schließen des Sockets"
-		// + e.getMessage());
-		// e.printStackTrace();
-		// }
-		// }
-
+			tafelServer.printStackTrace(e);
+		}	
 	}
 
 	private void deliverMessages() throws InterruptedException{
@@ -142,6 +83,8 @@ public class OutboxThread extends Thread {
 				    deliverer = new ServerRequestDeliverer(port);
 				}
 				tafelServer.print(getMyName() + ": Other WS address: " + serverComWebserviceImplService.getWSDLDocumentLocation());
+				
+//				tafelServer.print(getMyName() + " läuft!\n" + messageQueue);
 				request = messageQueue.take();
 
 				String returned = deliverer.deliver(request);

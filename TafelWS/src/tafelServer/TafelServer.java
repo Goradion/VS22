@@ -55,7 +55,7 @@ public class TafelServer {
 	private static TafelServer tafelServerInstance = null;
 	
 	
-	public static boolean startServer(int abteilung){
+	public static boolean startServer(int abteilung) {
 		if (tafelServerInstance == null){
 			tafelServerInstance = new TafelServer(abteilung);
 			return true;
@@ -63,8 +63,13 @@ public class TafelServer {
 			return false;
 		}
 	}
+	
+	public boolean stopServer() {
+	    // TODO stop stuff
+	    return true;
+	}
 
-	public static TafelServer getServer(){
+	public static TafelServer getServer() {
 		return tafelServerInstance;
 	}
 	
@@ -524,15 +529,13 @@ public class TafelServer {
 		return true;
 	}
 	
-	public synchronized boolean receiveMessage(Message message) throws TafelException{
-		// TODO noch nicht konsistent
-		for (Integer i : groupMap.keySet()){
-			if(message.getGruppen().contains(i)){
-				anzeigetafel.receiveMessage(message, i);
-				return true;	// was wenn die erhaltene Message mehrere Gruppen enthält? es würde nur für die erste received 
+	public synchronized boolean receiveMessage(Message message) throws TafelException {
+		for (Integer i : message.getGruppen()) {
+			if (groupMap.containsKey(i)) {
+			    anzeigetafel.receiveMessage(message, i);
 			}
 		}
-		return false;
+		return true;
 	}
 	
 	public synchronized boolean deletePublicMessage(int msgID, int group) throws TafelException {
