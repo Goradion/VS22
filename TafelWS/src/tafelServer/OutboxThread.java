@@ -2,20 +2,20 @@ package tafelServer;
 
 import java.net.URL;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import serverCom.gen.ServerComWebservice;
 import serverCom.gen.ServerComWebserviceImplService;
 import serverRequests.ServerRequest;
 
 public class OutboxThread extends Thread {
-	private int abteilungsID;
+	private int remoteAbteilungsID;
 	private URL targetAddress;
 	private LinkedBlockingDeque<ServerRequest> messageQueue;
 	private TafelServer tafelServer;
 	private ConnectionMonitor monitor;
-	private boolean running;
-	private boolean waiting;
-	private boolean manualStopped;
+	private AtomicBoolean running;
+	private AtomicBoolean manualStopped;
 	private ServerRequest request = null;
 
 	/**
@@ -33,10 +33,9 @@ public class OutboxThread extends Thread {
 	public OutboxThread(int abteilungsID, URL targetAdress, LinkedBlockingDeque<ServerRequest> messageQueue,
 			TafelServer tafelServer) {
 		super();
-		this.running = true;
-		this.waiting = false;
-		this.manualStopped = false;
-		this.abteilungsID = abteilungsID;
+		this.running = new AtomicBoolean(true);
+		this.manualStopped = new AtomicBoolean(false);
+		this.remoteAbteilungsID = abteilungsID;
 		this.targetAddress = targetAdress;
 		this.messageQueue = messageQueue;
 		this.tafelServer = tafelServer;
@@ -59,36 +58,28 @@ public class OutboxThread extends Thread {
 	    return request != null;
 	}
 	
-	private synchronized void startIt () {
-	    manualStopped = false;
-	    running = true;
+	private void startIt() {
+	    manualStopped.set(false);
+	    running.set(true);
 	}
 
-	public synchronized void stopIt () {
-	    manualStopped = true;
+	public void stopIt() {
+	    manualStopped.set(true);
 	    if (isWaiting()) {
 	        doNotify();
 	    } else {
 	        if (!isRequestSet()) // resume from take, nur wenn er auch wirklich bei take ist, ansonsten soll er die Runde ja fertig arbeiten
 	            this.interrupt(); 
 	    }
-        running = false;
+	    running.set(false);
     }
 	
-	public synchronized boolean isRunning () {
-        return running;
-    }
+	public boolean isRunning() {
+	    return running.get();
+	}
 	
-	private synchronized void setThreadIsWaiting () {
-	    waiting = true;
-    }
-
-    private synchronized void setThreadIsResumed () {
-        waiting = false;
-    }
-	
-    public synchronized boolean isWaiting () {
-	    return waiting;
+    public boolean isWaiting() {
+	    return getState() == Thread.State.TIMED_WAITING || getState() == Thread.State.WAITING;
 	}
 	
 	public synchronized void setTargetAddress(URL targetAddress) {
@@ -102,7 +93,6 @@ public class OutboxThread extends Thread {
 	private void doWait() {
 		synchronized (monitor) {
 			try {
-			    setThreadIsWaiting();
 			    monitor.wait();
 			} catch (InterruptedException e) {
 			}
@@ -112,7 +102,6 @@ public class OutboxThread extends Thread {
 	public void doNotify() {
 		synchronized (monitor) {
 		    monitor.notify();
-		    setThreadIsResumed();
 		}
 	}
 
@@ -124,11 +113,11 @@ public class OutboxThread extends Thread {
 		    startIt();
 		    deliverMessages();
 		} catch (InterruptedException e) {
-			if (!manualStopped) {
+			if (!manualStopped.get()) {
 			    tafelServer.printStackTrace(e);
 			}  
 		} finally {
-		    if (manualStopped) {
+		    if (manualStopped.get()) {
 		        tafelServer.print(getMyName() + " was stopped normal.");
 		    }
 		}
@@ -163,7 +152,7 @@ public class OutboxThread extends Thread {
 					clearRequest();
 				}
 				if (isInterrupted()){
-					throw new InterruptedException();
+					throw new InterruptedException(getMyName() + " wurde unterbrochen!");
 				}
 				tafelServer.print(getMyName() + " paused! " + e.getMessage());
 				doWait();
@@ -177,6 +166,6 @@ public class OutboxThread extends Thread {
 	 * @return a name
 	 */
 	private String getMyName() {
-		return "OutboxThread " + abteilungsID;
+		return "OutboxThread " + remoteAbteilungsID;
 	}
 }

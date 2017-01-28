@@ -65,17 +65,18 @@ public class TafelServer {
 	}
 	
 	public synchronized boolean stopServer() {
-	    // TODO stop stuff
 	    for (OutboxThread obox : outboxThreads.values()) {
 	        obox.stopIt();
 	        while (obox.isAlive());
 	    }
 	    outboxThreads.clear();
 	    for (HeartbeatThread hb : heartbeatThreads.values()) {
-//          hb.stopIt();
+	        hb.stopIt();
             while (hb.isAlive());
         }
 	    heartbeatThreads.clear();
+	    
+	    // TODO stop stuff
 	    
 	    return true;
 	}
