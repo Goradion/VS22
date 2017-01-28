@@ -43,6 +43,8 @@ import verteilteAnzeigetafel.TafelException;
  * @author Simon Bastian
  */
 public class TafelServer {
+    private final static String defaultPort = "8080";
+    
 	private HashMap<Integer, LinkedBlockingDeque<ServerRequest>> queueMap = new HashMap<Integer, LinkedBlockingDeque<ServerRequest>>();
 	private HashMap<Integer, HashSet<Integer>> groupMap = new HashMap<Integer, HashSet<Integer>>();
 	private HashMap<Integer, HashSet<LinkedBlockingDeque<ServerRequest>>> groupQueueMap = new HashMap<Integer, HashSet<LinkedBlockingDeque<ServerRequest>>>();
@@ -112,7 +114,7 @@ public class TafelServer {
 		if (this.abteilungsID == abteilungsID) {
 			throw new TafelException("Die eigene Abteilung wird nicht registriert");
 		}
-
+		
 		if (tafelAdressen.containsKey(abteilungsID)) {
 			if (!tafelAdressen.get(abteilungsID).equals(address)) {
 			    //  dies ändert NICHT die Adressen in HeartbeatThread / OutboxThread! getestet. Zumindest nicht direkt.
@@ -376,6 +378,13 @@ public class TafelServer {
 	public HashMap<Integer, URL> getTafelAdressen() {
 		return tafelAdressen;
 	}
+	
+	public String getAddressPort(int abtNr) {
+	    if (!tafelAdressen.containsKey(abtNr)) {
+	        return defaultPort;
+	    }
+        return tafelAdressen.get(abtNr).toString().split(":")[2].split("/")[0];
+    }
 
 	/**
 	 * Returns the assigned outboxThread by abteilungsID.

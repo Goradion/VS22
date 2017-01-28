@@ -15,22 +15,25 @@ public class TafelWsPublisher {
 	private Endpoint clientEndpoint = Endpoint.create(new TafelWebServiceImpl());
 	private Endpoint serverEndpoint = Endpoint.create(new ServerComWebserviceImpl());
 	
-	private String address = "localhost";
-	private int abteilung = 1;
-	private TafelServer tafelServer = null;
+	private String address;
+	private String port;
+	private int abteilung;
+	private TafelServer tafelServer;
 	
 	
-	public TafelWsPublisher(String address, int abteilung, TafelServer tafelServer) {
+	public TafelWsPublisher(String address, String port, int abteilung, TafelServer tafelServer) {
 		super();
-		this.address = address;
-		this.abteilung = abteilung;
+		this.address     = address;
+		this.port        = port;
+		this.abteilung   = abteilung;
 		this.tafelServer = tafelServer;
 	}
 
 	public static void main(String[] args) {
-		int abteilung = 1;
-		String port = "8080";
-		String address = "";
+		int abteilung  = 1;
+		String port    = "8080";
+		String address = "localhost";
+		
 		if (args.length >= 1) {
 			try {
 				abteilung = Integer.parseInt(args[0]);
@@ -46,11 +49,11 @@ public class TafelWsPublisher {
         }
 
 		TafelServer.startServer(abteilung);
-		final TafelWsPublisher publisher = new TafelWsPublisher(address, abteilung, TafelServer.getServer());
+		final TafelWsPublisher publisher = new TafelWsPublisher(address, port, abteilung, TafelServer.getServer());
 		
 		
-		publisher.clientEndpoint.publish("http://" + publisher.address + ":" + port + "/TafelWS/tafelws");
-		publisher.serverEndpoint.publish("http://" + publisher.address + ":" + port + "/TafelWS/serverws");
+		publisher.clientEndpoint.publish("http://" + publisher.address + ":" + publisher.port + "/TafelWS/tafelws");
+		publisher.serverEndpoint.publish("http://" + publisher.address + ":" + publisher.port + "/TafelWS/serverws");
 		
 		publisher.setShutdownOnClose(new WindowListener(){
 
