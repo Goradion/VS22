@@ -9,7 +9,7 @@ public class HeartbeatThread extends Thread {
 	private static final int sleepTime = 5000;
 	private int eigeneAbteilungsID;
 	private int remoteAbteilungsID;
-	private URL adress;
+	private URL targetAddress;
 	private TafelServer tafelServer;
 	private boolean connected = false;
 
@@ -24,9 +24,13 @@ public class HeartbeatThread extends Thread {
 		super();
 		this.eigeneAbteilungsID = eigeneAbteilungsID;
 		this.remoteAbteilungsID = abteilungsID;
-		this.adress = url;
+		this.targetAddress = url;
 		this.tafelServer = tafelServer;
 	}
+	
+	public void setTargetAddress(URL targetAddress) {
+        this.targetAddress = targetAddress;
+    }
 
 	/**
 	 * The HeartbeatThread tries to contact its assigned TafelServer via the
@@ -38,17 +42,17 @@ public class HeartbeatThread extends Thread {
 			while (true) {
 				try {
 					if (port == null) {
-						port = new ServerComWebserviceImplService(adress).getServerComWebserviceImplPort();
+						port = new ServerComWebserviceImplService(targetAddress).getServerComWebserviceImplPort();
 					}
 					port.registerServer(eigeneAbteilungsID);
 					if (!connected){
-						tafelServer.print("Connected to Abteilung " + remoteAbteilungsID + " " + adress);
+						tafelServer.print("Connected to Abteilung " + remoteAbteilungsID + " " + targetAddress);
 						connected = true;
 					}
 															
 				} catch (Exception e) {
 					if (connected){
-						tafelServer.print("Disconnected from Abteilung " + remoteAbteilungsID + " " + adress);
+						tafelServer.print("Disconnected from Abteilung " + remoteAbteilungsID + " " + targetAddress);
 						connected = false;
 					}
 					

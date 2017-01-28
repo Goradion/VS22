@@ -29,6 +29,7 @@ public class TafelWsPublisher {
 
 	public static void main(String[] args) {
 		int abteilung = 1;
+		String port = "8080";
 		String address = "";
 		if (args.length >= 1) {
 			try {
@@ -40,13 +41,16 @@ public class TafelWsPublisher {
 		if (args.length >= 2) {
 			address = args[1];
 		}
+		if (args.length >= 3) {
+		    port = args[2];
+        }
 
 		TafelServer.startServer(abteilung);
 		final TafelWsPublisher publisher = new TafelWsPublisher(address, abteilung, TafelServer.getServer());
 		
 		
-		publisher.clientEndpoint.publish("http://" + publisher.address + ":8080/TafelWS/tafelws");
-		publisher.serverEndpoint.publish("http://" + publisher.address + ":8080/TafelWS/serverws");
+		publisher.clientEndpoint.publish("http://" + publisher.address + ":" + port + "/TafelWS/tafelws");
+		publisher.serverEndpoint.publish("http://" + publisher.address + ":" + port + "/TafelWS/serverws");
 		
 		publisher.setShutdownOnClose(new WindowListener(){
 
