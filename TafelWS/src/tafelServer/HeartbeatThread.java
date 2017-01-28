@@ -28,8 +28,12 @@ public class HeartbeatThread extends Thread {
 		this.tafelServer = tafelServer;
 	}
 	
-	public void setTargetAddress(URL targetAddress) {
+	public synchronized void setTargetAddress(URL targetAddress) {
         this.targetAddress = targetAddress;
+    }
+	
+	public synchronized URL getTargetAddress() {
+        return targetAddress;
     }
 
 	/**
@@ -42,17 +46,17 @@ public class HeartbeatThread extends Thread {
 			while (true) {
 				try {
 					if (port == null) {
-						port = new ServerComWebserviceImplService(targetAddress).getServerComWebserviceImplPort();
+						port = new ServerComWebserviceImplService(getTargetAddress()).getServerComWebserviceImplPort();
 					}
 					port.registerServer(eigeneAbteilungsID);
 					if (!connected){
-						tafelServer.print("Connected to Abteilung " + remoteAbteilungsID + " " + targetAddress);
+						tafelServer.print("Connected to Abteilung " + remoteAbteilungsID + " " + getTargetAddress());
 						connected = true;
 					}
 															
 				} catch (Exception e) {
 					if (connected){
-						tafelServer.print("Disconnected from Abteilung " + remoteAbteilungsID + " " + targetAddress);
+						tafelServer.print("Disconnected from Abteilung " + remoteAbteilungsID + " " + getTargetAddress());
 						connected = false;
 					}
 					

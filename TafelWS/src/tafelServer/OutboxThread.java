@@ -36,8 +36,12 @@ public class OutboxThread extends Thread {
 		this.monitor = new ConnectionMonitor();
 	}
 	
-	public void setTargetAddress(URL targetAddress) {
+	public synchronized void setTargetAddress(URL targetAddress) {
 		this.targetAddress = targetAddress;
+	}
+	
+	public synchronized URL getTargetAddress() {
+	    return targetAddress;
 	}
 	
 	private void doWait() {
@@ -133,7 +137,7 @@ public class OutboxThread extends Thread {
 		while (true) {
 			try {
 				if (port == null ) {
-					serverComWebserviceImplService = new ServerComWebserviceImplService(targetAddress);
+					serverComWebserviceImplService = new ServerComWebserviceImplService(getTargetAddress());
 				    port      = serverComWebserviceImplService.getServerComWebserviceImplPort();
 				    deliverer = new ServerRequestDeliverer(port);
 				}
