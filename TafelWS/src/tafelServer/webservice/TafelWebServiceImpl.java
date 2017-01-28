@@ -157,7 +157,7 @@ public class TafelWebServiceImpl implements TafelWebService {
             reply[0] = "User " + userID + " has no permission!";
         } else {
             tafelServer.stopServer();
-            reply[0] = "User stopped successfully.";
+            reply[0] = "TafelServer stopped successfully.";
         }
 		return reply;
 	}

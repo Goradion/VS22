@@ -168,6 +168,7 @@ public interface TafelWebService {
 
     /**
      * 
+     * @param arg1
      * @param arg0
      * @return
      *     returns java.util.List<java.lang.String>
@@ -179,7 +180,9 @@ public interface TafelWebService {
     @Action(input = "http://webservice.tafelServer/TafelWebService/startTafelServerRequest", output = "http://webservice.tafelServer/TafelWebService/startTafelServerResponse")
     public List<String> startTafelServer(
         @WebParam(name = "arg0", targetNamespace = "")
-        int arg0);
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1);
 
     /**
      * 
@@ -194,6 +197,6 @@ public interface TafelWebService {
     @Action(input = "http://webservice.tafelServer/TafelWebService/stopTafelServerRequest", output = "http://webservice.tafelServer/TafelWebService/stopTafelServerResponse")
     public List<String> stopTafelServer(
         @WebParam(name = "arg0", targetNamespace = "")
-        List<String> arg0);
+        int arg0);
 
 }

@@ -36,12 +36,15 @@ public class WSClient {
 		List<String> request = new ArrayList<String>();
 //		List<String> reply = port.startTafelServer(request);
 //		System.out.println(reply.get(0));
-//		List<String> reply = port.startTafelServer(1);
+//		List<String> reply = port.startTafelServer(1, 1);
 //		System.out.println(reply.get(0));
-//		List<String> reply2 = port.startTafelServer(1);
+//		List<String> reply2 = port.startTafelServer(1, 1);
 //		System.out.println(reply2.get(0));
 		
-		System.out.println(port.startTafelServer(1).get(0));
+		System.out.println(port.startTafelServer(2, 1).get(0));
+//		System.out.println(port.stopTafelServer(2).get(0));
+//		System.out.println(port.stopTafelServer(1).get(0));
+		System.out.println(port.startTafelServer(1, 1).get(0));
 		for (int i = 0; i < 10; i++){
 		    System.out.println(port.createMessage("message "+i, 1, 1));
 		}
