@@ -13,10 +13,6 @@ public class OutboxThread extends Thread {
 	private LinkedBlockingDeque<ServerRequest> messageQueue;
 	private TafelServer tafelServer;
 	private ConnectionMonitor monitor;
-	private boolean running;
-	private boolean waiting;
-	private boolean manualStopped;
-	private ServerRequest request = null;
 
 	/**
 	 * Constructs a new OutboxThread
@@ -33,62 +29,11 @@ public class OutboxThread extends Thread {
 	public OutboxThread(int abteilungsID, URL targetAdress, LinkedBlockingDeque<ServerRequest> messageQueue,
 			TafelServer tafelServer) {
 		super();
-		this.running = true;
-		this.waiting = false;
-		this.manualStopped = false;
 		this.abteilungsID = abteilungsID;
 		this.targetAddress = targetAdress;
 		this.messageQueue = messageQueue;
 		this.tafelServer = tafelServer;
 		this.monitor = new ConnectionMonitor();
-	}
-	
-	private synchronized void setRequest(ServerRequest request) {
-	    this.request = request;
-	}
-	
-	private synchronized ServerRequest getRequest() {
-        return request;
-    }
-	
-	private synchronized void clearRequest() {
-	    request = null;
-	}
-	
-	private synchronized boolean isRequestSet() {
-	    return request != null;
-	}
-	
-	private synchronized void startIt () {
-	    manualStopped = false;
-	    running = true;
-	}
-
-	public synchronized void stopIt () {
-	    manualStopped = true;
-	    if (isWaiting()) {
-	        doNotify();
-	    } else {
-	        if (!isRequestSet()) // resume from take, nur wenn er auch wirklich bei take ist, ansonsten soll er die Runde ja fertig arbeiten
-	            this.interrupt(); 
-	    }
-        running = false;
-    }
-	
-	public synchronized boolean isRunning () {
-        return running;
-    }
-	
-	private synchronized void setThreadIsWaiting () {
-	    waiting = true;
-    }
-
-    private synchronized void setThreadIsResumed () {
-        waiting = false;
-    }
-	
-    public synchronized boolean isWaiting () {
-	    return waiting;
 	}
 	
 	public synchronized void setTargetAddress(URL targetAddress) {
@@ -98,11 +43,10 @@ public class OutboxThread extends Thread {
 	public synchronized URL getTargetAddress() {
 	    return targetAddress;
 	}
-
+	
 	private void doWait() {
 		synchronized (monitor) {
 			try {
-			    setThreadIsWaiting();
 			    monitor.wait();
 			} catch (InterruptedException e) {
 			}
@@ -112,7 +56,6 @@ public class OutboxThread extends Thread {
 	public void doNotify() {
 		synchronized (monitor) {
 		    monitor.notify();
-		    setThreadIsResumed();
 		}
 	}
 
@@ -121,46 +64,40 @@ public class OutboxThread extends Thread {
 	 */
 	public void run() {
 		try {
-		    startIt();
-		    deliverMessages();
+			deliverMessages();
 		} catch (InterruptedException e) {
-			if (!manualStopped) {
-			    tafelServer.printStackTrace(e);
-			}  
-		} finally {
-		    if (manualStopped) {
-		        tafelServer.print(getMyName() + " was stopped normal.");
-		    }
-		}
-	} 
+			tafelServer.printStackTrace(e);
+		}	
+	}
 
 	private void deliverMessages() throws InterruptedException{
 		ServerComWebserviceImplService serverComWebserviceImplService = null;
-	    ServerComWebservice port = null;
+	    ServerComWebservice port         = null;
+		ServerRequest request            = null;
 		ServerRequestDeliverer deliverer = null;
-		while (isRunning()) {
+		while (true) {
 			try {
 				if (port == null ) {
 					serverComWebserviceImplService = new ServerComWebserviceImplService(getTargetAddress());
-				    port = serverComWebserviceImplService.getServerComWebserviceImplPort();
+				    port      = serverComWebserviceImplService.getServerComWebserviceImplPort();
 				    deliverer = new ServerRequestDeliverer(port);
 				}
 				tafelServer.print(getMyName() + ": Other WS address: " + serverComWebserviceImplService.getWSDLDocumentLocation());
 				
 //				tafelServer.print(getMyName() + " läuft!\n" + messageQueue);
-				setRequest(messageQueue.take());
+				request = messageQueue.take();
 
-				String returned = deliverer.deliver(getRequest());
+				String returned = deliverer.deliver(request);
 				tafelServer.print(getMyName() + ": Deliverer returned: " + returned);
 				
+				request = null;
 				tafelServer.saveQueueMapToFile();
-				clearRequest();
 			} catch (Exception e) {
-				if (isRequestSet()) {
-					messageQueue.putFirst(getRequest());
+				if (request != null) {
+					messageQueue.putFirst(request);
 					
 					tafelServer.saveQueueMapToFile();
-					clearRequest();
+					request = null;
 				}
 				if (isInterrupted()){
 					throw new InterruptedException();
