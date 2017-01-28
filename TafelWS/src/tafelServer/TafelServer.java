@@ -115,7 +115,12 @@ public class TafelServer {
 
 		if (tafelAdressen.containsKey(abteilungsID)) {
 			if (!tafelAdressen.get(abteilungsID).equals(address)) {
+			    //  dies ändert NICHT die Adressen in HeartbeatThread / OutboxThread! getestet. Zumindest nicht direkt.
 				tafelAdressen.replace(abteilungsID, address);
+				
+				// added
+				outboxThreads.get(abteilungsID).setTargetAddress(address);
+				heartbeatThreads.get(abteilungsID).setTargetAddress(address);
 			}
 
 		} else {
