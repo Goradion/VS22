@@ -97,12 +97,11 @@ public class TafelServer {
 		loadGroupsFromFile();
 		initGroupQueueMap();
 		loadTafelAdressenFromFile();
+		
+		// GUI
 		gui = new TafelGUI(anzeigetafel.getAbteilungsID(), this, groupMap.keySet());
 		anzeigetafel.addObserver(gui);
 		anzeigetafel.updateState();
-		
-		System.out.println(groupMap);
-		System.out.println(groupQueueMap);
 	}
 	
 	/**
@@ -189,6 +188,7 @@ public class TafelServer {
 			}
 			groupQueueMap.put(groupId, queues);
 		}
+		print("Group Queues initialized: " + groupQueueMap);
 	}
 
 	private boolean addQueue(Integer abteilung){
@@ -297,10 +297,12 @@ public class TafelServer {
 					printStackTrace(e);
 				}
 			}
-
+			print("Tafel Adressen geladen.");
 		} catch (FileNotFoundException e) {
+		    print("Keine tafelAdressen" + abteilungsID + " Datei gefunden.");
 			printStackTrace(e);
 		} catch (IOException e) {
+		    print("Fehler beim lesen der tafelAdressen" + abteilungsID + " Datei.");
 			printStackTrace(e);
 		}
 	}
@@ -326,10 +328,12 @@ public class TafelServer {
 					e.printStackTrace();
 				}
 			}
-
+			print("Groups loaded: " + groupMap);
 		} catch (FileNotFoundException e) {
+		    print("Keine tafelGruppen Datei gefunden.");
 			printStackTrace(e);
 		} catch (IOException e) {
+		    print("Fehler beim lesen der tafelGruppen Datei.");
 			printStackTrace(e);
 		}
 	}
