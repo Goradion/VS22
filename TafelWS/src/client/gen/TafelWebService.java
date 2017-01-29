@@ -153,6 +153,18 @@ public interface TafelWebService {
 
     /**
      * 
+     * @return
+     *     returns java.util.List<java.lang.Integer>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getGroupIds", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.GetGroupIds")
+    @ResponseWrapper(localName = "getGroupIdsResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.GetGroupIdsResponse")
+    @Action(input = "http://webservice.tafelServer/TafelWebService/getGroupIdsRequest", output = "http://webservice.tafelServer/TafelWebService/getGroupIdsResponse")
+    public List<Integer> getGroupIds();
+
+    /**
+     * 
      * @param arg0
      * @return
      *     returns java.util.List<client.gen.SoapableMessage>

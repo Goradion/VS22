@@ -4,8 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ItemListener;
 import java.util.List;
+import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
 import verteilteAnzeigetafel.Message;
 
 /**
@@ -33,7 +37,7 @@ public class ClientGui extends JFrame{
     
     private JTextArea localMessages;
         
-    private void initialize(String[] abteilungen){
+    private void initialize(Integer[] abteilungen){
         //Baue alle Panel und Frames zusammen
     	loginGUI = new LoginGUI(abteilungen);
 
@@ -51,7 +55,7 @@ public class ClientGui extends JFrame{
         
     	this.setVisible(true);
     }
-    public ClientGui(String title, String[] abteilungen){
+    public ClientGui(String title, Integer[] abteilungen){
     	super(title);
         initialize(abteilungen);
     }
@@ -62,7 +66,7 @@ public class ClientGui extends JFrame{
 	   return id;
   }
     
-    public void showLoggedIn(int userID, List<Message> msgs){
+    public void showLoggedIn(int userID, Map<Integer, Message> msgs){
     	if(upperPanel.getComponentCount() != 2){
 	    	loggedInGUI = new LoggedInGUI();
 	    	upperPanel.add(loggedInGUI,BorderLayout.LINE_START);
@@ -88,9 +92,9 @@ public class ClientGui extends JFrame{
     }
     
     
-    public void showShowMessages(List<Message> msgList){
+    public void showShowMessages(Map<Integer, Message> msgMap){
         //Zeige Login Panel + loggedIn Panel + ShowMessages Panel
-    	showAllMessagesGUI = new ShowAllMessagesGUI(msgList);
+    	showAllMessagesGUI = new ShowAllMessagesGUI(msgMap);
         this.setPreferredSize(new Dimension(670,350));
         this.setSize(new Dimension(670,350));
     	lowerPanel.removeAll();
@@ -134,7 +138,7 @@ public class ClientGui extends JFrame{
     	return showAllMessagesGUI.getMessage();
     }
     
-    public String getQueryCommand(){
+    public QueryCommand getQueryCommand(){
     	return showAllMessagesGUI.getSelection();
     }
     
@@ -160,7 +164,7 @@ public class ClientGui extends JFrame{
 
     }
     
-    public String getAbteilung(){
+    public Integer getAbteilung(){
     	return loginGUI.getAbteilung();
     }
     
@@ -189,7 +193,6 @@ public class ClientGui extends JFrame{
     	
     }
     public boolean pruefeGruppe2(){
-    	System.out.println("Hallo");
     	return showAllMessagesGUI.pruefegruppe2();
     	
     }
@@ -200,6 +203,10 @@ public class ClientGui extends JFrame{
     public boolean pruefeGruppe4(){
     	return showAllMessagesGUI.pruefegruppe4();
     	
+    }
+    
+    public String getEditedMessageText(){
+    	return editMessageGUI.getEditText();
     }
   
 }

@@ -7,6 +7,7 @@ import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 
+import verteilteAnzeigetafel.Message;
 import verteilteAnzeigetafel.SoapableMessage;
 
 @WebService
@@ -26,6 +27,9 @@ public interface TafelWebService{
 	public SoapableMessage[] showMessages(int user);
 	
 	@WebMethod
+	public Integer[] getGroupIds();
+	
+	@WebMethod
 	public String publishMessage(int messageID, int user, int group);
 	
 	@WebMethod
@@ -39,4 +43,5 @@ public interface TafelWebService{
 	
 	@WebMethod
 	public String[] stopTafelServer(int userID);
+	
 }

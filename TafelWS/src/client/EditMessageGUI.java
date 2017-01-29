@@ -77,11 +77,11 @@ public class EditMessageGUI extends javax.swing.JPanel {
     	  jButton1.addActionListener(listener);
       }
       
-      public void setAenderTextField(String text){
+      public void setEditText(String text){
     	  jTextArea1.setText(text);
       }
       
-      public String getAenderTextField(){
+      public String getEditText(){
     	  return jTextArea1.getText();
       }
 }

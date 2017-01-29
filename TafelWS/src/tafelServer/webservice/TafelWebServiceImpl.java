@@ -1,12 +1,13 @@
 package tafelServer.webservice;
 
 import java.util.LinkedList;
+import java.util.Set;
 
 import javax.jws.WebService;
 
-import verteilteAnzeigetafel.SoapableMessage;
 import tafelServer.TafelServer;
 import verteilteAnzeigetafel.Message;
+import verteilteAnzeigetafel.SoapableMessage;
 import verteilteAnzeigetafel.TafelException;
 
 @WebService(endpointInterface = "tafelServer.webservice.TafelWebService")
@@ -61,7 +62,7 @@ public class TafelWebServiceImpl implements TafelWebService {
 		}
 		return null;
 	}
-	
+
 	public String publishMessage(int messageID, int user, int group) {
 		if (tafelServer != null) {
 			String answer = "";
@@ -80,9 +81,9 @@ public class TafelWebServiceImpl implements TafelWebService {
 
 		SoapableMessage[] answer;
 		LinkedList<Message> userMessages = new LinkedList<Message>();
-		try{
+		try {
 			userMessages = tafelServer.getMessagesByUserID(user);
-		} catch( TafelException te){
+		} catch (TafelException te) {
 			answer = new SoapableMessage[1];
 			SoapableMessage sm = new SoapableMessage();
 			sm.setInhalt(te.getMessage());
@@ -90,7 +91,7 @@ public class TafelWebServiceImpl implements TafelWebService {
 		}
 		answer = new SoapableMessage[userMessages.size()];
 		/* create "soapable" answer */
-		for(int i = 0; i < userMessages.size(); i++){
+		for (int i = 0; i < userMessages.size(); i++) {
 			SoapableMessage soM = new SoapableMessage();
 			soM.setAbtNr(userMessages.get(i).getAbtNr());
 			soM.setGruppen(userMessages.get(i).getGruppenAsArray());
@@ -101,7 +102,7 @@ public class TafelWebServiceImpl implements TafelWebService {
 			soM.setUserID(userMessages.get(i).getUserID());
 			answer[i] = soM;
 		}
-		
+
 		return answer;
 	}
 
@@ -137,28 +138,36 @@ public class TafelWebServiceImpl implements TafelWebService {
 		String reply[] = new String[1];
 
 		if (!tafelServer.getAnzeigetafel().isCoordinator(userID)) {
-		    reply[0] = "User " + userID + " has no permission!";
+			reply[0] = "User " + userID + " has no permission!";
 		} else {
-    		if (tafelServer == null) {
-    			TafelServer.startServer(abtNr);
-    			tafelServer = TafelServer.getServer();
-    			reply[0] = "TafelServer started successfully.";
-    		} else {
-    			reply[0] = "Server is already running.";
-    		}
+			if (tafelServer == null) {
+				TafelServer.startServer(abtNr);
+				tafelServer = TafelServer.getServer();
+				reply[0] = "TafelServer started successfully.";
+			} else {
+				reply[0] = "Server is already running.";
+			}
 		}
 		return reply;
 	}
 
 	public String[] stopTafelServer(int userID) {
-	    String reply[] = new String[1];
-	    
-	    if (!tafelServer.getAnzeigetafel().isCoordinator(userID)) {
-            reply[0] = "User " + userID + " has no permission!";
-        } else {
-            tafelServer.stopServer();
-            reply[0] = "TafelServer stopped successfully.";
-        }
+		String reply[] = new String[1];
+
+		if (!tafelServer.getAnzeigetafel().isCoordinator(userID)) {
+			reply[0] = "User " + userID + " has no permission!";
+		} else {
+			tafelServer.stopServer();
+			reply[0] = "TafelServer stopped successfully.";
+		}
 		return reply;
 	}
+
+	@Override
+	public Integer[] getGroupIds() {
+		Set<Integer> groupIds = tafelServer.getGroupIds();
+		Integer[] gidArray = new Integer[groupIds.size()];
+		return groupIds.toArray(gidArray);
+	}
+
 }

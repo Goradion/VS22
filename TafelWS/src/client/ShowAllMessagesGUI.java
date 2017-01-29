@@ -1,7 +1,9 @@
 package client;
 
 import java.awt.event.*;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
@@ -29,7 +31,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea messageTextArea;
     private javax.swing.JTextField  messageIDTextField;
-    private List<Message> msgs;
+    private Map<Integer, Message> msgs;
     private javax.swing.JCheckBox gruppe1;
     private javax.swing.JCheckBox gruppe2;
     private javax.swing.JCheckBox gruppe3;
@@ -45,15 +47,15 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     }
     
     
-    public ShowAllMessagesGUI(List<Message> msgs){ // Mit der Nachrichten Liste um diese dann zu generieren
+    public ShowAllMessagesGUI(Map<Integer, Message> msgs){ // Mit der Nachrichten Liste um diese dann zu generieren
 
       initialize();
       this.msgs = msgs;
-      fillTextField(msgs);
+      fillTextField(msgs.values());
     }
 
                         
-    private void fillTextField(List<Message> msgs) {
+    private void fillTextField(Collection<Message> msgs) {
 		
     	String text = "";
     	int width = 50;
@@ -389,19 +391,15 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
      * Furnktion für den 
      * @return
      */
-    public String getSelection(){
+    public QueryCommand getSelection(){
     	if(changeMessage.isSelected()){
-    		return "change";
-    	}
-    	
-    	if(deleteMessage.isSelected()){
-    		return "delete";
-    	}
-    	
-    	if(publishMessage.isSelected()){
-    		return "publish";
+    		return QueryCommand.CHANGE;
+    	} else if(deleteMessage.isSelected()){
+    		return QueryCommand.DELETE;
+    	} else if(publishMessage.isSelected()){
+    		return QueryCommand.PUBLISH;
     	} else {
-    		return "error";
+    		return QueryCommand.ERROR;
     	}
     	
     }

@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.LinkedBlockingDeque;
 
 import javax.swing.JFrame;
@@ -561,6 +562,10 @@ public class TafelServer {
 	public void setShutdownOnClose(WindowListener wl){
 		JFrame guiWindow = gui.getWindow();
 		guiWindow.addWindowListener(wl);
+	}
+	
+	public  Set<Integer> getGroupIds(){
+		return groupMap.keySet();
 	}
 	
 }

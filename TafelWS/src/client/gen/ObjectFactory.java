@@ -39,7 +39,9 @@ public class ObjectFactory {
     private final static QName _DeleteMessage_QNAME = new QName("http://webservice.tafelServer/", "deleteMessage");
     private final static QName _DeletePublicResponse_QNAME = new QName("http://webservice.tafelServer/", "deletePublicResponse");
     private final static QName _PublishMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "publishMessageResponse");
+    private final static QName _GetGroupIdsResponse_QNAME = new QName("http://webservice.tafelServer/", "getGroupIdsResponse");
     private final static QName _CreateMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "createMessageResponse");
+    private final static QName _GetGroupIds_QNAME = new QName("http://webservice.tafelServer/", "getGroupIds");
     private final static QName _ShowMessagesResponse_QNAME = new QName("http://webservice.tafelServer/", "showMessagesResponse");
     private final static QName _ShowMessages_QNAME = new QName("http://webservice.tafelServer/", "showMessages");
     private final static QName _DeleteMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "deleteMessageResponse");
@@ -81,6 +83,22 @@ public class ObjectFactory {
      */
     public CreateMessageResponse createCreateMessageResponse() {
         return new CreateMessageResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetGroupIds }
+     * 
+     */
+    public GetGroupIds createGetGroupIds() {
+        return new GetGroupIds();
+    }
+
+    /**
+     * Create an instance of {@link GetGroupIdsResponse }
+     * 
+     */
+    public GetGroupIdsResponse createGetGroupIdsResponse() {
+        return new GetGroupIdsResponse();
     }
 
     /**
@@ -339,12 +357,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetGroupIdsResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "getGroupIdsResponse")
+    public JAXBElement<GetGroupIdsResponse> createGetGroupIdsResponse(GetGroupIdsResponse value) {
+        return new JAXBElement<GetGroupIdsResponse>(_GetGroupIdsResponse_QNAME, GetGroupIdsResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link CreateMessageResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "createMessageResponse")
     public JAXBElement<CreateMessageResponse> createCreateMessageResponse(CreateMessageResponse value) {
         return new JAXBElement<CreateMessageResponse>(_CreateMessageResponse_QNAME, CreateMessageResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetGroupIds }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "getGroupIds")
+    public JAXBElement<GetGroupIds> createGetGroupIds(GetGroupIds value) {
+        return new JAXBElement<GetGroupIds>(_GetGroupIds_QNAME, GetGroupIds.class, null, value);
     }
 
     /**

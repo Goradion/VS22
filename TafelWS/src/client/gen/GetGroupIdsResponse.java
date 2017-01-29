@@ -10,16 +10,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java-Klasse für stopTafelServerResponse complex type.
+ * <p>Java-Klasse für getGroupIdsResponse complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="stopTafelServerResponse">
+ * &lt;complexType name="getGroupIdsResponse">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}int" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,13 +29,13 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "stopTafelServerResponse", propOrder = {
+@XmlType(name = "getGroupIdsResponse", propOrder = {
     "_return"
 })
-public class StopTafelServerResponse {
+public class GetGroupIdsResponse {
 
     @XmlElement(name = "return", nillable = true)
-    protected List<String> _return;
+    protected List<Integer> _return;
 
     /**
      * Gets the value of the return property.
@@ -55,13 +55,13 @@ public class StopTafelServerResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link String }
+     * {@link Integer }
      * 
      * 
      */
-    public List<String> getReturn() {
+    public List<Integer> getReturn() {
         if (_return == null) {
-            _return = new ArrayList<String>();
+            _return = new ArrayList<Integer>();
         }
         return this._return;
     }
