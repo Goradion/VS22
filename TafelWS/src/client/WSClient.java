@@ -25,11 +25,11 @@ public class WSClient {
 	public static void main(String[] args) throws MalformedURLException {
 		TafelWebService port = null;
 		if (args.length >= 1) {
-			if (isValidIpAddress(args[0])) {
+//			if (isValidIpAddress(args[0])) {
 				port = new TafelWebServiceImplService(new URL(args[0])).getTafelWebServiceImplPort();
-			} else {
-				port = new TafelWebServiceImplService().getTafelWebServiceImplPort();
-			}
+//			} else {
+//				port = new TafelWebServiceImplService().getTafelWebServiceImplPort();
+//			}
 		} else {
 			port = new TafelWebServiceImplService().getTafelWebServiceImplPort();
 		}
@@ -66,10 +66,12 @@ public class WSClient {
 			}
 			normalMessages.add(m);
 		}
-		port.publishMessage(0, 1, 2);
+		System.out.println(port.publishMessage(0, 1, 2));
 		for(Message m: normalMessages){
 			System.out.println(m);
 		}
+		
+		System.out.println(port.stopTafelServer(1).get(0));
 	}
 
 	private static boolean isValidIpAddress(String ip) {

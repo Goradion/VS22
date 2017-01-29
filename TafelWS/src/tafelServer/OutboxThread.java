@@ -1,3 +1,4 @@
+
 package tafelServer;
 
 import java.net.URL;
@@ -43,6 +44,10 @@ public class OutboxThread extends Thread {
 	public synchronized URL getTargetAddress() {
 	    return targetAddress;
 	}
+	
+	public boolean isWaiting() {
+        return getState() == Thread.State.TIMED_WAITING || getState() == Thread.State.WAITING;
+    }
 	
 	private void doWait() {
 		synchronized (monitor) {
@@ -117,3 +122,4 @@ public class OutboxThread extends Thread {
 		return "OutboxThread " + abteilungsID;
 	}
 }
+

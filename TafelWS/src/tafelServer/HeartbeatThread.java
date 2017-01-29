@@ -1,3 +1,4 @@
+
 package tafelServer;
 
 import java.net.URL;
@@ -27,6 +28,10 @@ public class HeartbeatThread extends Thread {
 		this.targetAddress = url;
 		this.tafelServer = tafelServer;
 	}
+	
+	public boolean isWaiting() {
+        return getState() == Thread.State.TIMED_WAITING || getState() == Thread.State.WAITING;
+    }
 	
 	public synchronized void setTargetAddress(URL targetAddress) {
         this.targetAddress = targetAddress;
