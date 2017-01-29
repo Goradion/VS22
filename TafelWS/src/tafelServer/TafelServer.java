@@ -266,7 +266,7 @@ public class TafelServer {
 			print("Kein Queue-Backup gefunden. Erstelle neues Backup...");
 			saveQueueMapToFile();
 		} catch (IOException | ClassNotFoundException e) {
-			print("Fehler beim lesen des Queue-Backups");
+			print("Fehler beim Lesen des Queue-Backups");
 			printStackTrace(e);
 		} finally {
 			try {
@@ -302,7 +302,7 @@ public class TafelServer {
 		    print("Keine tafelAdressen" + abteilungsID + " Datei gefunden.");
 			printStackTrace(e);
 		} catch (IOException e) {
-		    print("Fehler beim lesen der tafelAdressen" + abteilungsID + " Datei.");
+		    print("Fehler beim Lesen der tafelAdressen" + abteilungsID + " Datei.");
 			printStackTrace(e);
 		}
 	}
@@ -333,7 +333,7 @@ public class TafelServer {
 		    print("Keine tafelGruppen Datei gefunden.");
 			printStackTrace(e);
 		} catch (IOException e) {
-		    print("Fehler beim lesen der tafelGruppen Datei.");
+		    print("Fehler beim Lesen der tafelGruppen Datei.");
 			printStackTrace(e);
 		}
 	}
