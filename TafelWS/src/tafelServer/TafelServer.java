@@ -18,6 +18,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.sql.Time;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -316,16 +317,19 @@ public class TafelServer {
 				String[] groupParts = address.split(":");
 				int groupId = Integer.parseInt(groupParts[0]);
 				String[] stringMembers = groupParts[1].split(",");
-				HashSet<Integer> intMembers = new HashSet<Integer>();
-				try {
-					for (int i = 0; i < stringMembers.length; i++) {
-						intMembers.add(Integer.parseInt(stringMembers[i]));
-					}
-					groupMap.put(groupId, intMembers);
-
-				} catch (NumberFormatException e) {
-					print("NumberFormatException in line " + lines + " " + e.getMessage());
-					e.printStackTrace();
+				// Nur Gruppe einlesen, wenn die Tafel auch darin enthalten ist!
+				if (Arrays.asList(stringMembers).contains(Integer.toString(abteilungsID))) {
+    				HashSet<Integer> intMembers = new HashSet<Integer>();
+    				try {
+    					for (int i = 0; i < stringMembers.length; i++) {
+    						intMembers.add(Integer.parseInt(stringMembers[i]));
+    					}
+    					groupMap.put(groupId, intMembers);
+    
+    				} catch (NumberFormatException e) {
+    					print("NumberFormatException in line " + lines + " " + e.getMessage());
+    					e.printStackTrace();
+    				}
 				}
 			}
 			print("Groups loaded: " + groupMap);
