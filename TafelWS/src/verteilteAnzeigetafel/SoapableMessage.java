@@ -6,6 +6,7 @@ import java.util.HashSet;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -75,6 +76,10 @@ public class SoapableMessage {
 		Integer[] gGr = new Integer[groups.size()];
 		groups.toArray(gGr);
 		return gGr;
+	}
+	
+	public void addGroup(int group) {
+	    this.groups.add(group);
 	}
 
 	public void setGruppen(Integer[] groups) {
