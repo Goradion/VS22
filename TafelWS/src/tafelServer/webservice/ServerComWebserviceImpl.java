@@ -79,7 +79,7 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 				String callerAddress = "http://" + remoteAddress.getHostName() + ":" + tafelServer.getAddressPort(abtNr) + "/TafelWS/serverws?wsdl";
 //				InetSocketAddress localAddress = req.getLocalAddress();
 //				String receiverAddress = "http://" + localAddress.getHostName() + ":" + tafelServer.getAddressPort(abtNr) + "/TafelWS/serverws?wsdl";
-				tafelServer.print("ServerWS remote: "+callerAddress);
+//				tafelServer.print("ServerWS remote: "+callerAddress);
 //				tafelServer.print("ServerWS local: "+receiverAddress);
 				// TODO beide gleich, wenn auf einem System, gleich der "remote" adresse des aufrufenden programms
 				//      sollten Server nicht auf einem physischen server laufen können?!
