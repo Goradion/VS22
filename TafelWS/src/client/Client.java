@@ -47,17 +47,17 @@ public class Client {
 	private static Integer[] groupArray;
 
 	public static void main(String[] args) throws MalformedURLException {
-//		if (args.length >= 1) {
-//			wsdlURL = new URL(args[0]);
-//		} else {
-//			wsdlURL = new URL("http://10.9.41.69:8080/TafelWS/tafelws?wsdl");
-//		}
+		// if (args.length >= 1) {
+		// wsdlURL = new URL(args[0]);
+		// } else {
+		// wsdlURL = new URL("http://10.9.41.69:8080/TafelWS/tafelws?wsdl");
+		// }
 		loadTafelAdressenFromFile();
 		Set<Integer> keySet = tafelAdressen.keySet();
 		Integer[] abteilungen = new Integer[keySet.size()];
 		keySet.toArray(abteilungen);
 		msgs = new HashMap<Integer, Message>();
-		
+
 		clientGui = new ClientGui("Tafel-Client", abteilungen);
 		menue = new String[] { "Zeige alle Nachrichten", "Neue Nachricht" };
 		clientGui.actionLogin(new java.awt.event.ActionListener() {
@@ -72,14 +72,14 @@ public class Client {
 	private static void loginActionPerformed(ActionEvent evt) {
 		if (clientGui.getUserid() > 0) {
 			clientGui.setConectivity(false);
-			port = new TafelWebServiceImplService(tafelAdressen.get(clientGui.getAbteilung())).getTafelWebServiceImplPort();
+			port = new TafelWebServiceImplService(tafelAdressen.get(clientGui.getAbteilung()))
+					.getTafelWebServiceImplPort();
 			groups = new HashSet<Integer>(port.getGroupIds());
 			groupArray = groups.toArray(new Integer[groups.size()]);
 			clientGui.showLoggedIn(clientGui.getUserid(), msgs);
 			clientGui.setPublish(clientGui.getUserid() == koordinatorID, groupArray);
 			clientGui.setConectivity(true);
-			
-			
+
 			clientGui.setMenue(menue);
 
 			clientGui.actionMenuSelect(new java.awt.event.ItemListener() {
@@ -92,8 +92,7 @@ public class Client {
 					sendQueryActionPerformed(evt);
 				}
 			});
-			
-			
+
 			resetMenu();
 		}
 	}
@@ -106,7 +105,7 @@ public class Client {
 		case "Neue Nachricht":
 			clientGui.setMenue(new String[] { "Neue Nachricht", "Zeige alle Nachrichten" });
 			clientGui.showNewMessage();
-			clientGui.setPublish(clientGui.getUserid() == koordinatorID,groupArray);
+			clientGui.setPublish(clientGui.getUserid() == koordinatorID, groupArray);
 			clientGui.actionSendNewMessage(new java.awt.event.ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
 					sendNewMessage(evt);
@@ -228,8 +227,8 @@ public class Client {
 		int confirmed = JOptionPane.showConfirmDialog(clientGui, confirmMessage, "", JOptionPane.YES_NO_OPTION);
 
 		if (confirmed == JOptionPane.YES_OPTION) {
-			if (selectedMessage.isOeffentlich()){
-				deletePublicMessage(selectedMessage.getMessageID());				
+			if (selectedMessage.isOeffentlich()) {
+				deletePublicMessage(selectedMessage.getMessageID());
 			} else {
 				port.deleteMessage(selectedMessage.getMessageID(), userid);
 			}
@@ -238,20 +237,21 @@ public class Client {
 
 	}
 
-	private static void deletePublicMessage(int msgID){
-		if (clientGui.pruefeGruppe1()){
+	private static void deletePublicMessage(int msgID) {
+		if (clientGui.pruefeGruppe1()) {
 			port.deletePublic(msgID, clientGui.getUserid(), groupArray[0]);
 		}
-		if (clientGui.pruefeGruppe2()){
+		if (clientGui.pruefeGruppe2()) {
 			port.deletePublic(msgID, clientGui.getUserid(), groupArray[1]);
 		}
-		if (clientGui.pruefeGruppe3()){
+		if (clientGui.pruefeGruppe3()) {
 			port.deletePublic(msgID, clientGui.getUserid(), groupArray[2]);
 		}
-		if (clientGui.pruefeGruppe4()){
+		if (clientGui.pruefeGruppe4()) {
 			port.deletePublic(msgID, clientGui.getUserid(), groupArray[3]);
 		}
 	}
+
 	private static void editMessage(ActionEvent evt) {
 		Message selectedMessage = clientGui.getSelectedMessage();
 		if (selectedMessage == null) {
@@ -274,23 +274,28 @@ public class Client {
 			return;
 		}
 
-		
 		// TODO WRAP und ordentlich machen
-		if (clientGui.pruefeGruppe1()){
+		if (clientGui.pruefeGruppe1()) {
 			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), groupArray[0]);
 		}
-		if (clientGui.pruefeGruppe2()){
+		if (clientGui.pruefeGruppe2()) {
 			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), groupArray[1]);
 		}
-		if (clientGui.pruefeGruppe3()){
+		if (clientGui.pruefeGruppe3()) {
 			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), groupArray[2]);
 		}
-		if (clientGui.pruefeGruppe4()){
+		if (clientGui.pruefeGruppe4()) {
 			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), groupArray[3]);
 		}
-		
-		resetMenu();
-		
+		if (!clientGui.pruefeGruppe1() && !clientGui.pruefeGruppe2() && !clientGui.pruefeGruppe3()
+				&& !clientGui.pruefeGruppe4()) {
+			JOptionPane.showMessageDialog(clientGui, "Mindestens eine Gruppe muss ausgewaehlt sein!");
+		}
+		else{
+			
+			resetMenu();
+		}
+
 	}
 
 	private static void submitChangedMessage(ActionEvent evt) {
@@ -311,7 +316,7 @@ public class Client {
 		List<SoapableMessage> showMessages = port.showMessages(clientGui.getUserid());
 		msgs.clear();
 		for (SoapableMessage soapableMessage : showMessages) {
-			if (soapableMessage.isOeffentlich() ){
+			if (soapableMessage.isOeffentlich()) {
 			}
 			Message message = new Message(soapableMessage.getMessageID(), soapableMessage.getUserID(),
 					soapableMessage.getAbtNr(), soapableMessage.getInhalt(), soapableMessage.isOeffentlich(),
@@ -327,14 +332,14 @@ public class Client {
 	private static void resetMenu() {
 		clientGui.setMenue(new String[] { "Zeige alle Nachrichten", "Neue Nachricht" });
 		updateMessages();
-		clientGui.setPublish(clientGui.getUserid() == koordinatorID,groupArray);
+		clientGui.setPublish(clientGui.getUserid() == koordinatorID, groupArray);
 		clientGui.addActionSendQuery(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				sendQueryActionPerformed(evt);
 			}
 		});
 	}
-	
+
 	private static void loadTafelAdressenFromFile() {
 		int lines = 0;
 		try (BufferedReader reader = new BufferedReader(new FileReader("./tafelAdressen"))) {
@@ -347,7 +352,7 @@ public class Client {
 				} catch (NumberFormatException e) {
 					System.err.println("NumberFormatException in line: " + lines);
 					e.printStackTrace();
-				} catch (MalformedURLException e){
+				} catch (MalformedURLException e) {
 					System.err.println("MalformedURLException in line: " + lines);
 				}
 			}
