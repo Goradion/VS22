@@ -431,7 +431,11 @@ public class TafelServer {
 	
 
 	public synchronized String createMessage(String inhalt, int user, int abtNr) throws TafelException {
+	    if (abteilungsID != abtNr) {
+	        throw new TafelException("Abteilung " + abtNr + " ist hier nicht berechtigt!");
+	    }
 		int msgID = anzeigetafel.createMessage(inhalt, user, abtNr, false);
+		
 		anzeigetafel.saveStateToFile();
 		return "Nachricht mit ID=" + msgID + " erstellt!";
 	}
