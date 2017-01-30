@@ -84,11 +84,7 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 				// TODO beide gleich, wenn auf einem System, gleich der "remote" adresse des aufrufenden programms
 				//      sollten Server nicht auf einem physischen server laufen können?!
 				answer = tafelServer.registerTafel(abtNr, new URL(callerAddress));
-			} catch (NumberFormatException e) {
-				tafelServer.printStackTrace(e);
-				answer = "Number Format Error";
-			} 
-			catch (TafelException e) {
+			} catch (TafelException e) {
 				tafelServer.printStackTrace(e);
 				answer = e.getMessage();
 			} catch (MalformedURLException e) {
