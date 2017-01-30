@@ -433,7 +433,7 @@ public class Anzeigetafel extends Observable implements Serializable {
 			}
 			if (isCoordinator(user)) {
 				Message msg = new Message(inhalt, curMessage.getUserID(), curMessage.getAbtNr(),
-						curMessage.isOeffentlich(), curMessage.getMessageID());
+						curMessage.isOeffentlich(), curMessage.getMessageID(), curMessage.getGruppen());
 				messages.replace(messageID, msg);
 			} else {
 				throw new TafelException("User " + user + " nicht berechtigt zum Loeschen");
