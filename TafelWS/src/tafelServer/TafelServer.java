@@ -468,8 +468,8 @@ public class TafelServer {
 	 *             if the Anzeigetafel rejects the publication.
 	 */
 	public synchronized String publishMessage(int messageID, int userID, int groupID) throws TafelException {
-		if (!groupQueueMap.containsKey(groupID)){
-			throw new TafelException("Gruppe " + groupID + " nicht bekannt!");
+		if ( !groupMap.containsKey(groupID) ) {
+			return "TafelServer ist nicht in gegebener Gruppe=" + groupID + "!";
 		}
 		String antwort = "Nachricht mit ID=" + messageID + " veröffentlicht!";
 		
@@ -487,11 +487,10 @@ public class TafelServer {
 	}
 
 	public synchronized String deletePublic(int messageID, int userID, int groupID) throws TafelException {
-		String antwort = "Nachricht mit ID=" + messageID + " gelöscht in Gruppe:" + groupID + "!";
-
 		if ( !groupMap.containsKey(groupID) ) {
 			return "TafelServer ist nicht in gegebener Gruppe=" + groupID + "!";
 		}
+		String antwort = "Nachricht mit ID=" + messageID + " gelöscht in Gruppe:" + groupID + "!";
 		
 		anzeigetafel.deletePublic(messageID, userID, groupID);
 
@@ -510,11 +509,10 @@ public class TafelServer {
 	}
 
 	public synchronized String modifyPublic(int messageID, int userID, int groupID, String newMessage) throws TafelException {
-		String antwort = "Nachricht mit ID=" + messageID + " geändert in Gruppe:" + groupID + "!";
-
 		if ( !groupMap.containsKey(groupID) ) {
 			return "TafelServer ist nicht in gegebener Gruppe=" + groupID + "!";
 		}
+		String antwort = "Nachricht mit ID=" + messageID + " geändert in Gruppe:" + groupID + "!";
 		
 		anzeigetafel.modifyPublic(messageID, newMessage, userID);
 		
