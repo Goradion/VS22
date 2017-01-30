@@ -61,6 +61,18 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     	int width = 50;
     	for(Message m : msgs){
     		text += "MsgID"  + " :"+ m.getMessageID() + "\t Time: " + m.getTime()+"\n";
+    		for(int i = 0;i < m.getGruppenAsArray().length;i++){
+				if(i == 0){
+					text +="Published in: ";
+				}
+    			if(i == m.getGruppenAsArray().length-1){
+    				text += i + "";
+    			} else {
+
+    				text += i +",";
+    			}
+    		}
+    		text += "\n";
     	if(m.getInhalt().length() > width) {
     		for(int i = 0; i < m.getInhalt().length(); i = i+width){
     			if(i+width > m.getInhalt().length()){
