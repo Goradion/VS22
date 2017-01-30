@@ -25,12 +25,14 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _ModifyPublicResponse_QNAME = new QName("http://webservice.tafelServer/", "modifyPublicResponse");
+    private final static QName _GetGroupMembers_QNAME = new QName("http://webservice.tafelServer/", "getGroupMembers");
     private final static QName _StopTafelServerResponse_QNAME = new QName("http://webservice.tafelServer/", "stopTafelServerResponse");
     private final static QName _CreateMessage_QNAME = new QName("http://webservice.tafelServer/", "createMessage");
     private final static QName _PublishMessage_QNAME = new QName("http://webservice.tafelServer/", "publishMessage");
     private final static QName _ModifyPublic_QNAME = new QName("http://webservice.tafelServer/", "modifyPublic");
     private final static QName _StopTafelServer_QNAME = new QName("http://webservice.tafelServer/", "stopTafelServer");
     private final static QName _ModifyMessage_QNAME = new QName("http://webservice.tafelServer/", "modifyMessage");
+    private final static QName _GetGroupMembersResponse_QNAME = new QName("http://webservice.tafelServer/", "getGroupMembersResponse");
     private final static QName _StartTafelServer_QNAME = new QName("http://webservice.tafelServer/", "startTafelServer");
     private final static QName _ModifyMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "modifyMessageResponse");
     private final static QName _DeletePublic_QNAME = new QName("http://webservice.tafelServer/", "deletePublic");
@@ -158,6 +160,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetGroupMembersResponse }
+     * 
+     */
+    public GetGroupMembersResponse createGetGroupMembersResponse() {
+        return new GetGroupMembersResponse();
+    }
+
+    /**
      * Create an instance of {@link StartTafelServer }
      * 
      */
@@ -206,6 +216,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetGroupMembers }
+     * 
+     */
+    public GetGroupMembers createGetGroupMembers() {
+        return new GetGroupMembers();
+    }
+
+    /**
      * Create an instance of {@link StopTafelServerResponse }
      * 
      */
@@ -228,6 +246,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "modifyPublicResponse")
     public JAXBElement<ModifyPublicResponse> createModifyPublicResponse(ModifyPublicResponse value) {
         return new JAXBElement<ModifyPublicResponse>(_ModifyPublicResponse_QNAME, ModifyPublicResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetGroupMembers }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "getGroupMembers")
+    public JAXBElement<GetGroupMembers> createGetGroupMembers(GetGroupMembers value) {
+        return new JAXBElement<GetGroupMembers>(_GetGroupMembers_QNAME, GetGroupMembers.class, null, value);
     }
 
     /**
@@ -282,6 +309,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "modifyMessage")
     public JAXBElement<ModifyMessage> createModifyMessage(ModifyMessage value) {
         return new JAXBElement<ModifyMessage>(_ModifyMessage_QNAME, ModifyMessage.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetGroupMembersResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "getGroupMembersResponse")
+    public JAXBElement<GetGroupMembersResponse> createGetGroupMembersResponse(GetGroupMembersResponse value) {
+        return new JAXBElement<GetGroupMembersResponse>(_GetGroupMembersResponse_QNAME, GetGroupMembersResponse.class, null, value);
     }
 
     /**

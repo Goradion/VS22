@@ -110,12 +110,15 @@ public class Anzeigetafel extends Observable implements Serializable {
 	 * @throws TafelException
 	 */
 	public synchronized void deleteMessage(int messageID, int user) throws TafelException {
-
 		if (messages.containsKey(messageID)) {
-			if (messages.get(messageID).getAbtNr() != abteilungsID) {
+			Message currentMessage = messages.get(messageID);
+			if (currentMessage.getAbtNr() != abteilungsID) {
 				throw new TafelException("Keine Berechtigung für diese Nachricht!");
 			}
-			if (user == messages.get(messageID).getUserID() || isCoordinator(user)) {
+			if (currentMessage.isOeffentlich()) {
+				throw new TafelException("Nachricht " + messageID + " ist oeffentlich!");
+			}
+			if (user == currentMessage.getUserID() || isCoordinator(user)) {
 				messages.remove(messageID);
 				userMsgs.get(user).remove(new Integer(messageID));
 				// userMsgs.get(user).
