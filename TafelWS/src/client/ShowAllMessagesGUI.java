@@ -66,10 +66,10 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 					text +="Published in: ";
 				}
     			if(i == m.getGruppenAsArray().length-1){
-    				text += i + "";
+    				text += m.getGruppenAsArray()[i] + "";
     			} else {
 
-    				text += i +",";
+    				text += m.getGruppenAsArray()[i] +",";
     			}
     		}
     		text += "\n";
