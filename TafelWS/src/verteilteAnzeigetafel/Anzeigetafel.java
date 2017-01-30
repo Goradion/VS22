@@ -369,7 +369,7 @@ public class Anzeigetafel extends Observable implements Serializable {
 		notifyObservers();
 	}
 
-	public synchronized void deletePublicMessage(int messageID, int user, int group) throws TafelException {
+	public synchronized void deletePublic(int messageID, int user, int group) throws TafelException {
 
 		if (messages.containsKey(messageID)) {
 			Message curMessage = messages.get(messageID);
@@ -395,7 +395,7 @@ public class Anzeigetafel extends Observable implements Serializable {
 		updateState();
 	}
 
-	public synchronized void deletePublic(int messageID, int group) throws TafelException {
+	public synchronized void deletePublicMessage(int messageID, int group) throws TafelException {
 
 		if (messages.containsKey(messageID)) {
 			Message curMessage = messages.get(messageID);
@@ -414,7 +414,7 @@ public class Anzeigetafel extends Observable implements Serializable {
 		updateState();
 	}
 
-	public synchronized void modifyPublicMessage(int messageID, String inhalt, int user) throws TafelException {
+	public synchronized void modifyPublic(int messageID, String inhalt, int user) throws TafelException {
 
 		if (messages.containsKey(messageID)) {
 			Message curMessage = messages.get(messageID);
@@ -437,7 +437,7 @@ public class Anzeigetafel extends Observable implements Serializable {
 		updateState();
 	}
 
-	public synchronized void modifyPublic(int messageID, String inhalt) throws TafelException {
+	public synchronized void modifyPublicMessage(int messageID, String inhalt) throws TafelException {
 
 		if (messages.containsKey(messageID)) {
 			Message curMessage = messages.get(messageID);

@@ -486,7 +486,7 @@ public class TafelServer {
 			return "TafelServer ist nicht in gegebener Gruppe=" + groupID + "!";
 		}
 		
-		anzeigetafel.deletePublicMessage(messageID, userID, groupID);
+		anzeigetafel.deletePublic(messageID, userID, groupID);
 
 		for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(groupID)) {
 			try {
@@ -509,7 +509,7 @@ public class TafelServer {
 			return "TafelServer ist nicht in gegebener Gruppe=" + groupID + "!";
 		}
 		
-		anzeigetafel.modifyPublicMessage(messageID, newMessage, userID);
+		anzeigetafel.modifyPublic(messageID, newMessage, userID);
 		
 		for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(groupID)) {
 			try {
@@ -551,7 +551,7 @@ public class TafelServer {
 		if ( !groupMap.containsKey(group) ) {
 			throw new TafelException("TafelServer ist nicht in gegebener Gruppe=" + group + "!");
 		}
-		anzeigetafel.deletePublic(msgID, group);
+		anzeigetafel.deletePublicMessage(msgID, group);
 		
 		anzeigetafel.saveStateToFile();
 		return true;
@@ -561,7 +561,7 @@ public class TafelServer {
 		if ( !groupMap.containsKey(group) ) {
 			throw new TafelException("TafelServer ist nicht in gegebener Gruppe=" + group + "!");
 		}
-		anzeigetafel.modifyPublic(messageID, inhalt);
+		anzeigetafel.modifyPublicMessage(messageID, inhalt);
 
 		anzeigetafel.saveStateToFile();
 		return true;
