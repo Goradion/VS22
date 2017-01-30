@@ -41,7 +41,7 @@ public class EditMessageGUI extends javax.swing.JPanel {
 
         jLabel1.setText("Nachricht bearbeiten");
 
-        jButton1.setText("ändern");
+        jButton1.setText("aendern");
       
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
