@@ -24,7 +24,7 @@ public class LoggedInGUI extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         menueBox = new javax.swing.JComboBox<>();
 
-        jLabel1.setText("Menü");
+        jLabel1.setText("Menue");
 
         menueBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 

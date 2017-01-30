@@ -111,14 +111,8 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
         gruppe2.setText("Gruppe2");
         gruppe3.setText("Gruppe3");
         gruppe4.setText("Gruppe4");
-   /*     
-        gruppe1.addActionListener(this);
-        gruppe2.addActionListener(this);
-        gruppe3.addActionListener(this);
-        gruppe4.addActionListener(this);
- */       
-
-        
+   
+  
         // ButtonGruppe
         buttonGroup1.add(deleteMessage);
         buttonGroup1.add(changeMessage);
@@ -187,17 +181,10 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 			}
 
 			@Override
-			public void keyReleased(KeyEvent e) {
-				
-				
-			}
+			public void keyReleased(KeyEvent e) {}
 
 			@Override
-			public void keyTyped(KeyEvent e) {
-				
-				
-			}
-
+			public void keyTyped(KeyEvent e) {}
 
 			});
         messageIDTextField.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -229,15 +216,11 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 			
 		});
 
-
         sendQueryButton.setText("Send query");
         sendQueryButton.setEnabled(false);
-   
-        
-        
+
 		sendQueryButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		
-		
+
 		});
 
         /**
@@ -419,17 +402,43 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
      * Funktion f�r ein und  ausblenden von dem Publishbutton + Gruppencheckboxen  falls nur normaler user
      * @param enable
      */
-    public void setPublish(boolean enable){
+    public void setPublish(boolean enable,Integer groups[]){
     	
     	publishMessage.setVisible(enable);
     	
-    		gruppe1.setVisible(enable);
-    		gruppe2.setVisible(enable);
-    		gruppe3.setVisible(enable);
-    		gruppe4.setVisible(enable);
+    		if(groups.length == 1)
+    		{
+    			gruppe1.setVisible(enable);
+    			gruppe1.setText("Gruppe" + groups[0]);
+    		}
+    		else if(groups.length == 2)
+    		{
+    			gruppe1.setVisible(enable);
+        		gruppe2.setVisible(enable);
+        		gruppe1.setText("Gruppe" + groups[0]);
+        		gruppe2.setText("Gruppe" + groups[1]);
+    		}
+    		else if(groups.length == 3){
+    			gruppe1.setVisible(enable);
+        		gruppe2.setVisible(enable);
+        		gruppe3.setVisible(enable);
+        		gruppe1.setText("Gruppe" + groups[0]);
+        		gruppe2.setText("Gruppe" + groups[1]);
+        		gruppe3.setText("Gruppe" + groups[2]);
+    		}
+    		else{
+    			gruppe1.setVisible(enable);
+        		gruppe2.setVisible(enable);
+        		gruppe3.setVisible(enable);
+        		gruppe4.setVisible(enable);
+        		gruppe1.setText("Gruppe" + groups[0]);
+        		gruppe2.setText("Gruppe" + groups[1]);
+        		gruppe3.setText("Gruppe" + groups[2]);
+        		gruppe4.setText("Gruppe" + groups[3]);
+    		}
+    		}
     
-    	
-    }
+ 
   
     public boolean pruefegruppe1()
     {

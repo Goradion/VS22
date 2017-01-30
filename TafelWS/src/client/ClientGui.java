@@ -181,9 +181,9 @@ public class ClientGui extends JFrame{
     	this.repaint();
     	newMessageGUI.repaint();
     }
-    public void setPublish(boolean enable){
+    public void setPublish(boolean enable, Integer groups[]){
     	
-    	showAllMessagesGUI.setPublish(enable);
+    	showAllMessagesGUI.setPublish(enable, groups);
     }
     public void setConectivity(boolean active){
     	loginGUI.setConectivity(active);

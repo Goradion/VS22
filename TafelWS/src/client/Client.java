@@ -8,24 +8,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.ReadOnlyFileSystemException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
-import com.sun.xml.internal.ws.wsdl.writer.document.Port;
 
 import client.gen.SoapableMessage;
 import client.gen.TafelWebService;
 import client.gen.TafelWebServiceImplService;
 import verteilteAnzeigetafel.Message;
-import verteilteAnzeigetafel.TafelException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -48,6 +42,9 @@ public class Client {
 	private static URL wsdlURL;
 	private static HashMap<Integer, URL> tafelAdressen = new HashMap<Integer, URL>();
 	private static final int koordinatorID = 1;
+	private static Set<Integer> groups;
+
+	private static Integer[] groupArray;
 
 	public static void main(String[] args) throws MalformedURLException {
 //		if (args.length >= 1) {
@@ -74,11 +71,17 @@ public class Client {
 
 	private static void loginActionPerformed(ActionEvent evt) {
 		if (clientGui.getUserid() > 0) {
-
+			clientGui.setConectivity(false);
+			port = new TafelWebServiceImplService(tafelAdressen.get(clientGui.getAbteilung())).getTafelWebServiceImplPort();
+			groups = new HashSet<Integer>(port.getGroupIds());
+			groupArray = groups.toArray(new Integer[groups.size()]);
 			clientGui.showLoggedIn(clientGui.getUserid(), msgs);
+			clientGui.setPublish(clientGui.getUserid() == koordinatorID, groupArray);
+			clientGui.setConectivity(true);
+			
+			
 			clientGui.setMenue(menue);
 
-			clientGui.setPublish(clientGui.getUserid() == koordinatorID);
 			clientGui.actionMenuSelect(new java.awt.event.ItemListener() {
 				public void itemStateChanged(java.awt.event.ItemEvent evt) {
 					menueSelected(evt);
@@ -89,10 +92,7 @@ public class Client {
 					sendQueryActionPerformed(evt);
 				}
 			});
-			clientGui.setConectivity(false);
-			System.out.println(tafelAdressen.get(clientGui.getAbteilung()));
-			port = new TafelWebServiceImplService(tafelAdressen.get(clientGui.getAbteilung())).getTafelWebServiceImplPort();
-			clientGui.setConectivity(true);
+			
 			
 			resetMenu();
 		}
@@ -106,7 +106,7 @@ public class Client {
 		case "Neue Nachricht":
 			clientGui.setMenue(new String[] { "Neue Nachricht", "Zeige alle Nachrichten" });
 			clientGui.showNewMessage();
-			clientGui.setPublish(clientGui.getUserid() == koordinatorID);
+			clientGui.setPublish(clientGui.getUserid() == koordinatorID,groupArray);
 			clientGui.actionSendNewMessage(new java.awt.event.ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
 					sendNewMessage(evt);
@@ -219,7 +219,7 @@ public class Client {
 		int userid = clientGui.getUserid();
 		Message selectedMessage = clientGui.getSelectedMessage();
 		if (selectedMessage == null) {
-			JOptionPane.showMessageDialog(clientGui, "Kein Zugriff auf die Nachricht mit der gewälten ID!");
+			JOptionPane.showMessageDialog(clientGui, "Kein Zugriff auf die Nachricht mit der gewaelten ID!");
 			return;
 		}
 		String oeffentlichString = selectedMessage.isOeffentlich() ? "oeffentliche" : "lokale";
@@ -240,26 +240,26 @@ public class Client {
 
 	private static void deletePublicMessage(int msgID){
 		if (clientGui.pruefeGruppe1()){
-			port.deletePublic(msgID, clientGui.getUserid(), 1);
+			port.deletePublic(msgID, clientGui.getUserid(), groupArray[0]);
 		}
 		if (clientGui.pruefeGruppe2()){
-			port.deletePublic(msgID, clientGui.getUserid(), 2);
+			port.deletePublic(msgID, clientGui.getUserid(), groupArray[1]);
 		}
 		if (clientGui.pruefeGruppe3()){
-			port.deletePublic(msgID, clientGui.getUserid(), 3);
+			port.deletePublic(msgID, clientGui.getUserid(), groupArray[2]);
 		}
 		if (clientGui.pruefeGruppe4()){
-			port.deletePublic(msgID, clientGui.getUserid(), 4);
+			port.deletePublic(msgID, clientGui.getUserid(), groupArray[3]);
 		}
 	}
 	private static void editMessage(ActionEvent evt) {
 		Message selectedMessage = clientGui.getSelectedMessage();
 		if (selectedMessage == null) {
-			JOptionPane.showMessageDialog(clientGui, "Es gibt keine nachricht mit der gewählten ID!");
+			JOptionPane.showMessageDialog(clientGui, "Es gibt keine nachricht mit der gewaehlten ID!");
 			return;
 		}
 		clientGui.showEditMessage(selectedMessage);
-		clientGui.setPublish(clientGui.getUserid() == koordinatorID);
+		clientGui.setPublish(clientGui.getUserid() == koordinatorID, groupArray);
 		clientGui.addActionChangeButton((new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				submitChangedMessage(evt);
@@ -285,25 +285,26 @@ public class Client {
 	private static void publishMessage(ActionEvent evt) {
 		Message selectedMessage = clientGui.getSelectedMessage();
 		if (selectedMessage == null) {
-			JOptionPane.showMessageDialog(clientGui, "Es gibt keine nachricht mit der gew�hlten ID!");
+			JOptionPane.showMessageDialog(clientGui, "Es gibt keine nachricht mit der gewaehlten ID!");
 			return;
 		}
 
 		
 		// TODO WRAP und ordentlich machen
 		if (clientGui.pruefeGruppe1()){
-			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), 1);
+			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), groupArray[0]);
 		}
 		if (clientGui.pruefeGruppe2()){
-			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), 2);
+			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), groupArray[1]);
 		}
 		if (clientGui.pruefeGruppe3()){
-			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), 3);
+			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), groupArray[2]);
 		}
 		if (clientGui.pruefeGruppe4()){
-			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), 4);
+			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), groupArray[3]);
 		}
 		
+		resetMenu();
 		
 	}
 
@@ -341,7 +342,7 @@ public class Client {
 	private static void resetMenu() {
 		clientGui.setMenue(new String[] { "Zeige alle Nachrichten", "Neue Nachricht" });
 		updateMessages();
-		clientGui.setPublish(clientGui.getUserid() == koordinatorID);
+		clientGui.setPublish(clientGui.getUserid() == koordinatorID,groupArray);
 		clientGui.addActionSendQuery(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				sendQueryActionPerformed(evt);
