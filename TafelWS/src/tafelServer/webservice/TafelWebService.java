@@ -30,6 +30,9 @@ public interface TafelWebService{
 	public Integer[] getGroupIds();
 	
 	@WebMethod
+	public Integer[] getGroupMembers(int group);
+	
+	@WebMethod
 	public String publishMessage(int messageID, int user, int group);
 	
 	@WebMethod

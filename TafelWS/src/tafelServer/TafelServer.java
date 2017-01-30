@@ -572,13 +572,17 @@ public class TafelServer {
 		return true;
 	}
 	
-	public void setShutdownOnClose(WindowListener wl){
+	public void setShutdownOnClose(WindowListener wl) {
 		JFrame guiWindow = gui.getWindow();
 		guiWindow.addWindowListener(wl);
 	}
 	
-	public  Set<Integer> getGroupIds(){
+	public Set<Integer> getGroupIds() {
 		return groupMap.keySet();
+	}
+	
+	public Set<Integer> getGroupMembers(int group) {
+		return groupMap.get(group);
 	}
 	
 }
