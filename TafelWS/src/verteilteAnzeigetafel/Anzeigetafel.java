@@ -269,7 +269,6 @@ public class Anzeigetafel extends Observable implements Serializable {
 		for (Integer element : umsgIDs) {
 			uMsgs.add(messages.get(element)); 
 		}
-		System.out.println(uMsgs.toString());
 		return uMsgs;
 	}
 

@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -129,7 +130,7 @@ public class Client {
 		// TODO ordentlich checken
 		if ((userID > 0) && message != "") {
 			// TODO WRAP
-			port.createMessage(message, userID);
+			print(port.createMessage(message, userID));
 			clientGui.setNewMessageState("Nachricht versendet!");
 			clientGui.repaint();
 		} else {
@@ -172,7 +173,7 @@ public class Client {
 		// // TafelWebService port = new TafelWebServiceImplService(new
 		// //
 		// URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
-		// // port.deleteMessage(Integer.parseInt(msgID),userID);
+		// // print(port.deleteMessage(Integer.parseInt(msgID),userID));
 		// // }
 		//
 		// }
@@ -206,7 +207,8 @@ public class Client {
 		// // TafelWebService port = new TafelWebServiceImplService(new
 		// //
 		// URL("http://localhost:8080/TafelWS/tafelws?wsdl")).getTafelWebServiceImplPort();
-		// // port.publishMessage(msgID, userID, g_one,g_two,g_three,g_four);
+		// // print(port.publishMessage(msgID, userID,
+		// g_one,g_two,g_three,g_four));
 		// // }
 		//
 		// if (clientGui.getQueryCommand().equals("error")) {
@@ -230,7 +232,7 @@ public class Client {
 			if (selectedMessage.isOeffentlich()) {
 				deletePublicMessage(selectedMessage.getMessageID());
 			} else {
-				port.deleteMessage(selectedMessage.getMessageID(), userid);
+				print(port.deleteMessage(selectedMessage.getMessageID(), userid));
 			}
 			resetMenu();
 		}
@@ -239,16 +241,16 @@ public class Client {
 
 	private static void deletePublicMessage(int msgID) {
 		if (clientGui.pruefeGruppe1()) {
-			port.deletePublic(msgID, clientGui.getUserid(), groupArray[0]);
+			print(port.deletePublic(msgID, clientGui.getUserid(), groupArray[0]));
 		}
 		if (clientGui.pruefeGruppe2()) {
-			port.deletePublic(msgID, clientGui.getUserid(), groupArray[1]);
+			print(port.deletePublic(msgID, clientGui.getUserid(), groupArray[1]));
 		}
 		if (clientGui.pruefeGruppe3()) {
-			port.deletePublic(msgID, clientGui.getUserid(), groupArray[2]);
+			print(port.deletePublic(msgID, clientGui.getUserid(), groupArray[2]));
 		}
 		if (clientGui.pruefeGruppe4()) {
-			port.deletePublic(msgID, clientGui.getUserid(), groupArray[3]);
+			print(port.deletePublic(msgID, clientGui.getUserid(), groupArray[3]));
 		}
 	}
 
@@ -276,23 +278,22 @@ public class Client {
 
 		// TODO WRAP und ordentlich machen
 		if (clientGui.pruefeGruppe1()) {
-			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), groupArray[0]);
+			print(port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), groupArray[0]));
 		}
 		if (clientGui.pruefeGruppe2()) {
-			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), groupArray[1]);
+			print(port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), groupArray[1]));
 		}
 		if (clientGui.pruefeGruppe3()) {
-			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), groupArray[2]);
+			print(port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), groupArray[2]));
 		}
 		if (clientGui.pruefeGruppe4()) {
-			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), groupArray[3]);
+			print(port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), groupArray[3]));
 		}
 		if (!clientGui.pruefeGruppe1() && !clientGui.pruefeGruppe2() && !clientGui.pruefeGruppe3()
 				&& !clientGui.pruefeGruppe4()) {
 			JOptionPane.showMessageDialog(clientGui, "Mindestens eine Gruppe muss ausgewaehlt sein!");
-		}
-		else{
-			
+		} else {
+
 			resetMenu();
 		}
 
@@ -304,9 +305,9 @@ public class Client {
 
 		// TODO WRAP
 		if (myMsg.isOeffentlich()) {
-			port.modifyPublic(myMsg.getMessageID(), clientGui.getUserid(), newInhalt);
+			print(port.modifyPublic(myMsg.getMessageID(), clientGui.getUserid(), newInhalt));
 		} else {
-			port.modifyMessage(myMsg.getMessageID(), clientGui.getUserid(), newInhalt);
+			print(port.modifyMessage(myMsg.getMessageID(), clientGui.getUserid(), newInhalt));
 		}
 		resetMenu();
 	}
@@ -364,5 +365,9 @@ public class Client {
 			System.err.println("Fehler beim Lesen der tafelAdressen Datei.");
 			e.printStackTrace();
 		}
+	}
+
+	private static void print(String nachricht) {
+		System.out.println(new Time(System.currentTimeMillis()) + ": " + nachricht);
 	}
 }
