@@ -7,7 +7,6 @@ public class ModifyPublicRequest extends UserRequest {
 
 	private static final long serialVersionUID = 5828113576693444289L;
 	private int messageID;
-	private int groupID;
 	private String newMessage;
 	/**
 	 * Constructs a ModifyPublicRequest.
@@ -15,10 +14,9 @@ public class ModifyPublicRequest extends UserRequest {
 	 * @param newMessage
 	 * @param userID
 	 */
-	public ModifyPublicRequest(int messageID, int groupID, String newMessage) {
+	public ModifyPublicRequest(int messageID, String newMessage) {
 		super(1);
 		this.messageID  = messageID;
-		this.groupID    = groupID;
 		this.newMessage = newMessage;
 	}
 	/**
@@ -27,13 +25,6 @@ public class ModifyPublicRequest extends UserRequest {
 	 */
 	public int getMessageID() {
 		return messageID;
-	}
-	/**
-	 * Returns the ID of the messages group.
-	 * @return groupID
-	 */
-	public int getGroupID() {
-		return groupID;
 	}
 	/**
 	 * Returns the new text content of the message.

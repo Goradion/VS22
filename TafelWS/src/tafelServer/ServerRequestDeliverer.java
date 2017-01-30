@@ -75,7 +75,7 @@ public class ServerRequestDeliverer {
 	 *             if anzeigetafel rejects the request
 	 */
 	public String deliver(ModifyPublicRequest modifyPublicRequest) throws TafelException {
-	    return webservice.modifyPublicMessage(modifyPublicRequest.getMessageID(), modifyPublicRequest.getGroupID(), modifyPublicRequest.getNewMessage());
+	    return webservice.modifyPublicMessage(modifyPublicRequest.getMessageID(), modifyPublicRequest.getNewMessage());
 	}
 
 }

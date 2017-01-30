@@ -266,21 +266,6 @@ public class Client {
 			}
 		}));
 	}
-	
-	private static void modifyPublicMessage(int msgID, String newInhalt){
-		if (clientGui.pruefeGruppe1()){
-			port.modifyPublic(msgID, clientGui.getUserid(), 1, newInhalt);
-		}
-		if (clientGui.pruefeGruppe2()){
-			port.modifyPublic(msgID, clientGui.getUserid(), 2, newInhalt);
-		}
-		if (clientGui.pruefeGruppe3()){
-			port.modifyPublic(msgID, clientGui.getUserid(), 3, newInhalt);
-		}
-		if (clientGui.pruefeGruppe4()){
-			port.modifyPublic(msgID, clientGui.getUserid(), 4, newInhalt);
-		}
-	}
 
 	private static void publishMessage(ActionEvent evt) {
 		Message selectedMessage = clientGui.getSelectedMessage();
@@ -313,10 +298,10 @@ public class Client {
 		Message myMsg = clientGui.getSelectedMessage();
 
 		// TODO WRAP
-		if (myMsg.isOeffentlich()){
-			modifyPublicMessage(myMsg.getMessageID(), newInhalt);
+		if (myMsg.isOeffentlich()) {
+			port.modifyPublic(myMsg.getMessageID(), clientGui.getUserid(), newInhalt);
 		} else {
-			port.modifyMessage(myMsg.getMessageID(), newInhalt, clientGui.getUserid());
+			port.modifyMessage(myMsg.getMessageID(), clientGui.getUserid(), newInhalt);
 		}
 		resetMenu();
 	}

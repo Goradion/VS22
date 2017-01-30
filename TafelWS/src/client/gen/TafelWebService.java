@@ -78,9 +78,9 @@ public interface TafelWebService {
         @WebParam(name = "arg0", targetNamespace = "")
         int arg0,
         @WebParam(name = "arg1", targetNamespace = "")
-        String arg1,
+        int arg1,
         @WebParam(name = "arg2", targetNamespace = "")
-        int arg2);
+        String arg2);
 
     /**
      * 
@@ -126,7 +126,6 @@ public interface TafelWebService {
 
     /**
      * 
-     * @param arg3
      * @param arg2
      * @param arg1
      * @param arg0
@@ -144,9 +143,7 @@ public interface TafelWebService {
         @WebParam(name = "arg1", targetNamespace = "")
         int arg1,
         @WebParam(name = "arg2", targetNamespace = "")
-        int arg2,
-        @WebParam(name = "arg3", targetNamespace = "")
-        String arg3);
+        String arg2);
 
     /**
      * 

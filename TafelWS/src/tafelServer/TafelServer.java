@@ -505,21 +505,20 @@ public class TafelServer {
 		return antwort;
 	}
 
-	public synchronized String modifyPublic(int messageID, int userID, int groupID, String newMessage) throws TafelException {
-		if ( !groupMap.containsKey(groupID) ) {
-			return "TafelServer ist nicht in gegebener Gruppe=" + groupID + "!";
-		}
-		String antwort = "Nachricht mit ID=" + messageID + " geändert in Gruppe:" + groupID + "!";
+	public synchronized String modifyPublic(int messageID, int userID, String newMessage) throws TafelException {
+		String antwort = "Nachricht mit ID=" + messageID + " geändert in allen Gruppen";
 		
 		anzeigetafel.modifyPublic(messageID, newMessage, userID);
 		
-		for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(groupID)) {
-			try {
-			    if (q != null) {
-	                q.put(new ModifyPublicRequest(messageID, groupID, newMessage));
-			    }
-			} catch (InterruptedException e) {
-				print("Message mit ID=" + messageID + " wird nicht überall geändert werden!");
+		for (int group : anzeigetafel.getMessageByID(messageID).getGruppen()) {
+			for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(group)) {
+				try {
+				    if (q != null) {
+	                	q.put(new ModifyPublicRequest(messageID, newMessage));
+				    }
+				} catch (InterruptedException e) {
+					print("Message mit ID=" + messageID + " wird nicht überall geändert werden!");
+				}
 			}
 		}
 		
@@ -559,11 +558,8 @@ public class TafelServer {
 		return true;
 	}
 	
-	public synchronized boolean modifyPublicMessage(int messageID, String inhalt, int group) throws TafelException {
-		if ( !groupMap.containsKey(group) ) {
-			throw new TafelException("TafelServer ist nicht in gegebener Gruppe=" + group + "!");
-		}
-		anzeigetafel.modifyPublicMessage(messageID, group, inhalt);
+	public synchronized boolean modifyPublicMessage(int messageID, String inhalt) throws TafelException {
+		anzeigetafel.modifyPublicMessage(messageID, inhalt);
 
 		anzeigetafel.saveStateToFile();
 		return true;

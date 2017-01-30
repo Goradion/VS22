@@ -444,16 +444,13 @@ public class Anzeigetafel extends Observable implements Serializable {
 		updateState();
 	}
 
-	public synchronized void modifyPublicMessage(int messageID, int group, String inhalt) throws TafelException {
+	public synchronized void modifyPublicMessage(int messageID, String inhalt) throws TafelException {
 
 		if (messages.containsKey(messageID)) {
 			Message curMessage = messages.get(messageID);
 			if (curMessage.getAbtNr() == abteilungsID) {
 				throw new TafelException("Keine externe Nachricht!");
 			}
-			if (!curMessage.getGruppen().contains(group)) {
-                throw new TafelException("Nachricht ist nicht in Gruppe " + group + "!");
-            }
 			Message msg = new Message(inhalt, curMessage.getUserID(), curMessage.getAbtNr(), curMessage.isOeffentlich(),
 					curMessage.getMessageID());
 			messages.replace(messageID, msg);
