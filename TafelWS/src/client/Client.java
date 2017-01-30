@@ -219,7 +219,7 @@ public class Client {
 		int userid = clientGui.getUserid();
 		Message selectedMessage = clientGui.getSelectedMessage();
 		if (selectedMessage == null) {
-			JOptionPane.showMessageDialog(clientGui, "Es gibt keine nachricht mit der gewälten ID!");
+			JOptionPane.showMessageDialog(clientGui, "Kein Zugriff auf die Nachricht mit der gewälten ID!");
 			return;
 		}
 		String oeffentlichString = selectedMessage.isOeffentlich() ? "oeffentliche" : "lokale";
@@ -228,28 +228,30 @@ public class Client {
 		int confirmed = JOptionPane.showConfirmDialog(clientGui, confirmMessage, "", JOptionPane.YES_NO_OPTION);
 
 		if (confirmed == JOptionPane.YES_OPTION) {
-			
-			port.deleteMessage(selectedMessage.getMessageID(), userid);
-			
-			if (clientGui.pruefeGruppe1()){
-				port.deletePublic(selectedMessage.getMessageID(), userid, 1);
-				//resetMenu();
-			}
-			if (clientGui.pruefeGruppe2()){
-				port.deletePublic(selectedMessage.getMessageID(), userid, 2);
-			//	resetMenu();
-			}if (clientGui.pruefeGruppe3()){
-				port.deletePublic(selectedMessage.getMessageID(), userid, 3);
-			//	resetMenu();
-			}if (clientGui.pruefeGruppe4()){
-				port.deletePublic(selectedMessage.getMessageID(), userid, 4);
-			//	resetMenu();
+			if (selectedMessage.isOeffentlich()){
+				deletePublicMessage(selectedMessage.getMessageID());				
+			} else {
+				port.deleteMessage(selectedMessage.getMessageID(), userid);
 			}
 			resetMenu();
 		}
 
 	}
 
+	private static void deletePublicMessage(int msgID){
+		if (clientGui.pruefeGruppe1()){
+			port.deletePublic(msgID, clientGui.getUserid(), 1);
+		}
+		if (clientGui.pruefeGruppe2()){
+			port.deletePublic(msgID, clientGui.getUserid(), 2);
+		}
+		if (clientGui.pruefeGruppe3()){
+			port.deletePublic(msgID, clientGui.getUserid(), 3);
+		}
+		if (clientGui.pruefeGruppe4()){
+			port.deletePublic(msgID, clientGui.getUserid(), 4);
+		}
+	}
 	private static void editMessage(ActionEvent evt) {
 		Message selectedMessage = clientGui.getSelectedMessage();
 		if (selectedMessage == null) {
@@ -263,6 +265,21 @@ public class Client {
 				submitChangedMessage(evt);
 			}
 		}));
+	}
+	
+	private static void modifyPublicMessage(int msgID, String newInhalt){
+		if (clientGui.pruefeGruppe1()){
+			port.modifyPublic(msgID, clientGui.getUserid(), 1, newInhalt);
+		}
+		if (clientGui.pruefeGruppe2()){
+			port.modifyPublic(msgID, clientGui.getUserid(), 2, newInhalt);
+		}
+		if (clientGui.pruefeGruppe3()){
+			port.modifyPublic(msgID, clientGui.getUserid(), 3, newInhalt);
+		}
+		if (clientGui.pruefeGruppe4()){
+			port.modifyPublic(msgID, clientGui.getUserid(), 4, newInhalt);
+		}
 	}
 
 	private static void publishMessage(ActionEvent evt) {
@@ -295,7 +312,11 @@ public class Client {
 		Message myMsg = clientGui.getSelectedMessage();
 
 		// TODO WRAP
-		port.modifyMessage(myMsg.getMessageID(), newInhalt, clientGui.getUserid());
+		if (myMsg.isOeffentlich()){
+			modifyPublicMessage(myMsg.getMessageID(), newInhalt);
+		} else {
+			port.modifyMessage(myMsg.getMessageID(), newInhalt, clientGui.getUserid());
+		}
 		resetMenu();
 	}
 
