@@ -112,11 +112,11 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 	}
 
 	@Override
-	public String modifyPublicMessage(int msgID, int group, String inhalt) {
+	public String modifyPublicMessage(int msgID, String inhalt) {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				tafelServer.modifyPublicMessage(msgID, inhalt, group);
+				tafelServer.modifyPublicMessage(msgID, inhalt);
 				answer =  "Done";
 			} catch (TafelException e) {
 				answer = e.getMessage();

@@ -39,7 +39,7 @@ public interface TafelWebService{
 	public String deletePublic(int msgID , int user, int group);
 	
 	@WebMethod
-	public String modifyPublic(int msgID, int user, int group, String inhalt);
+	public String modifyPublic(int msgID, int user, String inhalt);
 	
 	@WebMethod
 	public String[] startTafelServer(int userID, int abtNr);

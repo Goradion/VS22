@@ -26,6 +26,6 @@ public interface ServerComWebservice {
 	public String deletePublicMessage(int msgID , int group);
 	
 	@WebMethod
-	public String modifyPublicMessage(int msgID, int group, String inhalt);
+	public String modifyPublicMessage(int msgID, String inhalt);
 
 }
