@@ -89,7 +89,7 @@ public class ClientWrapper {
 		} catch (WebServiceException wse) {
 			connected = false;
 		}
-		return port.modifyMessage(messageID, inhalt, user);
+		return port.modifyMessage(messageID, user, inhalt);
 	}
 
 	public String publishMessage(int messageID, int user, int group) {
@@ -119,7 +119,7 @@ public class ClientWrapper {
 		} catch (WebServiceException wse) {
 			connected = false;
 		}
-		return port.modifyPublic(msgID, user, group, inhalt);
+		return port.modifyPublic(msgID, user, inhalt);
 	}
 
 	public List<Integer> getGroupIds() {
