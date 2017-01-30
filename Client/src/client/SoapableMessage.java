@@ -1,4 +1,4 @@
-package verteilteAnzeigetafel;
+package client;
 
 import java.util.Date;
 import java.util.HashSet;

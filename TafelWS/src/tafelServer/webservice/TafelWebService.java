@@ -7,7 +7,6 @@ import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 
-import verteilteAnzeigetafel.Message;
 import verteilteAnzeigetafel.SoapableMessage;
 
 @WebService

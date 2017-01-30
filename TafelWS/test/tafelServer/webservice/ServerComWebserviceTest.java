@@ -1,6 +1,9 @@
 package tafelServer.webservice;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Date;
@@ -13,13 +16,11 @@ import javax.xml.ws.Endpoint;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import serverCom.gen.SoapableMessage;
 import serverCom.gen.ServerComWebserviceImplService;
+import serverCom.gen.SoapableMessage;
 import tafelServer.TafelServer;
-import tafelServer.webservice.ServerComWebserviceImpl;
 
 
 public class ServerComWebserviceTest {
