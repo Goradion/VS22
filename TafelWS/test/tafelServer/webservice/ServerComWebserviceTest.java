@@ -81,7 +81,7 @@ public class ServerComWebserviceTest {
         
         // receive message not included group
         abtNr = 2;
-        group = 3;
+        group = 4;
         assertEquals("Group should be wrong:", "TafelServer ist nicht in gegebener Gruppe=" + group + "!", port.receiveMessage(messageID, userID, abtNr, inhalt, time, group));
     }
 
@@ -168,7 +168,7 @@ public class ServerComWebserviceTest {
         // delete Tafel not in group
         messageID = 33;
         assertEquals("Done", port.receiveMessage(messageID, userID, abtNr, inhalt, time, group));
-        group = 3;
+        group = 4;
         assertEquals("TafelServer ist nicht in gegebener Gruppe=" + group + "!", port.deletePublicMessage(messageID, group));
         
         // delete Tafel is in group but wrong group for message
@@ -189,7 +189,7 @@ public class ServerComWebserviceTest {
         group = 1;
         assertEquals("Done", port.receiveMessage(messageID, userID, abtNr, inhalt, time, group));
         messageID = 33333;
-        group = 3;
+        group = 4;
         assertEquals("TafelServer ist nicht in gegebener Gruppe=" + group + "!", port.deletePublicMessage(messageID, group));
         
         // delete wrong group & messageID
@@ -197,7 +197,7 @@ public class ServerComWebserviceTest {
         group = 1;
         assertEquals("Done", port.receiveMessage(messageID, userID, abtNr, inhalt, time, group));
         messageID = 333333;
-        group = 3;
+        group = 4;
         assertEquals("TafelServer ist nicht in gegebener Gruppe=" + group + "!", port.deletePublicMessage(messageID, group));
         
         // invoke, deleting internal message over extern server ws
@@ -215,43 +215,14 @@ public class ServerComWebserviceTest {
         
         // modifiy normal
         assertEquals("Done", port.receiveMessage(messageID, userID, abtNr, inhalt, time, group));
-        assertEquals("Done", port.modifyPublicMessage(messageID, group, "Neu"));
-        
-        // modifiy Tafel not in group
-        messageID = 44;
-        assertEquals("Done", port.receiveMessage(messageID, userID, abtNr, inhalt, time, group));
-        group = 3;
-        assertEquals("TafelServer ist nicht in gegebener Gruppe=" + group + "!", port.modifyPublicMessage(messageID, group, "Neu"));
-        
-        // modifiy Tafel is in group but wrong group for message
-        group = 1;
-        messageID = 444;
-        assertEquals("Done", port.receiveMessage(messageID, userID, abtNr, inhalt, time, group));
-        group = 2;
-        assertEquals("Nachricht ist nicht in Gruppe " + group + "!", port.modifyPublicMessage(messageID, group, "Neu"));
-        
+        assertEquals("Done", port.modifyPublicMessage(messageID, "Neu"));
+
         // modifiy wrong messageID
         messageID = 444;
         assertEquals("Done", port.receiveMessage(messageID, userID, abtNr, inhalt, time, group));
         messageID = 4444;
-        assertEquals("Keine Message mit ID " + messageID + " gefunden!", port.modifyPublicMessage(messageID, group, "Neu"));
-        
-        // modifiy wrong group
-        messageID = 4444;
-        group = 1;
-        assertEquals("Done", port.receiveMessage(messageID, userID, abtNr, inhalt, time, group));
-        messageID = 44444;
-        group = 3;
-        assertEquals("TafelServer ist nicht in gegebener Gruppe=" + group + "!", port.modifyPublicMessage(messageID, group, "Neu"));
-        
-        // modifiy wrong group & messageID
-        messageID = 44444;
-        group = 1;
-        assertEquals("Done", port.receiveMessage(messageID, userID, abtNr, inhalt, time, group));
-        messageID = 444444;
-        group = 3;
-        assertEquals("TafelServer ist nicht in gegebener Gruppe=" + group + "!", port.modifyPublicMessage(messageID, group, "Neu"));
-        
+        assertEquals("Keine Message mit ID " + messageID + " gefunden!", port.modifyPublicMessage(messageID, "Neu"));
+
         // invoke, modifiing internal message over extern server ws
     }
 
