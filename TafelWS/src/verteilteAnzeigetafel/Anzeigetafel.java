@@ -453,7 +453,7 @@ public class Anzeigetafel extends Observable implements Serializable {
 				throw new TafelException("Keine externe Nachricht!");
 			}
 			Message msg = new Message(inhalt, curMessage.getUserID(), curMessage.getAbtNr(), curMessage.isOeffentlich(),
-					curMessage.getMessageID());
+					curMessage.getMessageID(), curMessage.getGruppen());
 			messages.replace(messageID, msg);
 		} else {
 			throw new TafelException("Keine Message mit ID " + messageID + " gefunden!");
