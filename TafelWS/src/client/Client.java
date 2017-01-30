@@ -218,7 +218,23 @@ public class Client {
 		int confirmed = JOptionPane.showConfirmDialog(clientGui, confirmMessage, "", JOptionPane.YES_NO_OPTION);
 
 		if (confirmed == JOptionPane.YES_OPTION) {
+			
 			port.deleteMessage(selectedMessage.getMessageID(), userid);
+			
+			if (clientGui.pruefeGruppe1()){
+				port.deletePublic(selectedMessage.getMessageID(), userid, 1);
+				//resetMenu();
+			}
+			if (clientGui.pruefeGruppe2()){
+				port.deletePublic(selectedMessage.getMessageID(), userid, 2);
+			//	resetMenu();
+			}if (clientGui.pruefeGruppe3()){
+				port.deletePublic(selectedMessage.getMessageID(), userid, 3);
+			//	resetMenu();
+			}if (clientGui.pruefeGruppe4()){
+				port.deletePublic(selectedMessage.getMessageID(), userid, 4);
+			//	resetMenu();
+			}
 			resetMenu();
 		}
 
@@ -246,7 +262,7 @@ public class Client {
 			return;
 		}
 
-		int gruppe = 0; // TODO gruppe auswaehlen
+		
 		// TODO WRAP und ordentlich machen
 		if (clientGui.pruefeGruppe1()){
 			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), 1);
