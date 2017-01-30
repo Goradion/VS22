@@ -126,12 +126,11 @@ public class Client {
 		int abteilung = 0;
 		userID = clientGui.getUserid();
 		message = clientGui.getNewMessage();
-		abteilung = clientGui.getAbteilung();
 
 		// TODO ordentlich checken
-		if ((userID > 0) && message != "" && abteilung != 0) {
+		if ((userID > 0) && message != "") {
 			// TODO WRAP
-			port.createMessage(message, userID, abteilung);
+			port.createMessage(message, userID);
 			clientGui.setNewMessageState("Nachricht versendet!");
 			clientGui.repaint();
 		} else {

@@ -138,18 +138,17 @@ public class Anzeigetafel extends Observable implements Serializable {
 	 * 
 	 * @param inhalt
 	 * @param user
-	 * @param abtNr
 	 * @param oeffentlich
 	 * @return id of the created message
 	 * @throws TafelException
 	 */
-	public synchronized int createMessage(String inhalt, int user, int abtNr, boolean oeffentlich)
+	public synchronized int createMessage(String inhalt, int user, boolean oeffentlich)
 			throws TafelException {
 		if (!userIDs.contains(user)) {
 			throw new TafelException("Keine Berechtigung zum Erstellen!");
 		}
 		int msgID = Integer.parseInt(getNewMsgID(user));
-		Message nMsg = new Message(inhalt, user, abtNr, oeffentlich, msgID);
+		Message nMsg = new Message(inhalt, user, abteilungsID, oeffentlich, msgID);
 		messages.put(nMsg.getMessageID(), nMsg);
 		/* noch kein user da */
 		if (!userMsgs.containsKey(user)) {

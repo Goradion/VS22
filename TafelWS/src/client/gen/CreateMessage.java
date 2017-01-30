@@ -18,7 +18,6 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="arg1" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="arg2" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -30,14 +29,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "createMessage", propOrder = {
     "arg0",
-    "arg1",
-    "arg2"
+    "arg1"
 })
 public class CreateMessage {
 
     protected String arg0;
     protected int arg1;
-    protected int arg2;
 
     /**
      * Ruft den Wert der arg0-Eigenschaft ab.
@@ -77,22 +74,6 @@ public class CreateMessage {
      */
     public void setArg1(int value) {
         this.arg1 = value;
-    }
-
-    /**
-     * Ruft den Wert der arg2-Eigenschaft ab.
-     * 
-     */
-    public int getArg2() {
-        return arg2;
-    }
-
-    /**
-     * Legt den Wert der arg2-Eigenschaft fest.
-     * 
-     */
-    public void setArg2(int value) {
-        this.arg2 = value;
     }
 
 }

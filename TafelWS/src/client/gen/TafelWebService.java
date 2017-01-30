@@ -27,7 +27,6 @@ public interface TafelWebService {
 
     /**
      * 
-     * @param arg2
      * @param arg1
      * @param arg0
      * @return
@@ -42,9 +41,7 @@ public interface TafelWebService {
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0,
         @WebParam(name = "arg1", targetNamespace = "")
-        int arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        int arg2);
+        int arg1);
 
     /**
      * 
@@ -180,6 +177,21 @@ public interface TafelWebService {
 
     /**
      * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<client.gen.SoapableMessage>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "showMessages", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ShowMessages")
+    @ResponseWrapper(localName = "showMessagesResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ShowMessagesResponse")
+    @Action(input = "http://webservice.tafelServer/TafelWebService/showMessagesRequest", output = "http://webservice.tafelServer/TafelWebService/showMessagesResponse")
+    public List<SoapableMessage> showMessages(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0);
+
+    /**
+     * 
      * @param arg1
      * @param arg0
      * @return
@@ -208,21 +220,6 @@ public interface TafelWebService {
     @ResponseWrapper(localName = "stopTafelServerResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.StopTafelServerResponse")
     @Action(input = "http://webservice.tafelServer/TafelWebService/stopTafelServerRequest", output = "http://webservice.tafelServer/TafelWebService/stopTafelServerResponse")
     public List<String> stopTafelServer(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.util.List<client.gen.SoapableMessage>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "showMessages", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ShowMessages")
-    @ResponseWrapper(localName = "showMessagesResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.ShowMessagesResponse")
-    @Action(input = "http://webservice.tafelServer/TafelWebService/showMessagesRequest", output = "http://webservice.tafelServer/TafelWebService/showMessagesResponse")
-    public List<SoapableMessage> showMessages(
         @WebParam(name = "arg0", targetNamespace = "")
         int arg0);
 
