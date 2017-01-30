@@ -24,11 +24,12 @@ public class TafelWebServiceImpl implements TafelWebService {
 		tafelServer = TafelServer.getServer();
 	}
 
-	public String createMessage(String inhalt, int user, int abtNr) {
+	@Override
+	public String createMessage(String inhalt, int user) {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				answer = tafelServer.createMessage(inhalt, user, abtNr);
+				answer = tafelServer.createMessage(inhalt, user);
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			}
@@ -37,6 +38,7 @@ public class TafelWebServiceImpl implements TafelWebService {
 		return null;
 	}
 
+	@Override
 	public String deleteMessage(int messageID, int user) {
 		if (tafelServer != null) {
 			String answer = "";
@@ -50,6 +52,7 @@ public class TafelWebServiceImpl implements TafelWebService {
 		return null;
 	}
 
+	@Override
 	public String modifyMessage(int messageID, String inhalt, int user) {
 		if (tafelServer != null) {
 			String answer = "";
@@ -63,6 +66,7 @@ public class TafelWebServiceImpl implements TafelWebService {
 		return null;
 	}
 
+	@Override
 	public String publishMessage(int messageID, int user, int group) {
 		if (tafelServer != null) {
 			String answer = "";
@@ -135,6 +139,7 @@ public class TafelWebServiceImpl implements TafelWebService {
 		return null;
 	}
 
+	@Override
 	public String[] startTafelServer(int userID, int abtNr) {
 		String reply[] = new String[1];
 
@@ -152,6 +157,7 @@ public class TafelWebServiceImpl implements TafelWebService {
 		return reply;
 	}
 
+	@Override
 	public String[] stopTafelServer(int userID) {
 		String reply[] = new String[1];
 
@@ -169,6 +175,16 @@ public class TafelWebServiceImpl implements TafelWebService {
 		Set<Integer> groupIds = tafelServer.getGroupIds();
 		Integer[] gidArray = new Integer[groupIds.size()];
 		return groupIds.toArray(gidArray);
+	}
+	
+	@Override
+	public Integer[] getGroupMembers(int group) {
+		Set<Integer> groupMembers = tafelServer.getGroupMembers(group);
+		if (groupMembers == null) {
+			return null;
+		}
+		
+		return groupMembers.toArray(new Integer[groupMembers.size()]);
 	}
 
 }

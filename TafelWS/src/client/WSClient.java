@@ -46,7 +46,7 @@ public class WSClient {
 //		System.out.println(port.stopTafelServer(1).get(0));
 		System.out.println(port.startTafelServer(1, 1).get(0));
 		for (int i = 0; i < 10; i++){
-		    System.out.println(port.createMessage("message "+i, 1, 1));
+		    System.out.println(port.createMessage("message "+i, 1));
 		}
 		
 		System.out.println(port.publishMessage(112, 1, 1));

@@ -24,7 +24,7 @@ public class LoggedInGUI extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         menueBox = new javax.swing.JComboBox<>();
 
-        jLabel1.setText("Menü");
+        jLabel1.setText("MenÃ¼");
 
         menueBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -56,7 +56,7 @@ public class LoggedInGUI extends javax.swing.JPanel {
     	menueBox.addItemListener(listener);
     }
     public void setMenue(String[] menue){
-    	//TODO Menue auf ändere Nachricht setzen / wenn nachricht versendet dann auf alle nachrichten  anzeigen setzen
+    	//TODO Menue auf Ã¤ndere Nachricht setzen / wenn nachricht versendet dann auf alle nachrichten  anzeigen setzen
     	menueBox.setModel(new javax.swing.DefaultComboBoxModel<>(menue)); 
     }
     

@@ -430,11 +430,8 @@ public class TafelServer {
 	}
 	
 
-	public synchronized String createMessage(String inhalt, int user, int abtNr) throws TafelException {
-	    if (abteilungsID != abtNr) {
-	        throw new TafelException("Abteilung " + abtNr + " ist hier nicht berechtigt!");
-	    }
-		int msgID = anzeigetafel.createMessage(inhalt, user, abtNr, false);
+	public synchronized String createMessage(String inhalt, int user) throws TafelException {
+		int msgID = anzeigetafel.createMessage(inhalt, user, false);
 		
 		anzeigetafel.saveStateToFile();
 		return "Nachricht mit ID=" + msgID + " erstellt!";
@@ -572,13 +569,17 @@ public class TafelServer {
 		return true;
 	}
 	
-	public void setShutdownOnClose(WindowListener wl){
+	public void setShutdownOnClose(WindowListener wl) {
 		JFrame guiWindow = gui.getWindow();
 		guiWindow.addWindowListener(wl);
 	}
 	
-	public  Set<Integer> getGroupIds(){
+	public Set<Integer> getGroupIds() {
 		return groupMap.keySet();
+	}
+	
+	public Set<Integer> getGroupMembers(int group) {
+		return groupMap.get(group);
 	}
 	
 }

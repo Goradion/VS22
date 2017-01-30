@@ -15,7 +15,7 @@ import verteilteAnzeigetafel.SoapableMessage;
 public interface TafelWebService{
 	
 	@WebMethod
-	public String createMessage(String inhalt, int user, int abtNr);
+	public String createMessage(String inhalt, int user);
 	
 	@WebMethod
 	public String deleteMessage(int messageID, int user);
@@ -28,6 +28,9 @@ public interface TafelWebService{
 	
 	@WebMethod
 	public Integer[] getGroupIds();
+	
+	@WebMethod
+	public Integer[] getGroupMembers(int group);
 	
 	@WebMethod
 	public String publishMessage(int messageID, int user, int group);

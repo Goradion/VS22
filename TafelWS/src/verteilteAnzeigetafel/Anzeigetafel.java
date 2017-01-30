@@ -110,15 +110,21 @@ public class Anzeigetafel extends Observable implements Serializable {
 	 * @throws TafelException
 	 */
 	public synchronized void deleteMessage(int messageID, int user) throws TafelException {
-
 		if (messages.containsKey(messageID)) {
-			if (messages.get(messageID).getAbtNr() != abteilungsID) {
+			Message currentMessage = messages.get(messageID);
+			if (currentMessage.getAbtNr() != abteilungsID) {
 				throw new TafelException("Keine Berechtigung für diese Nachricht!");
 			}
+			
+			if (currentMessage.isOeffentlich()) {
+				throw new TafelException("Nachricht " + messageID + " ist oeffentlich!");
+			}
+			
 			if (user == messages.get(messageID).getUserID() || isCoordinator(user)) {
 				userMsgs.get(messages.get(messageID).getUserID()).remove(new Integer(messageID));
 				messages.remove(messageID, messages.get(messageID));
-			} else {
+			}
+			 else {
 				throw new TafelException("User " + user + " nicht berechtigt zum Loeschen");
 			}
 		} else {
@@ -133,18 +139,17 @@ public class Anzeigetafel extends Observable implements Serializable {
 	 * 
 	 * @param inhalt
 	 * @param user
-	 * @param abtNr
 	 * @param oeffentlich
 	 * @return id of the created message
 	 * @throws TafelException
 	 */
-	public synchronized int createMessage(String inhalt, int user, int abtNr, boolean oeffentlich)
+	public synchronized int createMessage(String inhalt, int user, boolean oeffentlich)
 			throws TafelException {
 		if (!userIDs.contains(user)) {
 			throw new TafelException("Keine Berechtigung zum Erstellen!");
 		}
 		int msgID = Integer.parseInt(getNewMsgID(user));
-		Message nMsg = new Message(inhalt, user, abtNr, oeffentlich, msgID);
+		Message nMsg = new Message(inhalt, user, abteilungsID, oeffentlich, msgID);
 		messages.put(nMsg.getMessageID(), nMsg);
 		/* noch kein user da */
 		if (!userMsgs.containsKey(user)) {

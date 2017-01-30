@@ -27,7 +27,6 @@ public interface TafelWebService {
 
     /**
      * 
-     * @param arg2
      * @param arg1
      * @param arg0
      * @return
@@ -42,9 +41,7 @@ public interface TafelWebService {
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0,
         @WebParam(name = "arg1", targetNamespace = "")
-        int arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        int arg2);
+        int arg1);
 
     /**
      * 
@@ -162,6 +159,21 @@ public interface TafelWebService {
     @ResponseWrapper(localName = "getGroupIdsResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.GetGroupIdsResponse")
     @Action(input = "http://webservice.tafelServer/TafelWebService/getGroupIdsRequest", output = "http://webservice.tafelServer/TafelWebService/getGroupIdsResponse")
     public List<Integer> getGroupIds();
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<java.lang.Integer>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getGroupMembers", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.GetGroupMembers")
+    @ResponseWrapper(localName = "getGroupMembersResponse", targetNamespace = "http://webservice.tafelServer/", className = "client.gen.GetGroupMembersResponse")
+    @Action(input = "http://webservice.tafelServer/TafelWebService/getGroupMembersRequest", output = "http://webservice.tafelServer/TafelWebService/getGroupMembersResponse")
+    public List<Integer> getGroupMembers(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0);
 
     /**
      * 

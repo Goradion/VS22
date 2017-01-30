@@ -59,13 +59,13 @@ public class ClientWrapper {
 		}
 	}
 
-	public String createMessage(String inhalt, int user, int abtNr) {
+	public String createMessage(String inhalt, int user) {
 		// TODO Auto-generated method stub
 		if (!connected){
 			reconnect();
 		}
 		try {
-			return port.createMessage(inhalt, user, abtNr);
+			return port.createMessage(inhalt, user);
 		} catch (WebServiceException wse) {
 			connected = false;
 		}
