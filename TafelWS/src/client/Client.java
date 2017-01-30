@@ -126,12 +126,11 @@ public class Client {
 		int abteilung = 0;
 		userID = clientGui.getUserid();
 		message = clientGui.getNewMessage();
-		abteilung = clientGui.getAbteilung();
 
 		// TODO ordentlich checken
-		if ((userID > 0) && message != "" && abteilung != 0) {
+		if ((userID > 0) && message != "") {
 			// TODO WRAP
-			port.createMessage(message, userID, abteilung);
+			port.createMessage(message, userID);
 			clientGui.setNewMessageState("Nachricht versendet!");
 			clientGui.repaint();
 		} else {
@@ -234,7 +233,6 @@ public class Client {
 			} else {
 				port.deleteMessage(selectedMessage.getMessageID(), userid);
 			}
-			
 			resetMenu();
 		}
 
@@ -291,7 +289,7 @@ public class Client {
 			return;
 		}
 
-		int gruppe = 0; // TODO gruppe auswaehlen
+		
 		// TODO WRAP und ordentlich machen
 		if (clientGui.pruefeGruppe1()){
 			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), 1);

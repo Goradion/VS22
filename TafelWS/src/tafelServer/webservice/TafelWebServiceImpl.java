@@ -25,11 +25,11 @@ public class TafelWebServiceImpl implements TafelWebService {
 	}
 
 	@Override
-	public String createMessage(String inhalt, int user, int abtNr) {
+	public String createMessage(String inhalt, int user) {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				answer = tafelServer.createMessage(inhalt, user, abtNr);
+				answer = tafelServer.createMessage(inhalt, user);
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			}
