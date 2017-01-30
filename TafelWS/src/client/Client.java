@@ -249,19 +249,15 @@ public class Client {
 		int gruppe = 0; // TODO gruppe auswaehlen
 		// TODO WRAP und ordentlich machen
 		if (clientGui.pruefeGruppe1()){
-			System.out.println("publish 1");
 			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), 1);
 		}
 		if (clientGui.pruefeGruppe2()){
-			System.out.println("publish 2");
 			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), 2);
 		}
 		if (clientGui.pruefeGruppe3()){
-			System.out.println("publish 3");
 			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), 3);
 		}
 		if (clientGui.pruefeGruppe4()){
-			System.out.println("publish 4");
 			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), 4);
 		}
 		
