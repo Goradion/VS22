@@ -561,7 +561,7 @@ public class TafelServer {
 		if ( !groupMap.containsKey(group) ) {
 			throw new TafelException("TafelServer ist nicht in gegebener Gruppe=" + group + "!");
 		}
-		anzeigetafel.modifyPublicMessage(messageID, inhalt);
+		anzeigetafel.modifyPublicMessage(messageID, group, inhalt);
 
 		anzeigetafel.saveStateToFile();
 		return true;
