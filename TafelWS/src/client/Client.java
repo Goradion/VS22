@@ -252,6 +252,10 @@ public class Client {
 		if (clientGui.pruefeGruppe4()) {
 			print(port.deletePublic(msgID, clientGui.getUserid(), groupArray[3]));
 		}
+		if (!clientGui.pruefeGruppe1() && !clientGui.pruefeGruppe2() && !clientGui.pruefeGruppe3()
+				&& !clientGui.pruefeGruppe4()) {
+			JOptionPane.showMessageDialog(clientGui, "Nachricht ist oeffentlich. Es muss mindestens eine Gruppe ausgewaehlt sein!");
+		}
 	}
 
 	private static void editMessage(ActionEvent evt) {
