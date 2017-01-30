@@ -111,6 +111,10 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
         gruppe2.setText("Gruppe2");
         gruppe3.setText("Gruppe3");
         gruppe4.setText("Gruppe4");
+        gruppe1.setVisible(false);
+        gruppe2.setVisible(false);
+        gruppe3.setVisible(false);
+        gruppe4.setVisible(false);
    
   
         // ButtonGruppe
