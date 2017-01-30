@@ -19,6 +19,7 @@ import org.junit.Test;
 import serverCom.gen.SoapableMessage;
 import serverCom.gen.ServerComWebserviceImplService;
 import tafelServer.TafelServer;
+import tafelServer.webservice.ServerComWebserviceImpl;
 
 
 public class ServerComWebserviceTest {
