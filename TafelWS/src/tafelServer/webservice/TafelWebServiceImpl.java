@@ -53,7 +53,7 @@ public class TafelWebServiceImpl implements TafelWebService {
 	}
 
 	@Override
-	public String modifyMessage(int messageID, String inhalt, int user) {
+	public String modifyMessage(int messageID, int user, String inhalt) {
 		if (tafelServer != null) {
 			String answer = "";
 			try {

@@ -266,10 +266,6 @@ public class Client {
 			}
 		}));
 	}
-	
-	private static void modifyPublicMessage(int msgID, String newInhalt){
-		port.modifyPublic(msgID, clientGui.getUserid(), newInhalt);
-	}
 
 	private static void publishMessage(ActionEvent evt) {
 		Message selectedMessage = clientGui.getSelectedMessage();
@@ -304,7 +300,7 @@ public class Client {
 		if (myMsg.isOeffentlich()) {
 			port.modifyPublic(myMsg.getMessageID(), clientGui.getUserid(), newInhalt);
 		} else {
-			port.modifyMessage(myMsg.getMessageID(), newInhalt, clientGui.getUserid());
+			port.modifyMessage(myMsg.getMessageID(), clientGui.getUserid(), newInhalt);
 		}
 		resetMenu();
 	}

@@ -21,7 +21,7 @@ public interface TafelWebService{
 	public String deleteMessage(int messageID, int user);
 	
 	@WebMethod
-	public String modifyMessage(int messageID, String inhalt, int user);
+	public String modifyMessage(int messageID, int user, String inhalt);
 	
 	@WebMethod
 	public SoapableMessage[] showMessages(int user);

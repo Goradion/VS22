@@ -47,7 +47,7 @@ public class Client {
 		System.out.println(formatTime.parse(time));
 		
 		ServerComWebservice port = new ServerComWebserviceImplService(new URL("http://localhost:8080/TafelWS/serverws")).getServerComWebserviceImplPort();
-		System.out.println(port.modifyPublicMessage(1,1,""));
+		System.out.println(port.modifyPublicMessage(1,""));
 //		ConnectionMonitor monitor1 = new ConnectionMonitor();
 //		ConnectionMonitor monitor2 = new ConnectionMonitor();
 //		OutboxThread outboxThread1 = new OutboxThread(1, new URL("http://localhost:8080"), null, null);
