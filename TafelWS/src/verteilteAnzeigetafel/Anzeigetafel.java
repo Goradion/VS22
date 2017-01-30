@@ -116,10 +116,8 @@ public class Anzeigetafel extends Observable implements Serializable {
 				throw new TafelException("Keine Berechtigung für diese Nachricht!");
 			}
 			if (user == messages.get(messageID).getUserID() || isCoordinator(user)) {
-				messages.remove(messageID);
-				userMsgs.get(user).remove(new Integer(messageID));
-				// userMsgs.get(user).
-				// userMsgs.get(user).remove(messageID);
+				userMsgs.get(messages.get(messageID).getUserID()).remove(new Integer(messageID));
+				messages.remove(messageID, messages.get(messageID));
 			} else {
 				throw new TafelException("User " + user + " nicht berechtigt zum Loeschen");
 			}
@@ -264,8 +262,9 @@ public class Anzeigetafel extends Observable implements Serializable {
 		LinkedList<Integer> umsgIDs = userMsgs.get(userID);
 		LinkedList<Message> uMsgs = new LinkedList<Message>();
 		for (Integer element : umsgIDs) {
-			uMsgs.add(messages.get(element));
+			uMsgs.add(messages.get(element)); 
 		}
+		System.out.println(uMsgs.toString());
 		return uMsgs;
 	}
 
