@@ -17,8 +17,8 @@ import verteilteAnzeigetafel.Message;
  * @author Micha
  */
 
-//TODO Checkboxen für publish mit integrieren
-//bzw ausblenden, von aussen also Funktion nötig dafür
+//TODO Checkboxen fï¿½r publish mit integrieren
+//bzw ausblenden, von aussen also Funktion nï¿½tig dafï¿½r
 
 public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 
@@ -308,7 +308,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 		
 	}
 
-//testfunktion für den send query button
+//testfunktion fï¿½r den send query button
 
 /** 
  * MesssageTextFeld funktionen
@@ -374,7 +374,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
 	}
 
 	/**
-	 * Funktionen für den senden Button
+	 * Funktionen fï¿½r den senden Button
 	 */
 
     public void SendButtonAddActionListener(java.awt.event.ActionListener listener){
@@ -388,7 +388,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     }
 
     /**
-     * Furnktion für den 
+     * Furnktion fï¿½r den 
      * @return
      */
     public QueryCommand getSelection(){
@@ -404,7 +404,7 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
     	
     }
     /**
-     * Funktion für ein und  ausblenden von dem Publishbutton + Gruppencheckboxen  falls nur normaler user
+     * Funktion fï¿½r ein und  ausblenden von dem Publishbutton + Gruppencheckboxen  falls nur normaler user
      * @param enable
      */
     public void setPublish(boolean enable){
@@ -421,40 +421,19 @@ public class ShowAllMessagesGUI extends JPanel implements ActionListener{
   
     public boolean pruefegruppe1()
     {
-        if(gruppe1.isEnabled()){	
-        	return true;
-        	}
-        else{
-        	return false;
-        }  
+    	return gruppe1.isSelected();
     }
     public boolean pruefegruppe2()
     {
-        if(gruppe2.isEnabled()){	
-        	return true;
-        	}
-        else{
-        	return false;
-        }  
+    	return gruppe2.isSelected();
     }
     public boolean pruefegruppe3()
     {
-        if(gruppe3.isEnabled()){
-        	return true;
-        	}
-        else{
-        	return false;
-        }  
+    	return gruppe3.isSelected(); 
     }
     public boolean pruefegruppe4()
     {
-        if(gruppe4.isEnabled()){
-        	
-        	return true;
-        	}
-        else{
-        	return false;
-        }  
+    	return gruppe4.isSelected(); 
     }
 
 	

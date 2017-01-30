@@ -39,11 +39,18 @@ public class Client {
 	private static String[] menue;
 	private static Map<Integer, Message> msgs;
 	private static TafelWebService port;
+	private static URL wsdlURL;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws MalformedURLException {
+		if (args.length >= 1) {
+			wsdlURL = new URL(args[0]);
+		} else {
+			wsdlURL = new URL("http://localhost:8080/TafelWS/tafelws?wsdl");
+		}
+		
 		Integer[] abteilungen = new Integer[] { 1, 2, 3 };
 		msgs = new HashMap<Integer, Message>();
-
+		
 		clientGui = new ClientGui("Tafel-Client", abteilungen);
 		menue = new String[] { "Zeige alle Nachrichten", "Neue Nachricht" };
 		clientGui.actionLogin(new java.awt.event.ActionListener() {
@@ -69,12 +76,13 @@ public class Client {
 			});
 			clientGui.addActionSendQuery(new java.awt.event.ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
-						sendQueryActionPerformed(evt);
+					sendQueryActionPerformed(evt);
 				}
 			});
 			clientGui.setConectivity(false);
-			port = new TafelWebServiceImplService().getTafelWebServiceImplPort();
+			port = new TafelWebServiceImplService(wsdlURL).getTafelWebServiceImplPort();
 			clientGui.setConectivity(true);
+			
 			resetMenu();
 		}
 	}
@@ -90,7 +98,7 @@ public class Client {
 			clientGui.setPublish(clientGui.getUserid() == 1);
 			clientGui.actionSendNewMessage(new java.awt.event.ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
-						sendNewMessage(evt);
+					sendNewMessage(evt);
 				}
 			});
 			break;
@@ -201,7 +209,7 @@ public class Client {
 		int userid = clientGui.getUserid();
 		Message selectedMessage = clientGui.getSelectedMessage();
 		if (selectedMessage == null) {
-			JOptionPane.showMessageDialog(clientGui, "Es gibt keine nachricht mit der gewählten ID!");
+			JOptionPane.showMessageDialog(clientGui, "Es gibt keine nachricht mit der gewï¿½hlten ID!");
 			return;
 		}
 		String oeffentlichString = selectedMessage.isOeffentlich() ? "oeffentliche" : "lokale";
@@ -219,7 +227,7 @@ public class Client {
 	private static void editMessage(ActionEvent evt) {
 		Message selectedMessage = clientGui.getSelectedMessage();
 		if (selectedMessage == null) {
-			JOptionPane.showMessageDialog(clientGui, "Es gibt keine nachricht mit der gewählten ID!");
+			JOptionPane.showMessageDialog(clientGui, "Es gibt keine nachricht mit der gewï¿½hlten ID!");
 			return;
 		}
 		clientGui.showEditMessage(selectedMessage);
@@ -234,13 +242,30 @@ public class Client {
 	private static void publishMessage(ActionEvent evt) {
 		Message selectedMessage = clientGui.getSelectedMessage();
 		if (selectedMessage == null) {
-			JOptionPane.showMessageDialog(clientGui, "Es gibt keine nachricht mit der gewählten ID!");
+			JOptionPane.showMessageDialog(clientGui, "Es gibt keine nachricht mit der gewï¿½hlten ID!");
 			return;
 		}
 
 		int gruppe = 0; // TODO gruppe auswaehlen
-		// TODO WRAP
-		port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), gruppe);
+		// TODO WRAP und ordentlich machen
+		if (clientGui.pruefeGruppe1()){
+			System.out.println("publish 1");
+			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), 1);
+		}
+		if (clientGui.pruefeGruppe2()){
+			System.out.println("publish 2");
+			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), 2);
+		}
+		if (clientGui.pruefeGruppe3()){
+			System.out.println("publish 3");
+			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), 3);
+		}
+		if (clientGui.pruefeGruppe4()){
+			System.out.println("publish 4");
+			port.publishMessage(selectedMessage.getMessageID(), clientGui.getUserid(), 4);
+		}
+		
+		
 	}
 
 	private static void submitChangedMessage(ActionEvent evt) {
@@ -257,21 +282,24 @@ public class Client {
 		List<SoapableMessage> showMessages = port.showMessages(clientGui.getUserid());
 		msgs.clear();
 		for (SoapableMessage soapableMessage : showMessages) {
-			msgs.put(soapableMessage.getMessageID(),
-					new Message(soapableMessage.getMessageID(), soapableMessage.getUserID(), soapableMessage.getAbtNr(),
-							soapableMessage.getInhalt(), soapableMessage.isOeffentlich(),
-							soapableMessage.getTime().toGregorianCalendar().getTime()));
+			Message message = new Message(soapableMessage.getMessageID(), soapableMessage.getUserID(),
+					soapableMessage.getAbtNr(), soapableMessage.getInhalt(), soapableMessage.isOeffentlich(),
+					soapableMessage.getTime().toGregorianCalendar().getTime());
+			for (Integer i : soapableMessage.getGroups()) {
+				message.addGroup(i);
+			}
+			msgs.put(soapableMessage.getMessageID(), message);
 		}
 		clientGui.showShowMessages(msgs);
 	}
 
-	private static void resetMenu(){
+	private static void resetMenu() {
 		clientGui.setMenue(new String[] { "Zeige alle Nachrichten", "Neue Nachricht" });
 		updateMessages();
 		clientGui.setPublish(clientGui.getUserid() == 1);
 		clientGui.addActionSendQuery(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-					sendQueryActionPerformed(evt);
+				sendQueryActionPerformed(evt);
 			}
 		});
 	}

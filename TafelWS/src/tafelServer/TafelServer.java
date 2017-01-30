@@ -468,10 +468,13 @@ public class TafelServer {
 	 *             if the Anzeigetafel rejects the publication.
 	 */
 	public synchronized String publishMessage(int messageID, int userID, int groupID) throws TafelException {
+		if (!groupQueueMap.containsKey(groupID)){
+			throw new TafelException("Gruppe " + groupID + " nicht bekannt!");
+		}
 		String antwort = "Nachricht mit ID=" + messageID + " veröffentlicht!";
 		
 		anzeigetafel.publishMessage(messageID, userID, groupID);
-		System.out.println(groupQueueMap);
+		
 		for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(groupID)) {
 		    if (q != null) {
 			    q.add(new ReceiveRequest(anzeigetafel.getMessages().get(messageID), groupID, new Date()));

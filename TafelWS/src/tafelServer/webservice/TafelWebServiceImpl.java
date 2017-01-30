@@ -67,6 +67,7 @@ public class TafelWebServiceImpl implements TafelWebService {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
+				System.out.println("webservice publish");
 				answer = tafelServer.publishMessage(messageID, user, group);
 			} catch (TafelException e) {
 				answer = e.getMessage();
