@@ -1,4 +1,5 @@
 @echo off
+setlocal ENABLEDELAYEDEXPANSION
 title %~n0
 
 :: Right now we're in the eclipse working directory
@@ -13,27 +14,33 @@ cd /D %ECLIPSE_PATH%
 :: Again back to the eclipse working dir, so wsimport works
 
 set WS_NAME=serverCom
-set BUILD_PATH=%WORKSPACE_PATH%\build\classes\%WS_NAME%\gen
-set BUILD_BACKUP_PATH=%WORKSPACE_PATH%\.backup\build\%WS_NAME%\gen
-set SRC_PATH=%WORKSPACE_PATH%\src\%WS_NAME%\gen
-set SRC_BACKUP_PATH=%WORKSPACE_PATH%\.backup\src\%WS_NAME%\gen
+set GEN_FOLDER=gen
+set WS_GEN_PATH=%WS_NAME%\%GEN_FOLDER%
+set BUILD_PATH=%WORKSPACE_PATH%\bin
+set SRC_PATH=%WORKSPACE_PATH%\src
+
+set BUILD_GEN_PATH=%BUILD_PATH%\%WS_GEN_PATH%
+set BUILD_GEN_BACKUP_PATH=%WORKSPACE_PATH%\.backup\!BUILD_PATH:%WORKSPACE_PATH%\=!\%WS_GEN_PATH%
+set SRC_GEN_PATH=%SRC_PATH%\%WS_GEN_PATH%
+set SRC_GEN_BACKUP_PATH=%WORKSPACE_PATH%\.backup\!SRC_PATH:%WORKSPACE_PATH%\=!\%WS_GEN_PATH%
 
 ::BACKUP machen
-rd /s /q %BUILD_BACKUP_PATH%
-rd /s /q %SRC_BACKUP_PATH%
-xcopy /s /i /q %BUILD_PATH% %BUILD_BACKUP_PATH%
-xcopy /s /i /q %SRC_PATH% %SRC_BACKUP_PATH%
+rd /s /q %BUILD_GEN_BACKUP_PATH%
+rd /s /q %SRC_GEN_BACKUP_PATH%
+xcopy /s /i /q %BUILD_GEN_PATH% %BUILD_GEN_BACKUP_PATH%
+xcopy /s /i /q %SRC_GEN_PATH% %SRC_GEN_BACKUP_PATH%
 echo --- Old backed ---
 echo.
 
-rd /s /q %BUILD_PATH%
-rd /s /q %SRC_PATH%
+rd /s /q %BUILD_GEN_PATH%
+rd /s /q %SRC_GEN_PATH%
 echo --- Old deleted ---
 echo.
 
-wsimport -d %WORKSPACE_PATH%\build\classes -s %WORKSPACE_PATH%\src -keep -p %WS_NAME%.gen http://localhost:8080/TafelWS/serverws?wsdl
+wsimport -d %BUILD_PATH% -s %SRC_PATH% -keep -p %WS_NAME%.%GEN_FOLDER% http://localhost:8080/TafelWS/serverws?wsdl
 
 echo --- Done ---
 echo.
 
 pause
+endlocal
