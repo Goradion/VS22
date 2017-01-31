@@ -3,6 +3,8 @@
     <!--this file was created by Eclipse Runnable JAR Export Wizard-->
     <!--ANT 1.7 is required                                        -->
     <!--define folder properties-->
+	<property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../../../Work-Tools/Eclipse/eclipse_JEE"/>
     <property name="dir.buildfile" value="."/>
     <property name="dir.workspace" value="${dir.buildfile}"/>
     <property name="dir.jarfile" value="${dir.workspace}/deploy"/>
@@ -13,9 +15,10 @@
                 <attribute name="Class-Path" value="."/>
             </manifest>
             <fileset dir="${dir.workspace}/bin"/>
-            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Simon/.p2/pool/plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Simon/.p2/pool/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${ECLIPSE_HOME}/plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
         </jar>
+		<copy  file="tafelAdressen" todir="${dir.jarfile}" overwrite="true" />
 		<copy  file="tafelAdressen1" todir="${dir.jarfile}" overwrite="true" />
 		<copy  file="tafelAdressen2" todir="${dir.jarfile}" overwrite="true" />
 		<copy  file="tafelAdressen3" todir="${dir.jarfile}" overwrite="true" />
