@@ -39,6 +39,7 @@ if exist %FILEPATH% (
 ) else (
     echo Error: tafelAdressen existiert nicht. Bitte Erstellen!
     echo.
+    goto :pause
 )
 
 goto :end
@@ -52,7 +53,8 @@ echo. 2>%CREATEDFILE%
 endlocal
 exit /B 0
 
-
+:pause
+pause
 
 :end
 exit /B 0
