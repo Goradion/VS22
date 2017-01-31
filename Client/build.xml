@@ -12,7 +12,7 @@
                 <attribute name="Main-Class" value="client.Client"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
-            <fileset dir="${dir.workspace}/bin"/>
+            <fileset dir="${dir.workspace}/bin" excludes="**/*Test.class"/>
         </jar>
 		 <copy  file="tafelAdressen" todir="${dir.jarfile}" overwrite="true" />
     </target>

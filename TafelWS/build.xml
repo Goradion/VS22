@@ -7,20 +7,15 @@
     <property name="dir.workspace" value="${dir.buildfile}"/>
     <property name="dir.jarfile" value="${dir.workspace}/deploy"/>
     <target name="create_run_jar">
-        <jar destfile="${dir.jarfile}/TafelWSPublisher.jar" filesetmanifest="mergewithoutmain" update="true" >
+        <jar destfile="${dir.jarfile}/TafelWSPublisher.jar" filesetmanifest="mergewithoutmain" update="true">
             <manifest>
                 <attribute name="Main-Class" value="tafelServer.webservice.TafelWsPublisher"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
-            <fileset dir="${dir.workspace}/bin"/>
+            <fileset dir="${dir.workspace}/bin" excludes="**/*Test.class"/>
         </jar>
-		<copy  file="tafelAdressen" todir="${dir.jarfile}" overwrite="true" />
-		<copy  file="tafelAdressen1" todir="${dir.jarfile}" overwrite="true" />
-		<copy  file="tafelAdressen2" todir="${dir.jarfile}" overwrite="true" />
-		<copy  file="tafelAdressen3" todir="${dir.jarfile}" overwrite="true" />
-		<copy  file="tafelAdressen4" todir="${dir.jarfile}" overwrite="true" />
-		<copy  file="tafelAdressen5" todir="${dir.jarfile}" overwrite="true" />
-		<copy  file="tafelAdressen6" todir="${dir.jarfile}" overwrite="true" />
-		<copy  file="tafelGruppen" todir="${dir.jarfile}" overwrite="true" />
+		<copy file="tafelAdressen" todir="${dir.jarfile}" overwrite="true"/>
+		<copy file="tafelGruppen" todir="${dir.jarfile}" overwrite="true"/>
+    	<exec dir="${dir.jarfile}" executable="!createTafelAdressen.bat"/>
     </target>
 </project>
