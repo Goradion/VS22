@@ -69,7 +69,7 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 	}
 
 	@Override
-	public String registerServer(int abtNr) {
+	public String registerServer(int abtNr) {  // TODO Übergabe der IP vom andern Tafelserver
 		if (tafelServer != null) {
 			String answer = "";
 			try {
@@ -89,7 +89,15 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 				answer = e.getMessage();
 			} catch (MalformedURLException e) {
 				tafelServer.printStackTrace(e);
-				answer = e.getMessage();
+				answer = "No correct URL!";
+				// TODO entweder hier oder bei dem anderen Server, der diese methode aufgerufen hat, etwas tuen!
+				// sowas wie:
+//				try {
+//                    answer = tafelServer.registerTafel(abtNr, null);    // null = default = behalte die aktuelle
+//                } catch (TafelException e1) {
+//                    tafelServer.printStackTrace(e1);
+//                    answer = e1.getMessage();
+//                }
 			}
 			return answer;
 		}
