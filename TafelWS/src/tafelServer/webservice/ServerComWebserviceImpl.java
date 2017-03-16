@@ -17,8 +17,6 @@ import javax.xml.ws.handler.MessageContext;
 import com.sun.net.httpserver.HttpExchange;
 
 import tafelServer.TafelServer;
-import verteilteAnzeigetafel.Message;
-import verteilteAnzeigetafel.SoapableMessage;
 import verteilteAnzeigetafel.TafelException;
 
 @WebService(endpointInterface = "tafelServer.webservice.ServerComWebservice")
@@ -46,22 +44,6 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 			} catch (ParseException e) {
 				tafelServer.printStackTrace(e);
 				answer = "Date Parse Error";
-			}
-			return answer;
-		}
-		return null;
-	}
-	
-	@Override
-	public String receiveSoapableMessage(SoapableMessage soapableMessage) {
-		Message message = new Message(soapableMessage);
-		if (tafelServer != null) {
-			String answer = "";
-			try {
-				tafelServer.receiveMessage(message);
-				answer =  "Done";
-			} catch (TafelException e) {
-				answer = e.getMessage();
 			}
 			return answer;
 		}

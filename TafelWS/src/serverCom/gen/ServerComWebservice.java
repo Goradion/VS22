@@ -105,19 +105,4 @@ public interface ServerComWebservice {
         @WebParam(name = "arg0", targetNamespace = "")
         int arg0);
 
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "receiveSoapableMessage", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveSoapableMessage")
-    @ResponseWrapper(localName = "receiveSoapableMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveSoapableMessageResponse")
-    @Action(input = "http://webservice.tafelServer/ServerComWebservice/receiveSoapableMessageRequest", output = "http://webservice.tafelServer/ServerComWebservice/receiveSoapableMessageResponse")
-    public String receiveSoapableMessage(
-        @WebParam(name = "arg0", targetNamespace = "")
-        SoapableMessage arg0);
-
 }

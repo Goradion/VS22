@@ -19,7 +19,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import serverCom.gen.ServerComWebserviceImplService;
-import serverCom.gen.SoapableMessage;
 import tafelServer.TafelServer;
 
 
@@ -86,54 +85,6 @@ public class ServerComWebserviceTest {
         assertEquals("Group should be wrong:", "TafelServer ist nicht in gegebener Gruppe=" + group + "!", port.receiveMessage(messageID, userID, abtNr, inhalt, time, group));
     }
 
-    @Test
-    public void testReceiveSoapableMessage() throws DatatypeConfigurationException {
-        int messageID = 2;
-        int userID = 2;
-        int abtNr = 2;
-        String inhalt = "Hallo";
-        Date dTime = new Date();
-        GregorianCalendar greg = new GregorianCalendar();
-        greg.setTime(dTime);
-        XMLGregorianCalendar xgreg = DatatypeFactory.newInstance().newXMLGregorianCalendar(greg);
-        int group = 1;
-        
-        SoapableMessage soap = new SoapableMessage();
-        soap.setMessageID(messageID);
-        soap.setUserID(userID);
-        soap.setAbtNr(abtNr);
-        soap.setInhalt(inhalt);
-        soap.setTime(xgreg);
-        soap.getGroups().add(group);
-
-        // tafelserver should not be null
-        assertNotNull("Should not be null:", port.receiveSoapableMessage(soap));
-        
-        // receive normal message
-        messageID = 22;
-        soap.setMessageID(messageID);
-        assertEquals("Done", port.receiveSoapableMessage(soap));
-        
-        // receive message with same messageID
-        messageID = 222;
-        soap.setMessageID(messageID);
-        assertEquals("Done", port.receiveSoapableMessage(soap));
-        
-        // receive message with equal abtNr to own abtNr
-        messageID = 2222;
-        soap.setMessageID(messageID);
-        abtNr = eigeneAbteilung;
-        soap.setAbtNr(abtNr);
-        assertEquals("AbtNr should be equal:", "msg.getAbtNr()==abteilungsID", port.receiveSoapableMessage(soap));
-        
-        // receive message not included group
-        abtNr = 2;
-        soap.setAbtNr(abtNr);
-        group = 3;
-        soap.getGroups().add(group);
-        assertEquals("Group should be wrong:", "Done", port.receiveSoapableMessage(soap));
-    } 
-    
     @Test
     public void testRegisterServer() {
         int abtNr = 2;
