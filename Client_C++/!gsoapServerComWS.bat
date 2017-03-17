@@ -13,7 +13,7 @@ cd /D %ECLIPSE_PATH%
 ::echo %cd%
 :: Again back to the eclipse working dir, so wsimport works
 
-set WS_NAME=serverws
+set WS_NAME=serverCom
 ::set BUILD_PATH=%WORKSPACE_PATH%\bin
 set SRC_PATH=%WORKSPACE_PATH%\src
 set NEEDED_PATH=%WORKSPACE_PATH%\needed
