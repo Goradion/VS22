@@ -89,9 +89,5 @@ A commercial use license is available from Genivia Inc., contact@genivia.com
         virtual int registerServer(ns1__registerServer *ns1__registerServer_, ns1__registerServerResponse &ns1__registerServerResponse_)
         { return this->registerServer(NULL, NULL, ns1__registerServer_, ns1__registerServerResponse_); }
         virtual int registerServer(const char *soap_endpoint, const char *soap_action, ns1__registerServer *ns1__registerServer_, ns1__registerServerResponse &ns1__registerServerResponse_);
-        /// Web service operation 'receiveSoapableMessage' (returns SOAP_OK or error code)
-        virtual int receiveSoapableMessage(ns1__receiveSoapableMessage *ns1__receiveSoapableMessage_, ns1__receiveSoapableMessageResponse &ns1__receiveSoapableMessageResponse_)
-        { return this->receiveSoapableMessage(NULL, NULL, ns1__receiveSoapableMessage_, ns1__receiveSoapableMessageResponse_); }
-        virtual int receiveSoapableMessage(const char *soap_endpoint, const char *soap_action, ns1__receiveSoapableMessage *ns1__receiveSoapableMessage_, ns1__receiveSoapableMessageResponse &ns1__receiveSoapableMessageResponse_);
     };
 #endif
