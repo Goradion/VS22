@@ -16,6 +16,7 @@ cd /D %ECLIPSE_PATH%
 set WS_NAME=serverws
 ::set BUILD_PATH=%WORKSPACE_PATH%\bin
 set SRC_PATH=%WORKSPACE_PATH%\src
+set NEEDED_PATH=%WORKSPACE_PATH%\needed
 
 ::set BUILD_GEN_PATH=%BUILD_PATH%\%WS_NAME%
 ::set BUILD_GEN_BACKUP_PATH=%WORKSPACE_PATH%\.backup\!BUILD_PATH:%WORKSPACE_PATH%\=!\%WS_NAME%
@@ -40,9 +41,12 @@ echo.
 
 mkdir %SRC_GEN_PATH%
 
+xcopy /s /i /q %NEEDED_PATH% %SRC_GEN_PATH%
+
+
 wsdl2h -s -o %HEADER_PATH% http://localhost:8080/TafelWS/serverws?wsdl
 
-soapcpp2 -d %SRC_GEN_PATH% -j %HEADER_PATH%
+soapcpp2 -d %SRC_GEN_PATH% -j -C %HEADER_PATH%
 
 ::wsimport -d %BUILD_PATH% -s %SRC_PATH% -keep -p %WS_NAME%.%GEN_FOLDER% http://localhost:8080/TafelWS/serverws?wsdl
 
