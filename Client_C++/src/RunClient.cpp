@@ -1,10 +1,8 @@
-/**
+/*
+ * RunClient.cpp
  *
- * @file	RunClient.cpp
- *
- * @date 	17.03.2017
- * @author 	D. Zilch
- *
+ *  Created on: 17.03.2017
+ *      Author: D. Zilch
  */
 
 
