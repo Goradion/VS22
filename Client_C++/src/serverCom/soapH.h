@@ -183,6 +183,186 @@ inline int soap_POST_recv_int(struct soap *soap, int *p)
 }
 #endif
 
+#ifndef SOAP_TYPE_ns1__receiveMessageCorbaResponse_DEFINED
+#define SOAP_TYPE_ns1__receiveMessageCorbaResponse_DEFINED
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_ns1__receiveMessageCorbaResponse(struct soap*, const char*, int, const ns1__receiveMessageCorbaResponse *, const char*);
+SOAP_FMAC3 ns1__receiveMessageCorbaResponse * SOAP_FMAC4 soap_in_ns1__receiveMessageCorbaResponse(struct soap*, const char*, ns1__receiveMessageCorbaResponse *, const char*);
+SOAP_FMAC1 ns1__receiveMessageCorbaResponse * SOAP_FMAC2 soap_instantiate_ns1__receiveMessageCorbaResponse(struct soap*, int, const char*, const char*, size_t*);
+
+inline ns1__receiveMessageCorbaResponse * soap_new_ns1__receiveMessageCorbaResponse(struct soap *soap, int n = -1)
+{
+	return soap_instantiate_ns1__receiveMessageCorbaResponse(soap, n, NULL, NULL, NULL);
+}
+
+inline ns1__receiveMessageCorbaResponse * soap_new_req_ns1__receiveMessageCorbaResponse(
+	struct soap *soap)
+{
+	ns1__receiveMessageCorbaResponse *_p = soap_new_ns1__receiveMessageCorbaResponse(soap);
+	if (_p)
+	{	_p->soap_default(soap);
+	}
+	return _p;
+}
+
+inline ns1__receiveMessageCorbaResponse * soap_new_set_ns1__receiveMessageCorbaResponse(
+	struct soap *soap,
+	char *return_)
+{
+	ns1__receiveMessageCorbaResponse *_p = soap_new_ns1__receiveMessageCorbaResponse(soap);
+	if (_p)
+	{	_p->soap_default(soap);
+		_p->ns1__receiveMessageCorbaResponse::return_ = return_;
+	}
+	return _p;
+}
+
+inline int soap_write_ns1__receiveMessageCorbaResponse(struct soap *soap, ns1__receiveMessageCorbaResponse const*p)
+{
+	soap_free_temp(soap);
+	if (soap_begin_send(soap) || (p->soap_serialize(soap), 0) || p->soap_put(soap, "ns1:receiveMessageCorbaResponse", p->soap_type() == SOAP_TYPE_ns1__receiveMessageCorbaResponse ? "" : NULL) || soap_end_send(soap))
+		return soap->error;
+	return SOAP_OK;
+}
+
+inline int soap_PUT_ns1__receiveMessageCorbaResponse(struct soap *soap, const char *URL, ns1__receiveMessageCorbaResponse const*p)
+{
+	soap_free_temp(soap);
+	if (soap_PUT(soap, URL, NULL, NULL) || (p->soap_serialize(soap), 0) || p->soap_put(soap, "ns1:receiveMessageCorbaResponse", p->soap_type() == SOAP_TYPE_ns1__receiveMessageCorbaResponse ? "" : NULL) || soap_end_send(soap))
+		return soap->error;
+	return SOAP_OK;
+}
+
+inline int soap_POST_send_ns1__receiveMessageCorbaResponse(struct soap *soap, const char *URL, ns1__receiveMessageCorbaResponse const*p)
+{
+	soap_free_temp(soap);
+	if (soap_PUT(soap, URL, NULL, NULL) || (p->soap_serialize(soap), 0) || p->soap_put(soap, "ns1:receiveMessageCorbaResponse", p->soap_type() == SOAP_TYPE_ns1__receiveMessageCorbaResponse ? "" : NULL) || soap_end_send(soap))
+		return soap->error;
+	return SOAP_OK;
+}
+SOAP_FMAC3 ns1__receiveMessageCorbaResponse * SOAP_FMAC4 soap_get_ns1__receiveMessageCorbaResponse(struct soap*, ns1__receiveMessageCorbaResponse *, const char*, const char*);
+
+inline int soap_read_ns1__receiveMessageCorbaResponse(struct soap *soap, ns1__receiveMessageCorbaResponse *p)
+{
+	if (p)
+	{	p->soap_default(soap);
+		if (soap_begin_recv(soap) || soap_get_ns1__receiveMessageCorbaResponse(soap, p, NULL, NULL) == NULL || soap_end_recv(soap))
+			return soap->error;
+	}
+	return SOAP_OK;
+}
+
+inline int soap_GET_ns1__receiveMessageCorbaResponse(struct soap *soap, const char *URL, ns1__receiveMessageCorbaResponse *p)
+{
+	if (soap_GET(soap, URL, NULL) || soap_read_ns1__receiveMessageCorbaResponse(soap, p))
+		return soap->error;
+	return SOAP_OK;
+}
+
+inline int soap_POST_recv_ns1__receiveMessageCorbaResponse(struct soap *soap, ns1__receiveMessageCorbaResponse *p)
+{
+	if (soap_read_ns1__receiveMessageCorbaResponse(soap, p) || soap_closesock(soap))
+		return soap->error;
+	return SOAP_OK;
+}
+#endif
+
+#ifndef SOAP_TYPE_ns1__receiveMessageCorba_DEFINED
+#define SOAP_TYPE_ns1__receiveMessageCorba_DEFINED
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_ns1__receiveMessageCorba(struct soap*, const char*, int, const ns1__receiveMessageCorba *, const char*);
+SOAP_FMAC3 ns1__receiveMessageCorba * SOAP_FMAC4 soap_in_ns1__receiveMessageCorba(struct soap*, const char*, ns1__receiveMessageCorba *, const char*);
+SOAP_FMAC1 ns1__receiveMessageCorba * SOAP_FMAC2 soap_instantiate_ns1__receiveMessageCorba(struct soap*, int, const char*, const char*, size_t*);
+
+inline ns1__receiveMessageCorba * soap_new_ns1__receiveMessageCorba(struct soap *soap, int n = -1)
+{
+	return soap_instantiate_ns1__receiveMessageCorba(soap, n, NULL, NULL, NULL);
+}
+
+inline ns1__receiveMessageCorba * soap_new_req_ns1__receiveMessageCorba(
+	struct soap *soap,
+	int arg0,
+	int arg1,
+	int arg2)
+{
+	ns1__receiveMessageCorba *_p = soap_new_ns1__receiveMessageCorba(soap);
+	if (_p)
+	{	_p->soap_default(soap);
+		_p->ns1__receiveMessageCorba::arg0 = arg0;
+		_p->ns1__receiveMessageCorba::arg1 = arg1;
+		_p->ns1__receiveMessageCorba::arg2 = arg2;
+	}
+	return _p;
+}
+
+inline ns1__receiveMessageCorba * soap_new_set_ns1__receiveMessageCorba(
+	struct soap *soap,
+	int arg0,
+	int arg1,
+	int arg2,
+	char *arg3,
+	char *arg4)
+{
+	ns1__receiveMessageCorba *_p = soap_new_ns1__receiveMessageCorba(soap);
+	if (_p)
+	{	_p->soap_default(soap);
+		_p->ns1__receiveMessageCorba::arg0 = arg0;
+		_p->ns1__receiveMessageCorba::arg1 = arg1;
+		_p->ns1__receiveMessageCorba::arg2 = arg2;
+		_p->ns1__receiveMessageCorba::arg3 = arg3;
+		_p->ns1__receiveMessageCorba::arg4 = arg4;
+	}
+	return _p;
+}
+
+inline int soap_write_ns1__receiveMessageCorba(struct soap *soap, ns1__receiveMessageCorba const*p)
+{
+	soap_free_temp(soap);
+	if (soap_begin_send(soap) || (p->soap_serialize(soap), 0) || p->soap_put(soap, "ns1:receiveMessageCorba", p->soap_type() == SOAP_TYPE_ns1__receiveMessageCorba ? "" : NULL) || soap_end_send(soap))
+		return soap->error;
+	return SOAP_OK;
+}
+
+inline int soap_PUT_ns1__receiveMessageCorba(struct soap *soap, const char *URL, ns1__receiveMessageCorba const*p)
+{
+	soap_free_temp(soap);
+	if (soap_PUT(soap, URL, NULL, NULL) || (p->soap_serialize(soap), 0) || p->soap_put(soap, "ns1:receiveMessageCorba", p->soap_type() == SOAP_TYPE_ns1__receiveMessageCorba ? "" : NULL) || soap_end_send(soap))
+		return soap->error;
+	return SOAP_OK;
+}
+
+inline int soap_POST_send_ns1__receiveMessageCorba(struct soap *soap, const char *URL, ns1__receiveMessageCorba const*p)
+{
+	soap_free_temp(soap);
+	if (soap_PUT(soap, URL, NULL, NULL) || (p->soap_serialize(soap), 0) || p->soap_put(soap, "ns1:receiveMessageCorba", p->soap_type() == SOAP_TYPE_ns1__receiveMessageCorba ? "" : NULL) || soap_end_send(soap))
+		return soap->error;
+	return SOAP_OK;
+}
+SOAP_FMAC3 ns1__receiveMessageCorba * SOAP_FMAC4 soap_get_ns1__receiveMessageCorba(struct soap*, ns1__receiveMessageCorba *, const char*, const char*);
+
+inline int soap_read_ns1__receiveMessageCorba(struct soap *soap, ns1__receiveMessageCorba *p)
+{
+	if (p)
+	{	p->soap_default(soap);
+		if (soap_begin_recv(soap) || soap_get_ns1__receiveMessageCorba(soap, p, NULL, NULL) == NULL || soap_end_recv(soap))
+			return soap->error;
+	}
+	return SOAP_OK;
+}
+
+inline int soap_GET_ns1__receiveMessageCorba(struct soap *soap, const char *URL, ns1__receiveMessageCorba *p)
+{
+	if (soap_GET(soap, URL, NULL) || soap_read_ns1__receiveMessageCorba(soap, p))
+		return soap->error;
+	return SOAP_OK;
+}
+
+inline int soap_POST_recv_ns1__receiveMessageCorba(struct soap *soap, ns1__receiveMessageCorba *p)
+{
+	if (soap_read_ns1__receiveMessageCorba(soap, p) || soap_closesock(soap))
+		return soap->error;
+	return SOAP_OK;
+}
+#endif
+
 #ifndef SOAP_TYPE_ns1__modifyPublicMessageResponse_DEFINED
 #define SOAP_TYPE_ns1__modifyPublicMessageResponse_DEFINED
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_ns1__modifyPublicMessageResponse(struct soap*, const char*, int, const ns1__modifyPublicMessageResponse *, const char*);
@@ -1695,6 +1875,92 @@ inline int soap_POST_recv___ns1__deletePublicMessage(struct soap *soap, struct _
 }
 #endif
 
+#ifndef SOAP_TYPE___ns1__receiveMessageCorba_DEFINED
+#define SOAP_TYPE___ns1__receiveMessageCorba_DEFINED
+SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns1__receiveMessageCorba(struct soap*, struct __ns1__receiveMessageCorba *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize___ns1__receiveMessageCorba(struct soap*, const struct __ns1__receiveMessageCorba *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out___ns1__receiveMessageCorba(struct soap*, const char*, int, const struct __ns1__receiveMessageCorba *, const char*);
+SOAP_FMAC3 struct __ns1__receiveMessageCorba * SOAP_FMAC4 soap_in___ns1__receiveMessageCorba(struct soap*, const char*, struct __ns1__receiveMessageCorba *, const char*);
+SOAP_FMAC1 struct __ns1__receiveMessageCorba * SOAP_FMAC2 soap_instantiate___ns1__receiveMessageCorba(struct soap*, int, const char*, const char*, size_t*);
+
+inline struct __ns1__receiveMessageCorba * soap_new___ns1__receiveMessageCorba(struct soap *soap, int n = -1)
+{
+	return soap_instantiate___ns1__receiveMessageCorba(soap, n, NULL, NULL, NULL);
+}
+
+inline struct __ns1__receiveMessageCorba * soap_new_req___ns1__receiveMessageCorba(
+	struct soap *soap)
+{
+	struct __ns1__receiveMessageCorba *_p = soap_new___ns1__receiveMessageCorba(soap);
+	if (_p)
+	{	soap_default___ns1__receiveMessageCorba(soap, _p);
+	}
+	return _p;
+}
+
+inline struct __ns1__receiveMessageCorba * soap_new_set___ns1__receiveMessageCorba(
+	struct soap *soap,
+	ns1__receiveMessageCorba *ns1__receiveMessageCorba_)
+{
+	struct __ns1__receiveMessageCorba *_p = soap_new___ns1__receiveMessageCorba(soap);
+	if (_p)
+	{	soap_default___ns1__receiveMessageCorba(soap, _p);
+		_p->ns1__receiveMessageCorba_ = ns1__receiveMessageCorba_;
+	}
+	return _p;
+}
+SOAP_FMAC3 int SOAP_FMAC4 soap_put___ns1__receiveMessageCorba(struct soap*, const struct __ns1__receiveMessageCorba *, const char*, const char*);
+
+inline int soap_write___ns1__receiveMessageCorba(struct soap *soap, struct __ns1__receiveMessageCorba const*p)
+{
+	soap_free_temp(soap);
+	if (soap_begin_send(soap) || (soap_serialize___ns1__receiveMessageCorba(soap, p), 0) || soap_put___ns1__receiveMessageCorba(soap, p, "-ns1:receiveMessageCorba", "") || soap_end_send(soap))
+			return soap->error;
+	return SOAP_OK;
+}
+
+inline int soap_PUT___ns1__receiveMessageCorba(struct soap *soap, const char *URL, struct __ns1__receiveMessageCorba const*p)
+{
+	soap_free_temp(soap);
+	if (soap_PUT(soap, URL, NULL, NULL) || (soap_serialize___ns1__receiveMessageCorba(soap, p), 0) || soap_put___ns1__receiveMessageCorba(soap, p, "-ns1:receiveMessageCorba", "") || soap_end_send(soap) || soap_recv_empty_response(soap))
+		return soap->error;
+	return SOAP_OK;
+}
+
+inline int soap_POST_send___ns1__receiveMessageCorba(struct soap *soap, const char *URL, struct __ns1__receiveMessageCorba const*p)
+{
+	soap_free_temp(soap);
+	if (soap_connect(soap, URL, NULL) || (soap_serialize___ns1__receiveMessageCorba(soap, p), 0) || soap_put___ns1__receiveMessageCorba(soap, p, "-ns1:receiveMessageCorba", "") || soap_end_send(soap))
+		return soap->error;
+	return SOAP_OK;
+}
+SOAP_FMAC3 struct __ns1__receiveMessageCorba * SOAP_FMAC4 soap_get___ns1__receiveMessageCorba(struct soap*, struct __ns1__receiveMessageCorba *, const char*, const char*);
+
+inline int soap_read___ns1__receiveMessageCorba(struct soap *soap, struct __ns1__receiveMessageCorba *p)
+{
+	if (p)
+	{	soap_default___ns1__receiveMessageCorba(soap, p);
+		if (soap_begin_recv(soap) || soap_get___ns1__receiveMessageCorba(soap, p, NULL, NULL) == NULL || soap_end_recv(soap))
+			return soap->error;
+	}
+	return SOAP_OK;
+}
+
+inline int soap_GET___ns1__receiveMessageCorba(struct soap *soap, const char *URL, struct __ns1__receiveMessageCorba *p)
+{
+	if (soap_GET(soap, URL, NULL) || soap_read___ns1__receiveMessageCorba(soap, p))
+		return soap->error;
+	return SOAP_OK;
+}
+
+inline int soap_POST_recv___ns1__receiveMessageCorba(struct soap *soap, struct __ns1__receiveMessageCorba *p)
+{
+	if (soap_read___ns1__receiveMessageCorba(soap, p) || soap_closesock(soap))
+		return soap->error;
+	return SOAP_OK;
+}
+#endif
+
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Reason_DEFINED
@@ -1768,6 +2034,15 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTons1__deletePublicMessage(struct soap
 SOAP_FMAC3 ns1__deletePublicMessage ** SOAP_FMAC4 soap_in_PointerTons1__deletePublicMessage(struct soap*, const char*, ns1__deletePublicMessage **, const char*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTons1__deletePublicMessage(struct soap*, ns1__deletePublicMessage *const*, const char*, const char*);
 SOAP_FMAC3 ns1__deletePublicMessage ** SOAP_FMAC4 soap_get_PointerTons1__deletePublicMessage(struct soap*, ns1__deletePublicMessage **, const char*, const char*);
+#endif
+
+#ifndef SOAP_TYPE_PointerTons1__receiveMessageCorba_DEFINED
+#define SOAP_TYPE_PointerTons1__receiveMessageCorba_DEFINED
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTons1__receiveMessageCorba(struct soap*, ns1__receiveMessageCorba *const*);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTons1__receiveMessageCorba(struct soap*, const char *, int, ns1__receiveMessageCorba *const*, const char *);
+SOAP_FMAC3 ns1__receiveMessageCorba ** SOAP_FMAC4 soap_in_PointerTons1__receiveMessageCorba(struct soap*, const char*, ns1__receiveMessageCorba **, const char*);
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTons1__receiveMessageCorba(struct soap*, ns1__receiveMessageCorba *const*, const char*, const char*);
+SOAP_FMAC3 ns1__receiveMessageCorba ** SOAP_FMAC4 soap_get_PointerTons1__receiveMessageCorba(struct soap*, ns1__receiveMessageCorba **, const char*, const char*);
 #endif
 
 #ifndef SOAP_TYPE__XML_DEFINED

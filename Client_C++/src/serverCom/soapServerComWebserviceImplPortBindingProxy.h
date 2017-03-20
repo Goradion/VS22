@@ -73,6 +73,10 @@ A commercial use license is available from Genivia Inc., contact@genivia.com
         /// Write fault to buffer
         virtual char *soap_sprint_fault(char *buf, size_t len);
     #endif
+        /// Web service operation 'receiveMessageCorba' (returns SOAP_OK or error code)
+        virtual int receiveMessageCorba(ns1__receiveMessageCorba *ns1__receiveMessageCorba_, ns1__receiveMessageCorbaResponse &ns1__receiveMessageCorbaResponse_)
+        { return this->receiveMessageCorba(NULL, NULL, ns1__receiveMessageCorba_, ns1__receiveMessageCorbaResponse_); }
+        virtual int receiveMessageCorba(const char *soap_endpoint, const char *soap_action, ns1__receiveMessageCorba *ns1__receiveMessageCorba_, ns1__receiveMessageCorbaResponse &ns1__receiveMessageCorbaResponse_);
         /// Web service operation 'deletePublicMessage' (returns SOAP_OK or error code)
         virtual int deletePublicMessage(ns1__deletePublicMessage *ns1__deletePublicMessage_, ns1__deletePublicMessageResponse &ns1__deletePublicMessageResponse_)
         { return this->deletePublicMessage(NULL, NULL, ns1__deletePublicMessage_, ns1__deletePublicMessageResponse_); }

@@ -151,6 +151,60 @@ char *ServerComWebserviceImplPortBindingProxy::soap_sprint_fault(char *buf, size
 }
 #endif
 
+int ServerComWebserviceImplPortBindingProxy::receiveMessageCorba(const char *endpoint, const char *soap_action, ns1__receiveMessageCorba *ns1__receiveMessageCorba_, ns1__receiveMessageCorbaResponse &ns1__receiveMessageCorbaResponse_)
+{	struct soap *soap = this->soap;
+	struct __ns1__receiveMessageCorba soap_tmp___ns1__receiveMessageCorba;
+	if (endpoint)
+		soap_endpoint = endpoint;
+	if (soap_endpoint == NULL)
+		soap_endpoint = "http://localhost:8080/TafelWS/serverws";
+	if (soap_action == NULL)
+		soap_action = "http://webservice.tafelServer/ServerComWebservice/receiveMessageCorbaRequest";
+	soap_tmp___ns1__receiveMessageCorba.ns1__receiveMessageCorba_ = ns1__receiveMessageCorba_;
+	soap_begin(soap);
+	soap->encodingStyle = NULL;
+	soap_serializeheader(soap);
+	soap_serialize___ns1__receiveMessageCorba(soap, &soap_tmp___ns1__receiveMessageCorba);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put___ns1__receiveMessageCorba(soap, &soap_tmp___ns1__receiveMessageCorba, "-ns1:receiveMessageCorba", "")
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_endpoint, soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put___ns1__receiveMessageCorba(soap, &soap_tmp___ns1__receiveMessageCorba, "-ns1:receiveMessageCorba", "")
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!static_cast<ns1__receiveMessageCorbaResponse*>(&ns1__receiveMessageCorbaResponse_)) // NULL ref?
+		return soap_closesock(soap);
+	ns1__receiveMessageCorbaResponse_.soap_default(soap);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	ns1__receiveMessageCorbaResponse_.soap_get(soap, "ns1:receiveMessageCorbaResponse", NULL);
+	if (soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	return soap_closesock(soap);
+}
+
 int ServerComWebserviceImplPortBindingProxy::deletePublicMessage(const char *endpoint, const char *soap_action, ns1__deletePublicMessage *ns1__deletePublicMessage_, ns1__deletePublicMessageResponse &ns1__deletePublicMessageResponse_)
 {	struct soap *soap = this->soap;
 	struct __ns1__deletePublicMessage soap_tmp___ns1__deletePublicMessage;
