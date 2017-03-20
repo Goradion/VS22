@@ -295,16 +295,26 @@ public class Anzeigetafel extends Observable implements Serializable {
 	 * @throws TafelException
 	 */
 	public synchronized void receiveMessage(Message msg, int group) throws TafelException {
-		if (msg.getAbtNr() == abteilungsID) {
-			throw new TafelException("msg.getAbtNr()==abteilungsID");
-		}
+	    if (msg.getAbtNr() == abteilungsID) {
+	        throw new TafelException("msg.getAbtNr()==abteilungsID");
+	    }
+	    int msgID = msg.getMessageID();
+	    if (!messages.containsKey(msgID)) {
+	        messages.put(msgID, msg);
+	        userMsgs.get(msg.getUserID()).add(msgID); 
+	    } 
+	    messages.get(msgID).addGroup(group);
+	    
+	    updateState();
+	}
+	
+	public synchronized void receiveMessageCorba(Message msg) throws TafelException {
 		int msgID = msg.getMessageID();
     	if (!messages.containsKey(msgID)) {
     		messages.put(msgID, msg);
     		userMsgs.get(msg.getUserID()).add(msgID); 
-    	} 
-    	messages.get(msgID).addGroup(group);
-		
+    	}
+    	
 		updateState();
 	}
         

@@ -49,6 +49,25 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 		}
 		return null;
 	}
+	
+	@Override
+    public String receiveMessageCorba(int messageID, int userID, int serverNr, String inhalt, String time) {
+        if (tafelServer != null) {
+            String answer = "";
+            try {
+                DateFormat formatTime = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
+                tafelServer.receiveMessageCorba(messageID, userID, serverNr, inhalt, formatTime.parse(time));
+                answer =  "Done";
+            } catch (TafelException e) {
+                answer = e.getMessage();
+            } catch (ParseException e) {
+                tafelServer.printStackTrace(e);
+                answer = "Date Parse Error";
+            }
+            return answer;
+        }
+        return null;
+    }
 
 	@Override
 	public String registerServer(int abtNr) {  // TODO Übergabe der IP vom andern Tafelserver

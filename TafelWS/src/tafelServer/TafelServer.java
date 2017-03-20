@@ -528,12 +528,22 @@ public class TafelServer {
 
 
 	/* -- Server WS Methods -- */
-
+	
 	public synchronized boolean receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time, int group) throws TafelException {
-		if ( !groupMap.containsKey(group) ) {
-			throw new TafelException("TafelServer ist nicht in gegebener Gruppe=" + group + "!");
-		}
-		anzeigetafel.receiveMessage(new Message(messageID, userID, abtNr, inhalt, true, time), group);
+	    if ( !groupMap.containsKey(group) ) {
+	        throw new TafelException("TafelServer ist nicht in gegebener Gruppe=" + group + "!");
+	    }
+	    anzeigetafel.receiveMessage(new Message(messageID, userID, abtNr, inhalt, true, time), group);
+	    
+	    anzeigetafel.saveStateToFile();
+	    return true;
+	}
+
+	public synchronized boolean receiveMessageCorba(int messageID, int userID, int serverNr, String inhalt, Date time) throws TafelException {
+	    if (tafelAdressen.containsKey(serverNr)) {
+            throw new TafelException("Server Nummer ist gleich einer Abteilungs Nummer: " + serverNr + "!");
+        }
+		anzeigetafel.receiveMessageCorba(new Message(messageID, userID, serverNr, inhalt, true, time));
 		
 		anzeigetafel.saveStateToFile();
 		return true;
