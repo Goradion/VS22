@@ -24,9 +24,11 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _ReceiveMessageCorba_QNAME = new QName("http://webservice.tafelServer/", "receiveMessageCorba");
     private final static QName _RegisterServerResponse_QNAME = new QName("http://webservice.tafelServer/", "registerServerResponse");
     private final static QName _DeletePublicMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "deletePublicMessageResponse");
     private final static QName _RegisterServer_QNAME = new QName("http://webservice.tafelServer/", "registerServer");
+    private final static QName _ReceiveMessageCorbaResponse_QNAME = new QName("http://webservice.tafelServer/", "receiveMessageCorbaResponse");
     private final static QName _ModifyPublicMessage_QNAME = new QName("http://webservice.tafelServer/", "modifyPublicMessage");
     private final static QName _ReceiveMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "receiveMessageResponse");
     private final static QName _ReceiveMessage_QNAME = new QName("http://webservice.tafelServer/", "receiveMessage");
@@ -81,6 +83,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ReceiveMessageCorbaResponse }
+     * 
+     */
+    public ReceiveMessageCorbaResponse createReceiveMessageCorbaResponse() {
+        return new ReceiveMessageCorbaResponse();
+    }
+
+    /**
      * Create an instance of {@link RegisterServer }
      * 
      */
@@ -102,6 +112,23 @@ public class ObjectFactory {
      */
     public RegisterServerResponse createRegisterServerResponse() {
         return new RegisterServerResponse();
+    }
+
+    /**
+     * Create an instance of {@link ReceiveMessageCorba }
+     * 
+     */
+    public ReceiveMessageCorba createReceiveMessageCorba() {
+        return new ReceiveMessageCorba();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ReceiveMessageCorba }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "receiveMessageCorba")
+    public JAXBElement<ReceiveMessageCorba> createReceiveMessageCorba(ReceiveMessageCorba value) {
+        return new JAXBElement<ReceiveMessageCorba>(_ReceiveMessageCorba_QNAME, ReceiveMessageCorba.class, null, value);
     }
 
     /**
@@ -129,6 +156,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "registerServer")
     public JAXBElement<RegisterServer> createRegisterServer(RegisterServer value) {
         return new JAXBElement<RegisterServer>(_RegisterServer_QNAME, RegisterServer.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ReceiveMessageCorbaResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "receiveMessageCorbaResponse")
+    public JAXBElement<ReceiveMessageCorbaResponse> createReceiveMessageCorbaResponse(ReceiveMessageCorbaResponse value) {
+        return new JAXBElement<ReceiveMessageCorbaResponse>(_ReceiveMessageCorbaResponse_QNAME, ReceiveMessageCorbaResponse.class, null, value);
     }
 
     /**

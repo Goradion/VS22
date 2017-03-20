@@ -26,6 +26,33 @@ public interface ServerComWebservice {
 
     /**
      * 
+     * @param arg3
+     * @param arg2
+     * @param arg4
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "receiveMessageCorba", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveMessageCorba")
+    @ResponseWrapper(localName = "receiveMessageCorbaResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveMessageCorbaResponse")
+    @Action(input = "http://webservice.tafelServer/ServerComWebservice/receiveMessageCorbaRequest", output = "http://webservice.tafelServer/ServerComWebservice/receiveMessageCorbaResponse")
+    public String receiveMessageCorba(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        int arg2,
+        @WebParam(name = "arg3", targetNamespace = "")
+        String arg3,
+        @WebParam(name = "arg4", targetNamespace = "")
+        String arg4);
+
+    /**
+     * 
      * @param arg1
      * @param arg0
      * @return
