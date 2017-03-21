@@ -18,7 +18,7 @@ A commercial use license is available from Genivia Inc., contact@genivia.com
 
 #include "soapH.h"
 
-SOAP_SOURCE_STAMP("@(#) soapC.cpp ver 2.8.44 2017-03-20 20:26:59 GMT")
+SOAP_SOURCE_STAMP("@(#) soapC.cpp ver 2.8.44 2017-03-21 05:44:17 GMT")
 
 
 #ifndef WITH_NOGLOBAL
@@ -217,14 +217,14 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_getelement(struct soap *soap, int *type)
 		return soap_in_ns1__receiveMessage(soap, NULL, NULL, "ns1:receiveMessage");
 	case SOAP_TYPE_PointerTons1__registerServer:
 		return soap_in_PointerTons1__registerServer(soap, NULL, NULL, "ns1:registerServer");
-	case SOAP_TYPE_PointerTons1__receiveMessage:
-		return soap_in_PointerTons1__receiveMessage(soap, NULL, NULL, "ns1:receiveMessage");
 	case SOAP_TYPE_PointerTons1__modifyPublicMessage:
 		return soap_in_PointerTons1__modifyPublicMessage(soap, NULL, NULL, "ns1:modifyPublicMessage");
 	case SOAP_TYPE_PointerTons1__deletePublicMessage:
 		return soap_in_PointerTons1__deletePublicMessage(soap, NULL, NULL, "ns1:deletePublicMessage");
 	case SOAP_TYPE_PointerTons1__receiveMessageCorba:
 		return soap_in_PointerTons1__receiveMessageCorba(soap, NULL, NULL, "ns1:receiveMessageCorba");
+	case SOAP_TYPE_PointerTons1__receiveMessage:
+		return soap_in_PointerTons1__receiveMessage(soap, NULL, NULL, "ns1:receiveMessage");
 	case SOAP_TYPE__QName:
 	{	char **s;
 		s = soap_in__QName(soap, NULL, NULL, "xsd:QName");
@@ -391,14 +391,14 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_putelement(struct soap *soap, const void *ptr, co
 		return ((ns1__receiveMessage *)ptr)->soap_out(soap, tag, id, "ns1:receiveMessage");
 	case SOAP_TYPE_PointerTons1__registerServer:
 		return soap_out_PointerTons1__registerServer(soap, tag, id, (ns1__registerServer *const*)ptr, "ns1:registerServer");
-	case SOAP_TYPE_PointerTons1__receiveMessage:
-		return soap_out_PointerTons1__receiveMessage(soap, tag, id, (ns1__receiveMessage *const*)ptr, "ns1:receiveMessage");
 	case SOAP_TYPE_PointerTons1__modifyPublicMessage:
 		return soap_out_PointerTons1__modifyPublicMessage(soap, tag, id, (ns1__modifyPublicMessage *const*)ptr, "ns1:modifyPublicMessage");
 	case SOAP_TYPE_PointerTons1__deletePublicMessage:
 		return soap_out_PointerTons1__deletePublicMessage(soap, tag, id, (ns1__deletePublicMessage *const*)ptr, "ns1:deletePublicMessage");
 	case SOAP_TYPE_PointerTons1__receiveMessageCorba:
 		return soap_out_PointerTons1__receiveMessageCorba(soap, tag, id, (ns1__receiveMessageCorba *const*)ptr, "ns1:receiveMessageCorba");
+	case SOAP_TYPE_PointerTons1__receiveMessage:
+		return soap_out_PointerTons1__receiveMessage(soap, tag, id, (ns1__receiveMessage *const*)ptr, "ns1:receiveMessage");
 	case SOAP_TYPE__QName:
 		return soap_out_string(soap, tag, id, (char*const*)(void*)&ptr, "xsd:QName");
 	case SOAP_TYPE_string:
@@ -453,9 +453,6 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_markelement(struct soap *soap, const void *ptr, 
 	case SOAP_TYPE___ns1__registerServer:
 		soap_serialize___ns1__registerServer(soap, (const struct __ns1__registerServer *)ptr);
 		break;
-	case SOAP_TYPE___ns1__receiveMessage:
-		soap_serialize___ns1__receiveMessage(soap, (const struct __ns1__receiveMessage *)ptr);
-		break;
 	case SOAP_TYPE___ns1__modifyPublicMessage:
 		soap_serialize___ns1__modifyPublicMessage(soap, (const struct __ns1__modifyPublicMessage *)ptr);
 		break;
@@ -465,11 +462,11 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_markelement(struct soap *soap, const void *ptr, 
 	case SOAP_TYPE___ns1__receiveMessageCorba:
 		soap_serialize___ns1__receiveMessageCorba(soap, (const struct __ns1__receiveMessageCorba *)ptr);
 		break;
+	case SOAP_TYPE___ns1__receiveMessage:
+		soap_serialize___ns1__receiveMessage(soap, (const struct __ns1__receiveMessage *)ptr);
+		break;
 	case SOAP_TYPE_PointerTons1__registerServer:
 		soap_serialize_PointerTons1__registerServer(soap, (ns1__registerServer *const*)ptr);
-		break;
-	case SOAP_TYPE_PointerTons1__receiveMessage:
-		soap_serialize_PointerTons1__receiveMessage(soap, (ns1__receiveMessage *const*)ptr);
 		break;
 	case SOAP_TYPE_PointerTons1__modifyPublicMessage:
 		soap_serialize_PointerTons1__modifyPublicMessage(soap, (ns1__modifyPublicMessage *const*)ptr);
@@ -479,6 +476,9 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_markelement(struct soap *soap, const void *ptr, 
 		break;
 	case SOAP_TYPE_PointerTons1__receiveMessageCorba:
 		soap_serialize_PointerTons1__receiveMessageCorba(soap, (ns1__receiveMessageCorba *const*)ptr);
+		break;
+	case SOAP_TYPE_PointerTons1__receiveMessage:
+		soap_serialize_PointerTons1__receiveMessage(soap, (ns1__receiveMessage *const*)ptr);
 		break;
 	case SOAP_TYPE__QName:
 		soap_serialize_string(soap, (char*const*)(void*)&ptr);
@@ -517,14 +517,14 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_instantiate(struct soap *soap, int t, const ch
 		return (void*)soap_instantiate_ns1__receiveMessageCorba(soap, -1, type, arrayType, n);
 	case SOAP_TYPE_ns1__receiveMessageCorbaResponse:
 		return (void*)soap_instantiate_ns1__receiveMessageCorbaResponse(soap, -1, type, arrayType, n);
+	case SOAP_TYPE___ns1__receiveMessage:
+		return (void*)soap_instantiate___ns1__receiveMessage(soap, -1, type, arrayType, n);
 	case SOAP_TYPE___ns1__receiveMessageCorba:
 		return (void*)soap_instantiate___ns1__receiveMessageCorba(soap, -1, type, arrayType, n);
 	case SOAP_TYPE___ns1__deletePublicMessage:
 		return (void*)soap_instantiate___ns1__deletePublicMessage(soap, -1, type, arrayType, n);
 	case SOAP_TYPE___ns1__modifyPublicMessage:
 		return (void*)soap_instantiate___ns1__modifyPublicMessage(soap, -1, type, arrayType, n);
-	case SOAP_TYPE___ns1__receiveMessage:
-		return (void*)soap_instantiate___ns1__receiveMessage(soap, -1, type, arrayType, n);
 	case SOAP_TYPE___ns1__registerServer:
 		return (void*)soap_instantiate___ns1__registerServer(soap, -1, type, arrayType, n);
 #ifndef WITH_NOGLOBAL
@@ -614,6 +614,12 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_fdelete(struct soap_clist *p)
 		else
 			SOAP_DELETE_ARRAY(static_cast<ns1__receiveMessageCorbaResponse*>(p->ptr));
 		break;
+	case SOAP_TYPE___ns1__receiveMessage:
+		if (p->size < 0)
+			SOAP_DELETE(static_cast<struct __ns1__receiveMessage*>(p->ptr));
+		else
+			SOAP_DELETE_ARRAY(static_cast<struct __ns1__receiveMessage*>(p->ptr));
+		break;
 	case SOAP_TYPE___ns1__receiveMessageCorba:
 		if (p->size < 0)
 			SOAP_DELETE(static_cast<struct __ns1__receiveMessageCorba*>(p->ptr));
@@ -631,12 +637,6 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_fdelete(struct soap_clist *p)
 			SOAP_DELETE(static_cast<struct __ns1__modifyPublicMessage*>(p->ptr));
 		else
 			SOAP_DELETE_ARRAY(static_cast<struct __ns1__modifyPublicMessage*>(p->ptr));
-		break;
-	case SOAP_TYPE___ns1__receiveMessage:
-		if (p->size < 0)
-			SOAP_DELETE(static_cast<struct __ns1__receiveMessage*>(p->ptr));
-		else
-			SOAP_DELETE_ARRAY(static_cast<struct __ns1__receiveMessage*>(p->ptr));
 		break;
 	case SOAP_TYPE___ns1__registerServer:
 		if (p->size < 0)
@@ -761,6 +761,10 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_finsert(struct soap *soap, int t, int tt, void *
 		DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copy ns1__receiveMessageCorbaResponse type=%d location=%p object=%p\n", t, p, q));
 		*(ns1__receiveMessageCorbaResponse*)p = *(ns1__receiveMessageCorbaResponse*)q;
 		break;
+	case SOAP_TYPE___ns1__receiveMessage:
+		DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copy struct __ns1__receiveMessage type=%d location=%p object=%p\n", t, p, q));
+		*(struct __ns1__receiveMessage*)p = *(struct __ns1__receiveMessage*)q;
+		break;
 	case SOAP_TYPE___ns1__receiveMessageCorba:
 		DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copy struct __ns1__receiveMessageCorba type=%d location=%p object=%p\n", t, p, q));
 		*(struct __ns1__receiveMessageCorba*)p = *(struct __ns1__receiveMessageCorba*)q;
@@ -772,10 +776,6 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_finsert(struct soap *soap, int t, int tt, void *
 	case SOAP_TYPE___ns1__modifyPublicMessage:
 		DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copy struct __ns1__modifyPublicMessage type=%d location=%p object=%p\n", t, p, q));
 		*(struct __ns1__modifyPublicMessage*)p = *(struct __ns1__modifyPublicMessage*)q;
-		break;
-	case SOAP_TYPE___ns1__receiveMessage:
-		DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copy struct __ns1__receiveMessage type=%d location=%p object=%p\n", t, p, q));
-		*(struct __ns1__receiveMessage*)p = *(struct __ns1__receiveMessage*)q;
 		break;
 	case SOAP_TYPE___ns1__registerServer:
 		DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copy struct __ns1__registerServer type=%d location=%p object=%p\n", t, p, q));
@@ -2920,91 +2920,6 @@ SOAP_FMAC3 struct __ns1__registerServer * SOAP_FMAC4 soap_get___ns1__registerSer
 	return p;
 }
 
-SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns1__receiveMessage(struct soap *soap, struct __ns1__receiveMessage *a)
-{
-	(void)soap; (void)a; /* appease -Wall -Werror */
-	a->ns1__receiveMessage_ = NULL;
-}
-
-SOAP_FMAC3 void SOAP_FMAC4 soap_serialize___ns1__receiveMessage(struct soap *soap, const struct __ns1__receiveMessage *a)
-{
-	(void)soap; (void)a; /* appease -Wall -Werror */
-#ifndef WITH_NOIDREF
-	soap_serialize_PointerTons1__receiveMessage(soap, &a->ns1__receiveMessage_);
-#endif
-}
-
-SOAP_FMAC3 int SOAP_FMAC4 soap_out___ns1__receiveMessage(struct soap *soap, const char *tag, int id, const struct __ns1__receiveMessage *a, const char *type)
-{
-	(void)soap; (void)tag; (void)id; (void)a; (void)type; /* appease -Wall -Werror */
-	if (soap_out_PointerTons1__receiveMessage(soap, "ns1:receiveMessage", -1, &a->ns1__receiveMessage_, ""))
-		return soap->error;
-	return SOAP_OK;
-}
-
-SOAP_FMAC3 struct __ns1__receiveMessage * SOAP_FMAC4 soap_in___ns1__receiveMessage(struct soap *soap, const char *tag, struct __ns1__receiveMessage *a, const char *type)
-{
-	size_t soap_flag_ns1__receiveMessage_ = 1;
-	short soap_flag;
-	(void)tag; (void)type; /* appease -Wall -Werror */
-	a = (struct __ns1__receiveMessage *)soap_id_enter(soap, "", a, SOAP_TYPE___ns1__receiveMessage, sizeof(struct __ns1__receiveMessage), NULL, NULL, NULL, NULL);
-	if (!a)
-		return NULL;
-	soap_default___ns1__receiveMessage(soap, a);
-		for (soap_flag = 0;; soap_flag = 1)
-		{	soap->error = SOAP_TAG_MISMATCH;
-			if (soap_flag_ns1__receiveMessage_ && soap->error == SOAP_TAG_MISMATCH)
-				if (soap_in_PointerTons1__receiveMessage(soap, "ns1:receiveMessage", &a->ns1__receiveMessage_, "ns1:receiveMessage"))
-				{	soap_flag_ns1__receiveMessage_--;
-					continue;
-				}
-			if (soap->error == SOAP_TAG_MISMATCH && soap_flag)
-			{	soap->error = SOAP_OK;
-				break;
-			}
-			if (soap_flag && soap->error == SOAP_NO_TAG)
-				break;
-			if (soap->error)
-				return NULL;
-		}
-	return a;
-}
-
-SOAP_FMAC1 struct __ns1__receiveMessage * SOAP_FMAC2 soap_instantiate___ns1__receiveMessage(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
-{
-	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate___ns1__receiveMessage(%p, %d, %s, %s)\n", (void*)soap, n, type?type:"", arrayType?arrayType:""));
-	(void)type; (void)arrayType; /* appease -Wall -Werror */
-	struct __ns1__receiveMessage *p;
-	size_t k = sizeof(struct __ns1__receiveMessage);
-	if (n < 0)
-	{	p = SOAP_NEW(struct __ns1__receiveMessage);
-	}
-	else
-	{	p = SOAP_NEW_ARRAY(struct __ns1__receiveMessage, n);
-		k *= n;
-	}
-	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated struct __ns1__receiveMessage location=%p n=%d\n", (void*)p, n));
-	soap_link(soap, p, SOAP_TYPE___ns1__receiveMessage, n, soap_fdelete);
-	if (size)
-		*size = k;
-	return p;
-}
-
-SOAP_FMAC3 int SOAP_FMAC4 soap_put___ns1__receiveMessage(struct soap *soap, const struct __ns1__receiveMessage *a, const char *tag, const char *type)
-{
-	if (soap_out___ns1__receiveMessage(soap, tag ? tag : "-ns1:receiveMessage", -2, a, type))
-		return soap->error;
-	return SOAP_OK;
-}
-
-SOAP_FMAC3 struct __ns1__receiveMessage * SOAP_FMAC4 soap_get___ns1__receiveMessage(struct soap *soap, struct __ns1__receiveMessage *p, const char *tag, const char *type)
-{
-	if ((p = soap_in___ns1__receiveMessage(soap, tag, p, type)))
-		if (soap_getindependent(soap))
-			return NULL;
-	return p;
-}
-
 SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns1__modifyPublicMessage(struct soap *soap, struct __ns1__modifyPublicMessage *a)
 {
 	(void)soap; (void)a; /* appease -Wall -Werror */
@@ -3260,6 +3175,91 @@ SOAP_FMAC3 struct __ns1__receiveMessageCorba * SOAP_FMAC4 soap_get___ns1__receiv
 	return p;
 }
 
+SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns1__receiveMessage(struct soap *soap, struct __ns1__receiveMessage *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	a->ns1__receiveMessage_ = NULL;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize___ns1__receiveMessage(struct soap *soap, const struct __ns1__receiveMessage *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+#ifndef WITH_NOIDREF
+	soap_serialize_PointerTons1__receiveMessage(soap, &a->ns1__receiveMessage_);
+#endif
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out___ns1__receiveMessage(struct soap *soap, const char *tag, int id, const struct __ns1__receiveMessage *a, const char *type)
+{
+	(void)soap; (void)tag; (void)id; (void)a; (void)type; /* appease -Wall -Werror */
+	if (soap_out_PointerTons1__receiveMessage(soap, "ns1:receiveMessage", -1, &a->ns1__receiveMessage_, ""))
+		return soap->error;
+	return SOAP_OK;
+}
+
+SOAP_FMAC3 struct __ns1__receiveMessage * SOAP_FMAC4 soap_in___ns1__receiveMessage(struct soap *soap, const char *tag, struct __ns1__receiveMessage *a, const char *type)
+{
+	size_t soap_flag_ns1__receiveMessage_ = 1;
+	short soap_flag;
+	(void)tag; (void)type; /* appease -Wall -Werror */
+	a = (struct __ns1__receiveMessage *)soap_id_enter(soap, "", a, SOAP_TYPE___ns1__receiveMessage, sizeof(struct __ns1__receiveMessage), NULL, NULL, NULL, NULL);
+	if (!a)
+		return NULL;
+	soap_default___ns1__receiveMessage(soap, a);
+		for (soap_flag = 0;; soap_flag = 1)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_ns1__receiveMessage_ && soap->error == SOAP_TAG_MISMATCH)
+				if (soap_in_PointerTons1__receiveMessage(soap, "ns1:receiveMessage", &a->ns1__receiveMessage_, "ns1:receiveMessage"))
+				{	soap_flag_ns1__receiveMessage_--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH && soap_flag)
+			{	soap->error = SOAP_OK;
+				break;
+			}
+			if (soap_flag && soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+	return a;
+}
+
+SOAP_FMAC1 struct __ns1__receiveMessage * SOAP_FMAC2 soap_instantiate___ns1__receiveMessage(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate___ns1__receiveMessage(%p, %d, %s, %s)\n", (void*)soap, n, type?type:"", arrayType?arrayType:""));
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	struct __ns1__receiveMessage *p;
+	size_t k = sizeof(struct __ns1__receiveMessage);
+	if (n < 0)
+	{	p = SOAP_NEW(struct __ns1__receiveMessage);
+	}
+	else
+	{	p = SOAP_NEW_ARRAY(struct __ns1__receiveMessage, n);
+		k *= n;
+	}
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated struct __ns1__receiveMessage location=%p n=%d\n", (void*)p, n));
+	soap_link(soap, p, SOAP_TYPE___ns1__receiveMessage, n, soap_fdelete);
+	if (size)
+		*size = k;
+	return p;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put___ns1__receiveMessage(struct soap *soap, const struct __ns1__receiveMessage *a, const char *tag, const char *type)
+{
+	if (soap_out___ns1__receiveMessage(soap, tag ? tag : "-ns1:receiveMessage", -2, a, type))
+		return soap->error;
+	return SOAP_OK;
+}
+
+SOAP_FMAC3 struct __ns1__receiveMessage * SOAP_FMAC4 soap_get___ns1__receiveMessage(struct soap *soap, struct __ns1__receiveMessage *p, const char *tag, const char *type)
+{
+	if ((p = soap_in___ns1__receiveMessage(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
 #ifndef WITH_NOGLOBAL
 
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToSOAP_ENV__Reason(struct soap *soap, struct SOAP_ENV__Reason *const*a)
@@ -3496,65 +3496,6 @@ SOAP_FMAC3 ns1__registerServer ** SOAP_FMAC4 soap_get_PointerTons1__registerServ
 	return p;
 }
 
-SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTons1__receiveMessage(struct soap *soap, ns1__receiveMessage *const*a)
-{
-	(void)soap; (void)a; /* appease -Wall -Werror */
-#ifndef WITH_NOIDREF
-	if (!soap_reference(soap, *a, SOAP_TYPE_ns1__receiveMessage))
-		(*a)->soap_serialize(soap);
-#endif
-}
-
-SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTons1__receiveMessage(struct soap *soap, const char *tag, int id, ns1__receiveMessage *const*a, const char *type)
-{
-	id = soap_element_id(soap, tag, id, *a, NULL, 0, type, SOAP_TYPE_ns1__receiveMessage, NULL);
-	if (id < 0)
-		return soap->error;
-	return (*a)->soap_out(soap, tag, id, (*a)->soap_type() == SOAP_TYPE_ns1__receiveMessage ? type : NULL);
-}
-
-SOAP_FMAC3 ns1__receiveMessage ** SOAP_FMAC4 soap_in_PointerTons1__receiveMessage(struct soap *soap, const char *tag, ns1__receiveMessage **a, const char *type)
-{
-	(void)type; /* appease -Wall -Werror */
-	if (soap_element_begin_in(soap, tag, 1, NULL))
-		return NULL;
-	if (!a)
-		if (!(a = (ns1__receiveMessage **)soap_malloc(soap, sizeof(ns1__receiveMessage *))))
-			return NULL;
-	*a = NULL;
-	if (!soap->null && *soap->href != '#')
-	{	soap_revert(soap);
-		if (!(*a = (ns1__receiveMessage *)soap_instantiate_ns1__receiveMessage(soap, -1, soap->type, soap->arrayType, NULL)))
-			return NULL;
-		(*a)->soap_default(soap);
-		if (!(*a)->soap_in(soap, tag, NULL))
-		{	*a = NULL;
-			return NULL;
-		}
-	}
-	else
-	{	a = (ns1__receiveMessage **)soap_id_lookup(soap, soap->href, (void**)a, SOAP_TYPE_ns1__receiveMessage, sizeof(ns1__receiveMessage), 0, soap_fbase);
-		if (soap->body && soap_element_end_in(soap, tag))
-			return NULL;
-	}
-	return a;
-}
-
-SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTons1__receiveMessage(struct soap *soap, ns1__receiveMessage *const*a, const char *tag, const char *type)
-{
-	if (soap_out_PointerTons1__receiveMessage(soap, tag ? tag : "ns1:receiveMessage", -2, a, type))
-		return soap->error;
-	return soap_putindependent(soap);
-}
-
-SOAP_FMAC3 ns1__receiveMessage ** SOAP_FMAC4 soap_get_PointerTons1__receiveMessage(struct soap *soap, ns1__receiveMessage **p, const char *tag, const char *type)
-{
-	if ((p = soap_in_PointerTons1__receiveMessage(soap, tag, p, type)))
-		if (soap_getindependent(soap))
-			return NULL;
-	return p;
-}
-
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTons1__modifyPublicMessage(struct soap *soap, ns1__modifyPublicMessage *const*a)
 {
 	(void)soap; (void)a; /* appease -Wall -Werror */
@@ -3727,6 +3668,65 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTons1__receiveMessageCorba(struct soap
 SOAP_FMAC3 ns1__receiveMessageCorba ** SOAP_FMAC4 soap_get_PointerTons1__receiveMessageCorba(struct soap *soap, ns1__receiveMessageCorba **p, const char *tag, const char *type)
 {
 	if ((p = soap_in_PointerTons1__receiveMessageCorba(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTons1__receiveMessage(struct soap *soap, ns1__receiveMessage *const*a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+#ifndef WITH_NOIDREF
+	if (!soap_reference(soap, *a, SOAP_TYPE_ns1__receiveMessage))
+		(*a)->soap_serialize(soap);
+#endif
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTons1__receiveMessage(struct soap *soap, const char *tag, int id, ns1__receiveMessage *const*a, const char *type)
+{
+	id = soap_element_id(soap, tag, id, *a, NULL, 0, type, SOAP_TYPE_ns1__receiveMessage, NULL);
+	if (id < 0)
+		return soap->error;
+	return (*a)->soap_out(soap, tag, id, (*a)->soap_type() == SOAP_TYPE_ns1__receiveMessage ? type : NULL);
+}
+
+SOAP_FMAC3 ns1__receiveMessage ** SOAP_FMAC4 soap_in_PointerTons1__receiveMessage(struct soap *soap, const char *tag, ns1__receiveMessage **a, const char *type)
+{
+	(void)type; /* appease -Wall -Werror */
+	if (soap_element_begin_in(soap, tag, 1, NULL))
+		return NULL;
+	if (!a)
+		if (!(a = (ns1__receiveMessage **)soap_malloc(soap, sizeof(ns1__receiveMessage *))))
+			return NULL;
+	*a = NULL;
+	if (!soap->null && *soap->href != '#')
+	{	soap_revert(soap);
+		if (!(*a = (ns1__receiveMessage *)soap_instantiate_ns1__receiveMessage(soap, -1, soap->type, soap->arrayType, NULL)))
+			return NULL;
+		(*a)->soap_default(soap);
+		if (!(*a)->soap_in(soap, tag, NULL))
+		{	*a = NULL;
+			return NULL;
+		}
+	}
+	else
+	{	a = (ns1__receiveMessage **)soap_id_lookup(soap, soap->href, (void**)a, SOAP_TYPE_ns1__receiveMessage, sizeof(ns1__receiveMessage), 0, soap_fbase);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTons1__receiveMessage(struct soap *soap, ns1__receiveMessage *const*a, const char *tag, const char *type)
+{
+	if (soap_out_PointerTons1__receiveMessage(soap, tag ? tag : "ns1:receiveMessage", -2, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 ns1__receiveMessage ** SOAP_FMAC4 soap_get_PointerTons1__receiveMessage(struct soap *soap, ns1__receiveMessage **p, const char *tag, const char *type)
+{
+	if ((p = soap_in_PointerTons1__receiveMessage(soap, tag, p, type)))
 		if (soap_getindependent(soap))
 			return NULL;
 	return p;

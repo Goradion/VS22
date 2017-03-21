@@ -44,10 +44,10 @@ class ns1__modifyPublicMessage;	/* F:\GIT\Active\VS22\Client_C++\src\serverCom\s
 class ns1__modifyPublicMessageResponse;	/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:158 */
 class ns1__receiveMessageCorba;	/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:161 */
 class ns1__receiveMessageCorbaResponse;	/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:164 */
-struct __ns1__receiveMessageCorba;	/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:613 */
-struct __ns1__deletePublicMessage;	/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:680 */
-struct __ns1__modifyPublicMessage;	/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:747 */
-struct __ns1__receiveMessage;	/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:814 */
+struct __ns1__receiveMessage;	/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:613 */
+struct __ns1__receiveMessageCorba;	/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:680 */
+struct __ns1__deletePublicMessage;	/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:747 */
+struct __ns1__modifyPublicMessage;	/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:814 */
 struct __ns1__registerServer;	/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:881 */
 
 /* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:137 */
@@ -484,8 +484,29 @@ class SOAP_CMAC ns1__receiveMessageCorbaResponse {
 #endif
 
 /* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:613 */
+#ifndef SOAP_TYPE___ns1__receiveMessage
+#define SOAP_TYPE___ns1__receiveMessage (21)
+/* Wrapper: */
+struct SOAP_CMAC __ns1__receiveMessage {
+      public:
+        /** Optional element 'ns1:receiveMessage' of XSD type 'ns1:receiveMessage' */
+        ns1__receiveMessage *ns1__receiveMessage_;
+      public:
+        /** Return unique type id SOAP_TYPE___ns1__receiveMessage */
+        int soap_type() const { return SOAP_TYPE___ns1__receiveMessage; }
+        /** Constructor with member initializations */
+        __ns1__receiveMessage()
+        {
+          ns1__receiveMessage_ = (ns1__receiveMessage *)0;
+        }
+        /** Friend allocator used by soap_new___ns1__receiveMessage(struct soap*, int) */
+        friend SOAP_FMAC1 __ns1__receiveMessage * SOAP_FMAC2 soap_instantiate___ns1__receiveMessage(struct soap*, int, const char*, const char*, size_t*);
+};
+#endif
+
+/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:680 */
 #ifndef SOAP_TYPE___ns1__receiveMessageCorba
-#define SOAP_TYPE___ns1__receiveMessageCorba (21)
+#define SOAP_TYPE___ns1__receiveMessageCorba (25)
 /* Wrapper: */
 struct SOAP_CMAC __ns1__receiveMessageCorba {
       public:
@@ -504,9 +525,9 @@ struct SOAP_CMAC __ns1__receiveMessageCorba {
 };
 #endif
 
-/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:680 */
+/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:747 */
 #ifndef SOAP_TYPE___ns1__deletePublicMessage
-#define SOAP_TYPE___ns1__deletePublicMessage (25)
+#define SOAP_TYPE___ns1__deletePublicMessage (29)
 /* Wrapper: */
 struct SOAP_CMAC __ns1__deletePublicMessage {
       public:
@@ -525,9 +546,9 @@ struct SOAP_CMAC __ns1__deletePublicMessage {
 };
 #endif
 
-/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:747 */
+/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:814 */
 #ifndef SOAP_TYPE___ns1__modifyPublicMessage
-#define SOAP_TYPE___ns1__modifyPublicMessage (29)
+#define SOAP_TYPE___ns1__modifyPublicMessage (33)
 /* Wrapper: */
 struct SOAP_CMAC __ns1__modifyPublicMessage {
       public:
@@ -543,27 +564,6 @@ struct SOAP_CMAC __ns1__modifyPublicMessage {
         }
         /** Friend allocator used by soap_new___ns1__modifyPublicMessage(struct soap*, int) */
         friend SOAP_FMAC1 __ns1__modifyPublicMessage * SOAP_FMAC2 soap_instantiate___ns1__modifyPublicMessage(struct soap*, int, const char*, const char*, size_t*);
-};
-#endif
-
-/* F:\GIT\Active\VS22\Client_C++\src\serverCom\serverCom.h:814 */
-#ifndef SOAP_TYPE___ns1__receiveMessage
-#define SOAP_TYPE___ns1__receiveMessage (33)
-/* Wrapper: */
-struct SOAP_CMAC __ns1__receiveMessage {
-      public:
-        /** Optional element 'ns1:receiveMessage' of XSD type 'ns1:receiveMessage' */
-        ns1__receiveMessage *ns1__receiveMessage_;
-      public:
-        /** Return unique type id SOAP_TYPE___ns1__receiveMessage */
-        int soap_type() const { return SOAP_TYPE___ns1__receiveMessage; }
-        /** Constructor with member initializations */
-        __ns1__receiveMessage()
-        {
-          ns1__receiveMessage_ = (ns1__receiveMessage *)0;
-        }
-        /** Friend allocator used by soap_new___ns1__receiveMessage(struct soap*, int) */
-        friend SOAP_FMAC1 __ns1__receiveMessage * SOAP_FMAC2 soap_instantiate___ns1__receiveMessage(struct soap*, int, const char*, const char*, size_t*);
 };
 #endif
 
@@ -863,24 +863,24 @@ typedef char *_XML;
 #define SOAP_TYPE_PointerTons1__registerServer (34)
 #endif
 
-/* ns1__receiveMessage * has binding name 'PointerTons1__receiveMessage' for type 'ns1:receiveMessage' */
-#ifndef SOAP_TYPE_PointerTons1__receiveMessage
-#define SOAP_TYPE_PointerTons1__receiveMessage (30)
-#endif
-
 /* ns1__modifyPublicMessage * has binding name 'PointerTons1__modifyPublicMessage' for type 'ns1:modifyPublicMessage' */
 #ifndef SOAP_TYPE_PointerTons1__modifyPublicMessage
-#define SOAP_TYPE_PointerTons1__modifyPublicMessage (26)
+#define SOAP_TYPE_PointerTons1__modifyPublicMessage (30)
 #endif
 
 /* ns1__deletePublicMessage * has binding name 'PointerTons1__deletePublicMessage' for type 'ns1:deletePublicMessage' */
 #ifndef SOAP_TYPE_PointerTons1__deletePublicMessage
-#define SOAP_TYPE_PointerTons1__deletePublicMessage (22)
+#define SOAP_TYPE_PointerTons1__deletePublicMessage (26)
 #endif
 
 /* ns1__receiveMessageCorba * has binding name 'PointerTons1__receiveMessageCorba' for type 'ns1:receiveMessageCorba' */
 #ifndef SOAP_TYPE_PointerTons1__receiveMessageCorba
-#define SOAP_TYPE_PointerTons1__receiveMessageCorba (18)
+#define SOAP_TYPE_PointerTons1__receiveMessageCorba (22)
+#endif
+
+/* ns1__receiveMessage * has binding name 'PointerTons1__receiveMessage' for type 'ns1:receiveMessage' */
+#ifndef SOAP_TYPE_PointerTons1__receiveMessage
+#define SOAP_TYPE_PointerTons1__receiveMessage (18)
 #endif
 
 /* _XML has binding name '_XML' for type '' */

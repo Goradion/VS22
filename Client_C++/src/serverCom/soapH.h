@@ -1617,92 +1617,6 @@ inline int soap_POST_recv___ns1__registerServer(struct soap *soap, struct __ns1_
 }
 #endif
 
-#ifndef SOAP_TYPE___ns1__receiveMessage_DEFINED
-#define SOAP_TYPE___ns1__receiveMessage_DEFINED
-SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns1__receiveMessage(struct soap*, struct __ns1__receiveMessage *);
-SOAP_FMAC3 void SOAP_FMAC4 soap_serialize___ns1__receiveMessage(struct soap*, const struct __ns1__receiveMessage *);
-SOAP_FMAC3 int SOAP_FMAC4 soap_out___ns1__receiveMessage(struct soap*, const char*, int, const struct __ns1__receiveMessage *, const char*);
-SOAP_FMAC3 struct __ns1__receiveMessage * SOAP_FMAC4 soap_in___ns1__receiveMessage(struct soap*, const char*, struct __ns1__receiveMessage *, const char*);
-SOAP_FMAC1 struct __ns1__receiveMessage * SOAP_FMAC2 soap_instantiate___ns1__receiveMessage(struct soap*, int, const char*, const char*, size_t*);
-
-inline struct __ns1__receiveMessage * soap_new___ns1__receiveMessage(struct soap *soap, int n = -1)
-{
-	return soap_instantiate___ns1__receiveMessage(soap, n, NULL, NULL, NULL);
-}
-
-inline struct __ns1__receiveMessage * soap_new_req___ns1__receiveMessage(
-	struct soap *soap)
-{
-	struct __ns1__receiveMessage *_p = soap_new___ns1__receiveMessage(soap);
-	if (_p)
-	{	soap_default___ns1__receiveMessage(soap, _p);
-	}
-	return _p;
-}
-
-inline struct __ns1__receiveMessage * soap_new_set___ns1__receiveMessage(
-	struct soap *soap,
-	ns1__receiveMessage *ns1__receiveMessage_)
-{
-	struct __ns1__receiveMessage *_p = soap_new___ns1__receiveMessage(soap);
-	if (_p)
-	{	soap_default___ns1__receiveMessage(soap, _p);
-		_p->ns1__receiveMessage_ = ns1__receiveMessage_;
-	}
-	return _p;
-}
-SOAP_FMAC3 int SOAP_FMAC4 soap_put___ns1__receiveMessage(struct soap*, const struct __ns1__receiveMessage *, const char*, const char*);
-
-inline int soap_write___ns1__receiveMessage(struct soap *soap, struct __ns1__receiveMessage const*p)
-{
-	soap_free_temp(soap);
-	if (soap_begin_send(soap) || (soap_serialize___ns1__receiveMessage(soap, p), 0) || soap_put___ns1__receiveMessage(soap, p, "-ns1:receiveMessage", "") || soap_end_send(soap))
-			return soap->error;
-	return SOAP_OK;
-}
-
-inline int soap_PUT___ns1__receiveMessage(struct soap *soap, const char *URL, struct __ns1__receiveMessage const*p)
-{
-	soap_free_temp(soap);
-	if (soap_PUT(soap, URL, NULL, NULL) || (soap_serialize___ns1__receiveMessage(soap, p), 0) || soap_put___ns1__receiveMessage(soap, p, "-ns1:receiveMessage", "") || soap_end_send(soap) || soap_recv_empty_response(soap))
-		return soap->error;
-	return SOAP_OK;
-}
-
-inline int soap_POST_send___ns1__receiveMessage(struct soap *soap, const char *URL, struct __ns1__receiveMessage const*p)
-{
-	soap_free_temp(soap);
-	if (soap_connect(soap, URL, NULL) || (soap_serialize___ns1__receiveMessage(soap, p), 0) || soap_put___ns1__receiveMessage(soap, p, "-ns1:receiveMessage", "") || soap_end_send(soap))
-		return soap->error;
-	return SOAP_OK;
-}
-SOAP_FMAC3 struct __ns1__receiveMessage * SOAP_FMAC4 soap_get___ns1__receiveMessage(struct soap*, struct __ns1__receiveMessage *, const char*, const char*);
-
-inline int soap_read___ns1__receiveMessage(struct soap *soap, struct __ns1__receiveMessage *p)
-{
-	if (p)
-	{	soap_default___ns1__receiveMessage(soap, p);
-		if (soap_begin_recv(soap) || soap_get___ns1__receiveMessage(soap, p, NULL, NULL) == NULL || soap_end_recv(soap))
-			return soap->error;
-	}
-	return SOAP_OK;
-}
-
-inline int soap_GET___ns1__receiveMessage(struct soap *soap, const char *URL, struct __ns1__receiveMessage *p)
-{
-	if (soap_GET(soap, URL, NULL) || soap_read___ns1__receiveMessage(soap, p))
-		return soap->error;
-	return SOAP_OK;
-}
-
-inline int soap_POST_recv___ns1__receiveMessage(struct soap *soap, struct __ns1__receiveMessage *p)
-{
-	if (soap_read___ns1__receiveMessage(soap, p) || soap_closesock(soap))
-		return soap->error;
-	return SOAP_OK;
-}
-#endif
-
 #ifndef SOAP_TYPE___ns1__modifyPublicMessage_DEFINED
 #define SOAP_TYPE___ns1__modifyPublicMessage_DEFINED
 SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns1__modifyPublicMessage(struct soap*, struct __ns1__modifyPublicMessage *);
@@ -1961,6 +1875,92 @@ inline int soap_POST_recv___ns1__receiveMessageCorba(struct soap *soap, struct _
 }
 #endif
 
+#ifndef SOAP_TYPE___ns1__receiveMessage_DEFINED
+#define SOAP_TYPE___ns1__receiveMessage_DEFINED
+SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns1__receiveMessage(struct soap*, struct __ns1__receiveMessage *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize___ns1__receiveMessage(struct soap*, const struct __ns1__receiveMessage *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out___ns1__receiveMessage(struct soap*, const char*, int, const struct __ns1__receiveMessage *, const char*);
+SOAP_FMAC3 struct __ns1__receiveMessage * SOAP_FMAC4 soap_in___ns1__receiveMessage(struct soap*, const char*, struct __ns1__receiveMessage *, const char*);
+SOAP_FMAC1 struct __ns1__receiveMessage * SOAP_FMAC2 soap_instantiate___ns1__receiveMessage(struct soap*, int, const char*, const char*, size_t*);
+
+inline struct __ns1__receiveMessage * soap_new___ns1__receiveMessage(struct soap *soap, int n = -1)
+{
+	return soap_instantiate___ns1__receiveMessage(soap, n, NULL, NULL, NULL);
+}
+
+inline struct __ns1__receiveMessage * soap_new_req___ns1__receiveMessage(
+	struct soap *soap)
+{
+	struct __ns1__receiveMessage *_p = soap_new___ns1__receiveMessage(soap);
+	if (_p)
+	{	soap_default___ns1__receiveMessage(soap, _p);
+	}
+	return _p;
+}
+
+inline struct __ns1__receiveMessage * soap_new_set___ns1__receiveMessage(
+	struct soap *soap,
+	ns1__receiveMessage *ns1__receiveMessage_)
+{
+	struct __ns1__receiveMessage *_p = soap_new___ns1__receiveMessage(soap);
+	if (_p)
+	{	soap_default___ns1__receiveMessage(soap, _p);
+		_p->ns1__receiveMessage_ = ns1__receiveMessage_;
+	}
+	return _p;
+}
+SOAP_FMAC3 int SOAP_FMAC4 soap_put___ns1__receiveMessage(struct soap*, const struct __ns1__receiveMessage *, const char*, const char*);
+
+inline int soap_write___ns1__receiveMessage(struct soap *soap, struct __ns1__receiveMessage const*p)
+{
+	soap_free_temp(soap);
+	if (soap_begin_send(soap) || (soap_serialize___ns1__receiveMessage(soap, p), 0) || soap_put___ns1__receiveMessage(soap, p, "-ns1:receiveMessage", "") || soap_end_send(soap))
+			return soap->error;
+	return SOAP_OK;
+}
+
+inline int soap_PUT___ns1__receiveMessage(struct soap *soap, const char *URL, struct __ns1__receiveMessage const*p)
+{
+	soap_free_temp(soap);
+	if (soap_PUT(soap, URL, NULL, NULL) || (soap_serialize___ns1__receiveMessage(soap, p), 0) || soap_put___ns1__receiveMessage(soap, p, "-ns1:receiveMessage", "") || soap_end_send(soap) || soap_recv_empty_response(soap))
+		return soap->error;
+	return SOAP_OK;
+}
+
+inline int soap_POST_send___ns1__receiveMessage(struct soap *soap, const char *URL, struct __ns1__receiveMessage const*p)
+{
+	soap_free_temp(soap);
+	if (soap_connect(soap, URL, NULL) || (soap_serialize___ns1__receiveMessage(soap, p), 0) || soap_put___ns1__receiveMessage(soap, p, "-ns1:receiveMessage", "") || soap_end_send(soap))
+		return soap->error;
+	return SOAP_OK;
+}
+SOAP_FMAC3 struct __ns1__receiveMessage * SOAP_FMAC4 soap_get___ns1__receiveMessage(struct soap*, struct __ns1__receiveMessage *, const char*, const char*);
+
+inline int soap_read___ns1__receiveMessage(struct soap *soap, struct __ns1__receiveMessage *p)
+{
+	if (p)
+	{	soap_default___ns1__receiveMessage(soap, p);
+		if (soap_begin_recv(soap) || soap_get___ns1__receiveMessage(soap, p, NULL, NULL) == NULL || soap_end_recv(soap))
+			return soap->error;
+	}
+	return SOAP_OK;
+}
+
+inline int soap_GET___ns1__receiveMessage(struct soap *soap, const char *URL, struct __ns1__receiveMessage *p)
+{
+	if (soap_GET(soap, URL, NULL) || soap_read___ns1__receiveMessage(soap, p))
+		return soap->error;
+	return SOAP_OK;
+}
+
+inline int soap_POST_recv___ns1__receiveMessage(struct soap *soap, struct __ns1__receiveMessage *p)
+{
+	if (soap_read___ns1__receiveMessage(soap, p) || soap_closesock(soap))
+		return soap->error;
+	return SOAP_OK;
+}
+#endif
+
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Reason_DEFINED
@@ -2009,15 +2009,6 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTons1__registerServer(struct soap*, ns
 SOAP_FMAC3 ns1__registerServer ** SOAP_FMAC4 soap_get_PointerTons1__registerServer(struct soap*, ns1__registerServer **, const char*, const char*);
 #endif
 
-#ifndef SOAP_TYPE_PointerTons1__receiveMessage_DEFINED
-#define SOAP_TYPE_PointerTons1__receiveMessage_DEFINED
-SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTons1__receiveMessage(struct soap*, ns1__receiveMessage *const*);
-SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTons1__receiveMessage(struct soap*, const char *, int, ns1__receiveMessage *const*, const char *);
-SOAP_FMAC3 ns1__receiveMessage ** SOAP_FMAC4 soap_in_PointerTons1__receiveMessage(struct soap*, const char*, ns1__receiveMessage **, const char*);
-SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTons1__receiveMessage(struct soap*, ns1__receiveMessage *const*, const char*, const char*);
-SOAP_FMAC3 ns1__receiveMessage ** SOAP_FMAC4 soap_get_PointerTons1__receiveMessage(struct soap*, ns1__receiveMessage **, const char*, const char*);
-#endif
-
 #ifndef SOAP_TYPE_PointerTons1__modifyPublicMessage_DEFINED
 #define SOAP_TYPE_PointerTons1__modifyPublicMessage_DEFINED
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTons1__modifyPublicMessage(struct soap*, ns1__modifyPublicMessage *const*);
@@ -2043,6 +2034,15 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTons1__receiveMessageCorba(struct soap
 SOAP_FMAC3 ns1__receiveMessageCorba ** SOAP_FMAC4 soap_in_PointerTons1__receiveMessageCorba(struct soap*, const char*, ns1__receiveMessageCorba **, const char*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTons1__receiveMessageCorba(struct soap*, ns1__receiveMessageCorba *const*, const char*, const char*);
 SOAP_FMAC3 ns1__receiveMessageCorba ** SOAP_FMAC4 soap_get_PointerTons1__receiveMessageCorba(struct soap*, ns1__receiveMessageCorba **, const char*, const char*);
+#endif
+
+#ifndef SOAP_TYPE_PointerTons1__receiveMessage_DEFINED
+#define SOAP_TYPE_PointerTons1__receiveMessage_DEFINED
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTons1__receiveMessage(struct soap*, ns1__receiveMessage *const*);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTons1__receiveMessage(struct soap*, const char *, int, ns1__receiveMessage *const*, const char *);
+SOAP_FMAC3 ns1__receiveMessage ** SOAP_FMAC4 soap_in_PointerTons1__receiveMessage(struct soap*, const char*, ns1__receiveMessage **, const char*);
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTons1__receiveMessage(struct soap*, ns1__receiveMessage *const*, const char*, const char*);
+SOAP_FMAC3 ns1__receiveMessage ** SOAP_FMAC4 soap_get_PointerTons1__receiveMessage(struct soap*, ns1__receiveMessage **, const char*, const char*);
 #endif
 
 #ifndef SOAP_TYPE__XML_DEFINED

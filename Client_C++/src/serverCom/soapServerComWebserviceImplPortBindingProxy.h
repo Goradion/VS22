@@ -73,6 +73,10 @@ A commercial use license is available from Genivia Inc., contact@genivia.com
         /// Write fault to buffer
         virtual char *soap_sprint_fault(char *buf, size_t len);
     #endif
+        /// Web service operation 'receiveMessage' (returns SOAP_OK or error code)
+        virtual int receiveMessage(ns1__receiveMessage *ns1__receiveMessage_, ns1__receiveMessageResponse &ns1__receiveMessageResponse_)
+        { return this->receiveMessage(NULL, NULL, ns1__receiveMessage_, ns1__receiveMessageResponse_); }
+        virtual int receiveMessage(const char *soap_endpoint, const char *soap_action, ns1__receiveMessage *ns1__receiveMessage_, ns1__receiveMessageResponse &ns1__receiveMessageResponse_);
         /// Web service operation 'receiveMessageCorba' (returns SOAP_OK or error code)
         virtual int receiveMessageCorba(ns1__receiveMessageCorba *ns1__receiveMessageCorba_, ns1__receiveMessageCorbaResponse &ns1__receiveMessageCorbaResponse_)
         { return this->receiveMessageCorba(NULL, NULL, ns1__receiveMessageCorba_, ns1__receiveMessageCorbaResponse_); }
@@ -85,10 +89,6 @@ A commercial use license is available from Genivia Inc., contact@genivia.com
         virtual int modifyPublicMessage(ns1__modifyPublicMessage *ns1__modifyPublicMessage_, ns1__modifyPublicMessageResponse &ns1__modifyPublicMessageResponse_)
         { return this->modifyPublicMessage(NULL, NULL, ns1__modifyPublicMessage_, ns1__modifyPublicMessageResponse_); }
         virtual int modifyPublicMessage(const char *soap_endpoint, const char *soap_action, ns1__modifyPublicMessage *ns1__modifyPublicMessage_, ns1__modifyPublicMessageResponse &ns1__modifyPublicMessageResponse_);
-        /// Web service operation 'receiveMessage' (returns SOAP_OK or error code)
-        virtual int receiveMessage(ns1__receiveMessage *ns1__receiveMessage_, ns1__receiveMessageResponse &ns1__receiveMessageResponse_)
-        { return this->receiveMessage(NULL, NULL, ns1__receiveMessage_, ns1__receiveMessageResponse_); }
-        virtual int receiveMessage(const char *soap_endpoint, const char *soap_action, ns1__receiveMessage *ns1__receiveMessage_, ns1__receiveMessageResponse &ns1__receiveMessageResponse_);
         /// Web service operation 'registerServer' (returns SOAP_OK or error code)
         virtual int registerServer(ns1__registerServer *ns1__registerServer_, ns1__registerServerResponse &ns1__registerServerResponse_)
         { return this->registerServer(NULL, NULL, ns1__registerServer_, ns1__registerServerResponse_); }

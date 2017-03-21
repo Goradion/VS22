@@ -55,7 +55,7 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
         if (tafelServer != null) {
             String answer = "";
             try {
-                DateFormat formatTime = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
+                DateFormat formatTime = new SimpleDateFormat("EEE MMM d HH:mm:ss yyyy", Locale.ENGLISH);
                 tafelServer.receiveMessageCorba(messageID, userID, serverNr, inhalt, formatTime.parse(time));
                 answer =  "Done";
             } catch (TafelException e) {
