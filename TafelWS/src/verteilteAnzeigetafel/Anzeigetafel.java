@@ -430,6 +430,23 @@ public class Anzeigetafel extends Observable implements Serializable {
 
 		updateState();
 	}
+	
+	public synchronized void deletePublicMessageCorba(int messageID) throws TafelException {
+
+        if (messages.containsKey(messageID)) {
+            Message curMessage = messages.get(messageID);
+            if (!curMessage.isOeffentlich()) {
+                messages.remove(messageID);
+                userMsgs.get(curMessage.getUserID()).remove(new Integer(messageID));
+            } else {
+                throw new TafelException("Message " + messageID + " ist oeffentlich in Gruppen " + curMessage.getGruppen().toString());
+            }
+        } else {
+            throw new TafelException("Keine Message mit ID " + messageID + " gefunden!");
+        }
+
+        updateState();
+    }
 
 	public synchronized void modifyPublic(int messageID, String inhalt, int user) throws TafelException {
 

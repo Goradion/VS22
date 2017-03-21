@@ -572,6 +572,32 @@ public class TafelServer {
 		return true;
 	}
 	
+	public synchronized boolean deletePublicMessageCorba(int msgID) throws TafelException {
+
+        anzeigetafel.deletePublicMessageCorba(msgID);
+//        Message curMessage = anzeigetafel.getMessageByID(msgID);
+//        HashSet<Integer> curMsgGroups = curMessage.getGruppen();
+        
+        // TODO delete everywhere? oder nur auf dem mit Corba verbundenem Server?
+        // wenn everywhere, reicht unteres nicht aus, weil ein anderer Server die Nachricht bei sich in einer anderen Gruppe geteilt haben kann, in der dieser Server gar nicht drin ist
+        // man bräucht ne andere deletePublic, die veranlässt, dass die anderen Server, diese Nachricht auch in all ihren Gruppen public löscht
+//        for (int groupID : curMsgGroups) {
+//            for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(groupID)) {
+//                try {
+//                    if (q != null) {
+//                        q.put(new DeletePublicRequest(msgID, groupID));
+//                    }
+//                } catch (InterruptedException e) {
+//                    print("Message mit ID=" + msgID + " wird nicht überall gelöscht werden!");
+//                }
+//            }
+//        }
+        
+//        saveQueueMapToFile();
+        anzeigetafel.saveStateToFile();
+        return true;
+    }
+	
 	public synchronized boolean modifyPublicMessage(int messageID, String inhalt) throws TafelException {
 		anzeigetafel.modifyPublicMessage(messageID, inhalt);
 

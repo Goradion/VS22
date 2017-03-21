@@ -68,6 +68,21 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
         }
         return null;
     }
+	
+	@Override
+    public String deletePublicMessageCorba(int msgID) {
+        if (tafelServer != null) {
+            String answer = "";
+            try {
+                tafelServer.deletePublicMessageCorba(msgID);
+                answer =  "Done";
+            } catch (TafelException e) {
+                answer = e.getMessage();
+            }
+            return answer;
+        }
+        return null;
+    }
 
 	@Override
 	public String registerServer(int abtNr) {  // TODO Übergabe der IP vom andern Tafelserver
