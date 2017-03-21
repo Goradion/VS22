@@ -502,6 +502,7 @@ public class TafelServer {
 		}
 		
 		saveQueueMapToFile();
+		anzeigetafel.saveStateToFile();
 		return antwort;
 	}
 
@@ -523,6 +524,7 @@ public class TafelServer {
 		}
 		
 		saveQueueMapToFile();
+		anzeigetafel.saveStateToFile();
 		return antwort;
 	}
 
@@ -555,6 +557,8 @@ public class TafelServer {
 			    anzeigetafel.receiveMessage(message, i);
 			}
 		}
+		
+		anzeigetafel.saveStateToFile();
 		return true;
 	}
 	
