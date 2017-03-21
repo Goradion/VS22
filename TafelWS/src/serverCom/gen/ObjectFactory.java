@@ -25,8 +25,10 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _ReceiveMessageCorba_QNAME = new QName("http://webservice.tafelServer/", "receiveMessageCorba");
+    private final static QName _DeletePublicMessageCorba_QNAME = new QName("http://webservice.tafelServer/", "deletePublicMessageCorba");
     private final static QName _RegisterServerResponse_QNAME = new QName("http://webservice.tafelServer/", "registerServerResponse");
     private final static QName _DeletePublicMessageResponse_QNAME = new QName("http://webservice.tafelServer/", "deletePublicMessageResponse");
+    private final static QName _DeletePublicMessageCorbaResponse_QNAME = new QName("http://webservice.tafelServer/", "deletePublicMessageCorbaResponse");
     private final static QName _RegisterServer_QNAME = new QName("http://webservice.tafelServer/", "registerServer");
     private final static QName _ReceiveMessageCorbaResponse_QNAME = new QName("http://webservice.tafelServer/", "receiveMessageCorbaResponse");
     private final static QName _ModifyPublicMessage_QNAME = new QName("http://webservice.tafelServer/", "modifyPublicMessage");
@@ -99,11 +101,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DeletePublicMessageCorbaResponse }
+     * 
+     */
+    public DeletePublicMessageCorbaResponse createDeletePublicMessageCorbaResponse() {
+        return new DeletePublicMessageCorbaResponse();
+    }
+
+    /**
      * Create an instance of {@link DeletePublicMessageResponse }
      * 
      */
     public DeletePublicMessageResponse createDeletePublicMessageResponse() {
         return new DeletePublicMessageResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeletePublicMessageCorba }
+     * 
+     */
+    public DeletePublicMessageCorba createDeletePublicMessageCorba() {
+        return new DeletePublicMessageCorba();
     }
 
     /**
@@ -132,6 +150,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeletePublicMessageCorba }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "deletePublicMessageCorba")
+    public JAXBElement<DeletePublicMessageCorba> createDeletePublicMessageCorba(DeletePublicMessageCorba value) {
+        return new JAXBElement<DeletePublicMessageCorba>(_DeletePublicMessageCorba_QNAME, DeletePublicMessageCorba.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RegisterServerResponse }{@code >}}
      * 
      */
@@ -147,6 +174,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "deletePublicMessageResponse")
     public JAXBElement<DeletePublicMessageResponse> createDeletePublicMessageResponse(DeletePublicMessageResponse value) {
         return new JAXBElement<DeletePublicMessageResponse>(_DeletePublicMessageResponse_QNAME, DeletePublicMessageResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeletePublicMessageCorbaResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tafelServer/", name = "deletePublicMessageCorbaResponse")
+    public JAXBElement<DeletePublicMessageCorbaResponse> createDeletePublicMessageCorbaResponse(DeletePublicMessageCorbaResponse value) {
+        return new JAXBElement<DeletePublicMessageCorbaResponse>(_DeletePublicMessageCorbaResponse_QNAME, DeletePublicMessageCorbaResponse.class, null, value);
     }
 
     /**

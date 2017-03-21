@@ -151,60 +151,6 @@ char *ServerComWebserviceImplPortBindingProxy::soap_sprint_fault(char *buf, size
 }
 #endif
 
-int ServerComWebserviceImplPortBindingProxy::receiveMessage(const char *endpoint, const char *soap_action, ns1__receiveMessage *ns1__receiveMessage_, ns1__receiveMessageResponse &ns1__receiveMessageResponse_)
-{	struct soap *soap = this->soap;
-	struct __ns1__receiveMessage soap_tmp___ns1__receiveMessage;
-	if (endpoint)
-		soap_endpoint = endpoint;
-	if (soap_endpoint == NULL)
-		soap_endpoint = "http://localhost:8080/TafelWS/serverws";
-	if (soap_action == NULL)
-		soap_action = "http://webservice.tafelServer/ServerComWebservice/receiveMessageRequest";
-	soap_tmp___ns1__receiveMessage.ns1__receiveMessage_ = ns1__receiveMessage_;
-	soap_begin(soap);
-	soap->encodingStyle = NULL;
-	soap_serializeheader(soap);
-	soap_serialize___ns1__receiveMessage(soap, &soap_tmp___ns1__receiveMessage);
-	if (soap_begin_count(soap))
-		return soap->error;
-	if (soap->mode & SOAP_IO_LENGTH)
-	{	if (soap_envelope_begin_out(soap)
-		 || soap_putheader(soap)
-		 || soap_body_begin_out(soap)
-		 || soap_put___ns1__receiveMessage(soap, &soap_tmp___ns1__receiveMessage, "-ns1:receiveMessage", "")
-		 || soap_body_end_out(soap)
-		 || soap_envelope_end_out(soap))
-			 return soap->error;
-	}
-	if (soap_end_count(soap))
-		return soap->error;
-	if (soap_connect(soap, soap_endpoint, soap_action)
-	 || soap_envelope_begin_out(soap)
-	 || soap_putheader(soap)
-	 || soap_body_begin_out(soap)
-	 || soap_put___ns1__receiveMessage(soap, &soap_tmp___ns1__receiveMessage, "-ns1:receiveMessage", "")
-	 || soap_body_end_out(soap)
-	 || soap_envelope_end_out(soap)
-	 || soap_end_send(soap))
-		return soap_closesock(soap);
-	if (!static_cast<ns1__receiveMessageResponse*>(&ns1__receiveMessageResponse_)) // NULL ref?
-		return soap_closesock(soap);
-	ns1__receiveMessageResponse_.soap_default(soap);
-	if (soap_begin_recv(soap)
-	 || soap_envelope_begin_in(soap)
-	 || soap_recv_header(soap)
-	 || soap_body_begin_in(soap))
-		return soap_closesock(soap);
-	ns1__receiveMessageResponse_.soap_get(soap, "ns1:receiveMessageResponse", NULL);
-	if (soap->error)
-		return soap_recv_fault(soap, 0);
-	if (soap_body_end_in(soap)
-	 || soap_envelope_end_in(soap)
-	 || soap_end_recv(soap))
-		return soap_closesock(soap);
-	return soap_closesock(soap);
-}
-
 int ServerComWebserviceImplPortBindingProxy::receiveMessageCorba(const char *endpoint, const char *soap_action, ns1__receiveMessageCorba *ns1__receiveMessageCorba_, ns1__receiveMessageCorbaResponse &ns1__receiveMessageCorbaResponse_)
 {	struct soap *soap = this->soap;
 	struct __ns1__receiveMessageCorba soap_tmp___ns1__receiveMessageCorba;
@@ -313,6 +259,60 @@ int ServerComWebserviceImplPortBindingProxy::deletePublicMessage(const char *end
 	return soap_closesock(soap);
 }
 
+int ServerComWebserviceImplPortBindingProxy::deletePublicMessageCorba(const char *endpoint, const char *soap_action, ns1__deletePublicMessageCorba *ns1__deletePublicMessageCorba_, ns1__deletePublicMessageCorbaResponse &ns1__deletePublicMessageCorbaResponse_)
+{	struct soap *soap = this->soap;
+	struct __ns1__deletePublicMessageCorba soap_tmp___ns1__deletePublicMessageCorba;
+	if (endpoint)
+		soap_endpoint = endpoint;
+	if (soap_endpoint == NULL)
+		soap_endpoint = "http://localhost:8080/TafelWS/serverws";
+	if (soap_action == NULL)
+		soap_action = "http://webservice.tafelServer/ServerComWebservice/deletePublicMessageCorbaRequest";
+	soap_tmp___ns1__deletePublicMessageCorba.ns1__deletePublicMessageCorba_ = ns1__deletePublicMessageCorba_;
+	soap_begin(soap);
+	soap->encodingStyle = NULL;
+	soap_serializeheader(soap);
+	soap_serialize___ns1__deletePublicMessageCorba(soap, &soap_tmp___ns1__deletePublicMessageCorba);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put___ns1__deletePublicMessageCorba(soap, &soap_tmp___ns1__deletePublicMessageCorba, "-ns1:deletePublicMessageCorba", "")
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_endpoint, soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put___ns1__deletePublicMessageCorba(soap, &soap_tmp___ns1__deletePublicMessageCorba, "-ns1:deletePublicMessageCorba", "")
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!static_cast<ns1__deletePublicMessageCorbaResponse*>(&ns1__deletePublicMessageCorbaResponse_)) // NULL ref?
+		return soap_closesock(soap);
+	ns1__deletePublicMessageCorbaResponse_.soap_default(soap);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	ns1__deletePublicMessageCorbaResponse_.soap_get(soap, "ns1:deletePublicMessageCorbaResponse", NULL);
+	if (soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	return soap_closesock(soap);
+}
+
 int ServerComWebserviceImplPortBindingProxy::modifyPublicMessage(const char *endpoint, const char *soap_action, ns1__modifyPublicMessage *ns1__modifyPublicMessage_, ns1__modifyPublicMessageResponse &ns1__modifyPublicMessageResponse_)
 {	struct soap *soap = this->soap;
 	struct __ns1__modifyPublicMessage soap_tmp___ns1__modifyPublicMessage;
@@ -358,6 +358,60 @@ int ServerComWebserviceImplPortBindingProxy::modifyPublicMessage(const char *end
 	 || soap_body_begin_in(soap))
 		return soap_closesock(soap);
 	ns1__modifyPublicMessageResponse_.soap_get(soap, "ns1:modifyPublicMessageResponse", NULL);
+	if (soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	return soap_closesock(soap);
+}
+
+int ServerComWebserviceImplPortBindingProxy::receiveMessage(const char *endpoint, const char *soap_action, ns1__receiveMessage *ns1__receiveMessage_, ns1__receiveMessageResponse &ns1__receiveMessageResponse_)
+{	struct soap *soap = this->soap;
+	struct __ns1__receiveMessage soap_tmp___ns1__receiveMessage;
+	if (endpoint)
+		soap_endpoint = endpoint;
+	if (soap_endpoint == NULL)
+		soap_endpoint = "http://localhost:8080/TafelWS/serverws";
+	if (soap_action == NULL)
+		soap_action = "http://webservice.tafelServer/ServerComWebservice/receiveMessageRequest";
+	soap_tmp___ns1__receiveMessage.ns1__receiveMessage_ = ns1__receiveMessage_;
+	soap_begin(soap);
+	soap->encodingStyle = NULL;
+	soap_serializeheader(soap);
+	soap_serialize___ns1__receiveMessage(soap, &soap_tmp___ns1__receiveMessage);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put___ns1__receiveMessage(soap, &soap_tmp___ns1__receiveMessage, "-ns1:receiveMessage", "")
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_endpoint, soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put___ns1__receiveMessage(soap, &soap_tmp___ns1__receiveMessage, "-ns1:receiveMessage", "")
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!static_cast<ns1__receiveMessageResponse*>(&ns1__receiveMessageResponse_)) // NULL ref?
+		return soap_closesock(soap);
+	ns1__receiveMessageResponse_.soap_default(soap);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	ns1__receiveMessageResponse_.soap_get(soap, "ns1:receiveMessageResponse", NULL);
 	if (soap->error)
 		return soap_recv_fault(soap, 0);
 	if (soap_body_end_in(soap)
