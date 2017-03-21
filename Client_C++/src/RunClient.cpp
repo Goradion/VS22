@@ -8,8 +8,10 @@
 
 #include <iostream>
 #include <string>
+#include <unistd.h>
 #include "serverCom/soapServerComWebserviceImplPortBindingProxy.h"
 #include "serverCom/ServerComWebserviceImplPortBinding.nsmap"
+#include "OutboxThread.h"
 
 using namespace std;
 
@@ -18,20 +20,25 @@ int main ()
 {
     try
     {
-        ServerComWebserviceImplPortBindingProxy service;
-        ns1__receiveMessage * arguments = new ns1__receiveMessage();
-        arguments->arg0 = 2; // messageID
-        arguments->arg1 = 1; // userID
-        arguments->arg2 = 2; // abtNr
-        arguments->arg3 = "Hallo test";  // inhalt
-        arguments->arg4 =  "Fri Mar 17 16:26:13 CET 2017";   // time TODO passendes Datenformat für Time
-        arguments->arg5 = 1; // group
-        ns1__receiveMessageResponse results;
-        if ( service.receiveMessage(arguments, results) == SOAP_OK )
-            cout << "The receiveMessage: " << results.return_ << endl;  // get the methods (receiveMessage) return value
-        else
-            service.soap_stream_fault(cerr);
-        service.destroy(); // delete data and release memory
+//        ServerComWebserviceImplPortBindingProxy service;
+//        ns1__receiveMessage * arguments = new ns1__receiveMessage();
+//        arguments->arg0 = 2; // messageID
+//        arguments->arg1 = 1; // userID
+//        arguments->arg2 = 2; // abtNr
+//        arguments->arg3 = "Hallo test";  // inhalt
+//        arguments->arg4 =  "Fri Mar 17 16:26:13 CET 2017";   // time TODO passendes Datenformat für Time
+//        arguments->arg5 = 1; // group
+//        ns1__receiveMessageResponse results;
+//        if ( service.receiveMessage(arguments, results) == SOAP_OK )
+//            cout << "The receiveMessage: " << results.return_ << endl;  // get the methods (receiveMessage) return value
+//        else
+//            service.soap_stream_fault(cerr);
+//        service.destroy(); // delete data and release memory
+
+        OutboxThread * out = new OutboxThread();
+        out->start();
+        usleep(22000);
+        delete(out);
     } catch ( const string& e )
     {
         cerr << "MAIN Error: " << e << endl;

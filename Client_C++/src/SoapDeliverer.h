@@ -10,6 +10,13 @@
 
 
 
+class SoapDeliverer
+{
+    public:
 
+
+    private:
+
+};
 
 #endif /* SOAPDELIVERER_H_ */
