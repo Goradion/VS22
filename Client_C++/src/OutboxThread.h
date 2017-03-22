@@ -6,10 +6,12 @@
  */
 
 #ifndef OUTBOXTHREAD_H_
- #define OUTBOXTHREAD_H_
+# define OUTBOXTHREAD_H_
 
 
- #include <boost/thread.hpp>    // cant use c++11(<thread>) because of gsoap...
+# include <boost/thread.hpp>    // cant use c++11(<thread>) because of gsoap...
+//# include "SoapRequest.h"
+
 
 class OutboxThread
 {

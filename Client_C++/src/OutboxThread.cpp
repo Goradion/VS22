@@ -13,6 +13,7 @@
 using namespace std;
 using namespace boost;
 
+// TODO Queue der Requests, und ne add methode, zum hinzufuegen neuer Requests von auﬂen
 
 
 OutboxThread::~OutboxThread()
@@ -39,6 +40,7 @@ void OutboxThread::threadMain()
         // Do something useful, e.g:
         cout << "Hallo " << numb++ << endl;
         usleep(5000);
+        // TODO richtige Implementierung
     }
 }
 
