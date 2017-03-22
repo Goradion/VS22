@@ -315,7 +315,7 @@ public class Anzeigetafel extends Observable implements Serializable {
     		userMsgs.get(msg.getUserID()).add(msgID); 
     	}
     	
-		updateState();
+		updateState(); // TODO in GUI Feld fuer Corba Messages
 	}
         
         

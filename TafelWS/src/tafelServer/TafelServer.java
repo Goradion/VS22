@@ -545,7 +545,8 @@ public class TafelServer {
 	    if (tafelAdressen.containsKey(serverNr)) {
             throw new TafelException("Server Nummer ist gleich einer Abteilungs Nummer: " + serverNr + "!");
         }
-		anzeigetafel.receiveMessageCorba(new Message(messageID, userID, serverNr, inhalt, true, time));
+		anzeigetafel.receiveMessageCorba(new Message(messageID, userID, serverNr, inhalt, false, time));  
+		// TODO sind Corba Messages oeffentlich? wenn nein, werden sie eben unter local in GUI angezeigt, wenn ja, muss man noch nen Feld Corba Messages erstellen
 		
 		anzeigetafel.saveStateToFile();
 		return true;
