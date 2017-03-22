@@ -573,7 +573,15 @@ public class TafelServer {
 	}
 	
 	public synchronized boolean deletePublicMessageCorba(int msgID) throws TafelException {
-
+	    Message curMessage = anzeigetafel.getMessageByID(msgID); 
+	    if ( curMessage == null ) {
+            throw new TafelException("Keine Message mit ID " + msgID + " gefunden!");
+        }
+	    int serverNr = curMessage.getAbtNr();
+	    if ( tafelAdressen.containsKey(serverNr) ) {
+	        throw new TafelException("Server Nummer ist gleich einer Abteilungs Nummer: " + serverNr + "!");
+	    }
+	        
         anzeigetafel.deletePublicMessageCorba(msgID);
 //        Message curMessage = anzeigetafel.getMessageByID(msgID);
 //        HashSet<Integer> curMsgGroups = curMessage.getGruppen();
