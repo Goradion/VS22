@@ -11,7 +11,7 @@
 
 # include <string>
 
-# define MSGID_DEFAULT      0
+# define MSGID_DEFAULT      1
 
 
 class SoapRequest
