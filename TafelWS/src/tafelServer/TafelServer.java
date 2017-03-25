@@ -284,14 +284,16 @@ public class TafelServer {
 
 	private void loadTafelAdressenFromFile() {
 		int lines = 0;
-		try (BufferedReader reader = new BufferedReader(new FileReader("./tafelAdressen" + abteilungsID))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader("./tafelAdressen"))) {
 			String address = "";
 			while ((address = reader.readLine()) != null) {
 				lines++;
 				String[] addressParts = address.split(" ");
 				try {
-					registerTafel(Integer.parseInt(addressParts[0]),
-							new URL(addressParts[1]));
+					int curAbteilung = Integer.parseInt(addressParts[0]);
+					if ( curAbteilung != abteilungsID ) {
+						registerTafel(curAbteilung, new URL(addressParts[1]));
+					}
 				} catch (NumberFormatException e) {
 					print("NumberFormatException in line " + lines + " " + e.getMessage());
 					e.printStackTrace();
@@ -549,12 +551,9 @@ public class TafelServer {
 	    if ( tafelAdressen.containsKey(serverNr) ) {
             throw new TafelException("Server Nummer ist gleich einer eigenen Abteilung: " + serverNr + "!" );
         }
-	    
-	    if ( oeffentlich ) {
-	    	anzeigetafel.receiveMessageCorba(new Message(messageID, userID, serverNr, inhalt, false, time));
-	    } else {
-	    	anzeigetafel.receiveMessageCorba(new Message(messageID, userID, abteilungsID, inhalt, false, time));
-	    }
+
+    	anzeigetafel.receiveMessageCorba(new Message(messageID, userID, serverNr, inhalt, oeffentlich, time));
+    	// TODO serverNr ist gleich der abteilung dieses servers, wenn lokal, und gleich negativer serverNr des corba servers, falls oeffentlich
 
 		anzeigetafel.saveStateToFile();
 		return true;
