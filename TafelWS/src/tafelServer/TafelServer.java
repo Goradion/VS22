@@ -543,15 +543,11 @@ public class TafelServer {
 	}
 
 	public synchronized boolean receiveMessageCorba(int messageID, int userID, int serverNr, String inhalt, Date time, boolean oeffentlich) throws TafelException {
-	    if ( serverNr == corbaPartner ) {
-            throw new TafelException("Server Nummer ist nicht der verbundene Corba Server: " + corbaPartner + "!" );
-        }
 	    if ( tafelAdressen.containsKey(serverNr) ) {
             throw new TafelException("Server Nummer ist gleich einer eigenen Abteilung: " + serverNr + "!" );
         }
 
     	anzeigetafel.receiveMessageCorba(new Message(messageID, userID, serverNr, inhalt, oeffentlich, time));
-    	// TODO serverNr ist gleich der abteilung dieses servers, wenn lokal, und gleich negativer serverNr des corba servers, falls oeffentlich
 
 		anzeigetafel.saveStateToFile();
 		return true;
