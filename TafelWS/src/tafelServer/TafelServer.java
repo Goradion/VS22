@@ -33,6 +33,7 @@ import serverRequests.DeletePublicRequest;
 import serverRequests.ModifyPublicRequest;
 import serverRequests.ReceiveRequest;
 import serverRequests.ServerRequest;
+import serverRequests.corba.CorbaRequest;
 import verteilteAnzeigetafel.Anzeigetafel;
 import verteilteAnzeigetafel.Message;
 import verteilteAnzeigetafel.TafelException;
@@ -53,6 +54,8 @@ public class TafelServer {
 	private Anzeigetafel anzeigetafel;
 	private int abteilungsID;
 	private int corbaPartner;
+	private LinkedBlockingDeque<CorbaRequest> partnerQueue;
+	private CorbaPartnerThread corbaPartnerThread;
 	private TafelGUI gui;
 
 	private static TafelServer tafelServerInstance = null;
@@ -248,6 +251,55 @@ public class TafelServer {
 
 	}
 	
+	@SuppressWarnings("unchecked")
+	private LinkedBlockingDeque<CorbaRequest> loadPartnerQueueFromFile() {
+		LinkedBlockingDeque<CorbaRequest> partnerQueue = new LinkedBlockingDeque<CorbaRequest>();
+		FileInputStream fileInput = null;
+		ObjectInputStream objinput = null;
+		try {
+			fileInput = new FileInputStream("./.partnertQueue" + abteilungsID);
+			objinput = new ObjectInputStream(fileInput);
+			Object obj = objinput.readObject();
+			partnerQueue = (LinkedBlockingDeque<CorbaRequest>) obj;
+			print("Partner-Queue-Backup geladen!");
+		} catch (FileNotFoundException e) {
+			print("Kein Partner-Queue-Backup gefunden. Erstelle neues Backup...");
+			savePartnerQueueToFile();
+		} catch (IOException | ClassNotFoundException e) {
+			print("Fehler beim Lesen des Partner-Queue-Backups");
+			printStackTrace(e);
+		} finally {
+			try {
+				if (objinput != null) {
+					objinput.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return partnerQueue;
+	}
+	
+	private void savePartnerQueueToFile() {
+		FileOutputStream fileoutput = null;
+		ObjectOutputStream objoutput = null;
+		try {
+			fileoutput = new FileOutputStream("./.partnerQueue" + abteilungsID);
+			objoutput = new ObjectOutputStream(fileoutput);
+			objoutput.writeObject(partnerQueue);
+		} catch (FileNotFoundException e) {
+			printStackTrace(e);
+		} catch (IOException e) {
+			printStackTrace(e);
+		} finally {
+			try {
+				objoutput.close();
+			} catch (IOException e) {
+				printStackTrace(e);
+			}
+		}
+	}
+
 	/**
 	 * Loads the message queues for each Abteilung from a file.
 	 * 
@@ -356,7 +408,11 @@ public class TafelServer {
 					int curAbteilungsID = Integer.parseInt(partnerParts[0]);
 					if ( curAbteilungsID == abteilungsID ) {
 						corbaPartner = Integer.parseInt(partnerParts[1]);
+						loadPartnerQueueFromFile();
+						corbaPartnerThread = new CorbaPartnerThread(partnerQueue, this, partnerParts[2], partnerParts[2], abteilungsID, corbaPartner);
+						corbaPartnerThread.start();
 					}
+					
 				} catch (NumberFormatException e) {
 					print("loadTafelPartnerFromFile NumberFormatException in line " + lines + " " + e.getMessage());
 					e.printStackTrace();
