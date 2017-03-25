@@ -20,12 +20,12 @@ string DeleteRequest::deliverMe(string serverAddress)
 {
     ServerComWebserviceImplPortBindingProxy * service = new ServerComWebserviceImplPortBindingProxy(serverAddress.c_str());
 
-    ns1__deletePublicMessageCorba * arguments = new ns1__deletePublicMessageCorba();
+    ns1__deleteMessageCorba * arguments = new ns1__deleteMessageCorba();
     arguments->arg0 = getMessageID();
 
-    ns1__deletePublicMessageCorbaResponse results;   // values: return_
+    ns1__deleteMessageCorbaResponse results;   // values: return_
 
-    if ( service->deletePublicMessageCorba(arguments, results) == SOAP_OK )
+    if ( service->deleteMessageCorba(arguments, results) == SOAP_OK )
     {
         string returned(results.return_);  // get the methods (receiveMessage) return value
         service->destroy();

@@ -15,7 +15,7 @@
 class SendRequest : public SoapRequest
 {
     public:
-        SendRequest(int messageID, int userID, int serverNr, std::string inhalt);
+        SendRequest(int messageID, int userID, int serverNr, std::string inhalt, bool global);
         virtual ~SendRequest() {};
 
         virtual std::string deliverMe(std::string serverAddress);

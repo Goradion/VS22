@@ -6,8 +6,8 @@
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:ns1="http://webservice.tafelServer/">
  <SOAP-ENV:Body>
-  <ns1:deletePublicMessageCorbaResponse>
+  <ns1:deleteMessageCorbaResponse>
    <return></return>
-  </ns1:deletePublicMessageCorbaResponse>
+  </ns1:deleteMessageCorbaResponse>
  </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>

@@ -9,8 +9,6 @@
 #include "RequestException.h"
 
 
-static int const MSGID_MIN = 0;
-
 
 SoapRequest::SoapRequest() :
             messageID(MSGID_DEFAULT)
@@ -18,9 +16,6 @@ SoapRequest::SoapRequest() :
 
 SoapRequest::SoapRequest(int messageID)
 {
-    if ( messageID < MSGID_MIN )
-        throw RequestException("SoapRequest - Constructor: messageID is negative!");
-
     this->messageID = messageID;
 }
 

@@ -42,16 +42,19 @@ class ns1__registerServer;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1
 class ns1__registerServerResponse;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:152 */
 class ns1__modifyPublicMessage;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:155 */
 class ns1__modifyPublicMessageResponse;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:158 */
-class ns1__deletePublicMessageCorba;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:161 */
-class ns1__deletePublicMessageCorbaResponse;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:164 */
-class ns1__receiveMessageCorba;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:167 */
-class ns1__receiveMessageCorbaResponse;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:170 */
-struct __ns1__receiveMessageCorba;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:669 */
-struct __ns1__deletePublicMessage;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:736 */
-struct __ns1__deletePublicMessageCorba;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:803 */
-struct __ns1__modifyPublicMessage;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:870 */
-struct __ns1__receiveMessage;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:937 */
-struct __ns1__registerServer;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1004 */
+class ns1__deleteMessageCorba;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:161 */
+class ns1__deleteMessageCorbaResponse;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:164 */
+class ns1__modifyMessageCorba;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:167 */
+class ns1__modifyMessageCorbaResponse;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:170 */
+class ns1__receiveMessageCorba;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:173 */
+class ns1__receiveMessageCorbaResponse;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:176 */
+struct __ns1__receiveMessage;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:725 */
+struct __ns1__receiveMessageCorba;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:792 */
+struct __ns1__deletePublicMessage;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:859 */
+struct __ns1__deleteMessageCorba;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:926 */
+struct __ns1__modifyPublicMessage;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:993 */
+struct __ns1__modifyMessageCorba;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1060 */
+struct __ns1__registerServer;	/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1127 */
 
 /* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:137 */
 #ifndef SOAP_TYPE_ns1__receiveMessage
@@ -395,18 +398,18 @@ class SOAP_CMAC ns1__modifyPublicMessageResponse {
 #endif
 
 /* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:161 */
-#ifndef SOAP_TYPE_ns1__deletePublicMessageCorba
-#define SOAP_TYPE_ns1__deletePublicMessageCorba (15)
-/* complex XSD type 'ns1:deletePublicMessageCorba': */
-class SOAP_CMAC ns1__deletePublicMessageCorba {
+#ifndef SOAP_TYPE_ns1__deleteMessageCorba
+#define SOAP_TYPE_ns1__deleteMessageCorba (15)
+/* complex XSD type 'ns1:deleteMessageCorba': */
+class SOAP_CMAC ns1__deleteMessageCorba {
       public:
         /// Required element 'arg0' of XSD type 'xsd:int'
         int arg0;
         /// Context that manages this object
         struct soap *soap;
       public:
-        /// Return unique type id SOAP_TYPE_ns1__deletePublicMessageCorba
-        virtual int soap_type(void) const { return SOAP_TYPE_ns1__deletePublicMessageCorba; }
+        /// Return unique type id SOAP_TYPE_ns1__deleteMessageCorba
+        virtual int soap_type(void) const { return SOAP_TYPE_ns1__deleteMessageCorba; }
         /// (Re)set members to default values
         virtual void soap_default(struct soap*);
         /// Serialize object to prepare for SOAP 1.1/1.2 encoded output (or with SOAP_XML_GRAPH) by analyzing its (cyclic) structures
@@ -419,34 +422,34 @@ class SOAP_CMAC ns1__deletePublicMessageCorba {
         virtual void *soap_get(struct soap*, const char *tag, const char *type);
         /// Get object from XML, with matching tag and type (NULL matches any tag and type), return pointer to object or NULL on error
         virtual void *soap_in(struct soap*, const char *tag, const char *type);
-        /// Return a new object of type ns1__deletePublicMessageCorba, default initialized and not managed by a soap context
-        virtual ns1__deletePublicMessageCorba *soap_alloc(void) const { return SOAP_NEW(ns1__deletePublicMessageCorba); }
+        /// Return a new object of type ns1__deleteMessageCorba, default initialized and not managed by a soap context
+        virtual ns1__deleteMessageCorba *soap_alloc(void) const { return SOAP_NEW(ns1__deleteMessageCorba); }
       public:
         /// Constructor with initializations
-        ns1__deletePublicMessageCorba()
+        ns1__deleteMessageCorba()
         {
           arg0 = (int)0;
           soap = (struct soap *)0;
         }
-        virtual ~ns1__deletePublicMessageCorba() { }
-        /// Friend allocator used by soap_new_ns1__deletePublicMessageCorba(struct soap*, int)
-        friend SOAP_FMAC1 ns1__deletePublicMessageCorba * SOAP_FMAC2 soap_instantiate_ns1__deletePublicMessageCorba(struct soap*, int, const char*, const char*, size_t*);
+        virtual ~ns1__deleteMessageCorba() { }
+        /// Friend allocator used by soap_new_ns1__deleteMessageCorba(struct soap*, int)
+        friend SOAP_FMAC1 ns1__deleteMessageCorba * SOAP_FMAC2 soap_instantiate_ns1__deleteMessageCorba(struct soap*, int, const char*, const char*, size_t*);
 };
 #endif
 
 /* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:164 */
-#ifndef SOAP_TYPE_ns1__deletePublicMessageCorbaResponse
-#define SOAP_TYPE_ns1__deletePublicMessageCorbaResponse (16)
-/* complex XSD type 'ns1:deletePublicMessageCorbaResponse': */
-class SOAP_CMAC ns1__deletePublicMessageCorbaResponse {
+#ifndef SOAP_TYPE_ns1__deleteMessageCorbaResponse
+#define SOAP_TYPE_ns1__deleteMessageCorbaResponse (16)
+/* complex XSD type 'ns1:deleteMessageCorbaResponse': */
+class SOAP_CMAC ns1__deleteMessageCorbaResponse {
       public:
         /// Optional element 'return' of XSD type 'xsd:string'
         char *return_;
         /// Context that manages this object
         struct soap *soap;
       public:
-        /// Return unique type id SOAP_TYPE_ns1__deletePublicMessageCorbaResponse
-        virtual int soap_type(void) const { return SOAP_TYPE_ns1__deletePublicMessageCorbaResponse; }
+        /// Return unique type id SOAP_TYPE_ns1__deleteMessageCorbaResponse
+        virtual int soap_type(void) const { return SOAP_TYPE_ns1__deleteMessageCorbaResponse; }
         /// (Re)set members to default values
         virtual void soap_default(struct soap*);
         /// Serialize object to prepare for SOAP 1.1/1.2 encoded output (or with SOAP_XML_GRAPH) by analyzing its (cyclic) structures
@@ -459,24 +462,107 @@ class SOAP_CMAC ns1__deletePublicMessageCorbaResponse {
         virtual void *soap_get(struct soap*, const char *tag, const char *type);
         /// Get object from XML, with matching tag and type (NULL matches any tag and type), return pointer to object or NULL on error
         virtual void *soap_in(struct soap*, const char *tag, const char *type);
-        /// Return a new object of type ns1__deletePublicMessageCorbaResponse, default initialized and not managed by a soap context
-        virtual ns1__deletePublicMessageCorbaResponse *soap_alloc(void) const { return SOAP_NEW(ns1__deletePublicMessageCorbaResponse); }
+        /// Return a new object of type ns1__deleteMessageCorbaResponse, default initialized and not managed by a soap context
+        virtual ns1__deleteMessageCorbaResponse *soap_alloc(void) const { return SOAP_NEW(ns1__deleteMessageCorbaResponse); }
       public:
         /// Constructor with initializations
-        ns1__deletePublicMessageCorbaResponse()
+        ns1__deleteMessageCorbaResponse()
         {
           return_ = (char *)0;
           soap = (struct soap *)0;
         }
-        virtual ~ns1__deletePublicMessageCorbaResponse() { }
-        /// Friend allocator used by soap_new_ns1__deletePublicMessageCorbaResponse(struct soap*, int)
-        friend SOAP_FMAC1 ns1__deletePublicMessageCorbaResponse * SOAP_FMAC2 soap_instantiate_ns1__deletePublicMessageCorbaResponse(struct soap*, int, const char*, const char*, size_t*);
+        virtual ~ns1__deleteMessageCorbaResponse() { }
+        /// Friend allocator used by soap_new_ns1__deleteMessageCorbaResponse(struct soap*, int)
+        friend SOAP_FMAC1 ns1__deleteMessageCorbaResponse * SOAP_FMAC2 soap_instantiate_ns1__deleteMessageCorbaResponse(struct soap*, int, const char*, const char*, size_t*);
 };
 #endif
 
 /* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:167 */
+#ifndef SOAP_TYPE_ns1__modifyMessageCorba
+#define SOAP_TYPE_ns1__modifyMessageCorba (17)
+/* complex XSD type 'ns1:modifyMessageCorba': */
+class SOAP_CMAC ns1__modifyMessageCorba {
+      public:
+        /// Required element 'arg0' of XSD type 'xsd:int'
+        int arg0;
+        /// Optional element 'arg1' of XSD type 'xsd:string'
+        char *arg1;
+        /// Context that manages this object
+        struct soap *soap;
+      public:
+        /// Return unique type id SOAP_TYPE_ns1__modifyMessageCorba
+        virtual int soap_type(void) const { return SOAP_TYPE_ns1__modifyMessageCorba; }
+        /// (Re)set members to default values
+        virtual void soap_default(struct soap*);
+        /// Serialize object to prepare for SOAP 1.1/1.2 encoded output (or with SOAP_XML_GRAPH) by analyzing its (cyclic) structures
+        virtual void soap_serialize(struct soap*) const;
+        /// Output object in XML, compliant with SOAP 1.1 encoding style, return error code or SOAP_OK
+        virtual int soap_put(struct soap*, const char *tag, const char *type) const;
+        /// Output object in XML, with tag and optional id attribute and xsi:type, return error code or SOAP_OK
+        virtual int soap_out(struct soap*, const char *tag, int id, const char *type) const;
+        /// Get object from XML, compliant with SOAP 1.1 encoding style, return pointer to object or NULL on error
+        virtual void *soap_get(struct soap*, const char *tag, const char *type);
+        /// Get object from XML, with matching tag and type (NULL matches any tag and type), return pointer to object or NULL on error
+        virtual void *soap_in(struct soap*, const char *tag, const char *type);
+        /// Return a new object of type ns1__modifyMessageCorba, default initialized and not managed by a soap context
+        virtual ns1__modifyMessageCorba *soap_alloc(void) const { return SOAP_NEW(ns1__modifyMessageCorba); }
+      public:
+        /// Constructor with initializations
+        ns1__modifyMessageCorba()
+        {
+          arg0 = (int)0;
+          arg1 = (char *)0;
+          soap = (struct soap *)0;
+        }
+        virtual ~ns1__modifyMessageCorba() { }
+        /// Friend allocator used by soap_new_ns1__modifyMessageCorba(struct soap*, int)
+        friend SOAP_FMAC1 ns1__modifyMessageCorba * SOAP_FMAC2 soap_instantiate_ns1__modifyMessageCorba(struct soap*, int, const char*, const char*, size_t*);
+};
+#endif
+
+/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:170 */
+#ifndef SOAP_TYPE_ns1__modifyMessageCorbaResponse
+#define SOAP_TYPE_ns1__modifyMessageCorbaResponse (18)
+/* complex XSD type 'ns1:modifyMessageCorbaResponse': */
+class SOAP_CMAC ns1__modifyMessageCorbaResponse {
+      public:
+        /// Optional element 'return' of XSD type 'xsd:string'
+        char *return_;
+        /// Context that manages this object
+        struct soap *soap;
+      public:
+        /// Return unique type id SOAP_TYPE_ns1__modifyMessageCorbaResponse
+        virtual int soap_type(void) const { return SOAP_TYPE_ns1__modifyMessageCorbaResponse; }
+        /// (Re)set members to default values
+        virtual void soap_default(struct soap*);
+        /// Serialize object to prepare for SOAP 1.1/1.2 encoded output (or with SOAP_XML_GRAPH) by analyzing its (cyclic) structures
+        virtual void soap_serialize(struct soap*) const;
+        /// Output object in XML, compliant with SOAP 1.1 encoding style, return error code or SOAP_OK
+        virtual int soap_put(struct soap*, const char *tag, const char *type) const;
+        /// Output object in XML, with tag and optional id attribute and xsi:type, return error code or SOAP_OK
+        virtual int soap_out(struct soap*, const char *tag, int id, const char *type) const;
+        /// Get object from XML, compliant with SOAP 1.1 encoding style, return pointer to object or NULL on error
+        virtual void *soap_get(struct soap*, const char *tag, const char *type);
+        /// Get object from XML, with matching tag and type (NULL matches any tag and type), return pointer to object or NULL on error
+        virtual void *soap_in(struct soap*, const char *tag, const char *type);
+        /// Return a new object of type ns1__modifyMessageCorbaResponse, default initialized and not managed by a soap context
+        virtual ns1__modifyMessageCorbaResponse *soap_alloc(void) const { return SOAP_NEW(ns1__modifyMessageCorbaResponse); }
+      public:
+        /// Constructor with initializations
+        ns1__modifyMessageCorbaResponse()
+        {
+          return_ = (char *)0;
+          soap = (struct soap *)0;
+        }
+        virtual ~ns1__modifyMessageCorbaResponse() { }
+        /// Friend allocator used by soap_new_ns1__modifyMessageCorbaResponse(struct soap*, int)
+        friend SOAP_FMAC1 ns1__modifyMessageCorbaResponse * SOAP_FMAC2 soap_instantiate_ns1__modifyMessageCorbaResponse(struct soap*, int, const char*, const char*, size_t*);
+};
+#endif
+
+/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:173 */
 #ifndef SOAP_TYPE_ns1__receiveMessageCorba
-#define SOAP_TYPE_ns1__receiveMessageCorba (17)
+#define SOAP_TYPE_ns1__receiveMessageCorba (19)
 /* complex XSD type 'ns1:receiveMessageCorba': */
 class SOAP_CMAC ns1__receiveMessageCorba {
       public:
@@ -529,9 +615,9 @@ class SOAP_CMAC ns1__receiveMessageCorba {
 };
 #endif
 
-/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:170 */
+/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:176 */
 #ifndef SOAP_TYPE_ns1__receiveMessageCorbaResponse
-#define SOAP_TYPE_ns1__receiveMessageCorbaResponse (18)
+#define SOAP_TYPE_ns1__receiveMessageCorbaResponse (20)
 /* complex XSD type 'ns1:receiveMessageCorbaResponse': */
 class SOAP_CMAC ns1__receiveMessageCorbaResponse {
       public:
@@ -569,93 +655,9 @@ class SOAP_CMAC ns1__receiveMessageCorbaResponse {
 };
 #endif
 
-/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:669 */
-#ifndef SOAP_TYPE___ns1__receiveMessageCorba
-#define SOAP_TYPE___ns1__receiveMessageCorba (24)
-/* Wrapper: */
-struct SOAP_CMAC __ns1__receiveMessageCorba {
-      public:
-        /** Optional element 'ns1:receiveMessageCorba' of XSD type 'ns1:receiveMessageCorba' */
-        ns1__receiveMessageCorba *ns1__receiveMessageCorba_;
-      public:
-        /** Return unique type id SOAP_TYPE___ns1__receiveMessageCorba */
-        int soap_type() const { return SOAP_TYPE___ns1__receiveMessageCorba; }
-        /** Constructor with member initializations */
-        __ns1__receiveMessageCorba()
-        {
-          ns1__receiveMessageCorba_ = (ns1__receiveMessageCorba *)0;
-        }
-        /** Friend allocator used by soap_new___ns1__receiveMessageCorba(struct soap*, int) */
-        friend SOAP_FMAC1 __ns1__receiveMessageCorba * SOAP_FMAC2 soap_instantiate___ns1__receiveMessageCorba(struct soap*, int, const char*, const char*, size_t*);
-};
-#endif
-
-/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:736 */
-#ifndef SOAP_TYPE___ns1__deletePublicMessage
-#define SOAP_TYPE___ns1__deletePublicMessage (28)
-/* Wrapper: */
-struct SOAP_CMAC __ns1__deletePublicMessage {
-      public:
-        /** Optional element 'ns1:deletePublicMessage' of XSD type 'ns1:deletePublicMessage' */
-        ns1__deletePublicMessage *ns1__deletePublicMessage_;
-      public:
-        /** Return unique type id SOAP_TYPE___ns1__deletePublicMessage */
-        int soap_type() const { return SOAP_TYPE___ns1__deletePublicMessage; }
-        /** Constructor with member initializations */
-        __ns1__deletePublicMessage()
-        {
-          ns1__deletePublicMessage_ = (ns1__deletePublicMessage *)0;
-        }
-        /** Friend allocator used by soap_new___ns1__deletePublicMessage(struct soap*, int) */
-        friend SOAP_FMAC1 __ns1__deletePublicMessage * SOAP_FMAC2 soap_instantiate___ns1__deletePublicMessage(struct soap*, int, const char*, const char*, size_t*);
-};
-#endif
-
-/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:803 */
-#ifndef SOAP_TYPE___ns1__deletePublicMessageCorba
-#define SOAP_TYPE___ns1__deletePublicMessageCorba (32)
-/* Wrapper: */
-struct SOAP_CMAC __ns1__deletePublicMessageCorba {
-      public:
-        /** Optional element 'ns1:deletePublicMessageCorba' of XSD type 'ns1:deletePublicMessageCorba' */
-        ns1__deletePublicMessageCorba *ns1__deletePublicMessageCorba_;
-      public:
-        /** Return unique type id SOAP_TYPE___ns1__deletePublicMessageCorba */
-        int soap_type() const { return SOAP_TYPE___ns1__deletePublicMessageCorba; }
-        /** Constructor with member initializations */
-        __ns1__deletePublicMessageCorba()
-        {
-          ns1__deletePublicMessageCorba_ = (ns1__deletePublicMessageCorba *)0;
-        }
-        /** Friend allocator used by soap_new___ns1__deletePublicMessageCorba(struct soap*, int) */
-        friend SOAP_FMAC1 __ns1__deletePublicMessageCorba * SOAP_FMAC2 soap_instantiate___ns1__deletePublicMessageCorba(struct soap*, int, const char*, const char*, size_t*);
-};
-#endif
-
-/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:870 */
-#ifndef SOAP_TYPE___ns1__modifyPublicMessage
-#define SOAP_TYPE___ns1__modifyPublicMessage (36)
-/* Wrapper: */
-struct SOAP_CMAC __ns1__modifyPublicMessage {
-      public:
-        /** Optional element 'ns1:modifyPublicMessage' of XSD type 'ns1:modifyPublicMessage' */
-        ns1__modifyPublicMessage *ns1__modifyPublicMessage_;
-      public:
-        /** Return unique type id SOAP_TYPE___ns1__modifyPublicMessage */
-        int soap_type() const { return SOAP_TYPE___ns1__modifyPublicMessage; }
-        /** Constructor with member initializations */
-        __ns1__modifyPublicMessage()
-        {
-          ns1__modifyPublicMessage_ = (ns1__modifyPublicMessage *)0;
-        }
-        /** Friend allocator used by soap_new___ns1__modifyPublicMessage(struct soap*, int) */
-        friend SOAP_FMAC1 __ns1__modifyPublicMessage * SOAP_FMAC2 soap_instantiate___ns1__modifyPublicMessage(struct soap*, int, const char*, const char*, size_t*);
-};
-#endif
-
-/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:937 */
+/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:725 */
 #ifndef SOAP_TYPE___ns1__receiveMessage
-#define SOAP_TYPE___ns1__receiveMessage (40)
+#define SOAP_TYPE___ns1__receiveMessage (26)
 /* Wrapper: */
 struct SOAP_CMAC __ns1__receiveMessage {
       public:
@@ -674,9 +676,114 @@ struct SOAP_CMAC __ns1__receiveMessage {
 };
 #endif
 
-/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1004 */
+/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:792 */
+#ifndef SOAP_TYPE___ns1__receiveMessageCorba
+#define SOAP_TYPE___ns1__receiveMessageCorba (30)
+/* Wrapper: */
+struct SOAP_CMAC __ns1__receiveMessageCorba {
+      public:
+        /** Optional element 'ns1:receiveMessageCorba' of XSD type 'ns1:receiveMessageCorba' */
+        ns1__receiveMessageCorba *ns1__receiveMessageCorba_;
+      public:
+        /** Return unique type id SOAP_TYPE___ns1__receiveMessageCorba */
+        int soap_type() const { return SOAP_TYPE___ns1__receiveMessageCorba; }
+        /** Constructor with member initializations */
+        __ns1__receiveMessageCorba()
+        {
+          ns1__receiveMessageCorba_ = (ns1__receiveMessageCorba *)0;
+        }
+        /** Friend allocator used by soap_new___ns1__receiveMessageCorba(struct soap*, int) */
+        friend SOAP_FMAC1 __ns1__receiveMessageCorba * SOAP_FMAC2 soap_instantiate___ns1__receiveMessageCorba(struct soap*, int, const char*, const char*, size_t*);
+};
+#endif
+
+/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:859 */
+#ifndef SOAP_TYPE___ns1__deletePublicMessage
+#define SOAP_TYPE___ns1__deletePublicMessage (34)
+/* Wrapper: */
+struct SOAP_CMAC __ns1__deletePublicMessage {
+      public:
+        /** Optional element 'ns1:deletePublicMessage' of XSD type 'ns1:deletePublicMessage' */
+        ns1__deletePublicMessage *ns1__deletePublicMessage_;
+      public:
+        /** Return unique type id SOAP_TYPE___ns1__deletePublicMessage */
+        int soap_type() const { return SOAP_TYPE___ns1__deletePublicMessage; }
+        /** Constructor with member initializations */
+        __ns1__deletePublicMessage()
+        {
+          ns1__deletePublicMessage_ = (ns1__deletePublicMessage *)0;
+        }
+        /** Friend allocator used by soap_new___ns1__deletePublicMessage(struct soap*, int) */
+        friend SOAP_FMAC1 __ns1__deletePublicMessage * SOAP_FMAC2 soap_instantiate___ns1__deletePublicMessage(struct soap*, int, const char*, const char*, size_t*);
+};
+#endif
+
+/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:926 */
+#ifndef SOAP_TYPE___ns1__deleteMessageCorba
+#define SOAP_TYPE___ns1__deleteMessageCorba (38)
+/* Wrapper: */
+struct SOAP_CMAC __ns1__deleteMessageCorba {
+      public:
+        /** Optional element 'ns1:deleteMessageCorba' of XSD type 'ns1:deleteMessageCorba' */
+        ns1__deleteMessageCorba *ns1__deleteMessageCorba_;
+      public:
+        /** Return unique type id SOAP_TYPE___ns1__deleteMessageCorba */
+        int soap_type() const { return SOAP_TYPE___ns1__deleteMessageCorba; }
+        /** Constructor with member initializations */
+        __ns1__deleteMessageCorba()
+        {
+          ns1__deleteMessageCorba_ = (ns1__deleteMessageCorba *)0;
+        }
+        /** Friend allocator used by soap_new___ns1__deleteMessageCorba(struct soap*, int) */
+        friend SOAP_FMAC1 __ns1__deleteMessageCorba * SOAP_FMAC2 soap_instantiate___ns1__deleteMessageCorba(struct soap*, int, const char*, const char*, size_t*);
+};
+#endif
+
+/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:993 */
+#ifndef SOAP_TYPE___ns1__modifyPublicMessage
+#define SOAP_TYPE___ns1__modifyPublicMessage (42)
+/* Wrapper: */
+struct SOAP_CMAC __ns1__modifyPublicMessage {
+      public:
+        /** Optional element 'ns1:modifyPublicMessage' of XSD type 'ns1:modifyPublicMessage' */
+        ns1__modifyPublicMessage *ns1__modifyPublicMessage_;
+      public:
+        /** Return unique type id SOAP_TYPE___ns1__modifyPublicMessage */
+        int soap_type() const { return SOAP_TYPE___ns1__modifyPublicMessage; }
+        /** Constructor with member initializations */
+        __ns1__modifyPublicMessage()
+        {
+          ns1__modifyPublicMessage_ = (ns1__modifyPublicMessage *)0;
+        }
+        /** Friend allocator used by soap_new___ns1__modifyPublicMessage(struct soap*, int) */
+        friend SOAP_FMAC1 __ns1__modifyPublicMessage * SOAP_FMAC2 soap_instantiate___ns1__modifyPublicMessage(struct soap*, int, const char*, const char*, size_t*);
+};
+#endif
+
+/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1060 */
+#ifndef SOAP_TYPE___ns1__modifyMessageCorba
+#define SOAP_TYPE___ns1__modifyMessageCorba (46)
+/* Wrapper: */
+struct SOAP_CMAC __ns1__modifyMessageCorba {
+      public:
+        /** Optional element 'ns1:modifyMessageCorba' of XSD type 'ns1:modifyMessageCorba' */
+        ns1__modifyMessageCorba *ns1__modifyMessageCorba_;
+      public:
+        /** Return unique type id SOAP_TYPE___ns1__modifyMessageCorba */
+        int soap_type() const { return SOAP_TYPE___ns1__modifyMessageCorba; }
+        /** Constructor with member initializations */
+        __ns1__modifyMessageCorba()
+        {
+          ns1__modifyMessageCorba_ = (ns1__modifyMessageCorba *)0;
+        }
+        /** Friend allocator used by soap_new___ns1__modifyMessageCorba(struct soap*, int) */
+        friend SOAP_FMAC1 __ns1__modifyMessageCorba * SOAP_FMAC2 soap_instantiate___ns1__modifyMessageCorba(struct soap*, int, const char*, const char*, size_t*);
+};
+#endif
+
+/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1127 */
 #ifndef SOAP_TYPE___ns1__registerServer
-#define SOAP_TYPE___ns1__registerServer (44)
+#define SOAP_TYPE___ns1__registerServer (50)
 /* Wrapper: */
 struct SOAP_CMAC __ns1__registerServer {
       public:
@@ -695,10 +802,10 @@ struct SOAP_CMAC __ns1__registerServer {
 };
 #endif
 
-/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1091 */
+/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1218 */
 #ifndef WITH_NOGLOBAL
 #ifndef SOAP_TYPE_SOAP_ENV__Header
-#define SOAP_TYPE_SOAP_ENV__Header (45)
+#define SOAP_TYPE_SOAP_ENV__Header (51)
 /* SOAP_ENV__Header: */
 struct SOAP_CMAC SOAP_ENV__Header {
       public:
@@ -714,10 +821,10 @@ struct SOAP_CMAC SOAP_ENV__Header {
 #endif
 #endif
 
-/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1091 */
+/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1218 */
 #ifndef WITH_NOGLOBAL
 #ifndef SOAP_TYPE_SOAP_ENV__Code
-#define SOAP_TYPE_SOAP_ENV__Code (46)
+#define SOAP_TYPE_SOAP_ENV__Code (52)
 /* Type SOAP_ENV__Code is a recursive data type, (in)directly referencing itself through its (base or derived class) members */
 /* SOAP_ENV__Code: */
 struct SOAP_CMAC SOAP_ENV__Code {
@@ -741,10 +848,10 @@ struct SOAP_CMAC SOAP_ENV__Code {
 #endif
 #endif
 
-/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1091 */
+/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1218 */
 #ifndef WITH_NOGLOBAL
 #ifndef SOAP_TYPE_SOAP_ENV__Detail
-#define SOAP_TYPE_SOAP_ENV__Detail (48)
+#define SOAP_TYPE_SOAP_ENV__Detail (54)
 /* SOAP_ENV__Detail: */
 struct SOAP_CMAC SOAP_ENV__Detail {
       public:
@@ -769,10 +876,10 @@ struct SOAP_CMAC SOAP_ENV__Detail {
 #endif
 #endif
 
-/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1091 */
+/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1218 */
 #ifndef WITH_NOGLOBAL
 #ifndef SOAP_TYPE_SOAP_ENV__Reason
-#define SOAP_TYPE_SOAP_ENV__Reason (51)
+#define SOAP_TYPE_SOAP_ENV__Reason (57)
 /* SOAP_ENV__Reason: */
 struct SOAP_CMAC SOAP_ENV__Reason {
       public:
@@ -792,10 +899,10 @@ struct SOAP_CMAC SOAP_ENV__Reason {
 #endif
 #endif
 
-/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1091 */
+/* C:\GIT\VS22\Client_C++\src\serverCom\serverCom.h:1218 */
 #ifndef WITH_NOGLOBAL
 #ifndef SOAP_TYPE_SOAP_ENV__Fault
-#define SOAP_TYPE_SOAP_ENV__Fault (52)
+#define SOAP_TYPE_SOAP_ENV__Fault (58)
 /* SOAP_ENV__Fault: */
 struct SOAP_CMAC SOAP_ENV__Fault {
       public:
@@ -877,27 +984,37 @@ typedef char *_XML;
 
 /* bool has binding name 'bool' for type 'xsd:boolean' */
 #ifndef SOAP_TYPE_bool
-#define SOAP_TYPE_bool (20)
+#define SOAP_TYPE_bool (22)
 #endif
 
 /* ns1__receiveMessageCorbaResponse has binding name 'ns1__receiveMessageCorbaResponse' for type 'ns1:receiveMessageCorbaResponse' */
 #ifndef SOAP_TYPE_ns1__receiveMessageCorbaResponse
-#define SOAP_TYPE_ns1__receiveMessageCorbaResponse (18)
+#define SOAP_TYPE_ns1__receiveMessageCorbaResponse (20)
 #endif
 
 /* ns1__receiveMessageCorba has binding name 'ns1__receiveMessageCorba' for type 'ns1:receiveMessageCorba' */
 #ifndef SOAP_TYPE_ns1__receiveMessageCorba
-#define SOAP_TYPE_ns1__receiveMessageCorba (17)
+#define SOAP_TYPE_ns1__receiveMessageCorba (19)
 #endif
 
-/* ns1__deletePublicMessageCorbaResponse has binding name 'ns1__deletePublicMessageCorbaResponse' for type 'ns1:deletePublicMessageCorbaResponse' */
-#ifndef SOAP_TYPE_ns1__deletePublicMessageCorbaResponse
-#define SOAP_TYPE_ns1__deletePublicMessageCorbaResponse (16)
+/* ns1__modifyMessageCorbaResponse has binding name 'ns1__modifyMessageCorbaResponse' for type 'ns1:modifyMessageCorbaResponse' */
+#ifndef SOAP_TYPE_ns1__modifyMessageCorbaResponse
+#define SOAP_TYPE_ns1__modifyMessageCorbaResponse (18)
 #endif
 
-/* ns1__deletePublicMessageCorba has binding name 'ns1__deletePublicMessageCorba' for type 'ns1:deletePublicMessageCorba' */
-#ifndef SOAP_TYPE_ns1__deletePublicMessageCorba
-#define SOAP_TYPE_ns1__deletePublicMessageCorba (15)
+/* ns1__modifyMessageCorba has binding name 'ns1__modifyMessageCorba' for type 'ns1:modifyMessageCorba' */
+#ifndef SOAP_TYPE_ns1__modifyMessageCorba
+#define SOAP_TYPE_ns1__modifyMessageCorba (17)
+#endif
+
+/* ns1__deleteMessageCorbaResponse has binding name 'ns1__deleteMessageCorbaResponse' for type 'ns1:deleteMessageCorbaResponse' */
+#ifndef SOAP_TYPE_ns1__deleteMessageCorbaResponse
+#define SOAP_TYPE_ns1__deleteMessageCorbaResponse (16)
+#endif
+
+/* ns1__deleteMessageCorba has binding name 'ns1__deleteMessageCorba' for type 'ns1:deleteMessageCorba' */
+#ifndef SOAP_TYPE_ns1__deleteMessageCorba
+#define SOAP_TYPE_ns1__deleteMessageCorba (15)
 #endif
 
 /* ns1__modifyPublicMessageResponse has binding name 'ns1__modifyPublicMessageResponse' for type 'ns1:modifyPublicMessageResponse' */
@@ -942,72 +1059,77 @@ typedef char *_XML;
 
 /* struct SOAP_ENV__Fault has binding name 'SOAP_ENV__Fault' for type '' */
 #ifndef SOAP_TYPE_SOAP_ENV__Fault
-#define SOAP_TYPE_SOAP_ENV__Fault (52)
+#define SOAP_TYPE_SOAP_ENV__Fault (58)
 #endif
 
 /* struct SOAP_ENV__Reason has binding name 'SOAP_ENV__Reason' for type '' */
 #ifndef SOAP_TYPE_SOAP_ENV__Reason
-#define SOAP_TYPE_SOAP_ENV__Reason (51)
+#define SOAP_TYPE_SOAP_ENV__Reason (57)
 #endif
 
 /* struct SOAP_ENV__Detail has binding name 'SOAP_ENV__Detail' for type '' */
 #ifndef SOAP_TYPE_SOAP_ENV__Detail
-#define SOAP_TYPE_SOAP_ENV__Detail (48)
+#define SOAP_TYPE_SOAP_ENV__Detail (54)
 #endif
 
 /* struct SOAP_ENV__Code has binding name 'SOAP_ENV__Code' for type '' */
 #ifndef SOAP_TYPE_SOAP_ENV__Code
-#define SOAP_TYPE_SOAP_ENV__Code (46)
+#define SOAP_TYPE_SOAP_ENV__Code (52)
 #endif
 
 /* struct SOAP_ENV__Header has binding name 'SOAP_ENV__Header' for type '' */
 #ifndef SOAP_TYPE_SOAP_ENV__Header
-#define SOAP_TYPE_SOAP_ENV__Header (45)
+#define SOAP_TYPE_SOAP_ENV__Header (51)
 #endif
 
 /* struct SOAP_ENV__Reason * has binding name 'PointerToSOAP_ENV__Reason' for type '' */
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Reason
-#define SOAP_TYPE_PointerToSOAP_ENV__Reason (54)
+#define SOAP_TYPE_PointerToSOAP_ENV__Reason (60)
 #endif
 
 /* struct SOAP_ENV__Detail * has binding name 'PointerToSOAP_ENV__Detail' for type '' */
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Detail
-#define SOAP_TYPE_PointerToSOAP_ENV__Detail (53)
+#define SOAP_TYPE_PointerToSOAP_ENV__Detail (59)
 #endif
 
 /* struct SOAP_ENV__Code * has binding name 'PointerToSOAP_ENV__Code' for type '' */
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Code
-#define SOAP_TYPE_PointerToSOAP_ENV__Code (47)
+#define SOAP_TYPE_PointerToSOAP_ENV__Code (53)
 #endif
 
 /* ns1__registerServer * has binding name 'PointerTons1__registerServer' for type 'ns1:registerServer' */
 #ifndef SOAP_TYPE_PointerTons1__registerServer
-#define SOAP_TYPE_PointerTons1__registerServer (41)
+#define SOAP_TYPE_PointerTons1__registerServer (47)
 #endif
 
-/* ns1__receiveMessage * has binding name 'PointerTons1__receiveMessage' for type 'ns1:receiveMessage' */
-#ifndef SOAP_TYPE_PointerTons1__receiveMessage
-#define SOAP_TYPE_PointerTons1__receiveMessage (37)
+/* ns1__modifyMessageCorba * has binding name 'PointerTons1__modifyMessageCorba' for type 'ns1:modifyMessageCorba' */
+#ifndef SOAP_TYPE_PointerTons1__modifyMessageCorba
+#define SOAP_TYPE_PointerTons1__modifyMessageCorba (43)
 #endif
 
 /* ns1__modifyPublicMessage * has binding name 'PointerTons1__modifyPublicMessage' for type 'ns1:modifyPublicMessage' */
 #ifndef SOAP_TYPE_PointerTons1__modifyPublicMessage
-#define SOAP_TYPE_PointerTons1__modifyPublicMessage (33)
+#define SOAP_TYPE_PointerTons1__modifyPublicMessage (39)
 #endif
 
-/* ns1__deletePublicMessageCorba * has binding name 'PointerTons1__deletePublicMessageCorba' for type 'ns1:deletePublicMessageCorba' */
-#ifndef SOAP_TYPE_PointerTons1__deletePublicMessageCorba
-#define SOAP_TYPE_PointerTons1__deletePublicMessageCorba (29)
+/* ns1__deleteMessageCorba * has binding name 'PointerTons1__deleteMessageCorba' for type 'ns1:deleteMessageCorba' */
+#ifndef SOAP_TYPE_PointerTons1__deleteMessageCorba
+#define SOAP_TYPE_PointerTons1__deleteMessageCorba (35)
 #endif
 
 /* ns1__deletePublicMessage * has binding name 'PointerTons1__deletePublicMessage' for type 'ns1:deletePublicMessage' */
 #ifndef SOAP_TYPE_PointerTons1__deletePublicMessage
-#define SOAP_TYPE_PointerTons1__deletePublicMessage (25)
+#define SOAP_TYPE_PointerTons1__deletePublicMessage (31)
 #endif
 
 /* ns1__receiveMessageCorba * has binding name 'PointerTons1__receiveMessageCorba' for type 'ns1:receiveMessageCorba' */
 #ifndef SOAP_TYPE_PointerTons1__receiveMessageCorba
-#define SOAP_TYPE_PointerTons1__receiveMessageCorba (21)
+#define SOAP_TYPE_PointerTons1__receiveMessageCorba (27)
+#endif
+
+/* ns1__receiveMessage * has binding name 'PointerTons1__receiveMessage' for type 'ns1:receiveMessage' */
+#ifndef SOAP_TYPE_PointerTons1__receiveMessage
+#define SOAP_TYPE_PointerTons1__receiveMessage (23)
 #endif
 
 /* _XML has binding name '_XML' for type '' */

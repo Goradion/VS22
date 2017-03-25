@@ -29,16 +29,16 @@ string ModifyRequest::deliverMe(string serverAddress)
 {
     ServerComWebserviceImplPortBindingProxy * service = new ServerComWebserviceImplPortBindingProxy(serverAddress.c_str());
 
-    ns1__modifyPublicMessage * arguments = new ns1__modifyPublicMessage();
+    ns1__modifyMessageCorba * arguments = new ns1__modifyMessageCorba();
     arguments->arg0 = getMessageID();
     char * curInhalt = new char[inhalt.size() + 1];
     copy(inhalt.begin(), inhalt.end(), curInhalt);
     curInhalt[inhalt.size()] = '\0';
     arguments->arg1 = curInhalt;
 
-    ns1__modifyPublicMessageResponse results;   // values: return_
+    ns1__modifyMessageCorbaResponse results;   // values: return_
 
-    if ( service->modifyPublicMessage(arguments, results) == SOAP_OK )
+    if ( service->modifyMessageCorba(arguments, results) == SOAP_OK )
     {
         string returned(results.return_);  // get the methods (receiveMessage) return value
         service->destroy();

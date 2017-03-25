@@ -66,13 +66,13 @@ int main ()
 
         soapR = new SoapRequest(1234);
         cout << soapD.deliver(soapR) << endl;
-        soapR = new SendRequest(87, 1, 214, "Was Los?");
+        soapR = new SendRequest(87, 1, 1, "Was Los?", false);
         cout << soapD.deliver(soapR) << endl;
         soapR = new DeleteRequest(1223134);
         cout << soapD.deliver(soapR) << endl;
         soapR = new ModifyRequest(12232231, "Neuer Text");
         cout << soapD.deliver(soapR) << endl;
-        soapR = new SendRequest(96, 1, 214, "Was Los?");
+        soapR = new SendRequest(-151004, 1, -15, "Was Los?", true);
         cout << soapD.deliver(soapR) << endl;
         cout << soapR->getMessageID() << endl;
 

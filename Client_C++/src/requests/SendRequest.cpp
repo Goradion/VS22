@@ -16,16 +16,13 @@
 using namespace std;
 
 static int const USERID_MIN = 0;
-static int const SERVERID_MIN = 0;
 
 
-SendRequest::SendRequest(int messageID, int userID, int serverNr, string inhalt) :
+SendRequest::SendRequest(int messageID, int userID, int serverNr, string inhalt, bool global) :
             SoapRequest(messageID), global(global)
 {
     if ( userID < USERID_MIN )
         throw RequestException("SendRequest - Constructor: userID is negative!");
-    if ( serverNr < SERVERID_MIN )
-        throw RequestException("SendRequest - Constructor: serverNr is negative!");
     if ( inhalt.empty() )
         throw RequestException("SendRequest - Constructor: inhalt is empty!");
 
