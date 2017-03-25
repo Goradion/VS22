@@ -20,7 +20,7 @@ static int const SERVERID_MIN = 0;
 
 
 SendRequest::SendRequest(int messageID, int userID, int serverNr, string inhalt) :
-            SoapRequest(messageID)
+            SoapRequest(messageID), global(global)
 {
     if ( userID < USERID_MIN )
         throw RequestException("SendRequest - Constructor: userID is negative!");
@@ -50,6 +50,7 @@ string SendRequest::deliverMe(string serverAddress)
 
     time_t tim = time(NULL);
     arguments->arg4 = asctime(localtime(&tim));
+    arguments->arg5 = global;
 
     ns1__receiveMessageCorbaResponse results;   // values: return_
 

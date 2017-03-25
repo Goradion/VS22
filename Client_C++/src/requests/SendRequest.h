@@ -24,6 +24,7 @@ class SendRequest : public SoapRequest
         int userID;
         int serverNr;
         std::string inhalt;
+        bool global;
 };
 
 
