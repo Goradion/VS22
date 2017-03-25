@@ -37,6 +37,36 @@ public interface ServerComWebservice {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "receiveMessage", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveMessage")
+    @ResponseWrapper(localName = "receiveMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveMessageResponse")
+    @Action(input = "http://webservice.tafelServer/ServerComWebservice/receiveMessageRequest", output = "http://webservice.tafelServer/ServerComWebservice/receiveMessageResponse")
+    public String receiveMessage(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        int arg2,
+        @WebParam(name = "arg3", targetNamespace = "")
+        String arg3,
+        @WebParam(name = "arg4", targetNamespace = "")
+        String arg4,
+        @WebParam(name = "arg5", targetNamespace = "")
+        int arg5);
+
+    /**
+     * 
+     * @param arg3
+     * @param arg2
+     * @param arg5
+     * @param arg4
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "receiveMessageCorba", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveMessageCorba")
     @ResponseWrapper(localName = "receiveMessageCorbaResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveMessageCorbaResponse")
     @Action(input = "http://webservice.tafelServer/ServerComWebservice/receiveMessageCorbaRequest", output = "http://webservice.tafelServer/ServerComWebservice/receiveMessageCorbaResponse")
@@ -80,10 +110,10 @@ public interface ServerComWebservice {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "deletePublicMessageCorba", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.DeletePublicMessageCorba")
-    @ResponseWrapper(localName = "deletePublicMessageCorbaResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.DeletePublicMessageCorbaResponse")
-    @Action(input = "http://webservice.tafelServer/ServerComWebservice/deletePublicMessageCorbaRequest", output = "http://webservice.tafelServer/ServerComWebservice/deletePublicMessageCorbaResponse")
-    public String deletePublicMessageCorba(
+    @RequestWrapper(localName = "deleteMessageCorba", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.DeleteMessageCorba")
+    @ResponseWrapper(localName = "deleteMessageCorbaResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.DeleteMessageCorbaResponse")
+    @Action(input = "http://webservice.tafelServer/ServerComWebservice/deleteMessageCorbaRequest", output = "http://webservice.tafelServer/ServerComWebservice/deleteMessageCorbaResponse")
+    public String deleteMessageCorba(
         @WebParam(name = "arg0", targetNamespace = "")
         int arg0);
 
@@ -107,10 +137,6 @@ public interface ServerComWebservice {
 
     /**
      * 
-     * @param arg3
-     * @param arg2
-     * @param arg5
-     * @param arg4
      * @param arg1
      * @param arg0
      * @return
@@ -118,22 +144,14 @@ public interface ServerComWebservice {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "receiveMessage", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveMessage")
-    @ResponseWrapper(localName = "receiveMessageResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ReceiveMessageResponse")
-    @Action(input = "http://webservice.tafelServer/ServerComWebservice/receiveMessageRequest", output = "http://webservice.tafelServer/ServerComWebservice/receiveMessageResponse")
-    public String receiveMessage(
+    @RequestWrapper(localName = "modifyMessageCorba", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ModifyMessageCorba")
+    @ResponseWrapper(localName = "modifyMessageCorbaResponse", targetNamespace = "http://webservice.tafelServer/", className = "serverCom.gen.ModifyMessageCorbaResponse")
+    @Action(input = "http://webservice.tafelServer/ServerComWebservice/modifyMessageCorbaRequest", output = "http://webservice.tafelServer/ServerComWebservice/modifyMessageCorbaResponse")
+    public String modifyMessageCorba(
         @WebParam(name = "arg0", targetNamespace = "")
         int arg0,
         @WebParam(name = "arg1", targetNamespace = "")
-        int arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        int arg2,
-        @WebParam(name = "arg3", targetNamespace = "")
-        String arg3,
-        @WebParam(name = "arg4", targetNamespace = "")
-        String arg4,
-        @WebParam(name = "arg5", targetNamespace = "")
-        int arg5);
+        String arg1);
 
     /**
      * 

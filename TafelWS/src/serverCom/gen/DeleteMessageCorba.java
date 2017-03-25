@@ -7,12 +7,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java-Klasse für deletePublicMessageCorba complex type.
+ * <p>Java-Klasse für deleteMessageCorba complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="deletePublicMessageCorba">
+ * &lt;complexType name="deleteMessageCorba">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -26,10 +26,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "deletePublicMessageCorba", propOrder = {
+@XmlType(name = "deleteMessageCorba", propOrder = {
     "arg0"
 })
-public class DeletePublicMessageCorba {
+public class DeleteMessageCorba {
 
     protected int arg0;
 

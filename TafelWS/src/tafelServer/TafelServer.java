@@ -34,6 +34,9 @@ import serverRequests.ModifyPublicRequest;
 import serverRequests.ReceiveRequest;
 import serverRequests.ServerRequest;
 import serverRequests.corba.CorbaRequest;
+import serverRequests.corba.CreateRequest;
+import serverRequests.corba.DeleteRequest;
+import serverRequests.corba.ModifyRequest;
 import verteilteAnzeigetafel.Anzeigetafel;
 import verteilteAnzeigetafel.Message;
 import verteilteAnzeigetafel.TafelException;
@@ -55,7 +58,7 @@ public class TafelServer {
 	private int abteilungsID;
 	private boolean partnerExists = false;
 	private int corbaPartner = 0;
-	private LinkedBlockingDeque<CorbaRequest> partnerQueue;
+	private LinkedBlockingDeque<CorbaRequest> partnerQueue = new LinkedBlockingDeque<CorbaRequest>();
 	private CorbaPartnerThread corbaPartnerThread;
 
 	private TafelGUI gui;
@@ -411,7 +414,7 @@ public class TafelServer {
 					if ( curAbteilungsID == abteilungsID ) {
 						partnerExists = true;
 						corbaPartner = Integer.parseInt(partnerParts[1]);
-						loadPartnerQueueFromFile();
+						partnerQueue = loadPartnerQueueFromFile();
 						corbaPartnerThread = new CorbaPartnerThread(partnerQueue, this, partnerParts[2], partnerParts[2], abteilungsID, corbaPartner);
 						corbaPartnerThread.start();
 					}
@@ -435,21 +438,33 @@ public class TafelServer {
 		return partnerExists;
 	}
 	
-	private void putCreateRequestIfPartner(String messageID, int userID, String message, int serverNr) {
+	private void putCreateRequestIfPartner(int messageID, int userID, String message, int serverNr) {
 		if ( hasPartner() ) {
-			//TODO create CreateRequest and add to Queue
+			try {
+				partnerQueue.put(new CreateRequest(convertCorbaMsgID(messageID), userID, message, convertAbteilung(serverNr)));
+			} catch (InterruptedException e) {
+				print("Create Message mit ID=" + messageID + " wird nicht an Partner gesendet!");
+			}
 		}
 	}
 	
-	private void putDeleteRequestIfPartner(String messageID, int userID) {
+	private void putDeleteRequestIfPartner(int messageID, int userID) {
 		if ( hasPartner() ) {
-			//TODO create CreateRequest and add to Queue
+			try {
+				partnerQueue.put(new DeleteRequest(convertCorbaMsgID(messageID), userID));
+			} catch (InterruptedException e) {
+				print("Delete Message mit ID=" + messageID + " wird nicht an Partner gesendet!");
+			}
 		}
 	}
 	
-	private void putModifyRequestIfPartner(String newMessage, String messageID, int userID) {
+	private void putModifyRequestIfPartner(String newMessage, int messageID, int userID) {
 		if ( hasPartner() ) {
-			//TODO create CreateRequest and add to Queue
+			try {
+				partnerQueue.put(new ModifyRequest(newMessage, convertCorbaMsgID(messageID), userID));
+			} catch (InterruptedException e) {
+				print("Modify Message mit ID=" + messageID + " wird nicht an Partner gesendet!");
+			}
 		}
 	}
 
@@ -540,50 +555,44 @@ public class TafelServer {
 		return anzeigetafel.getMessagesByUserID(userID);
 	}
 	
-	private String generateNewCorbaMsgID(Message message) {
-		if ( message != null ) {
-			int currentMsgID = message.getMessageID();
-			if ( currentMsgID >= 0 ) {
-				int currentMsgAbt = message.getAbtNr();
-				if ( currentMsgAbt == abteilungsID ) {
-					return new String("" + corbaPartner + "-SOAP" + currentMsgID);
-				} else {
-					return new String("-" + currentMsgAbt + "-SOAP" + currentMsgID);
-				}
+	private String convertCorbaMsgID(int messageID) {
+		if ( messageID >= 0 ) {
+			int currentMsgAbt = anzeigetafel.getMessageByID(messageID).getAbtNr();
+			if ( currentMsgAbt == abteilungsID ) {
+				return new String("" + corbaPartner + "-SOAP" + messageID);
 			} else {
-				return null;
+				return new String("-" + currentMsgAbt + "-SOAP" + messageID);
 			}
 		} else {
-			return null;
+			String corbaID = new String ("" + corbaPartner + "" + messageID);
+			
+			return corbaID.replace("-" + abteilungsID, "-");
 		}
 	}
 	
-	private String convertCorbaMsgIDIntToStr(Message message) {
-		if ( message != null ) {
-			int currentMsgID = message.getMessageID();
-			if ( currentMsgID < 0 ) {
-				String corbaID = new String ("" + corbaPartner + "" + currentMsgID);
-				
-				return corbaID.replace("-" + abteilungsID, "-");
-			} else {
-				return null;
-			}
+	private int convertAbteilung(int abtNr) {
+		if ( abtNr != abteilungsID ) {
+			 return abtNr * -1;
 		} else {
-			return null;
+			return corbaPartner;
 		}
 	}
-	
 
 	public synchronized String createMessage(String inhalt, int user) throws TafelException {
 		int msgID = anzeigetafel.createMessage(inhalt, user, false);
 		
-		anzeigetafel.saveStateToFile();
+		putCreateRequestIfPartner(msgID, user, inhalt, abteilungsID);
+		
+		anzeigetafel.saveStateToFile();		
+		print(partnerQueue.toString());
 		return "Nachricht mit ID=" + msgID + " erstellt!";
 	}
 	
 	public String deleteMessage(int messageID, int user) throws TafelException {
 		String antwort = "Nachricht mit ID=" + messageID + " gelöscht!";
 		anzeigetafel.deleteMessage(messageID, user);
+		
+		putDeleteRequestIfPartner(messageID, user);
 		
 		anzeigetafel.saveStateToFile();
 		return antwort;
@@ -592,6 +601,8 @@ public class TafelServer {
 	public String modifyMessage(int messageID, String inhalt, int user) throws TafelException {
 		String antwort = "Nachricht mit ID=" + messageID + " geändert!";
 		anzeigetafel.modifyMessage(messageID, inhalt, user);
+		
+		putModifyRequestIfPartner(inhalt, messageID, user);
 
 		anzeigetafel.saveStateToFile();
 		return antwort;
@@ -655,6 +666,8 @@ public class TafelServer {
 		
 		anzeigetafel.modifyPublic(messageID, newMessage, userID);
 		
+		putModifyRequestIfPartner(newMessage, messageID, userID);
+		
 		for (int group : anzeigetafel.getMessageByID(messageID).getGruppen()) {
 			for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(group)) {
 				try {
@@ -681,6 +694,8 @@ public class TafelServer {
 	    }
 	    anzeigetafel.receiveMessage(new Message(messageID, userID, abtNr, inhalt, true, time), group);
 	    
+	    putCreateRequestIfPartner(messageID, userID, inhalt, abtNr);
+	    
 	    anzeigetafel.saveStateToFile();
 	    return true;
 	}
@@ -689,8 +704,8 @@ public class TafelServer {
 	    if ( tafelAdressen.containsKey(serverNr) ) {
             throw new TafelException("Server Nummer ist gleich einer eigenen Abteilung: " + serverNr + "!" );
         }
-	    if ( serverNr >= 0 ) {
-            throw new TafelException("Server Nummer ist nicht negativ: " + serverNr + "!" );
+	    if ( serverNr >= 0 && serverNr != abteilungsID ) {
+            throw new TafelException("Server Nummer ist weder negativ: " + serverNr + ", noch die eigene Abteilung!" );
         }
 
     	anzeigetafel.receiveMessageCorba(new Message(messageID, userID, serverNr, inhalt, oeffentlich, time));
@@ -716,11 +731,13 @@ public class TafelServer {
 		}
 		anzeigetafel.deletePublicMessage(msgID, group);
 		
+		putDeleteRequestIfPartner(msgID, 1);
+		
 		anzeigetafel.saveStateToFile();
 		return true;
 	}
 	
-	public synchronized boolean deletePublicMessageCorba(int msgID) throws TafelException {
+	public synchronized boolean deleteMessageCorba(int msgID) throws TafelException {
 	    Message curMessage = anzeigetafel.getMessageByID(msgID); 
 	    if ( curMessage == null ) {
             throw new TafelException("Keine Message mit ID " + msgID + " gefunden!");
@@ -729,11 +746,11 @@ public class TafelServer {
 	    if ( tafelAdressen.containsKey(serverNr) ) {
 	        throw new TafelException("Server Nummer ist gleich einer Abteilungs Nummer: " + serverNr + "!");
 	    }
-	    if ( serverNr >= 0 ) {
-            throw new TafelException("Server Nummer ist nicht negativ: " + serverNr + "!" );
+	    if ( serverNr >= 0 && serverNr != abteilungsID ) {
+            throw new TafelException("Server Nummer ist weder negativ: " + serverNr + ", noch die eigene Abteilung!" );
         }
 	        
-        anzeigetafel.deletePublicMessageCorba(msgID);
+        anzeigetafel.deleteMessageCorba(msgID);
 //        Message curMessage = anzeigetafel.getMessageByID(msgID);
 //        HashSet<Integer> curMsgGroups = curMessage.getGruppen();
         
@@ -759,7 +776,28 @@ public class TafelServer {
 	
 	public synchronized boolean modifyPublicMessage(int messageID, String inhalt) throws TafelException {
 		anzeigetafel.modifyPublicMessage(messageID, inhalt);
-
+		
+		putModifyRequestIfPartner(inhalt, messageID, 1);
+		
+		anzeigetafel.saveStateToFile();
+		return true;
+	}
+	
+	public synchronized boolean modifyMessageCorba(int messageID, String inhalt) throws TafelException {
+		Message curMessage = anzeigetafel.getMessageByID(messageID); 
+	    if ( curMessage == null ) {
+            throw new TafelException("Keine Message mit ID " + messageID + " gefunden!");
+        }
+	    int serverNr = curMessage.getAbtNr();
+	    if ( tafelAdressen.containsKey(serverNr) ) {
+	        throw new TafelException("Server Nummer ist gleich einer Abteilungs Nummer: " + serverNr + "!");
+	    }
+	    if ( serverNr >= 0 && serverNr != abteilungsID ) {
+            throw new TafelException("Server Nummer ist weder negativ: " + serverNr + ", noch die eigene Abteilung!" );
+        }
+	    
+		anzeigetafel.modifyPublicMessage(messageID, inhalt);
+		
 		anzeigetafel.saveStateToFile();
 		return true;
 	}

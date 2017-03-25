@@ -19,7 +19,10 @@ public interface ServerComWebservice {
 	public String receiveMessageCorba(int messageID, int userID, int serverNr, String inhalt, String time, boolean oeffentlich);
 	
 	@WebMethod
-    public String deletePublicMessageCorba(int msgID);
+    public String deleteMessageCorba(int msgID);
+	
+	@WebMethod
+	public String modifyMessageCorba(int msgID, String inhalt);
 	
 	@WebMethod
 	public String registerServer(int abtNr);

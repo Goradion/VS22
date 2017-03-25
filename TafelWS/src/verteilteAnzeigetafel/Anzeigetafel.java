@@ -435,7 +435,7 @@ public class Anzeigetafel extends Observable implements Serializable {
 		updateState();
 	}
 	
-	public synchronized void deletePublicMessageCorba(int messageID) throws TafelException {
+	public synchronized void deleteMessageCorba(int messageID) throws TafelException {
 
         if (messages.containsKey(messageID)) {
             Message curMessage = messages.get(messageID);

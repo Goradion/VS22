@@ -70,11 +70,11 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
     }
 	
 	@Override
-    public String deletePublicMessageCorba(int msgID) {
+    public String deleteMessageCorba(int msgID) {
         if (tafelServer != null) {
             String answer = "";
             try {
-                tafelServer.deletePublicMessageCorba(msgID);
+                tafelServer.deleteMessageCorba(msgID);
                 answer =  "Done";
             } catch (TafelException e) {
                 answer = e.getMessage();
@@ -83,6 +83,21 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
         }
         return null;
     }
+	
+	@Override
+	public String modifyMessageCorba(int msgID, String inhalt) {
+		if (tafelServer != null) {
+			String answer = "";
+			try {
+				tafelServer.modifyMessageCorba(msgID, inhalt);
+				answer =  "Done";
+			} catch (TafelException e) {
+				answer = e.getMessage();
+			}
+			return answer;
+		}
+		return null;
+	}
 
 	@Override
 	public String registerServer(int abtNr) {  // TODO Übergabe der IP vom andern Tafelserver
