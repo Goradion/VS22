@@ -430,6 +430,39 @@ public class TafelServer {
 		return anzeigetafel.getMessagesByUserID(userID);
 	}
 	
+	private String generateNewCorbaMsgID(Message message) {
+		if ( message != null ) {
+			int currentMsgID = message.getMessageID();
+			if ( currentMsgID >= 0 ) {
+				int currentMsgAbt = message.getAbtNr();
+				if ( currentMsgAbt == abteilungsID ) {
+					return new String("" + corbaPartner + "-SOAP" + currentMsgID);
+				} else {
+					return new String("-" + currentMsgAbt + "-SOAP" + currentMsgID);
+				}
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	
+	private String convertCorbaMsgIDIntToStr(Message message) {
+		if ( message != null ) {
+			int currentMsgID = message.getMessageID();
+			if ( currentMsgID < 0 ) {
+				String corbaID = new String ("" + corbaPartner + "" + currentMsgID);
+				
+				return corbaID.replace("-" + abteilungsID, "-");
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	
 
 	public synchronized String createMessage(String inhalt, int user) throws TafelException {
 		int msgID = anzeigetafel.createMessage(inhalt, user, false);
