@@ -1,25 +1,24 @@
 package serverRequests.corba;
 
-import VS2.UserData;
 import tafelServer.CorbaRequestDeliver;
 
 public abstract class CorbaRequest {
 	private String messageID;
-	private UserData userData;
+	private int userID;
 	
 	
-	public CorbaRequest(String messageID, UserData userData) {
+	public CorbaRequest(String messageID, int userID) {
 		super();
 		this.messageID = messageID;
-		this.userData = userData;
+		this.userID = userID;
 	}
 
 	public String getMessageID() {
 		return messageID;
 	}
 
-	public UserData getUserData() {
-		return userData;
+	public int getUserID() {
+		return userID;
 	}
 	
 	public abstract void deliverMe(CorbaRequestDeliver deliverer);

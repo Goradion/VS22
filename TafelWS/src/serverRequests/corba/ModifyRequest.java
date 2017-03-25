@@ -1,6 +1,5 @@
 package serverRequests.corba;
 
-import VS2.UserData;
 import tafelServer.CorbaRequestDeliver;
 
 public class ModifyRequest extends CorbaRequest{
@@ -8,8 +7,8 @@ public class ModifyRequest extends CorbaRequest{
 	private String newMessage;
 	private int ServerNr;
 	
-	public ModifyRequest(String newMessage, String messageID, UserData userData) {
-		super(messageID, userData);
+	public ModifyRequest(String newMessage, String messageID, int userID) {
+		super(messageID, userID);
 		this.newMessage = newMessage;
 	}
 

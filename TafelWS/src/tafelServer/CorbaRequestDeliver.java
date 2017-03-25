@@ -27,22 +27,20 @@ public class CorbaRequestDeliver {
 	}
 
 	public void deliver(CreateRequest createRequest) {
-		UserData userData = createRequest.getUserData();
 		//TODO user?
-		corbaClient.createMessage(createRequest.getMessage(), createRequest.getMessageID(), createRequest.getServerNr());
+		corbaClient.createMessage(createRequest.getMessage(), createRequest.getMessageID(), createRequest.getServerNr(), createRequest.getUserID());
 		
 	}
 
 	public void deliver(DeleteRequest deleteRequest) {
-		UserData userData = deleteRequest.getUserData();
 		//TODO user?
-		corbaClient.deleteMessage(deleteRequest.getMessageID());
+		corbaClient.deleteMessage(deleteRequest.getMessageID(), deleteRequest.getUserID());
 		
 	}
 
 	public void deliver(ModifyRequest modifyRequest) {
 		//TODO user? 
-		corbaClient.modifyMessage(modifyRequest.getNewMessage(), modifyRequest.getMessageID(), modifyRequest.getServerNr());
+		corbaClient.modifyMessage(modifyRequest.getNewMessage(), modifyRequest.getMessageID(), modifyRequest.getServerNr(),modifyRequest.getUserID());
 		
 		
 	}

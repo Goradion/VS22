@@ -10,8 +10,8 @@ public class CreateRequest extends CorbaRequest{
 	
 	
 	
-	public CreateRequest(String messageID, UserData userData, String message, int serverNr) {
-		super(messageID, userData);
+	public CreateRequest(String messageID, int userID, String message, int serverNr) {
+		super(messageID, userID);
 		this.message = message;
 		ServerNr = serverNr;
 	}

@@ -1,12 +1,11 @@
 package serverRequests.corba;
 
-import VS2.UserData;
 import tafelServer.CorbaRequestDeliver;
 
 public class DeleteRequest extends CorbaRequest{
 
-	public DeleteRequest(String messageID, UserData userData) {
-		super(messageID, userData);
+	public DeleteRequest(String messageID, int userID) {
+		super(messageID, userID);
 	}
 
 	@Override
