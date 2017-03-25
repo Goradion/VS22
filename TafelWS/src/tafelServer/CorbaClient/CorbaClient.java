@@ -67,19 +67,19 @@ public class CorbaClient {
 	/*
 	 * Methode ruft die CreateNewMessage-Funktion des Corba-Servers auf
 	 */
-	public boolean createMessage(String message, String messageID, int serverNr) {
+	public boolean createMessage(String message, String messageID, int serverNr, int userID) {
 
 		return mbImpl.createMessageSoap(message, messageID, serverNr, this.userData);
 	}
 
 	/* löschen einer Nachricht des Corba-Servers */
-	public boolean deleteMessage(String messageID) {
+	public boolean deleteMessage(String messageID, int userID) {
 
 		return mbImpl.deleteMessageSoap(messageID, this.userData);
 	}
 
 	/* Methode zum aendern einer Nachricht */
-	public boolean modifyMessage(String message, String messageID, int serverNr) {
+	public boolean modifyMessage(String message, String messageID, int serverNr, int userID) {
 		return mbImpl.modifyMessageSoap(message, messageID, serverNr, this.userData);
 	}
 

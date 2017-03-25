@@ -1,6 +1,5 @@
 package serverRequests.corba;
 
-import VS2.UserData;
 import tafelServer.CorbaRequestDeliver;
 
 public class CreateRequest extends CorbaRequest{

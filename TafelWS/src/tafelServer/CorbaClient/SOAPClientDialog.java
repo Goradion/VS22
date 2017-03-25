@@ -65,7 +65,7 @@ public class SOAPClientDialog
         System.out.println("Bitte einen Text eingeben:");
         message = eingabe.nextLine();
         //Aufrufen der CreateMessage-Methode auf dem Server
-        ok = this.soapClient.createMessage(message, "10001", 0);
+        ok = this.soapClient.createMessage(message, "10001", 0, 0);
         //Pruefen ob das anlegen der message funktioniert hat
         if(ok)
         {
