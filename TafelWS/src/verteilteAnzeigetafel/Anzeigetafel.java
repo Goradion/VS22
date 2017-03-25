@@ -302,7 +302,9 @@ public class Anzeigetafel extends Observable implements Serializable {
 	    if (!messages.containsKey(msgID)) {
 	        messages.put(msgID, msg);
 	        userMsgs.get(msg.getUserID()).add(msgID); 
-	    } 
+	    } else {
+    		throw new TafelException("Message mit ID: " + msgID + ", ist bereits vorhanden!" );
+    	}
 	    messages.get(msgID).addGroup(group);
 	    
 	    updateState();
@@ -313,6 +315,8 @@ public class Anzeigetafel extends Observable implements Serializable {
     	if (!messages.containsKey(msgID)) {
     		messages.put(msgID, msg);
     		userMsgs.get(msg.getUserID()).add(msgID); 
+    	} else {
+    		throw new TafelException("Message mit ID: " + msgID + ", ist bereits vorhanden!" );
     	}
     	
 		updateState(); // TODO in GUI Feld fuer Corba Messages

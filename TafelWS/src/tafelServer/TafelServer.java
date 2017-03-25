@@ -579,6 +579,9 @@ public class TafelServer {
 	    if ( tafelAdressen.containsKey(serverNr) ) {
             throw new TafelException("Server Nummer ist gleich einer eigenen Abteilung: " + serverNr + "!" );
         }
+	    if ( serverNr >= 0 ) {
+            throw new TafelException("Server Nummer ist nicht negativ: " + serverNr + "!" );
+        }
 
     	anzeigetafel.receiveMessageCorba(new Message(messageID, userID, serverNr, inhalt, oeffentlich, time));
 
@@ -616,6 +619,9 @@ public class TafelServer {
 	    if ( tafelAdressen.containsKey(serverNr) ) {
 	        throw new TafelException("Server Nummer ist gleich einer Abteilungs Nummer: " + serverNr + "!");
 	    }
+	    if ( serverNr >= 0 ) {
+            throw new TafelException("Server Nummer ist nicht negativ: " + serverNr + "!" );
+        }
 	        
         anzeigetafel.deletePublicMessageCorba(msgID);
 //        Message curMessage = anzeigetafel.getMessageByID(msgID);
