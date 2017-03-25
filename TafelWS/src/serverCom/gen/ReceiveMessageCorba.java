@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="arg2" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="arg3" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="arg4" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="arg5" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,7 +36,8 @@ import javax.xml.bind.annotation.XmlType;
     "arg1",
     "arg2",
     "arg3",
-    "arg4"
+    "arg4",
+    "arg5"
 })
 public class ReceiveMessageCorba {
 
@@ -44,6 +46,7 @@ public class ReceiveMessageCorba {
     protected int arg2;
     protected String arg3;
     protected String arg4;
+    protected boolean arg5;
 
     /**
      * Ruft den Wert der arg0-Eigenschaft ab.
@@ -139,6 +142,22 @@ public class ReceiveMessageCorba {
      */
     public void setArg4(String value) {
         this.arg4 = value;
+    }
+
+    /**
+     * Ruft den Wert der arg5-Eigenschaft ab.
+     * 
+     */
+    public boolean isArg5() {
+        return arg5;
+    }
+
+    /**
+     * Legt den Wert der arg5-Eigenschaft fest.
+     * 
+     */
+    public void setArg5(boolean value) {
+        this.arg5 = value;
     }
 
 }

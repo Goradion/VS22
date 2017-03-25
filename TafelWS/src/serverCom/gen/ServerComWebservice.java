@@ -28,6 +28,7 @@ public interface ServerComWebservice {
      * 
      * @param arg3
      * @param arg2
+     * @param arg5
      * @param arg4
      * @param arg1
      * @param arg0
@@ -49,7 +50,9 @@ public interface ServerComWebservice {
         @WebParam(name = "arg3", targetNamespace = "")
         String arg3,
         @WebParam(name = "arg4", targetNamespace = "")
-        String arg4);
+        String arg4,
+        @WebParam(name = "arg5", targetNamespace = "")
+        boolean arg5);
 
     /**
      * 

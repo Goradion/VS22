@@ -7,6 +7,7 @@ import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 
+
 @WebService
 @SOAPBinding(style = Style.DOCUMENT, parameterStyle = ParameterStyle.WRAPPED, use = Use.LITERAL)
 public interface ServerComWebservice {
@@ -15,7 +16,7 @@ public interface ServerComWebservice {
     public String receiveMessage(int messageID, int userID, int abtNr, String inhalt, String time, int group);
     
 	@WebMethod
-	public String receiveMessageCorba(int messageID, int userID, int serverNr, String inhalt, String time);
+	public String receiveMessageCorba(int messageID, int userID, int serverNr, String inhalt, String time, boolean oeffentlich);
 	
 	@WebMethod
     public String deletePublicMessageCorba(int msgID);

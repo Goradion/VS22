@@ -52,6 +52,7 @@ public class TafelServer {
 	private HashMap<Integer, HeartbeatThread> heartbeatThreads = new HashMap<Integer, HeartbeatThread>();
 	private Anzeigetafel anzeigetafel;
 	private int abteilungsID;
+	private int corbaPartner;
 	private TafelGUI gui;
 
 	private static TafelServer tafelServerInstance = null;
@@ -541,13 +542,20 @@ public class TafelServer {
 	    return true;
 	}
 
-	public synchronized boolean receiveMessageCorba(int messageID, int userID, int serverNr, String inhalt, Date time) throws TafelException {
-	    if (tafelAdressen.containsKey(serverNr)) {
-            throw new TafelException("Server Nummer ist gleich einer Abteilungs Nummer: " + serverNr + "!");
+	public synchronized boolean receiveMessageCorba(int messageID, int userID, int serverNr, String inhalt, Date time, boolean oeffentlich) throws TafelException {
+	    if ( serverNr == corbaPartner ) {
+            throw new TafelException("Server Nummer ist nicht der verbundene Corba Server: " + corbaPartner + "!" );
         }
-		anzeigetafel.receiveMessageCorba(new Message(messageID, userID, serverNr, inhalt, false, time));  
-		// TODO sind Corba Messages oeffentlich? wenn nein, werden sie eben unter local in GUI angezeigt, wenn ja, muss man noch nen Feld Corba Messages erstellen
-		
+	    if ( tafelAdressen.containsKey(serverNr) ) {
+            throw new TafelException("Server Nummer ist gleich einer eigenen Abteilung: " + serverNr + "!" );
+        }
+	    
+	    if ( oeffentlich ) {
+	    	anzeigetafel.receiveMessageCorba(new Message(messageID, userID, serverNr, inhalt, false, time));
+	    } else {
+	    	anzeigetafel.receiveMessageCorba(new Message(messageID, userID, abteilungsID, inhalt, false, time));
+	    }
+
 		anzeigetafel.saveStateToFile();
 		return true;
 	}

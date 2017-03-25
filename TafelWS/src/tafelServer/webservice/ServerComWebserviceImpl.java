@@ -51,12 +51,12 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 	}
 	
 	@Override
-    public String receiveMessageCorba(int messageID, int userID, int serverNr, String inhalt, String time) {
+    public String receiveMessageCorba(int messageID, int userID, int serverNr, String inhalt, String time, boolean oeffentlich) {
         if (tafelServer != null) {
             String answer = "";
             try {
                 DateFormat formatTime = new SimpleDateFormat("EEE MMM d HH:mm:ss yyyy", Locale.ENGLISH);
-                tafelServer.receiveMessageCorba(messageID, userID, serverNr, inhalt, formatTime.parse(time));
+                tafelServer.receiveMessageCorba(messageID, userID, serverNr, inhalt, formatTime.parse(time), oeffentlich);
                 answer =  "Done";
             } catch (TafelException e) {
                 answer = e.getMessage();
