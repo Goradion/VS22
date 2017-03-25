@@ -99,6 +99,7 @@ public class TafelServer {
 		loadGroupsFromFile();
 		initGroupQueueMap();
 		loadTafelAdressenFromFile();
+		loadTafelPartnerFromFile();
 		
 		// GUI
 		gui = new TafelGUI(anzeigetafel.getAbteilungsID(), this, groupMap.keySet());
@@ -290,10 +291,11 @@ public class TafelServer {
 				lines++;
 				String[] addressParts = address.split(" ");
 				try {
-					registerTafel(Integer.parseInt(addressParts[0]),
-							new URL(addressParts[1]));
+					int curAbteilungsID = Integer.parseInt(addressParts[0]);
+					registerTafel(curAbteilungsID, new URL(addressParts[1]));
+					print("Tafel " + curAbteilungsID + " registriert.");
 				} catch (NumberFormatException e) {
-					print("NumberFormatException in line " + lines + " " + e.getMessage());
+					print("loadTafelAdressenFromFile NumberFormatException in line " + lines + " " + e.getMessage());
 					e.printStackTrace();
 				} catch (TafelException e) {
 					printStackTrace(e);
@@ -328,7 +330,7 @@ public class TafelServer {
     					groupMap.put(groupId, intMembers);
     
     				} catch (NumberFormatException e) {
-    					print("NumberFormatException in line " + lines + " " + e.getMessage());
+    					print("loadGroupsFromFile NumberFormatException in line " + lines + " " + e.getMessage());
     					e.printStackTrace();
     				}
 				}
@@ -339,6 +341,33 @@ public class TafelServer {
 			printStackTrace(e);
 		} catch (IOException e) {
 		    print("Fehler beim Lesen der tafelGruppen Datei.");
+			printStackTrace(e);
+		}
+	}
+	
+	private void loadTafelPartnerFromFile() {
+		int lines = 0;
+		try (BufferedReader reader = new BufferedReader(new FileReader("./tafelPartner"))) {
+			String address = "";
+			while ((address = reader.readLine()) != null) {
+				lines++;
+				String[] partnerParts = address.split(" ");
+				try {
+					int curAbteilungsID = Integer.parseInt(partnerParts[0]);
+					if ( curAbteilungsID == abteilungsID ) {
+						corbaPartner = Integer.parseInt(partnerParts[1]);
+					}
+				} catch (NumberFormatException e) {
+					print("loadTafelPartnerFromFile NumberFormatException in line " + lines + " " + e.getMessage());
+					e.printStackTrace();
+				}
+			}
+			print("Partner loaded: " + corbaPartner);
+		} catch (FileNotFoundException e) {
+		    print("Keine tafelPartner Datei gefunden.");
+			printStackTrace(e);
+		} catch (IOException e) {
+		    print("Fehler beim Lesen der tafelPartner Datei.");
 			printStackTrace(e);
 		}
 	}
