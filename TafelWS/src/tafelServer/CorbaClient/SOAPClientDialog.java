@@ -13,7 +13,7 @@ public class SOAPClientDialog
 {
     private CorbaClient soapClient = null;
     
-    public SOAPClientDialog(String ip, int port) throws Exception
+    public SOAPClientDialog(String ip, String port) throws Exception
     {
         //Klasse SOAP-Client erzeugen 
         this.soapClient = new CorbaClient(ip, port);

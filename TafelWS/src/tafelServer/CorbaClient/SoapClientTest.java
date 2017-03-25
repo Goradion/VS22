@@ -10,7 +10,7 @@ public class SoapClientTest
         if(args.length == 2)
         {   
             String serverIP = args[0];
-            int serverPort = new Integer(args[1]);
+            String serverPort = args[1];
             System.out.println("Starte Test\n");
             SOAPClientDialog soapClientDialog = new SOAPClientDialog(serverIP, serverPort);
             System.out.println("Test beendet\n");

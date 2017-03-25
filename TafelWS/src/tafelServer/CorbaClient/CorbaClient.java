@@ -1,14 +1,12 @@
 package tafelServer.CorbaClient;
 
-import java.util.ArrayList;
-import org.omg.CosNaming.*;
-import org.omg.CosNaming.NamingContextPackage.CannotProceed;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
+import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
 
-import VS2.*;
-
-import org.omg.CORBA.*;
-import org.omg.CORBA.ORBPackage.InvalidName;
+import VS2.MessageboardServerInterface;
+import VS2.MessageboardServerInterfaceHelper;
+import VS2.UserData;
 
 /**
  * Klasse zum senden von Nachrichten vom SOAP-System zum CORBA-System
@@ -18,7 +16,7 @@ public class CorbaClient {
 	private MessageboardServerInterface mbImpl; // Interface um mit dem Server
 												// zu Kommiunizieren
 	private String serverIP = "";
-	private int serverPort = 0;
+	private String serverPort = "";
 	private String method = "DataServiceName1";
 	private UserData userData = null; // Daten des angemeldeten Benutzers
 	private boolean userConnected = false; // ist true wenn der Benutzer
@@ -28,7 +26,7 @@ public class CorbaClient {
 												// war
 
 	/* Konstruktor erwartet CORBA-Server IP und Port */
-	public CorbaClient(String ip, int port) {
+	public CorbaClient(String ip, String port) {
 		this.serverIP = ip;
 		this.serverPort = port;
 		this.userData = new UserData();
@@ -40,7 +38,7 @@ public class CorbaClient {
 	/* Methode stellt die Verbindung zum Server her */
 	public void connectToServer() throws Exception {
 		// Parameter für den Server-Connect
-		String[] param = new String[] { "-ORBInitialPort", Integer.toString(this.serverPort), "-ORBInitialHost",
+		String[] param = new String[] { "-ORBInitialPort", serverPort, "-ORBInitialHost",
 				this.serverIP };
 		// Initialisiere ORB und beschaffe Zugang zum 'NameService'
 		this.orb = ORB.init(param, null);

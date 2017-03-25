@@ -1,6 +1,5 @@
 package tafelServer;
 
-import java.net.URL;
 import java.util.concurrent.LinkedBlockingDeque;
 
 import serverRequests.corba.CorbaRequest;
@@ -9,31 +8,57 @@ import tafelServer.CorbaClient.CorbaClient;
 public class CorbaPartnerThread extends Thread {
 	private LinkedBlockingDeque<CorbaRequest> messageQueue;
 	private TafelServer tafelServer;
-	private URL targetAddress;
+	private String targetIP;
+	private String targetPort;
 	private int eigeneAbteilungsID;
 	private int remoteAbteilungsID;
 
 	public CorbaPartnerThread(LinkedBlockingDeque<CorbaRequest> messageQueue, TafelServer tafelServer,
-			URL targetAddress, int eigeneAbteilungsID, int remoteAbteilungsID) {
+			String targetIP, String targetPort, int eigeneAbteilungsID, int remoteAbteilungsID) {
 		super();
 		this.messageQueue = messageQueue;
 		this.tafelServer = tafelServer;
-		this.targetAddress = targetAddress;
+		this.targetIP = targetIP;
+		this.targetPort = targetPort;
 		this.eigeneAbteilungsID = eigeneAbteilungsID;
 		this.remoteAbteilungsID = remoteAbteilungsID;
 	}
 	
-	public void run(){
-		CorbaClient soapClient = null;
+	public void run() {
+		try {
+			deliverMessages();
+		} catch (InterruptedException e) {
+			tafelServer.printStackTrace(e);
+		}	
+	}
+	public void deliverMessages() throws InterruptedException{
+		CorbaClient corbaClient = null;
 		CorbaRequestDeliver deliverer = null;
+		CorbaRequest request = null;
 		while(true){
 			try {
-				if (soapClient == null) {
-					soapClient = new CorbaClient(targetAddress.getHost(), targetAddress.getPort());
-					
+				if (corbaClient == null) {
+					corbaClient = new CorbaClient(targetIP, targetPort);
+					if (deliverer == null){
+						deliverer = new CorbaRequestDeliver(corbaClient);
+					} else {
+						deliverer.setCorbaClient(corbaClient);
+					}
 				}
+				request = messageQueue.take();
+				deliverer.deliver(request);
+				request = null;
+//				tafelServer.saveQueueMapToFile();
 			} catch (Exception e) {
-				// TODO: handle exception
+				if (request != null) {
+					messageQueue.putFirst(request);
+					
+//					tafelServer.saveQueueMapToFile();
+					request = null;
+				}
+				if (isInterrupted()){
+					throw new InterruptedException();
+				}
 			}
 		}
 		
