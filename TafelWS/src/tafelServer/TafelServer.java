@@ -53,9 +53,11 @@ public class TafelServer {
 	private HashMap<Integer, HeartbeatThread> heartbeatThreads = new HashMap<Integer, HeartbeatThread>();
 	private Anzeigetafel anzeigetafel;
 	private int abteilungsID;
-	private int corbaPartner;
+	private boolean partnerExists = false;
+	private int corbaPartner = 0;
 	private LinkedBlockingDeque<CorbaRequest> partnerQueue;
 	private CorbaPartnerThread corbaPartnerThread;
+
 	private TafelGUI gui;
 
 	private static TafelServer tafelServerInstance = null;
@@ -407,6 +409,7 @@ public class TafelServer {
 				try {
 					int curAbteilungsID = Integer.parseInt(partnerParts[0]);
 					if ( curAbteilungsID == abteilungsID ) {
+						partnerExists = true;
 						corbaPartner = Integer.parseInt(partnerParts[1]);
 						loadPartnerQueueFromFile();
 						corbaPartnerThread = new CorbaPartnerThread(partnerQueue, this, partnerParts[2], partnerParts[2], abteilungsID, corbaPartner);
@@ -425,6 +428,28 @@ public class TafelServer {
 		} catch (IOException e) {
 		    print("Fehler beim Lesen der tafelPartner Datei.");
 			printStackTrace(e);
+		}
+	}
+	
+	public boolean hasPartner() {
+		return partnerExists;
+	}
+	
+	private void putCreateRequestIfPartner(String messageID, int userID, String message, int serverNr) {
+		if ( hasPartner() ) {
+			//TODO create CreateRequest and add to Queue
+		}
+	}
+	
+	private void putDeleteRequestIfPartner(String messageID, int userID) {
+		if ( hasPartner() ) {
+			//TODO create CreateRequest and add to Queue
+		}
+	}
+	
+	private void putModifyRequestIfPartner(String newMessage, String messageID, int userID) {
+		if ( hasPartner() ) {
+			//TODO create CreateRequest and add to Queue
 		}
 	}
 
