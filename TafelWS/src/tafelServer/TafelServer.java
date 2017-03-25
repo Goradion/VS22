@@ -284,16 +284,14 @@ public class TafelServer {
 
 	private void loadTafelAdressenFromFile() {
 		int lines = 0;
-		try (BufferedReader reader = new BufferedReader(new FileReader("./tafelAdressen"))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader("./tafelAdressen" + abteilungsID))) {
 			String address = "";
 			while ((address = reader.readLine()) != null) {
 				lines++;
 				String[] addressParts = address.split(" ");
 				try {
-					int curAbteilung = Integer.parseInt(addressParts[0]);
-					if ( curAbteilung != abteilungsID ) {
-						registerTafel(curAbteilung, new URL(addressParts[1]));
-					}
+					registerTafel(Integer.parseInt(addressParts[0]),
+							new URL(addressParts[1]));
 				} catch (NumberFormatException e) {
 					print("NumberFormatException in line " + lines + " " + e.getMessage());
 					e.printStackTrace();
