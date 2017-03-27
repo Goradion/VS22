@@ -46,8 +46,8 @@ import verteilteAnzeigetafel.TafelException;
  * @author Simon Bastian
  */
 public class TafelServer {
-    private final static String defaultPort = "8080";
-    
+	private final static String defaultPort = "8080";
+
 	private HashMap<Integer, LinkedBlockingDeque<ServerRequest>> queueMap = new HashMap<Integer, LinkedBlockingDeque<ServerRequest>>();
 	private HashMap<Integer, HashSet<Integer>> groupMap = new HashMap<Integer, HashSet<Integer>>();
 	private HashMap<Integer, HashSet<LinkedBlockingDeque<ServerRequest>>> groupQueueMap = new HashMap<Integer, HashSet<LinkedBlockingDeque<ServerRequest>>>();
@@ -64,26 +64,25 @@ public class TafelServer {
 	private TafelGUI gui;
 
 	private static TafelServer tafelServerInstance = null;
-	
-	
+
 	public static boolean startServer(int abteilung) {
-		if (tafelServerInstance == null){
+		if (tafelServerInstance == null) {
 			tafelServerInstance = new TafelServer(abteilung);
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	public boolean stopServer() {
-	    // TODO stop stuff
-	    return true;
+		// TODO stop stuff
+		return true;
 	}
 
 	public static TafelServer getServer() {
 		return tafelServerInstance;
 	}
-	
+
 	private TafelServer(int abteilungsID) {
 		this.abteilungsID = abteilungsID;
 		init();
@@ -108,13 +107,13 @@ public class TafelServer {
 		initGroupQueueMap();
 		loadTafelAdressenFromFile();
 		loadTafelPartnerFromFile();
-		
+
 		// GUI
 		gui = new TafelGUI(anzeigetafel.getAbteilungsID(), this, groupMap.keySet());
 		anzeigetafel.addObserver(gui);
 		anzeigetafel.updateState();
 	}
-	
+
 	/**
 	 * Registers a TafelServer if possible.
 	 * 
@@ -127,12 +126,13 @@ public class TafelServer {
 		if (this.abteilungsID == abteilungsID) {
 			throw new TafelException("Die eigene Abteilung wird nicht registriert");
 		}
-		
+
 		if (tafelAdressen.containsKey(abteilungsID)) {
 			if (!tafelAdressen.get(abteilungsID).equals(address)) {
-			    //  dies ändert NICHT die Adressen in HeartbeatThread / OutboxThread! getestet. Zumindest nicht direkt.
+				// dies ändert NICHT die Adressen in HeartbeatThread /
+				// OutboxThread! getestet. Zumindest nicht direkt.
 				tafelAdressen.replace(abteilungsID, address);
-				
+
 				// added
 				outboxThreads.get(abteilungsID).setTargetAddress(address);
 				heartbeatThreads.get(abteilungsID).setTargetAddress(address);
@@ -143,16 +143,16 @@ public class TafelServer {
 		}
 		if (!queueMap.containsKey(abteilungsID)) {
 			addQueue(abteilungsID);
-		} 
-		
+		}
+
 		activateHeartbeat(abteilungsID);
 		activateQueue(abteilungsID);
 		saveTafelAdressenToFile();
 		saveQueueMapToFile();
-		
+
 		return "TafelServer " + abteilungsID + ", Adresse: " + address.toString() + " registriert!";
 	}
-	
+
 	/**
 	 * Activated the message queue for the given abteilungID.
 	 * 
@@ -167,7 +167,7 @@ public class TafelServer {
 			outboxThreads.put(abteilungsID, obt);
 			obt.start();
 		} else { // else Queue already active
-		    outboxThreads.get(abteilungsID).doNotify();   // wake him up
+			outboxThreads.get(abteilungsID).doNotify(); // wake him up
 		}
 	}
 
@@ -177,12 +177,13 @@ public class TafelServer {
 	 */
 	public synchronized void activateHeartbeat(int remoteAbteilungsID) {
 		if (!heartbeatThreads.containsKey(remoteAbteilungsID) || !heartbeatThreads.get(remoteAbteilungsID).isAlive()) {
-			HeartbeatThread hbt = new HeartbeatThread(this.abteilungsID, remoteAbteilungsID, tafelAdressen.get(remoteAbteilungsID), this);
+			HeartbeatThread hbt = new HeartbeatThread(this.abteilungsID, remoteAbteilungsID,
+					tafelAdressen.get(remoteAbteilungsID), this);
 			heartbeatThreads.put(remoteAbteilungsID, hbt);
 			hbt.start();
 		}
 	}
-	
+
 	private void initGroupQueueMap() {
 		groupQueueMap.clear();
 
@@ -192,7 +193,7 @@ public class TafelServer {
 			HashSet<LinkedBlockingDeque<ServerRequest>> queues = new HashSet<LinkedBlockingDeque<ServerRequest>>();
 			for (Integer groupMember : groupMembers) {
 				if (groupMember.intValue() != abteilungsID) {
-					if (queueMap.containsKey(groupMember)){
+					if (queueMap.containsKey(groupMember)) {
 						queues.add(queueMap.get(groupMember));
 					}
 				}
@@ -202,22 +203,22 @@ public class TafelServer {
 		print("Group Queues initialized: " + groupQueueMap);
 	}
 
-	private boolean addQueue(Integer abteilung){
-		if (abteilung.intValue() == abteilungsID){
+	private boolean addQueue(Integer abteilung) {
+		if (abteilung.intValue() == abteilungsID) {
 			return false;
 		}
 		LinkedBlockingDeque<ServerRequest> queue = new LinkedBlockingDeque<ServerRequest>();
 		queueMap.put(abteilung, queue);
-		for ( Entry<Integer, HashSet<Integer>> entry : groupMap.entrySet()){
+		for (Entry<Integer, HashSet<Integer>> entry : groupMap.entrySet()) {
 			Integer groupId = entry.getKey();
 			HashSet<Integer> groupMembers = entry.getValue();
-			if (groupMembers.contains(abteilung)){
+			if (groupMembers.contains(abteilung)) {
 				groupQueueMap.get(groupId).add(queue);
 			}
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Writes the message queues for each Abteilung to a file.
 	 */
@@ -240,14 +241,14 @@ public class TafelServer {
 			}
 		}
 	}
-	
+
 	/**
 	 * Writes the addresses of the registered TafelServers to a file.
 	 */
 	public synchronized void saveTafelAdressenToFile() {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter("./tafelAdressen" + abteilungsID))) {
 			for (int i : tafelAdressen.keySet()) {
-				URL address =  tafelAdressen.get(i);
+				URL address = tafelAdressen.get(i);
 				writer.write(i + " " + address.toString() + "\n");
 			}
 		} catch (IOException e) {
@@ -255,7 +256,7 @@ public class TafelServer {
 		}
 
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private LinkedBlockingDeque<CorbaRequest> loadPartnerQueueFromFile() {
 		LinkedBlockingDeque<CorbaRequest> partnerQueue = new LinkedBlockingDeque<CorbaRequest>();
@@ -284,8 +285,8 @@ public class TafelServer {
 		}
 		return partnerQueue;
 	}
-	
-	private void savePartnerQueueToFile() {
+
+	public void savePartnerQueueToFile() {
 		FileOutputStream fileoutput = null;
 		ObjectOutputStream objoutput = null;
 		try {
@@ -360,10 +361,10 @@ public class TafelServer {
 			}
 			print("Tafel Adressen geladen.");
 		} catch (FileNotFoundException e) {
-		    print("Keine tafelAdressen" + abteilungsID + " Datei gefunden.");
+			print("Keine tafelAdressen" + abteilungsID + " Datei gefunden.");
 			printStackTrace(e);
 		} catch (IOException e) {
-		    print("Fehler beim Lesen der tafelAdressen" + abteilungsID + " Datei.");
+			print("Fehler beim Lesen der tafelAdressen" + abteilungsID + " Datei.");
 			printStackTrace(e);
 		}
 	}
@@ -379,29 +380,29 @@ public class TafelServer {
 				String[] stringMembers = groupParts[1].split(",");
 				// Nur Gruppe einlesen, wenn die Tafel auch darin enthalten ist!
 				if (Arrays.asList(stringMembers).contains(Integer.toString(abteilungsID))) {
-    				HashSet<Integer> intMembers = new HashSet<Integer>();
-    				try {
-    					for (int i = 0; i < stringMembers.length; i++) {
-    						intMembers.add(Integer.parseInt(stringMembers[i]));
-    					}
-    					groupMap.put(groupId, intMembers);
-    
-    				} catch (NumberFormatException e) {
-    					print("loadGroupsFromFile NumberFormatException in line " + lines + " " + e.getMessage());
-    					e.printStackTrace();
-    				}
+					HashSet<Integer> intMembers = new HashSet<Integer>();
+					try {
+						for (int i = 0; i < stringMembers.length; i++) {
+							intMembers.add(Integer.parseInt(stringMembers[i]));
+						}
+						groupMap.put(groupId, intMembers);
+
+					} catch (NumberFormatException e) {
+						print("loadGroupsFromFile NumberFormatException in line " + lines + " " + e.getMessage());
+						e.printStackTrace();
+					}
 				}
 			}
 			print("Groups loaded: " + groupMap);
 		} catch (FileNotFoundException e) {
-		    print("Keine tafelGruppen Datei gefunden.");
+			print("Keine tafelGruppen Datei gefunden.");
 			printStackTrace(e);
 		} catch (IOException e) {
-		    print("Fehler beim Lesen der tafelGruppen Datei.");
+			print("Fehler beim Lesen der tafelGruppen Datei.");
 			printStackTrace(e);
 		}
 	}
-	
+
 	private void loadTafelPartnerFromFile() {
 		int lines = 0;
 		try (BufferedReader reader = new BufferedReader(new FileReader("./tafelPartner"))) {
@@ -411,14 +412,15 @@ public class TafelServer {
 				String[] partnerParts = address.split(" ");
 				try {
 					int curAbteilungsID = Integer.parseInt(partnerParts[0]);
-					if ( curAbteilungsID == abteilungsID ) {
+					if (curAbteilungsID == abteilungsID) {
 						partnerExists = true;
 						corbaPartner = Integer.parseInt(partnerParts[1]);
 						partnerQueue = loadPartnerQueueFromFile();
-						corbaPartnerThread = new CorbaPartnerThread(partnerQueue, this, partnerParts[2], partnerParts[2], abteilungsID, corbaPartner);
+						corbaPartnerThread = new CorbaPartnerThread(partnerQueue, this, partnerParts[2],
+								partnerParts[3], abteilungsID, corbaPartner);
 						corbaPartnerThread.start();
 					}
-					
+
 				} catch (NumberFormatException e) {
 					print("loadTafelPartnerFromFile NumberFormatException in line " + lines + " " + e.getMessage());
 					e.printStackTrace();
@@ -426,30 +428,31 @@ public class TafelServer {
 			}
 			print("Partner loaded: " + corbaPartner);
 		} catch (FileNotFoundException e) {
-		    print("Keine tafelPartner Datei gefunden.");
+			print("Keine tafelPartner Datei gefunden.");
 			printStackTrace(e);
 		} catch (IOException e) {
-		    print("Fehler beim Lesen der tafelPartner Datei.");
+			print("Fehler beim Lesen der tafelPartner Datei.");
 			printStackTrace(e);
 		}
 	}
-	
+
 	public boolean hasPartner() {
 		return partnerExists;
 	}
-	
+
 	private void putCreateRequestIfPartner(int messageID, int userID, String message, int serverNr) {
-		if ( hasPartner() ) {
+		if (hasPartner()) {
 			try {
-				partnerQueue.put(new CreateRequest(convertCorbaMsgID(messageID), userID, message, convertAbteilung(serverNr)));
+				partnerQueue.put(
+						new CreateRequest(convertCorbaMsgID(messageID), userID, message, convertAbteilung(serverNr)));
 			} catch (InterruptedException e) {
 				print("Create Message mit ID=" + messageID + " wird nicht an Partner gesendet!");
 			}
 		}
 	}
-	
+
 	private void putDeleteRequestIfPartner(int messageID, int userID) {
-		if ( hasPartner() ) {
+		if (hasPartner()) {
 			try {
 				partnerQueue.put(new DeleteRequest(convertCorbaMsgID(messageID), userID));
 			} catch (InterruptedException e) {
@@ -457,9 +460,9 @@ public class TafelServer {
 			}
 		}
 	}
-	
+
 	private void putModifyRequestIfPartner(String newMessage, int messageID, int userID) {
-		if ( hasPartner() ) {
+		if (hasPartner()) {
 			try {
 				partnerQueue.put(new ModifyRequest(newMessage, convertCorbaMsgID(messageID), userID));
 			} catch (InterruptedException e) {
@@ -515,13 +518,13 @@ public class TafelServer {
 	public HashMap<Integer, URL> getTafelAdressen() {
 		return tafelAdressen;
 	}
-	
+
 	public String getAddressPort(int abtNr) {
-	    if (!tafelAdressen.containsKey(abtNr)) {
-	        return defaultPort;
-	    }
-        return tafelAdressen.get(abtNr).toString().split(":")[2].split("/")[0];
-    }
+		if (!tafelAdressen.containsKey(abtNr)) {
+			return defaultPort;
+		}
+		return tafelAdressen.get(abtNr).toString().split(":")[2].split("/")[0];
+	}
 
 	/**
 	 * Returns the assigned outboxThread by abteilungsID.
@@ -540,7 +543,7 @@ public class TafelServer {
 	public HashMap<Integer, LinkedBlockingDeque<ServerRequest>> getQueueMap() {
 		return queueMap;
 	}
-	
+
 	/**
 	 * Gets the messages of a given userID if possible.
 	 * 
@@ -554,25 +557,25 @@ public class TafelServer {
 
 		return anzeigetafel.getMessagesByUserID(userID);
 	}
-	
+
 	private String convertCorbaMsgID(int messageID) {
-		if ( messageID >= 0 ) {
+		if (messageID >= 0) {
 			int currentMsgAbt = anzeigetafel.getMessageByID(messageID).getAbtNr();
-			if ( currentMsgAbt == abteilungsID ) {
+			if (currentMsgAbt == abteilungsID) {
 				return new String("" + corbaPartner + "-SOAP" + messageID);
 			} else {
 				return new String("-" + currentMsgAbt + "-SOAP" + messageID);
 			}
 		} else {
-			String corbaID = new String ("" + corbaPartner + "" + messageID);
-			
+			String corbaID = new String("" + corbaPartner + "" + messageID);
+
 			return corbaID.replace("-" + abteilungsID, "-");
 		}
 	}
-	
+
 	private int convertAbteilung(int abtNr) {
-		if ( abtNr != abteilungsID ) {
-			 return abtNr * -1;
+		if (abtNr != abteilungsID) {
+			return abtNr * -1;
 		} else {
 			return corbaPartner;
 		}
@@ -580,28 +583,28 @@ public class TafelServer {
 
 	public synchronized String createMessage(String inhalt, int user) throws TafelException {
 		int msgID = anzeigetafel.createMessage(inhalt, user, false);
-		
+
 		putCreateRequestIfPartner(msgID, user, inhalt, abteilungsID);
-		
-		anzeigetafel.saveStateToFile();		
-		print(partnerQueue.toString());
+
+		anzeigetafel.saveStateToFile();
 		return "Nachricht mit ID=" + msgID + " erstellt!";
 	}
-	
+
 	public String deleteMessage(int messageID, int user) throws TafelException {
 		String antwort = "Nachricht mit ID=" + messageID + " gelöscht!";
-		anzeigetafel.deleteMessage(messageID, user);
-		
 		putDeleteRequestIfPartner(messageID, user);
+		anzeigetafel.deleteMessage(messageID, user);
+
 		
+
 		anzeigetafel.saveStateToFile();
 		return antwort;
 	}
-	
+
 	public String modifyMessage(int messageID, String inhalt, int user) throws TafelException {
 		String antwort = "Nachricht mit ID=" + messageID + " geändert!";
 		anzeigetafel.modifyMessage(messageID, inhalt, user);
-		
+
 		putModifyRequestIfPartner(inhalt, messageID, user);
 
 		anzeigetafel.saveStateToFile();
@@ -620,42 +623,42 @@ public class TafelServer {
 	 *             if the Anzeigetafel rejects the publication.
 	 */
 	public synchronized String publishMessage(int messageID, int userID, int groupID) throws TafelException {
-		if ( !groupMap.containsKey(groupID) ) {
+		if (!groupMap.containsKey(groupID)) {
 			return "TafelServer ist nicht in gegebener Gruppe=" + groupID + "!";
 		}
 		String antwort = "Nachricht mit ID=" + messageID + " veröffentlicht!";
-		
+
 		anzeigetafel.publishMessage(messageID, userID, groupID);
-		
+
 		for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(groupID)) {
-		    if (q != null) {
-			    q.add(new ReceiveRequest(anzeigetafel.getMessages().get(messageID), groupID, new Date()));
-		    }
+			if (q != null) {
+				q.add(new ReceiveRequest(anzeigetafel.getMessages().get(messageID), groupID, new Date()));
+			}
 		}
-		
+
 		saveQueueMapToFile();
 		anzeigetafel.saveStateToFile();
 		return antwort;
 	}
 
 	public synchronized String deletePublic(int messageID, int userID, int groupID) throws TafelException {
-		if ( !groupMap.containsKey(groupID) ) {
+		if (!groupMap.containsKey(groupID)) {
 			return "TafelServer ist nicht in gegebener Gruppe=" + groupID + "!";
 		}
 		String antwort = "Nachricht mit ID=" + messageID + " gelöscht in Gruppe:" + groupID + "!";
-		
+
 		anzeigetafel.deletePublic(messageID, userID, groupID);
 
 		for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(groupID)) {
 			try {
-			    if (q != null) {
-	                q.put(new DeletePublicRequest(messageID, groupID));
-			    }
+				if (q != null) {
+					q.put(new DeletePublicRequest(messageID, groupID));
+				}
 			} catch (InterruptedException e) {
 				print("Message mit ID=" + messageID + " wird nicht überall gelöscht werden!");
 			}
 		}
-		
+
 		saveQueueMapToFile();
 		anzeigetafel.saveStateToFile();
 		return antwort;
@@ -663,156 +666,167 @@ public class TafelServer {
 
 	public synchronized String modifyPublic(int messageID, int userID, String newMessage) throws TafelException {
 		String antwort = "Nachricht mit ID=" + messageID + " geändert in allen Gruppen";
-		
+
 		anzeigetafel.modifyPublic(messageID, newMessage, userID);
-		
+
 		putModifyRequestIfPartner(newMessage, messageID, userID);
-		
+
 		for (int group : anzeigetafel.getMessageByID(messageID).getGruppen()) {
 			for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(group)) {
 				try {
-				    if (q != null) {
-	                	q.put(new ModifyPublicRequest(messageID, newMessage));
-				    }
+					if (q != null) {
+						q.put(new ModifyPublicRequest(messageID, newMessage));
+					}
 				} catch (InterruptedException e) {
 					print("Message mit ID=" + messageID + " wird nicht überall geändert werden!");
 				}
 			}
 		}
-		
+
 		saveQueueMapToFile();
 		anzeigetafel.saveStateToFile();
 		return antwort;
 	}
 
-
 	/* -- Server WS Methods -- */
-	
-	public synchronized boolean receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time, int group) throws TafelException {
-	    if ( !groupMap.containsKey(group) ) {
-	        throw new TafelException("TafelServer ist nicht in gegebener Gruppe=" + group + "!");
-	    }
-	    anzeigetafel.receiveMessage(new Message(messageID, userID, abtNr, inhalt, true, time), group);
-	    
-	    putCreateRequestIfPartner(messageID, userID, inhalt, abtNr);
-	    
-	    anzeigetafel.saveStateToFile();
-	    return true;
-	}
 
-	public synchronized boolean receiveMessageCorba(int messageID, int userID, int serverNr, String inhalt, Date time, boolean oeffentlich) throws TafelException {
-	    if ( tafelAdressen.containsKey(serverNr) ) {
-            throw new TafelException("Server Nummer ist gleich einer eigenen Abteilung: " + serverNr + "!" );
-        }
-	    if ( serverNr >= 0 && serverNr != abteilungsID ) {
-            throw new TafelException("Server Nummer ist weder negativ: " + serverNr + ", noch die eigene Abteilung!" );
-        }
+	public synchronized boolean receiveMessage(int messageID, int userID, int abtNr, String inhalt, Date time,
+			int group) throws TafelException {
+		if (!groupMap.containsKey(group)) {
+			throw new TafelException("TafelServer ist nicht in gegebener Gruppe=" + group + "!");
+		}
+		anzeigetafel.receiveMessage(new Message(messageID, userID, abtNr, inhalt, true, time), group);
 
-    	anzeigetafel.receiveMessageCorba(new Message(messageID, userID, serverNr, inhalt, oeffentlich, time));
+		putCreateRequestIfPartner(messageID, userID, inhalt, abtNr);
 
 		anzeigetafel.saveStateToFile();
 		return true;
 	}
-	
+
+	public synchronized boolean receiveMessageCorba(int messageID, int userID, int serverNr, String inhalt, Date time,
+			boolean oeffentlich) throws TafelException {
+		if (tafelAdressen.containsKey(serverNr)) {
+			throw new TafelException("Server Nummer ist gleich einer eigenen Abteilung: " + serverNr + "!");
+		}
+		if (serverNr >= 0 && serverNr != abteilungsID) {
+			throw new TafelException("Server Nummer ist weder negativ: " + serverNr + ", noch die eigene Abteilung!");
+		}
+
+		anzeigetafel.receiveMessageCorba(new Message(messageID, userID, serverNr, inhalt, oeffentlich, time));
+
+		anzeigetafel.saveStateToFile();
+		return true;
+	}
+
 	public synchronized boolean receiveMessage(Message message) throws TafelException {
 		for (Integer i : message.getGruppen()) {
 			if (groupMap.containsKey(i)) {
-			    anzeigetafel.receiveMessage(message, i);
+				anzeigetafel.receiveMessage(message, i);
 			}
 		}
-		
+
 		anzeigetafel.saveStateToFile();
 		return true;
 	}
-	
+
 	public synchronized boolean deletePublicMessage(int msgID, int group) throws TafelException {
-		if ( !groupMap.containsKey(group) ) {
+		if (!groupMap.containsKey(group)) {
 			throw new TafelException("TafelServer ist nicht in gegebener Gruppe=" + group + "!");
 		}
 		anzeigetafel.deletePublicMessage(msgID, group);
-		
+
 		putDeleteRequestIfPartner(msgID, 1);
-		
+
 		anzeigetafel.saveStateToFile();
 		return true;
 	}
-	
+
 	public synchronized boolean deleteMessageCorba(int msgID) throws TafelException {
-	    Message curMessage = anzeigetafel.getMessageByID(msgID); 
-	    if ( curMessage == null ) {
-            throw new TafelException("Keine Message mit ID " + msgID + " gefunden!");
-        }
-	    int serverNr = curMessage.getAbtNr();
-	    if ( tafelAdressen.containsKey(serverNr) ) {
-	        throw new TafelException("Server Nummer ist gleich einer Abteilungs Nummer: " + serverNr + "!");
-	    }
-	    if ( serverNr >= 0 && serverNr != abteilungsID ) {
-            throw new TafelException("Server Nummer ist weder negativ: " + serverNr + ", noch die eigene Abteilung!" );
-        }
-	        
-        anzeigetafel.deleteMessageCorba(msgID);
-//        Message curMessage = anzeigetafel.getMessageByID(msgID);
-//        HashSet<Integer> curMsgGroups = curMessage.getGruppen();
-        
-        // TODO delete everywhere? oder nur auf dem mit Corba verbundenem Server?
-        // wenn everywhere, reicht unteres nicht aus, weil ein anderer Server die Nachricht bei sich in einer anderen Gruppe geteilt haben kann, in der dieser Server gar nicht drin ist
-        // man bräucht ne andere deletePublic, die veranlässt, dass die anderen Server, diese Nachricht auch in all ihren Gruppen public löscht
-//        for (int groupID : curMsgGroups) {
-//            for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(groupID)) {
-//                try {
-//                    if (q != null) {
-//                        q.put(new DeletePublicRequest(msgID, groupID));
-//                    }
-//                } catch (InterruptedException e) {
-//                    print("Message mit ID=" + msgID + " wird nicht überall gelöscht werden!");
-//                }
-//            }
-//        }
-        
-//        saveQueueMapToFile();
-        anzeigetafel.saveStateToFile();
-        return true;
-    }
-	
+		Message curMessage = anzeigetafel.getMessageByID(msgID);
+		if (curMessage == null) {
+			throw new TafelException("Keine Message mit ID " + msgID + " gefunden!");
+		}
+		int serverNr = curMessage.getAbtNr();
+		if (tafelAdressen.containsKey(serverNr)) {
+			throw new TafelException("Server Nummer ist gleich einer Abteilungs Nummer: " + serverNr + "!");
+		}
+		if (serverNr >= 0 && serverNr != abteilungsID) {
+			throw new TafelException("Server Nummer ist weder negativ: " + serverNr + ", noch die eigene Abteilung!");
+		}
+
+		anzeigetafel.deleteMessageCorba(msgID);
+		// Message curMessage = anzeigetafel.getMessageByID(msgID);
+		// HashSet<Integer> curMsgGroups = curMessage.getGruppen();
+
+		// TODO delete everywhere? oder nur auf dem mit Corba verbundenem
+		// Server?
+		// wenn everywhere, reicht unteres nicht aus, weil ein anderer Server
+		// die Nachricht bei sich in einer anderen Gruppe geteilt haben kann, in
+		// der dieser Server gar nicht drin ist
+		// man bräucht ne andere deletePublic, die veranlässt, dass die anderen
+		// Server, diese Nachricht auch in all ihren Gruppen public löscht
+		// for (int groupID : curMsgGroups) {
+		// for (LinkedBlockingDeque<ServerRequest> q :
+		// groupQueueMap.get(groupID)) {
+		// try {
+		// if (q != null) {
+		// q.put(new DeletePublicRequest(msgID, groupID));
+		// }
+		// } catch (InterruptedException e) {
+		// print("Message mit ID=" + msgID + " wird nicht überall gelöscht
+		// werden!");
+		// }
+		// }
+		// }
+
+		// saveQueueMapToFile();
+		anzeigetafel.saveStateToFile();
+		return true;
+	}
+
 	public synchronized boolean modifyPublicMessage(int messageID, String inhalt) throws TafelException {
 		anzeigetafel.modifyPublicMessage(messageID, inhalt);
-		
+
 		putModifyRequestIfPartner(inhalt, messageID, 1);
-		
+
 		anzeigetafel.saveStateToFile();
 		return true;
 	}
-	
+
 	public synchronized boolean modifyMessageCorba(int messageID, String inhalt) throws TafelException {
-		Message curMessage = anzeigetafel.getMessageByID(messageID); 
-	    if ( curMessage == null ) {
-            throw new TafelException("Keine Message mit ID " + messageID + " gefunden!");
-        }
-	    int serverNr = curMessage.getAbtNr();
-	    if ( tafelAdressen.containsKey(serverNr) ) {
-	        throw new TafelException("Server Nummer ist gleich einer Abteilungs Nummer: " + serverNr + "!");
-	    }
-	    if ( serverNr >= 0 && serverNr != abteilungsID ) {
-            throw new TafelException("Server Nummer ist weder negativ: " + serverNr + ", noch die eigene Abteilung!" );
-        }
-	    
-		anzeigetafel.modifyPublicMessage(messageID, inhalt);
+		Message curMessage = anzeigetafel.getMessageByID(messageID);
+		if (curMessage == null) {
+			throw new TafelException("Keine Message mit ID " + messageID + " gefunden!");
+		}
+		int serverNr = curMessage.getAbtNr();
+		if (tafelAdressen.containsKey(serverNr)) {
+			throw new TafelException("Server Nummer ist gleich einer Abteilungs Nummer: " + serverNr + "!");
+		}
+		if (serverNr >= 0 && serverNr != abteilungsID) {
+			throw new TafelException("Server Nummer ist weder negativ: " + serverNr + ", noch die eigene Abteilung!");
+		}
+		if (serverNr != abteilungsID){
+			anzeigetafel.modifyPublicMessage(messageID, inhalt);
+		} else {
+			anzeigetafel.modifyMessage(messageID, inhalt, anzeigetafel.getKoordinatorID());
+		}
 		
+
 		anzeigetafel.saveStateToFile();
 		return true;
 	}
-	
+
 	public void setShutdownOnClose(WindowListener wl) {
 		JFrame guiWindow = gui.getWindow();
 		guiWindow.addWindowListener(wl);
 	}
-	
+
 	public Set<Integer> getGroupIds() {
 		return groupMap.keySet();
 	}
-	
+
 	public Set<Integer> getGroupMembers(int group) {
 		return groupMap.get(group);
 	}
-	
+
 }

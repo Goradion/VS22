@@ -6,15 +6,19 @@ import serverRequests.corba.CorbaRequest;
 import tafelServer.CorbaClient.CorbaClient;
 
 public class CorbaPartnerThread extends Thread {
+	public static final int MIN_SLEEP_TIME = 1000;
+	public static final int MAX_SLEEP_TIME = 10000;
+
 	private LinkedBlockingDeque<CorbaRequest> messageQueue;
 	private TafelServer tafelServer;
 	private String targetIP;
 	private String targetPort;
 	private int eigeneAbteilungsID;
 	private int remoteAbteilungsID;
+	private int sleepTime = MIN_SLEEP_TIME;
 
-	public CorbaPartnerThread(LinkedBlockingDeque<CorbaRequest> messageQueue, TafelServer tafelServer,
-			String targetIP, String targetPort, int eigeneAbteilungsID, int remoteAbteilungsID) {
+	public CorbaPartnerThread(LinkedBlockingDeque<CorbaRequest> messageQueue, TafelServer tafelServer, String targetIP,
+			String targetPort, int eigeneAbteilungsID, int remoteAbteilungsID) {
 		super();
 		this.messageQueue = messageQueue;
 		this.tafelServer = tafelServer;
@@ -23,45 +27,60 @@ public class CorbaPartnerThread extends Thread {
 		this.eigeneAbteilungsID = eigeneAbteilungsID;
 		this.remoteAbteilungsID = remoteAbteilungsID;
 	}
-	
+
 	public void run() {
+		tafelServer.print("PartnerThread läuft...");
 		try {
 			deliverMessages();
 		} catch (InterruptedException e) {
 			tafelServer.printStackTrace(e);
-		}	
+		}
 	}
-	public void deliverMessages() throws InterruptedException{
+
+	public void deliverMessages() throws InterruptedException {
 		CorbaClient corbaClient = null;
 		CorbaRequestDeliver deliverer = null;
 		CorbaRequest request = null;
-		while(true){
+		boolean connected = false;
+		while (true) {
+
 			try {
 				if (corbaClient == null) {
 					corbaClient = new CorbaClient(targetIP, targetPort);
-					if (deliverer == null){
-						deliverer = new CorbaRequestDeliver(corbaClient);
-					} else {
-						deliverer.setCorbaClient(corbaClient);
-					}
+				}
+				if (deliverer == null) {
+					tafelServer.print("Connecting to partner...");
+					deliverer = new CorbaRequestDeliver(corbaClient);
+					connected = true;
+					tafelServer.print("Connected to partner!");
+				}
+				if (!connected){
+					corbaClient.connectToServer();
+					connected = true;
 				}
 				request = messageQueue.take();
 				deliverer.deliver(request);
 				request = null;
-//				tafelServer.saveQueueMapToFile();
+				tafelServer.savePartnerQueueToFile();
+				sleepTime = MIN_SLEEP_TIME;
 			} catch (Exception e) {
 				if (request != null) {
 					messageQueue.putFirst(request);
-					
-//					tafelServer.saveQueueMapToFile();
+					tafelServer.savePartnerQueueToFile();
 					request = null;
 				}
-				if (isInterrupted()){
+				tafelServer.print("Partner not available! "+ e.getMessage() +" Trying again in " + sleepTime + " milliseconds.");
+				connected = false;
+				sleep(sleepTime);
+				if (sleepTime < MAX_SLEEP_TIME) {
+					sleepTime += MIN_SLEEP_TIME;
+				}
+				if (isInterrupted()) {
 					throw new InterruptedException();
 				}
 			}
 		}
-		
+
 	}
 
 }

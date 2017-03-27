@@ -314,7 +314,10 @@ public class Anzeigetafel extends Observable implements Serializable {
 		int msgID = msg.getMessageID();
     	if (!messages.containsKey(msgID)) {
     		messages.put(msgID, msg);
-    		userMsgs.get(msg.getUserID()).add(msgID); 
+    		int userID = msg.getUserID();
+    		if (userMsgs.containsKey(userID)){
+    			userMsgs.get(userID).add(msgID);
+    		}
     	} else {
     		throw new TafelException("Message mit ID: " + msgID + ", ist bereits vorhanden!" );
     	}
@@ -333,11 +336,22 @@ public class Anzeigetafel extends Observable implements Serializable {
 	public synchronized LinkedList<Message> getLocalMsgs() {
 		LinkedList<Message> pm = new LinkedList<Message>();
 		for (HashMap.Entry<Integer, Message> entry : messages.entrySet()) {
-			if (!entry.getValue().isOeffentlich()) {
-				pm.add(entry.getValue());
+			Message msg = entry.getValue();
+			if (!msg.isOeffentlich() && msg.getMessageID() > 0 ) {
+				pm.add(msg);
 			}
 		}
 		return pm;
+	}
+	
+	public synchronized List<Message> getCorbaMsgs(){
+		ArrayList<Message> cm = new ArrayList<>();
+		for (HashMap.Entry<Integer, Message> entry : messages.entrySet()) {
+			if (entry.getKey() < 0) {
+				cm.add(entry.getValue());
+			}
+		} 
+		return cm;
 	}
 
 	/**
@@ -441,7 +455,10 @@ public class Anzeigetafel extends Observable implements Serializable {
             Message curMessage = messages.get(messageID);
             if (!curMessage.isOeffentlich()) {
                 messages.remove(messageID);
-                userMsgs.get(curMessage.getUserID()).remove(new Integer(messageID));
+                int userID = curMessage.getUserID();
+                if (userMsgs.containsKey(userID)){
+                	userMsgs.get(userID).remove(new Integer(messageID));
+                }
             } else {
                 throw new TafelException("Message " + messageID + " ist oeffentlich in Gruppen " + curMessage.getGruppen().toString());
             }

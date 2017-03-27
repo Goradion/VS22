@@ -10,14 +10,16 @@ public class CorbaRequestDeliver {
 	
 	private CorbaClient corbaClient;
 	
-	public CorbaRequestDeliver(CorbaClient corbaClient) {
+	public CorbaRequestDeliver(CorbaClient corbaClient) throws Exception {
 		super();
 		this.corbaClient = corbaClient;
+		corbaClient.connectToServer();
 	}
 	
 
-	public void setCorbaClient(CorbaClient corbaClient) {
+	public void setCorbaClient(CorbaClient corbaClient) throws Exception {
 		this.corbaClient = corbaClient;
+		corbaClient.connectToServer();
 	}
 
 

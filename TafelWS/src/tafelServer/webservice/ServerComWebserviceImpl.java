@@ -23,9 +23,9 @@ import verteilteAnzeigetafel.TafelException;
 public class ServerComWebserviceImpl implements ServerComWebservice {
 	@Resource
 	WebServiceContext wsContext;
-	
+
 	private TafelServer tafelServer;
-	
+
 	public ServerComWebserviceImpl() {
 		super();
 		tafelServer = TafelServer.getServer();
@@ -38,7 +38,7 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 			try {
 				DateFormat formatTime = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
 				tafelServer.receiveMessage(messageID, userID, abtNr, inhalt, formatTime.parse(time), group);
-				answer =  "Done";
+				answer = "Done";
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			} catch (ParseException e) {
@@ -49,71 +49,82 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 		}
 		return null;
 	}
-	
+
 	@Override
-    public String receiveMessageCorba(int messageID, int userID, int serverNr, String inhalt, String time, boolean oeffentlich) {
-        if (tafelServer != null) {
-            String answer = "";
-            try {
-                DateFormat formatTime = new SimpleDateFormat("EEE MMM d HH:mm:ss yyyy", Locale.ENGLISH);
-                tafelServer.receiveMessageCorba(messageID, userID, serverNr, inhalt, formatTime.parse(time), oeffentlich);
-                answer =  "Done";
-            } catch (TafelException e) {
-                answer = e.getMessage();
-            } catch (ParseException e) {
-                tafelServer.printStackTrace(e);
-                answer = "Date Parse Error";
-            }
-            return answer;
-        }
-        return null;
-    }
-	
-	@Override
-    public String deleteMessageCorba(int msgID) {
-        if (tafelServer != null) {
-            String answer = "";
-            try {
-                tafelServer.deleteMessageCorba(msgID);
-                answer =  "Done";
-            } catch (TafelException e) {
-                answer = e.getMessage();
-            }
-            return answer;
-        }
-        return null;
-    }
-	
-	@Override
-	public String modifyMessageCorba(int msgID, String inhalt) {
+	public String receiveMessageCorba(int messageID, int userID, int serverNr, String inhalt, String time,
+			boolean oeffentlich) {
 		if (tafelServer != null) {
 			String answer = "";
 			try {
-				tafelServer.modifyMessageCorba(msgID, inhalt);
-				answer =  "Done";
+				DateFormat formatTime = new SimpleDateFormat("EEE MMM d HH:mm:ss yyyy", Locale.ENGLISH);
+				tafelServer.receiveMessageCorba(messageID, userID, serverNr, inhalt, formatTime.parse(time),
+						oeffentlich);
+				answer = "Done";
 			} catch (TafelException e) {
 				answer = e.getMessage();
+			} catch (ParseException e) {
+				tafelServer.printStackTrace(e);
+				answer = "Date Parse Error";
 			}
+			tafelServer.print("receiveMessageCorba " + answer);
 			return answer;
 		}
 		return null;
 	}
 
 	@Override
-	public String registerServer(int abtNr) {  // TODO Übergabe der IP vom andern Tafelserver
+	public String deleteMessageCorba(int msgID) {
+		if (tafelServer != null) {
+			String answer = "";
+			try {
+				tafelServer.deleteMessageCorba(msgID);
+				answer = "Done";
+			} catch (TafelException e) {
+				answer = e.getMessage();
+			}
+			tafelServer.print("deleteMessageCorba " + answer);
+			return answer;
+		}
+		return null;
+	}
+
+	@Override
+	public String modifyMessageCorba(int msgID, String inhalt) {
+		if (tafelServer != null) {
+			String answer = "";
+			try {
+				tafelServer.modifyMessageCorba(msgID, inhalt);
+				answer = "Done";
+			} catch (TafelException e) {
+				answer = e.getMessage();
+			}
+			tafelServer.print("modifyMessageCorba " + answer);
+			return answer;
+		}
+		return null;
+	}
+
+	@Override
+	public String registerServer(int abtNr) { // TODO Übergabe der IP vom andern
+												// Tafelserver
 		if (tafelServer != null) {
 			String answer = "";
 			try {
 				MessageContext mc = wsContext.getMessageContext();
-				HttpExchange req = (HttpExchange) mc.get("com.sun.xml.ws.http.exchange"); 
+				HttpExchange req = (HttpExchange) mc.get("com.sun.xml.ws.http.exchange");
 				InetSocketAddress remoteAddress = req.getRemoteAddress();
-				String callerAddress = "http://" + remoteAddress.getHostName() + ":" + tafelServer.getAddressPort(abtNr) + "/TafelWS/serverws?wsdl";
-//				InetSocketAddress localAddress = req.getLocalAddress();
-//				String receiverAddress = "http://" + localAddress.getHostName() + ":" + tafelServer.getAddressPort(abtNr) + "/TafelWS/serverws?wsdl";
-//				tafelServer.print("ServerWS remote: "+callerAddress);
-//				tafelServer.print("ServerWS local: "+receiverAddress);
-				// TODO beide gleich, wenn auf einem System, gleich der "remote" adresse des aufrufenden programms
-				//      sollten Server nicht auf einem physischen server laufen können?!
+				String callerAddress = "http://" + remoteAddress.getHostName() + ":" + tafelServer.getAddressPort(abtNr)
+						+ "/TafelWS/serverws?wsdl";
+				// InetSocketAddress localAddress = req.getLocalAddress();
+				// String receiverAddress = "http://" +
+				// localAddress.getHostName() + ":" +
+				// tafelServer.getAddressPort(abtNr) + "/TafelWS/serverws?wsdl";
+				// tafelServer.print("ServerWS remote: "+callerAddress);
+				// tafelServer.print("ServerWS local: "+receiverAddress);
+				// TODO beide gleich, wenn auf einem System, gleich der "remote"
+				// adresse des aufrufenden programms
+				// sollten Server nicht auf einem physischen server laufen
+				// können?!
 				answer = tafelServer.registerTafel(abtNr, new URL(callerAddress));
 			} catch (TafelException e) {
 				tafelServer.printStackTrace(e);
@@ -121,14 +132,16 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 			} catch (MalformedURLException e) {
 				tafelServer.printStackTrace(e);
 				answer = "No correct URL!";
-				// TODO entweder hier oder bei dem anderen Server, der diese methode aufgerufen hat, etwas tuen!
+				// TODO entweder hier oder bei dem anderen Server, der diese
+				// methode aufgerufen hat, etwas tuen!
 				// sowas wie:
-//				try {
-//                    answer = tafelServer.registerTafel(abtNr, null);    // null = default = behalte die aktuelle
-//                } catch (TafelException e1) {
-//                    tafelServer.printStackTrace(e1);
-//                    answer = e1.getMessage();
-//                }
+				// try {
+				// answer = tafelServer.registerTafel(abtNr, null); // null =
+				// default = behalte die aktuelle
+				// } catch (TafelException e1) {
+				// tafelServer.printStackTrace(e1);
+				// answer = e1.getMessage();
+				// }
 			}
 			return answer;
 		}
@@ -141,7 +154,7 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 			String answer = "";
 			try {
 				tafelServer.deletePublicMessage(msgID, group);
-				answer =  "Done";
+				answer = "Done";
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			}
@@ -156,7 +169,7 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 			String answer = "";
 			try {
 				tafelServer.modifyPublicMessage(msgID, inhalt);
-				answer =  "Done";
+				answer = "Done";
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			}

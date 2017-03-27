@@ -40,6 +40,7 @@ public class CorbaClient {
 		// Parameter für den Server-Connect
 		String[] param = new String[] { "-ORBInitialPort", serverPort, "-ORBInitialHost",
 				this.serverIP };
+		
 		// Initialisiere ORB und beschaffe Zugang zum 'NameService'
 		this.orb = ORB.init(param, null);
 		// Root-Naming-Kontext
