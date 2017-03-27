@@ -131,5 +131,10 @@ public class Message implements Serializable {
 	public void setGruppen(HashSet<Integer> gruppen) {
 		this.gruppen = gruppen;
 	}
+	
+	public String format(){
+		return "MessageID: " + getMessageID() + "    UserID: " + getUserID() + "    AbteilungsID " + getAbtNr()
+				+ "    Zeit: " + getTime() + '\n' + getInhalt() + '\n' + '\n';
+	}
 
 }

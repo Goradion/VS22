@@ -20,7 +20,9 @@ public class TafelGUI implements Observer {
 
 	private final JFrame window;
 	private JTextArea localMessages;
+	private JTextArea corbaMessages;
 	private JScrollPane localScroll;
+	private JScrollPane corbaScroll;
 	private Map<Integer, JTextArea> gruppenMessages;
 
 	public JFrame getWindow() {
@@ -45,14 +47,19 @@ public class TafelGUI implements Observer {
 		}
 
 		this.localMessages = new JTextArea();
+		this.corbaMessages = new JTextArea();
 		localMessages.setEditable(false);
-
+		corbaMessages.setEditable(false);
+		
 		this.localScroll = new JScrollPane(localMessages);
 		localScroll.setBorder(new TitledBorder("Local messages"));
 
-		window.setLayout(new GridLayout(set.size() + 1, 1));
+		this.corbaScroll = new JScrollPane(corbaMessages);
+		corbaScroll.setBorder(new TitledBorder("Corba messages"));
+		window.setLayout(new GridLayout(set.size() + 2, 1));
 
 		window.add(localScroll);
+		window.add(corbaScroll);
 		for (JScrollPane jScrollPane : gruppenScroll.values()) {
 			window.add(jScrollPane);
 		}
@@ -69,16 +76,21 @@ public class TafelGUI implements Observer {
 		Anzeigetafel at = (Anzeigetafel) o;
 		localMessages.setText(null);
 		for (Message m : at.getLocalMsgs()) {
-			localMessages.append("MessageID: " + m.getMessageID() + "    " + "UserID: " + m.getUserID() + "    " 
-			        + "Zeit: " + m.getTime() + '\n' + "        " + m.getInhalt() + '\n' + '\n');
+			localMessages.append(m.format());
+		}
+		corbaMessages.setText(null);
+		for (Message m : at.getCorbaMsgs()){
+			corbaMessages.append(m.format());
 		}
 		for (Integer i : gruppen) {
 			JTextArea jTextArea = gruppenMessages.get(i);
 			jTextArea.setText(null);
 			for (Message m : at.getGroupMsgs(i)) {
-				jTextArea.append("MessageID: " + m.getMessageID() + "    " + "UserID: " + m.getUserID() + "    "
-						+ "Zeit: " + m.getTime() + '\n' + "        " + m.getInhalt() + '\n' + '\n');
+				jTextArea.append(m.format());
 			}
 		}
+		
+		
 	}
+	
 }
