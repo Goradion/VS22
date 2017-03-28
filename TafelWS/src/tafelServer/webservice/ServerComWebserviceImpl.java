@@ -112,9 +112,11 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 			try {
 				MessageContext mc = wsContext.getMessageContext();
 				HttpExchange req = (HttpExchange) mc.get("com.sun.xml.ws.http.exchange");
-				InetSocketAddress remoteAddress = req.getRemoteAddress();
-				String callerAddress = "http://" + remoteAddress.getHostName() + ":" + tafelServer.getAddressPort(abtNr)
-						+ "/TafelWS/serverws?wsdl";
+//				InetSocketAddress remoteAddress = req.getRemoteAddress();
+//				URL url = tafelServer.getTafelAdressen().get(abtNr);
+//				String callerAddress = "http://" + remoteAddress.getHostName() + ":" + tafelServer.getAddressPort(abtNr)
+//						+ "/TafelWS/serverws?wsdl";
+				
 				// InetSocketAddress localAddress = req.getLocalAddress();
 				// String receiverAddress = "http://" +
 				// localAddress.getHostName() + ":" +
@@ -125,23 +127,10 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 				// adresse des aufrufenden programms
 				// sollten Server nicht auf einem physischen server laufen
 				// können?!
-				answer = tafelServer.registerTafel(abtNr, new URL(callerAddress));
+				answer = tafelServer.registerTafel(abtNr, tafelServer.getTafelAdressen().get(abtNr));
 			} catch (TafelException e) {
 				tafelServer.printStackTrace(e);
 				answer = e.getMessage();
-			} catch (MalformedURLException e) {
-				tafelServer.printStackTrace(e);
-				answer = "No correct URL!";
-				// TODO entweder hier oder bei dem anderen Server, der diese
-				// methode aufgerufen hat, etwas tuen!
-				// sowas wie:
-				// try {
-				// answer = tafelServer.registerTafel(abtNr, null); // null =
-				// default = behalte die aktuelle
-				// } catch (TafelException e1) {
-				// tafelServer.printStackTrace(e1);
-				// answer = e1.getMessage();
-				// }
 			}
 			return answer;
 		}
