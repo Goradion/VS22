@@ -301,7 +301,7 @@ public class Anzeigetafel extends Observable implements Serializable {
 	    int msgID = msg.getMessageID();
 	    if (!messages.containsKey(msgID)) {
 	        messages.put(msgID, msg);
-	        userMsgs.get(msg.getUserID()).add(msgID); 
+//	        putUserMsg(msg.getUserID(),msgID); 
 	    } else {
     		throw new TafelException("Message mit ID: " + msgID + ", ist bereits vorhanden!" );
     	}
@@ -310,14 +310,18 @@ public class Anzeigetafel extends Observable implements Serializable {
 	    updateState();
 	}
 	
+	private void putUserMsg(int userID, int msgID) {
+		if (userMsgs.containsKey(userID)){
+			userMsgs.get(userID).add(msgID);
+		}
+	}
+
 	public synchronized void receiveMessageCorba(Message msg) throws TafelException {
 		int msgID = msg.getMessageID();
     	if (!messages.containsKey(msgID)) {
     		messages.put(msgID, msg);
     		int userID = msg.getUserID();
-    		if (userMsgs.containsKey(userID)){
-    			userMsgs.get(userID).add(msgID);
-    		}
+    		putUserMsg(userID, msgID);
     	} else {
     		throw new TafelException("Message mit ID: " + msgID + ", ist bereits vorhanden!" );
     	}
