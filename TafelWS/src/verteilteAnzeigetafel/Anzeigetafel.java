@@ -337,7 +337,7 @@ public class Anzeigetafel extends Observable implements Serializable {
 		LinkedList<Message> pm = new LinkedList<Message>();
 		for (HashMap.Entry<Integer, Message> entry : messages.entrySet()) {
 			Message msg = entry.getValue();
-			if (!msg.isOeffentlich() && msg.getMessageID() > 0 ) {
+			if (!msg.isOeffentlich() && msg.getAbtNr() == abteilungsID ) {
 				pm.add(msg);
 			}
 		}
