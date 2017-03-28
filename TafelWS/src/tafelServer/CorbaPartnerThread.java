@@ -55,8 +55,10 @@ public class CorbaPartnerThread extends Thread {
 					tafelServer.print("Connected to partner!");
 				}
 				if (!connected){
+					tafelServer.print("Reconnecting to partner...");
 					corbaClient.connectToServer();
 					connected = true;
+					tafelServer.print("Connected to partner!");
 				}
 				request = messageQueue.take();
 				deliverer.deliver(request);

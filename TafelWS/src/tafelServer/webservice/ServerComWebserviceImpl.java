@@ -98,7 +98,7 @@ public class ServerComWebserviceImpl implements ServerComWebservice {
 			} catch (TafelException e) {
 				answer = e.getMessage();
 			}
-			tafelServer.print("modifyMessageCorba " + answer);
+			tafelServer.print("modifyMessageCorba " + answer + "\n" + inhalt);
 			return answer;
 		}
 		return null;

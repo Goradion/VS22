@@ -809,6 +809,9 @@ public class TafelServer {
 			anzeigetafel.modifyPublicMessage(messageID, inhalt);
 		} else {
 			anzeigetafel.modifyMessage(messageID, inhalt, anzeigetafel.getKoordinatorID());
+			if(curMessage.isOeffentlich()){
+				this.modifyPublic(messageID, anzeigetafel.getKoordinatorID(), inhalt);
+			}
 		}
 		
 

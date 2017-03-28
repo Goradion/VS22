@@ -54,7 +54,7 @@ public class TafelWsPublisher {
 		
 		publisher.clientEndpoint.publish("http://" + publisher.address + ":" + publisher.port + "/TafelWS/tafelws");
 		publisher.serverEndpoint.publish("http://" + publisher.address + ":" + publisher.port + "/TafelWS/serverws");
-		
+		 
 		publisher.setShutdownOnClose(new WindowListener(){
 
 			@Override
