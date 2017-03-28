@@ -440,7 +440,9 @@ public class Anzeigetafel extends Observable implements Serializable {
 			curMessage.removeGroup(group);
 			if (!curMessage.isOeffentlich()) {
 				messages.remove(messageID);
-				userMsgs.get(curMessage.getUserID()).remove(new Integer(messageID));
+				if (userMsgs.containsKey(curMessage.getUserID())){
+					userMsgs.get(curMessage.getUserID()).remove(new Integer(messageID));
+				}
 			}
 		} else {
 			throw new TafelException("Keine Message mit ID " + messageID + " gefunden!");
