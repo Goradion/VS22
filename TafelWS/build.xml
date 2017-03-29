@@ -16,6 +16,8 @@
         </jar>
 		<copy file="tafelAdressen" todir="${dir.jarfile}" overwrite="true"/>
 		<copy file="tafelGruppen" todir="${dir.jarfile}" overwrite="true"/>
+		<copy file="tafelPartner" todir="${dir.jarfile}" overwrite="true"/>
 	    <exec dir="${dir.jarfile}" executable="!createTafelAdressen.bat"/>
+    	<copy file="!createTafelAdressen.bat" todir="${dir.jarfile}" overwrite="true"/> 
     </target>
 </project>
