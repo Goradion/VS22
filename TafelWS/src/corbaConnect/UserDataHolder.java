@@ -1,4 +1,4 @@
-package VS2;
+package corbaConnect;
 
 /**
 * VS2/UserDataHolder.java .
@@ -9,30 +9,30 @@ package VS2;
 
 public final class UserDataHolder implements org.omg.CORBA.portable.Streamable
 {
-  public VS2.UserData value = null;
+  public corbaConnect.UserData value = null;
 
   public UserDataHolder ()
   {
   }
 
-  public UserDataHolder (VS2.UserData initialValue)
+  public UserDataHolder (corbaConnect.UserData initialValue)
   {
     value = initialValue;
   }
 
   public void _read (org.omg.CORBA.portable.InputStream i)
   {
-    value = VS2.UserDataHelper.read (i);
+    value = corbaConnect.UserDataHelper.read (i);
   }
 
   public void _write (org.omg.CORBA.portable.OutputStream o)
   {
-    VS2.UserDataHelper.write (o, value);
+    corbaConnect.UserDataHelper.write (o, value);
   }
 
   public org.omg.CORBA.TypeCode _type ()
   {
-    return VS2.UserDataHelper.type ();
+    return corbaConnect.UserDataHelper.type ();
   }
 
 }

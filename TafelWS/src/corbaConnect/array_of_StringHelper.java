@@ -1,4 +1,4 @@
-package VS2;
+package corbaConnect;
 
 
 /**
@@ -34,7 +34,7 @@ abstract public class array_of_StringHelper
     {
       __typeCode = org.omg.CORBA.ORB.init ().create_string_tc (0);
       __typeCode = org.omg.CORBA.ORB.init ().create_sequence_tc (0, __typeCode);
-      __typeCode = org.omg.CORBA.ORB.init ().create_alias_tc (VS2.array_of_StringHelper.id (), "array_of_String", __typeCode);
+      __typeCode = org.omg.CORBA.ORB.init ().create_alias_tc (corbaConnect.array_of_StringHelper.id (), "array_of_String", __typeCode);
     }
     return __typeCode;
   }

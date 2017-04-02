@@ -1,4 +1,4 @@
-package VS2;
+package corbaConnect;
 
 /**
 * VS2/LoginServerInterfaceHolder.java .
@@ -9,30 +9,30 @@ package VS2;
 
 public final class LoginServerInterfaceHolder implements org.omg.CORBA.portable.Streamable
 {
-  public VS2.LoginServerInterface value = null;
+  public corbaConnect.LoginServerInterface value = null;
 
   public LoginServerInterfaceHolder ()
   {
   }
 
-  public LoginServerInterfaceHolder (VS2.LoginServerInterface initialValue)
+  public LoginServerInterfaceHolder (corbaConnect.LoginServerInterface initialValue)
   {
     value = initialValue;
   }
 
   public void _read (org.omg.CORBA.portable.InputStream i)
   {
-    value = VS2.LoginServerInterfaceHelper.read (i);
+    value = corbaConnect.LoginServerInterfaceHelper.read (i);
   }
 
   public void _write (org.omg.CORBA.portable.OutputStream o)
   {
-    VS2.LoginServerInterfaceHelper.write (o, value);
+    corbaConnect.LoginServerInterfaceHelper.write (o, value);
   }
 
   public org.omg.CORBA.TypeCode _type ()
   {
-    return VS2.LoginServerInterfaceHelper.type ();
+    return corbaConnect.LoginServerInterfaceHelper.type ();
   }
 
 }

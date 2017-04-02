@@ -1,4 +1,4 @@
-package VS2;
+package corbaConnect;
 
 
 /**

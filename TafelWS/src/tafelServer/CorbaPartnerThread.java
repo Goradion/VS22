@@ -13,7 +13,10 @@ public class CorbaPartnerThread extends Thread {
 	private TafelServer tafelServer;
 	private String targetIP;
 	private String targetPort;
+	// might get used later
+	@SuppressWarnings("unused")
 	private int eigeneAbteilungsID;
+	@SuppressWarnings("unused")
 	private int remoteAbteilungsID;
 	private int sleepTime = MIN_SLEEP_TIME;
 

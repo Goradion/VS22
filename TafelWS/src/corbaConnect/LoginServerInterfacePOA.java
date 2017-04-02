@@ -1,4 +1,4 @@
-package VS2;
+package corbaConnect;
 
 
 /**
@@ -9,7 +9,7 @@ package VS2;
 */
 
 public abstract class LoginServerInterfacePOA extends org.omg.PortableServer.Servant
- implements VS2.LoginServerInterfaceOperations, org.omg.CORBA.portable.InvokeHandler
+ implements corbaConnect.LoginServerInterfaceOperations, org.omg.CORBA.portable.InvokeHandler
 {
 
   // Constructors
@@ -34,17 +34,17 @@ public abstract class LoginServerInterfacePOA extends org.omg.PortableServer.Ser
     {
        case 0:  // VS2/LoginServerInterface/login
        {
-         VS2.UserData uData = VS2.UserDataHelper.read (in);
-         VS2.LoginInformation $result = null;
+         corbaConnect.UserData uData = corbaConnect.UserDataHelper.read (in);
+         corbaConnect.LoginInformation $result = null;
          $result = this.login (uData);
          out = $rh.createReply();
-         VS2.LoginInformationHelper.write (out, $result);
+         corbaConnect.LoginInformationHelper.write (out, $result);
          break;
        }
 
        case 1:  // VS2/LoginServerInterface/reg
        {
-         VS2.UserData uData = VS2.UserDataHelper.read (in);
+         corbaConnect.UserData uData = corbaConnect.UserDataHelper.read (in);
          String regData = in.read_string ();
          boolean $result = false;
          $result = this.reg (uData, regData);

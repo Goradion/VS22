@@ -43,7 +43,7 @@ import verteilteAnzeigetafel.TafelException;
 
 /**
  *
- * @author Simon Bastian
+ * @author Simon Bastian, Daniel Zilch
  */
 public class TafelServer {
 	private final static String defaultPort = "8080";
@@ -76,7 +76,7 @@ public class TafelServer {
 
 	public boolean stopServer() {
 		// TODO stop stuff
-		return true;
+		return false;
 	}
 
 	public static TafelServer getServer() {
@@ -129,11 +129,7 @@ public class TafelServer {
 
 		if (tafelAdressen.containsKey(abteilungsID)) {
 			if (!tafelAdressen.get(abteilungsID).equals(address)) {
-				// dies ändert NICHT die Adressen in HeartbeatThread /
-				// OutboxThread! getestet. Zumindest nicht direkt.
 				tafelAdressen.replace(abteilungsID, address);
-
-				// added
 				outboxThreads.get(abteilungsID).setTargetAddress(address);
 				heartbeatThreads.get(abteilungsID).setTargetAddress(address);
 			}
@@ -755,31 +751,7 @@ public class TafelServer {
 		}
 
 		anzeigetafel.deleteMessageCorba(msgID);
-		// Message curMessage = anzeigetafel.getMessageByID(msgID);
-		// HashSet<Integer> curMsgGroups = curMessage.getGruppen();
-
-		// TODO delete everywhere? oder nur auf dem mit Corba verbundenem
-		// Server?
-		// wenn everywhere, reicht unteres nicht aus, weil ein anderer Server
-		// die Nachricht bei sich in einer anderen Gruppe geteilt haben kann, in
-		// der dieser Server gar nicht drin ist
-		// man bräucht ne andere deletePublic, die veranlässt, dass die anderen
-		// Server, diese Nachricht auch in all ihren Gruppen public löscht
-		// for (int groupID : curMsgGroups) {
-		// for (LinkedBlockingDeque<ServerRequest> q :
-		// groupQueueMap.get(groupID)) {
-		// try {
-		// if (q != null) {
-		// q.put(new DeletePublicRequest(msgID, groupID));
-		// }
-		// } catch (InterruptedException e) {
-		// print("Message mit ID=" + msgID + " wird nicht überall gelöscht
-		// werden!");
-		// }
-		// }
-		// }
-
-		// saveQueueMapToFile();
+		
 		anzeigetafel.saveStateToFile();
 		return true;
 	}
@@ -800,7 +772,7 @@ public class TafelServer {
 		}
 		int serverNr = curMessage.getAbtNr();
 		if (tafelAdressen.containsKey(serverNr)) {
-			throw new TafelException("Server Nummer ist gleich einer Abteilungs Nummer: " + serverNr + "!");
+			throw new TafelException("Server Nummer ist gleich einer SOAP-Abteilungs Nummer: " + serverNr + "!");
 		}
 		if (serverNr >= 0 && serverNr != abteilungsID) {
 			throw new TafelException("Server Nummer ist weder negativ: " + serverNr + ", noch die eigene Abteilung!");
@@ -808,9 +780,23 @@ public class TafelServer {
 		if (serverNr != abteilungsID){
 			anzeigetafel.modifyPublicMessage(messageID, inhalt);
 		} else {
-			anzeigetafel.modifyMessage(messageID, inhalt, anzeigetafel.getKoordinatorID());
+			
 			if(curMessage.isOeffentlich()){
-				this.modifyPublic(messageID, anzeigetafel.getKoordinatorID(), inhalt);
+				
+				anzeigetafel.modifyPublic(messageID, inhalt, anzeigetafel.getKoordinatorID());
+				for (int group : anzeigetafel.getMessageByID(messageID).getGruppen()) {
+					for (LinkedBlockingDeque<ServerRequest> q : groupQueueMap.get(group)) {
+						try {
+							if (q != null) {
+								q.put(new ModifyPublicRequest(messageID, inhalt));
+							}
+						} catch (InterruptedException e) {
+							print("Message mit ID=" + messageID + " wird nicht überall geändert werden!");
+						}
+					}
+				}
+			} else {
+				anzeigetafel.modifyMessage(messageID, inhalt, anzeigetafel.getKoordinatorID());
 			}
 		}
 		

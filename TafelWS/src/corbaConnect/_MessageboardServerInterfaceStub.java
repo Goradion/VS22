@@ -1,4 +1,4 @@
-package VS2;
+package corbaConnect;
 
 
 /**
@@ -8,7 +8,7 @@ package VS2;
 * Monday, March 27, 2017 11:08:53 AM CEST
 */
 
-public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.ObjectImpl implements VS2.MessageboardServerInterface
+public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.ObjectImpl implements corbaConnect.MessageboardServerInterface
 {
 
   public String getFatherName ()
@@ -38,7 +38,7 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("getChildNames", true);
                 $in = _invoke ($out);
-                String $result[] = VS2.array_of_StringHelper.read ($in);
+                String $result[] = corbaConnect.array_of_StringHelper.read ($in);
                 return $result;
             } catch (org.omg.CORBA.portable.ApplicationException $ex) {
                 $in = $ex.getInputStream ();
@@ -51,13 +51,13 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
             }
   } // getChildNames
 
-  public VS2.MessageData[] getMessages ()
+  public corbaConnect.MessageData[] getMessages ()
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("getMessages", true);
                 $in = _invoke ($out);
-                VS2.MessageData $result[] = VS2.array_of_MessageDataHelper.read ($in);
+                corbaConnect.MessageData $result[] = corbaConnect.array_of_MessageDataHelper.read ($in);
                 return $result;
             } catch (org.omg.CORBA.portable.ApplicationException $ex) {
                 $in = $ex.getInputStream ();
@@ -70,14 +70,14 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
             }
   } // getMessages
 
-  public VS2.MessageData setHighlightedMessage (String messageID)
+  public corbaConnect.MessageData setHighlightedMessage (String messageID)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("setHighlightedMessage", true);
                 $out.write_string (messageID);
                 $in = _invoke ($out);
-                VS2.MessageData $result = VS2.MessageDataHelper.read ($in);
+                corbaConnect.MessageData $result = corbaConnect.MessageDataHelper.read ($in);
                 return $result;
             } catch (org.omg.CORBA.portable.ApplicationException $ex) {
                 $in = $ex.getInputStream ();
@@ -90,13 +90,13 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
             }
   } // setHighlightedMessage
 
-  public VS2.MessageData getHighlightedMessage ()
+  public corbaConnect.MessageData getHighlightedMessage ()
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("getHighlightedMessage", true);
                 $in = _invoke ($out);
-                VS2.MessageData $result = VS2.MessageDataHelper.read ($in);
+                corbaConnect.MessageData $result = corbaConnect.MessageDataHelper.read ($in);
                 return $result;
             } catch (org.omg.CORBA.portable.ApplicationException $ex) {
                 $in = $ex.getInputStream ();
@@ -109,14 +109,14 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
             }
   } // getHighlightedMessage
 
-  public VS2.MessageData getMessageWithId (String messageID)
+  public corbaConnect.MessageData getMessageWithId (String messageID)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("getMessageWithId", true);
                 $out.write_string (messageID);
                 $in = _invoke ($out);
-                VS2.MessageData $result = VS2.MessageDataHelper.read ($in);
+                corbaConnect.MessageData $result = corbaConnect.MessageDataHelper.read ($in);
                 return $result;
             } catch (org.omg.CORBA.portable.ApplicationException $ex) {
                 $in = $ex.getInputStream ();
@@ -129,14 +129,14 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
             }
   } // getMessageWithId
 
-  public boolean setMessage (String message, String messageID, VS2.UserData uData)
+  public boolean setMessage (String message, String messageID, corbaConnect.UserData uData)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("setMessage", true);
                 $out.write_string (message);
                 $out.write_string (messageID);
-                VS2.UserDataHelper.write ($out, uData);
+                corbaConnect.UserDataHelper.write ($out, uData);
                 $in = _invoke ($out);
                 boolean $result = $in.read_boolean ();
                 return $result;
@@ -151,13 +151,13 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
             }
   } // setMessage
 
-  public boolean deleteMessage (String messageID, VS2.UserData uData)
+  public boolean deleteMessage (String messageID, corbaConnect.UserData uData)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("deleteMessage", true);
                 $out.write_string (messageID);
-                VS2.UserDataHelper.write ($out, uData);
+                corbaConnect.UserDataHelper.write ($out, uData);
                 $in = _invoke ($out);
                 boolean $result = $in.read_boolean ();
                 return $result;
@@ -172,13 +172,13 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
             }
   } // deleteMessage
 
-  public boolean createNewMessage (String message, VS2.UserData uData)
+  public boolean createNewMessage (String message, corbaConnect.UserData uData)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("createNewMessage", true);
                 $out.write_string (message);
-                VS2.UserDataHelper.write ($out, uData);
+                corbaConnect.UserDataHelper.write ($out, uData);
                 $in = _invoke ($out);
                 boolean $result = $in.read_boolean ();
                 return $result;
@@ -193,13 +193,13 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
             }
   } // createNewMessage
 
-  public VS2.MessageData getNextMessage ()
+  public corbaConnect.MessageData getNextMessage ()
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("getNextMessage", true);
                 $in = _invoke ($out);
-                VS2.MessageData $result = VS2.MessageDataHelper.read ($in);
+                corbaConnect.MessageData $result = corbaConnect.MessageDataHelper.read ($in);
                 return $result;
             } catch (org.omg.CORBA.portable.ApplicationException $ex) {
                 $in = $ex.getInputStream ();
@@ -212,13 +212,13 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
             }
   } // getNextMessage
 
-  public VS2.MessageData getPreviousMessage ()
+  public corbaConnect.MessageData getPreviousMessage ()
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("getPreviousMessage", true);
                 $in = _invoke ($out);
-                VS2.MessageData $result = VS2.MessageDataHelper.read ($in);
+                corbaConnect.MessageData $result = corbaConnect.MessageDataHelper.read ($in);
                 return $result;
             } catch (org.omg.CORBA.portable.ApplicationException $ex) {
                 $in = $ex.getInputStream ();
@@ -231,14 +231,14 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
             }
   } // getPreviousMessage
 
-  public VS2.ConnectInformationData connectToFather (VS2.UserData uData)
+  public corbaConnect.ConnectInformationData connectToFather (corbaConnect.UserData uData)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("connectToFather", true);
-                VS2.UserDataHelper.write ($out, uData);
+                corbaConnect.UserDataHelper.write ($out, uData);
                 $in = _invoke ($out);
-                VS2.ConnectInformationData $result = VS2.ConnectInformationDataHelper.read ($in);
+                corbaConnect.ConnectInformationData $result = corbaConnect.ConnectInformationDataHelper.read ($in);
                 return $result;
             } catch (org.omg.CORBA.portable.ApplicationException $ex) {
                 $in = $ex.getInputStream ();
@@ -253,14 +253,14 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
 
 
   //Liefert die Connectinformationen des Fathers
-  public VS2.ConnectInformationData connectToChild (String childName)
+  public corbaConnect.ConnectInformationData connectToChild (String childName)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("connectToChild", true);
                 $out.write_string (childName);
                 $in = _invoke ($out);
-                VS2.ConnectInformationData $result = VS2.ConnectInformationDataHelper.read ($in);
+                corbaConnect.ConnectInformationData $result = corbaConnect.ConnectInformationDataHelper.read ($in);
                 return $result;
             } catch (org.omg.CORBA.portable.ApplicationException $ex) {
                 $in = $ex.getInputStream ();
@@ -275,14 +275,14 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
 
 
   //********** zur Kommunikation zwischen Servern(Spezialfälle, daher notwendig) muss nicht in den Client rein ************************
-  public boolean publishOnChilds (String message, String messageID, VS2.UserData uData, boolean schalter)
+  public boolean publishOnChilds (String message, String messageID, corbaConnect.UserData uData, boolean schalter)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("publishOnChilds", true);
                 $out.write_string (message);
                 $out.write_string (messageID);
-                VS2.UserDataHelper.write ($out, uData);
+                corbaConnect.UserDataHelper.write ($out, uData);
                 $out.write_boolean (schalter);
                 $in = _invoke ($out);
                 boolean $result = $in.read_boolean ();
@@ -300,14 +300,14 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
 
 
   //Die Nachricht auf allen Kindern veröffentlichen, extra Schalter um auf allen Kindes Kindern zu veröffentlichen?
-  public boolean publishOnFather (String message, String messageID, VS2.UserData uData)
+  public boolean publishOnFather (String message, String messageID, corbaConnect.UserData uData)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("publishOnFather", true);
                 $out.write_string (message);
                 $out.write_string (messageID);
-                VS2.UserDataHelper.write ($out, uData);
+                corbaConnect.UserDataHelper.write ($out, uData);
                 $in = _invoke ($out);
                 boolean $result = $in.read_boolean ();
                 return $result;
@@ -324,14 +324,14 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
 
 
   //Nachricht auf Vater veröffentlichen
-  public boolean saveMessage (String message, String messageID, VS2.UserData uData)
+  public boolean saveMessage (String message, String messageID, corbaConnect.UserData uData)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("saveMessage", true);
                 $out.write_string (message);
                 $out.write_string (messageID);
-                VS2.UserDataHelper.write ($out, uData);
+                corbaConnect.UserDataHelper.write ($out, uData);
                 $in = _invoke ($out);
                 boolean $result = $in.read_boolean ();
                 return $result;
@@ -348,12 +348,12 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
 
 
   //Wird beim ausführen von publishOnXXX aufgerufen
-  public void notifyFather (VS2.UserData uData)
+  public void notifyFather (corbaConnect.UserData uData)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("notifyFather", true);
-                VS2.UserDataHelper.write ($out, uData);
+                corbaConnect.UserDataHelper.write ($out, uData);
                 $in = _invoke ($out);
                 return;
             } catch (org.omg.CORBA.portable.ApplicationException $ex) {
@@ -369,15 +369,15 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
 
 
   //gebe dem Vater bescheid das du jetzt ein Kind von ihm bist
-  public void saveFatherInformation (int id, String name, VS2.ConnectInformationData ciData, VS2.UserData uData)
+  public void saveFatherInformation (int id, String name, corbaConnect.ConnectInformationData ciData, corbaConnect.UserData uData)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("saveFatherInformation", true);
                 $out.write_long (id);
                 $out.write_string (name);
-                VS2.ConnectInformationDataHelper.write ($out, ciData);
-                VS2.UserDataHelper.write ($out, uData);
+                corbaConnect.ConnectInformationDataHelper.write ($out, ciData);
+                corbaConnect.UserDataHelper.write ($out, uData);
                 $in = _invoke ($out);
                 return;
             } catch (org.omg.CORBA.portable.ApplicationException $ex) {
@@ -391,12 +391,12 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
             }
   } // saveFatherInformation
 
-  public void notifyChildren (VS2.UserData uData)
+  public void notifyChildren (corbaConnect.UserData uData)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("notifyChildren", true);
-                VS2.UserDataHelper.write ($out, uData);
+                corbaConnect.UserDataHelper.write ($out, uData);
                 $in = _invoke ($out);
                 return;
             } catch (org.omg.CORBA.portable.ApplicationException $ex) {
@@ -412,15 +412,15 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
 
 
   //gebe den Kindern bescheid das du jetzt der Vater bist
-  public void saveChildInformation (int id, String name, VS2.ConnectInformationData ciData, VS2.UserData uData)
+  public void saveChildInformation (int id, String name, corbaConnect.ConnectInformationData ciData, corbaConnect.UserData uData)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("saveChildInformation", true);
                 $out.write_long (id);
                 $out.write_string (name);
-                VS2.ConnectInformationDataHelper.write ($out, ciData);
-                VS2.UserDataHelper.write ($out, uData);
+                corbaConnect.ConnectInformationDataHelper.write ($out, ciData);
+                corbaConnect.UserDataHelper.write ($out, uData);
                 $in = _invoke ($out);
                 return;
             } catch (org.omg.CORBA.portable.ApplicationException $ex) {
@@ -436,7 +436,7 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
 
 
   //Method Calls für SOAP-Server
-  public boolean createMessageSoap (String message, String messageID, int serverNr, VS2.UserData uData)
+  public boolean createMessageSoap (String message, String messageID, int serverNr, corbaConnect.UserData uData)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -444,7 +444,7 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
                 $out.write_string (message);
                 $out.write_string (messageID);
                 $out.write_long (serverNr);
-                VS2.UserDataHelper.write ($out, uData);
+                corbaConnect.UserDataHelper.write ($out, uData);
                 $in = _invoke ($out);
                 boolean $result = $in.read_boolean ();
                 return $result;
@@ -459,7 +459,7 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
             }
   } // createMessageSoap
 
-  public boolean modifyMessageSoap (String message, String messageID, int serverNr, VS2.UserData uData)
+  public boolean modifyMessageSoap (String message, String messageID, int serverNr, corbaConnect.UserData uData)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -467,7 +467,7 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
                 $out.write_string (message);
                 $out.write_string (messageID);
                 $out.write_long (serverNr);
-                VS2.UserDataHelper.write ($out, uData);
+                corbaConnect.UserDataHelper.write ($out, uData);
                 $in = _invoke ($out);
                 boolean $result = $in.read_boolean ();
                 return $result;
@@ -482,13 +482,13 @@ public class _MessageboardServerInterfaceStub extends org.omg.CORBA.portable.Obj
             }
   } // modifyMessageSoap
 
-  public boolean deleteMessageSoap (String messageID, VS2.UserData uData)
+  public boolean deleteMessageSoap (String messageID, corbaConnect.UserData uData)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("deleteMessageSoap", true);
                 $out.write_string (messageID);
-                VS2.UserDataHelper.write ($out, uData);
+                corbaConnect.UserDataHelper.write ($out, uData);
                 $in = _invoke ($out);
                 boolean $result = $in.read_boolean ();
                 return $result;

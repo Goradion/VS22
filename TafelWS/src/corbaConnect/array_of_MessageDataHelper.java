@@ -1,4 +1,4 @@
-package VS2;
+package corbaConnect;
 
 
 /**
@@ -12,7 +12,7 @@ abstract public class array_of_MessageDataHelper
 {
   private static String  _id = "IDL:VS2/array_of_MessageData:1.0";
 
-  public static void insert (org.omg.CORBA.Any a, VS2.MessageData[] that)
+  public static void insert (org.omg.CORBA.Any a, corbaConnect.MessageData[] that)
   {
     org.omg.CORBA.portable.OutputStream out = a.create_output_stream ();
     a.type (type ());
@@ -20,7 +20,7 @@ abstract public class array_of_MessageDataHelper
     a.read_value (out.create_input_stream (), type ());
   }
 
-  public static VS2.MessageData[] extract (org.omg.CORBA.Any a)
+  public static corbaConnect.MessageData[] extract (org.omg.CORBA.Any a)
   {
     return read (a.create_input_stream ());
   }
@@ -30,9 +30,9 @@ abstract public class array_of_MessageDataHelper
   {
     if (__typeCode == null)
     {
-      __typeCode = VS2.MessageDataHelper.type ();
+      __typeCode = corbaConnect.MessageDataHelper.type ();
       __typeCode = org.omg.CORBA.ORB.init ().create_sequence_tc (0, __typeCode);
-      __typeCode = org.omg.CORBA.ORB.init ().create_alias_tc (VS2.array_of_MessageDataHelper.id (), "array_of_MessageData", __typeCode);
+      __typeCode = org.omg.CORBA.ORB.init ().create_alias_tc (corbaConnect.array_of_MessageDataHelper.id (), "array_of_MessageData", __typeCode);
     }
     return __typeCode;
   }
@@ -42,21 +42,21 @@ abstract public class array_of_MessageDataHelper
     return _id;
   }
 
-  public static VS2.MessageData[] read (org.omg.CORBA.portable.InputStream istream)
+  public static corbaConnect.MessageData[] read (org.omg.CORBA.portable.InputStream istream)
   {
-    VS2.MessageData value[] = null;
+    corbaConnect.MessageData value[] = null;
     int _len0 = istream.read_long ();
-    value = new VS2.MessageData[_len0];
+    value = new corbaConnect.MessageData[_len0];
     for (int _o1 = 0;_o1 < value.length; ++_o1)
-      value[_o1] = VS2.MessageDataHelper.read (istream);
+      value[_o1] = corbaConnect.MessageDataHelper.read (istream);
     return value;
   }
 
-  public static void write (org.omg.CORBA.portable.OutputStream ostream, VS2.MessageData[] value)
+  public static void write (org.omg.CORBA.portable.OutputStream ostream, corbaConnect.MessageData[] value)
   {
     ostream.write_long (value.length);
     for (int _i0 = 0;_i0 < value.length; ++_i0)
-      VS2.MessageDataHelper.write (ostream, value[_i0]);
+      corbaConnect.MessageDataHelper.write (ostream, value[_i0]);
   }
 
 }

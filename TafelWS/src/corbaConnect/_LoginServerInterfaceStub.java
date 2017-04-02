@@ -1,4 +1,4 @@
-package VS2;
+package corbaConnect;
 
 
 /**
@@ -8,17 +8,17 @@ package VS2;
 * Monday, March 27, 2017 11:08:54 AM CEST
 */
 
-public class _LoginServerInterfaceStub extends org.omg.CORBA.portable.ObjectImpl implements VS2.LoginServerInterface
+public class _LoginServerInterfaceStub extends org.omg.CORBA.portable.ObjectImpl implements corbaConnect.LoginServerInterface
 {
 
-  public VS2.LoginInformation login (VS2.UserData uData)
+  public corbaConnect.LoginInformation login (corbaConnect.UserData uData)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("login", true);
-                VS2.UserDataHelper.write ($out, uData);
+                corbaConnect.UserDataHelper.write ($out, uData);
                 $in = _invoke ($out);
-                VS2.LoginInformation $result = VS2.LoginInformationHelper.read ($in);
+                corbaConnect.LoginInformation $result = corbaConnect.LoginInformationHelper.read ($in);
                 return $result;
             } catch (org.omg.CORBA.portable.ApplicationException $ex) {
                 $in = $ex.getInputStream ();
@@ -31,12 +31,12 @@ public class _LoginServerInterfaceStub extends org.omg.CORBA.portable.ObjectImpl
             }
   } // login
 
-  public boolean reg (VS2.UserData uData, String regData)
+  public boolean reg (corbaConnect.UserData uData, String regData)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
                 org.omg.CORBA.portable.OutputStream $out = _request ("reg", true);
-                VS2.UserDataHelper.write ($out, uData);
+                corbaConnect.UserDataHelper.write ($out, uData);
                 $out.write_string (regData);
                 $in = _invoke ($out);
                 boolean $result = $in.read_boolean ();

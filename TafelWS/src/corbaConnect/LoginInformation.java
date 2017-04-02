@@ -1,4 +1,4 @@
-package VS2;
+package corbaConnect;
 
 
 /**
@@ -11,13 +11,13 @@ package VS2;
 public final class LoginInformation implements org.omg.CORBA.portable.IDLEntity
 {
   public boolean adminRights = false;
-  public VS2.ConnectInformationData server = null;
+  public corbaConnect.ConnectInformationData server = null;
 
   public LoginInformation ()
   {
   } // ctor
 
-  public LoginInformation (boolean _adminRights, VS2.ConnectInformationData _server)
+  public LoginInformation (boolean _adminRights, corbaConnect.ConnectInformationData _server)
   {
     adminRights = _adminRights;
     server = _server;

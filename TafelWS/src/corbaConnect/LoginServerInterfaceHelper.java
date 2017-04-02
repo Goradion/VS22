@@ -1,4 +1,4 @@
-package VS2;
+package corbaConnect;
 
 
 /**
@@ -12,7 +12,7 @@ abstract public class LoginServerInterfaceHelper
 {
   private static String  _id = "IDL:VS2/LoginServerInterface:1.0";
 
-  public static void insert (org.omg.CORBA.Any a, VS2.LoginServerInterface that)
+  public static void insert (org.omg.CORBA.Any a, corbaConnect.LoginServerInterface that)
   {
     org.omg.CORBA.portable.OutputStream out = a.create_output_stream ();
     a.type (type ());
@@ -20,7 +20,7 @@ abstract public class LoginServerInterfaceHelper
     a.read_value (out.create_input_stream (), type ());
   }
 
-  public static VS2.LoginServerInterface extract (org.omg.CORBA.Any a)
+  public static corbaConnect.LoginServerInterface extract (org.omg.CORBA.Any a)
   {
     return read (a.create_input_stream ());
   }
@@ -30,7 +30,7 @@ abstract public class LoginServerInterfaceHelper
   {
     if (__typeCode == null)
     {
-      __typeCode = org.omg.CORBA.ORB.init ().create_interface_tc (VS2.LoginServerInterfaceHelper.id (), "LoginServerInterface");
+      __typeCode = org.omg.CORBA.ORB.init ().create_interface_tc (corbaConnect.LoginServerInterfaceHelper.id (), "LoginServerInterface");
     }
     return __typeCode;
   }
@@ -40,43 +40,43 @@ abstract public class LoginServerInterfaceHelper
     return _id;
   }
 
-  public static VS2.LoginServerInterface read (org.omg.CORBA.portable.InputStream istream)
+  public static corbaConnect.LoginServerInterface read (org.omg.CORBA.portable.InputStream istream)
   {
     return narrow (istream.read_Object (_LoginServerInterfaceStub.class));
   }
 
-  public static void write (org.omg.CORBA.portable.OutputStream ostream, VS2.LoginServerInterface value)
+  public static void write (org.omg.CORBA.portable.OutputStream ostream, corbaConnect.LoginServerInterface value)
   {
     ostream.write_Object ((org.omg.CORBA.Object) value);
   }
 
-  public static VS2.LoginServerInterface narrow (org.omg.CORBA.Object obj)
+  public static corbaConnect.LoginServerInterface narrow (org.omg.CORBA.Object obj)
   {
     if (obj == null)
       return null;
-    else if (obj instanceof VS2.LoginServerInterface)
-      return (VS2.LoginServerInterface)obj;
+    else if (obj instanceof corbaConnect.LoginServerInterface)
+      return (corbaConnect.LoginServerInterface)obj;
     else if (!obj._is_a (id ()))
       throw new org.omg.CORBA.BAD_PARAM ();
     else
     {
       org.omg.CORBA.portable.Delegate delegate = ((org.omg.CORBA.portable.ObjectImpl)obj)._get_delegate ();
-      VS2._LoginServerInterfaceStub stub = new VS2._LoginServerInterfaceStub ();
+      corbaConnect._LoginServerInterfaceStub stub = new corbaConnect._LoginServerInterfaceStub ();
       stub._set_delegate(delegate);
       return stub;
     }
   }
 
-  public static VS2.LoginServerInterface unchecked_narrow (org.omg.CORBA.Object obj)
+  public static corbaConnect.LoginServerInterface unchecked_narrow (org.omg.CORBA.Object obj)
   {
     if (obj == null)
       return null;
-    else if (obj instanceof VS2.LoginServerInterface)
-      return (VS2.LoginServerInterface)obj;
+    else if (obj instanceof corbaConnect.LoginServerInterface)
+      return (corbaConnect.LoginServerInterface)obj;
     else
     {
       org.omg.CORBA.portable.Delegate delegate = ((org.omg.CORBA.portable.ObjectImpl)obj)._get_delegate ();
-      VS2._LoginServerInterfaceStub stub = new VS2._LoginServerInterfaceStub ();
+      corbaConnect._LoginServerInterfaceStub stub = new corbaConnect._LoginServerInterfaceStub ();
       stub._set_delegate(delegate);
       return stub;
     }

@@ -1,4 +1,4 @@
-package VS2;
+package corbaConnect;
 
 
 /**
@@ -10,30 +10,30 @@ package VS2;
 
 public final class array_of_MessageDataHolder implements org.omg.CORBA.portable.Streamable
 {
-  public VS2.MessageData value[] = null;
+  public corbaConnect.MessageData value[] = null;
 
   public array_of_MessageDataHolder ()
   {
   }
 
-  public array_of_MessageDataHolder (VS2.MessageData[] initialValue)
+  public array_of_MessageDataHolder (corbaConnect.MessageData[] initialValue)
   {
     value = initialValue;
   }
 
   public void _read (org.omg.CORBA.portable.InputStream i)
   {
-    value = VS2.array_of_MessageDataHelper.read (i);
+    value = corbaConnect.array_of_MessageDataHelper.read (i);
   }
 
   public void _write (org.omg.CORBA.portable.OutputStream o)
   {
-    VS2.array_of_MessageDataHelper.write (o, value);
+    corbaConnect.array_of_MessageDataHelper.write (o, value);
   }
 
   public org.omg.CORBA.TypeCode _type ()
   {
-    return VS2.array_of_MessageDataHelper.type ();
+    return corbaConnect.array_of_MessageDataHelper.type ();
   }
 
 }

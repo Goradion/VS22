@@ -1,4 +1,4 @@
-package VS2;
+package corbaConnect;
 
 
 /**
@@ -25,17 +25,17 @@ public final class array_of_StringHolder implements org.omg.CORBA.portable.Strea
 
   public void _read (org.omg.CORBA.portable.InputStream i)
   {
-    value = VS2.array_of_StringHelper.read (i);
+    value = corbaConnect.array_of_StringHelper.read (i);
   }
 
   public void _write (org.omg.CORBA.portable.OutputStream o)
   {
-    VS2.array_of_StringHelper.write (o, value);
+    corbaConnect.array_of_StringHelper.write (o, value);
   }
 
   public org.omg.CORBA.TypeCode _type ()
   {
-    return VS2.array_of_StringHelper.type ();
+    return corbaConnect.array_of_StringHelper.type ();
   }
 
 }

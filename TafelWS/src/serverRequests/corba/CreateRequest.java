@@ -4,6 +4,7 @@ import tafelServer.CorbaRequestDeliver;
 
 public class CreateRequest extends CorbaRequest{
 
+	private static final long serialVersionUID = -4537407830742487703L;
 	private String message;
 	private int ServerNr;
 	

@@ -1,4 +1,4 @@
-package VS2;
+package corbaConnect;
 
 /**
 * VS2/MessageboardServerInterfaceHolder.java .
@@ -9,30 +9,30 @@ package VS2;
 
 public final class MessageboardServerInterfaceHolder implements org.omg.CORBA.portable.Streamable
 {
-  public VS2.MessageboardServerInterface value = null;
+  public corbaConnect.MessageboardServerInterface value = null;
 
   public MessageboardServerInterfaceHolder ()
   {
   }
 
-  public MessageboardServerInterfaceHolder (VS2.MessageboardServerInterface initialValue)
+  public MessageboardServerInterfaceHolder (corbaConnect.MessageboardServerInterface initialValue)
   {
     value = initialValue;
   }
 
   public void _read (org.omg.CORBA.portable.InputStream i)
   {
-    value = VS2.MessageboardServerInterfaceHelper.read (i);
+    value = corbaConnect.MessageboardServerInterfaceHelper.read (i);
   }
 
   public void _write (org.omg.CORBA.portable.OutputStream o)
   {
-    VS2.MessageboardServerInterfaceHelper.write (o, value);
+    corbaConnect.MessageboardServerInterfaceHelper.write (o, value);
   }
 
   public org.omg.CORBA.TypeCode _type ()
   {
-    return VS2.MessageboardServerInterfaceHelper.type ();
+    return corbaConnect.MessageboardServerInterfaceHelper.type ();
   }
 
 }

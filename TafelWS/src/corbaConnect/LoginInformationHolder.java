@@ -1,4 +1,4 @@
-package VS2;
+package corbaConnect;
 
 /**
 * VS2/LoginInformationHolder.java .
@@ -9,30 +9,30 @@ package VS2;
 
 public final class LoginInformationHolder implements org.omg.CORBA.portable.Streamable
 {
-  public VS2.LoginInformation value = null;
+  public corbaConnect.LoginInformation value = null;
 
   public LoginInformationHolder ()
   {
   }
 
-  public LoginInformationHolder (VS2.LoginInformation initialValue)
+  public LoginInformationHolder (corbaConnect.LoginInformation initialValue)
   {
     value = initialValue;
   }
 
   public void _read (org.omg.CORBA.portable.InputStream i)
   {
-    value = VS2.LoginInformationHelper.read (i);
+    value = corbaConnect.LoginInformationHelper.read (i);
   }
 
   public void _write (org.omg.CORBA.portable.OutputStream o)
   {
-    VS2.LoginInformationHelper.write (o, value);
+    corbaConnect.LoginInformationHelper.write (o, value);
   }
 
   public org.omg.CORBA.TypeCode _type ()
   {
-    return VS2.LoginInformationHelper.type ();
+    return corbaConnect.LoginInformationHelper.type ();
   }
 
 }

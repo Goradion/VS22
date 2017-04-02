@@ -1,4 +1,4 @@
-package VS2;
+package corbaConnect;
 
 
 /**
@@ -10,6 +10,6 @@ package VS2;
 
 public interface LoginServerInterfaceOperations 
 {
-  VS2.LoginInformation login (VS2.UserData uData);
-  boolean reg (VS2.UserData uData, String regData);
+  corbaConnect.LoginInformation login (corbaConnect.UserData uData);
+  boolean reg (corbaConnect.UserData uData, String regData);
 } // interface LoginServerInterfaceOperations

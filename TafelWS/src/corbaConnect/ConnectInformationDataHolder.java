@@ -1,4 +1,4 @@
-package VS2;
+package corbaConnect;
 
 /**
 * VS2/ConnectInformationDataHolder.java .
@@ -9,30 +9,30 @@ package VS2;
 
 public final class ConnectInformationDataHolder implements org.omg.CORBA.portable.Streamable
 {
-  public VS2.ConnectInformationData value = null;
+  public corbaConnect.ConnectInformationData value = null;
 
   public ConnectInformationDataHolder ()
   {
   }
 
-  public ConnectInformationDataHolder (VS2.ConnectInformationData initialValue)
+  public ConnectInformationDataHolder (corbaConnect.ConnectInformationData initialValue)
   {
     value = initialValue;
   }
 
   public void _read (org.omg.CORBA.portable.InputStream i)
   {
-    value = VS2.ConnectInformationDataHelper.read (i);
+    value = corbaConnect.ConnectInformationDataHelper.read (i);
   }
 
   public void _write (org.omg.CORBA.portable.OutputStream o)
   {
-    VS2.ConnectInformationDataHelper.write (o, value);
+    corbaConnect.ConnectInformationDataHelper.write (o, value);
   }
 
   public org.omg.CORBA.TypeCode _type ()
   {
-    return VS2.ConnectInformationDataHelper.type ();
+    return corbaConnect.ConnectInformationDataHelper.type ();
   }
 
 }

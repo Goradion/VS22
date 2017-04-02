@@ -4,9 +4,9 @@ import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 
-import VS2.MessageboardServerInterface;
-import VS2.MessageboardServerInterfaceHelper;
-import VS2.UserData;
+import corbaConnect.MessageboardServerInterface;
+import corbaConnect.MessageboardServerInterfaceHelper;
+import corbaConnect.UserData;
 
 /**
  * Klasse zum senden von Nachrichten vom SOAP-System zum CORBA-System
